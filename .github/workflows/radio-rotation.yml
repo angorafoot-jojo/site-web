@@ -1,0 +1,41 @@
+name: Rotation Radio Quotidienne
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # Chaque nuit à minuit UTC
+  workflow_dispatch:        # Permet un lancement manuel depuis GitHub
+
+jobs:
+  rotation:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write       # Nécessaire pour committer l'état
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances
+        run: pip install -r Radio/requirements.txt
+
+      - name: Lancer la rotation
+        env:
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          python Radio/azuracast_rotation_option_a_final_v3.py \
+            --config Radio/azuracast_rotation_config_option_a.example.json \
+            --state Radio/azuracast_rotation_state.json
+
+      - name: Sauvegarder l'état dans le repo
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add Radio/azuracast_rotation_state.json
+          git diff --staged --quiet || git commit -m "chore: rotation du $(date '+%Y-%m-%d') [skip ci]"
+          git push

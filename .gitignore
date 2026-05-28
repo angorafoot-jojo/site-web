@@ -1,0 +1,9 @@
+# Fichiers de config avec clé API réelle (utiliser les secrets GitHub à la place)
+Radio/azuracast_rotation_config_option_a.json
+Radio/azuracast_rotation_config.json
+
+# Logs
+Radio/rotation.log
+
+# macOS
+.DS_Store
