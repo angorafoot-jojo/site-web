@@ -699,7 +699,7 @@
           <option value="2">2×</option>
         </select>
         <label class="tts-auto-label" title="Passer automatiquement à la page suivante">
-          <input type="checkbox" id="tts-auto" checked> Page suivante auto
+          <input type="checkbox" id="tts-auto"> Page suivante auto
         </label>
       </div>
     </div>
@@ -1120,6 +1120,7 @@ let ttsUtterance = null;
 let ttsSpeaking  = false;
 let ttsPaused    = false;
 let ttsKeepAlive = null;
+let ttsDidStart  = false;
 
 /* ── Chargement des voix (asynchrone dans Chrome) ── */
 let ttsVoiceFr = null;
@@ -1224,6 +1225,7 @@ async function speakCurrentPage() {
   if (targetVoice) ttsUtterance.voice = targetVoice;
 
   ttsUtterance.onstart = () => {
+    ttsDidStart = true;
     ttsSpeaking = true; ttsPaused = false;
     const loc = rendition ? rendition.currentLocation() : null;
     const pct = loc && loc.start ? Math.round(loc.start.percentage * 100) : '—';
@@ -1237,10 +1239,18 @@ async function speakCurrentPage() {
 
   ttsUtterance.onend = () => {
     clearInterval(ttsKeepAlive); ttsKeepAlive = null;
+    const didStart = ttsDidStart;
+    ttsDidStart = false;
     ttsSpeaking = false; ttsPaused = false;
     ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
     ttsStatus.classList.remove('reading');
     ttsPause.textContent = '⏸ Pause';
+
+    if (!didStart) {
+      ttsStatus.textContent = 'Lecture impossible. Interagissez avec la page puis réessayez.';
+      return;
+    }
+
     const loc = rendition ? rendition.currentLocation() : null;
     const atEnd = loc ? loc.atEnd : true;
     if (ttsAuto.checked && !atEnd && rendition) {
@@ -1288,6 +1298,7 @@ function pauseTTS() {
 function stopTTS() {
   if (!synth) return;
   clearInterval(ttsKeepAlive); ttsKeepAlive = null;
+  ttsDidStart = false;
   synth.cancel();
   ttsSpeaking = false; ttsPaused = false;
   if (ttsPlay)  ttsPlay.disabled  = false;
