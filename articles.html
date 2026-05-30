@@ -398,6 +398,16 @@
     .reader-error p { font-size: .9rem; max-width: 420px; line-height: 1.65; }
     .reader-error-actions { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; margin-top: .5rem; }
 
+    /* Flèches masquées en mode défilement */
+    .reader-body.scroll-mode #arrow-prev,
+    .reader-body.scroll-mode #arrow-next { display: none; }
+
+    /* Indicateur de zoom */
+    #reader-zoom-level {
+      font-size: .75rem; font-weight: 700;
+      color: var(--reader-muted); min-width: 36px; text-align: center;
+    }
+
     /* ── Responsive ─────────────────────────── */
     @media (max-width: 900px) {
       .lib-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
@@ -528,7 +538,7 @@
           <div class="lib-stat-pills">
             <span class="lib-stat-pill">
               <svg width="14" height="14"><use href="#icon-article"/></svg>
-              15 articles
+              16 articles
             </span>
             <span class="lib-stat-pill">
               <svg width="14" height="14"><use href="#icon-book-open"/></svg>
@@ -666,6 +676,7 @@
 
     <div class="reader-zoom" aria-label="Zoom">
       <button class="zoom-btn" id="btn-zoom-out" title="Réduire" aria-label="Réduire">−</button>
+      <span id="reader-zoom-level" aria-live="polite" title="Taille du texte">100%</span>
       <button class="zoom-btn" id="btn-zoom-in"  title="Agrandir" aria-label="Agrandir">+</button>
     </div>
 
@@ -720,8 +731,8 @@
 </div>
 
 <!-- epub.js -->
-<script src="https://cdn.jsdelivr.net/npm/jszip/dist/jszip.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
 <script src="assets/js/main.js" defer></script>
 
 <script>
@@ -776,6 +787,14 @@ const selectSort   = document.getElementById('select-sort');
 const selectDispo  = document.getElementById('select-dispo');
 const resultsCount = document.getElementById('lib-results-count');
 
+/* Échappement HTML anti-XSS (OTHER-02) */
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let searchDebounce;
 function renderGrid() {
   const query = searchInput.value.trim().toLowerCase();
   const cat   = selectCat.value;
@@ -784,9 +803,10 @@ function renderGrid() {
 
   let list = ARTICLES.filter(a => {
     if (query && !a.title.toLowerCase().includes(query)) return false;
-    if (cat  !== 'all'  && a.cat !== cat) return false;
-    if (dispo === 'epub' && !a.epub) return false;
-    if (dispo === 'soon' &&  a.epub) return false;
+    if (cat  !== 'all' && a.cat !== cat) return false;
+    /* Fix INC-02 : cohérence avec livres.html — accepte epub OU pdf comme "disponible" */
+    if (dispo === 'epub' && !a.epub && !a.pdf) return false;
+    if (dispo === 'soon' &&  (a.epub || a.pdf)) return false;
     return true;
   });
 
@@ -803,38 +823,40 @@ function renderGrid() {
   resultsCount.textContent = list.length === 1 ? '1 article' : `${list.length} articles`;
 
   if (list.length === 0) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Aucun résultat pour « ${searchInput.value} »</p>`;
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Aucun résultat pour « ${escapeHtml(searchInput.value)} »</p>`;
     return;
   }
 
   grid.innerHTML = list.map(a => {
     const avail = !!a.epub;
+    const titleSafe = escapeHtml(a.title);
     return `
     <div class="book-card ${avail ? '' : 'unavailable'}"
          role="listitem"
-         onclick="openArticle(${a.id})"
-         tabindex="0"
-         onkeydown="if(event.key==='Enter')openArticle(${a.id})"
-         aria-label="${a.title}${avail ? ' — Lire' : ' — Bientôt disponible'}">
+         ${avail ? `onclick="openArticle(${a.id})"` : ''}
+         tabindex="${avail ? '0' : '-1'}"
+         ${avail ? `onkeydown="if(event.key==='Enter')openArticle(${a.id})"` : ''}
+         aria-label="${titleSafe}${avail ? ' — Lire' : ' — Bientôt disponible'}">
       <div class="book-cover gc-${a.color}">
         <div class="book-cover-deco" aria-hidden="true"></div>
         ${a.en ? '<span class="book-cover-badge badge-en">EN</span>' : ''}
         ${!avail ? '<span class="book-cover-badge badge-soon">Bientôt</span>' : '<span class="book-cover-badge badge-pdf">EPUB</span>'}
-        <span class="book-cover-title">${a.title}</span>
+        <span class="book-cover-title">${titleSafe}</span>
       </div>
       <div class="book-meta">
-        <p class="book-title">${a.title}</p>
+        <p class="book-title">${titleSafe}</p>
+        /* Fix INC-04/05 : bouton disabled et pas d'onclick pour les articles unavailable */
         <button class="book-read-btn ${avail ? 'available' : 'unavailable-btn'}"
-                onclick="event.stopPropagation();openArticle(${a.id})"
+                ${avail ? `onclick="event.stopPropagation();openArticle(${a.id})"` : 'disabled'}
                 tabindex="${avail ? '0' : '-1'}">
           ${avail
             ? '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Lire maintenant'
             : '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Bientôt disponible'}
         </button>
         ${a.pdf ? `
-        <a class="book-dl-btn" href="${a.pdf}" target="_blank" rel="noopener"
+        <a class="book-dl-btn" href="${escapeHtml(a.pdf)}" target="_blank" rel="noopener"
            onclick="event.stopPropagation()"
-           title="Télécharger le PDF — ${a.title}">
+           title="Télécharger le PDF — ${titleSafe}">
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
@@ -847,20 +869,25 @@ function renderGrid() {
   }).join('');
 }
 
-searchInput.addEventListener('input',   renderGrid);
-selectCat.addEventListener('change',    renderGrid);
-selectSort.addEventListener('change',   renderGrid);
-selectDispo.addEventListener('change',  renderGrid);
+/* Debounce sur la recherche (PERF-01) */
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(renderGrid, 180);
+});
+selectCat.addEventListener('change',   renderGrid);
+selectSort.addEventListener('change',  renderGrid);
+selectDispo.addEventListener('change', renderGrid);
 renderGrid();
 
 /* ═══════════════════════════════════════════════════
-   EPUB READER — epub.js (identique à livres.html)
+   EPUB READER — epub.js
 ═══════════════════════════════════════════════════ */
 const overlay       = document.getElementById('reader-overlay');
 const readerTitle   = document.getElementById('reader-book-title');
 const pageInfo      = document.getElementById('reader-page-info');
 const progressFill  = document.getElementById('reader-progress-fill');
 const epubViewerEl  = document.getElementById('epub-viewer');
+const readerBody    = document.querySelector('.reader-body');
 const pageLoading   = document.getElementById('page-loading');
 const readerError   = document.getElementById('reader-error');
 const arrowPrev     = document.getElementById('arrow-prev');
@@ -872,22 +899,28 @@ const btnBack       = document.getElementById('btn-reader-back');
 const btnErrClose   = document.getElementById('btn-error-close');
 const btnZoomIn     = document.getElementById('btn-zoom-in');
 const btnZoomOut    = document.getElementById('btn-zoom-out');
+const zoomLevel     = document.getElementById('reader-zoom-level');
 const btnReaderDl   = document.getElementById('btn-reader-dl');
 
 let epubBook      = null;
 let rendition     = null;
-let currentMode   = 'page';
+let currentMode   = window.innerWidth < 900 ? 'scroll' : 'page';
 let fontSizePct   = 100;
 let currentArtId  = null;
+let isLoading     = false;
+let lastFocused   = null;
+
+function savePos(id, cfi) { try { localStorage.setItem(`epub_apos_${id}`, cfi); } catch(e) {} }
+function getPos(id)       { try { return localStorage.getItem(`epub_apos_${id}`); } catch(e) { return null; } }
 
 function applyEpubTheme() {
   if (!rendition) return;
   rendition.themes.register('site', {
-    'body': { 'font-family': 'Georgia, "Times New Roman", serif', 'line-height': '1.75',
-              'padding': '1.5rem 2.5rem', 'color': '#1C1C28', 'background': '#FFFDF7' },
-    'p':        { 'margin-bottom': '.85em', 'text-align': 'justify' },
-    'h1,h2,h3': { 'color': '#07122a', 'margin-top': '1.4em', 'line-height': '1.3' },
-    'img':      { 'max-width': '100%', 'height': 'auto' }
+    'body'      : { 'font-family': 'Georgia,"Times New Roman",serif', 'line-height': '1.75',
+                    'padding': '1.5rem 2.5rem', 'color': '#1C1C28', 'background': '#FFFDF7' },
+    'p'         : { 'margin-bottom': '.85em', 'text-align': 'justify' },
+    'h1,h2,h3' : { 'color': '#07122a', 'margin-top': '1.4em', 'line-height': '1.3' },
+    'img'       : { 'max-width': '100%', 'height': 'auto' }
   });
   rendition.themes.select('site');
   rendition.themes.fontSize(fontSizePct + '%');
@@ -899,6 +932,7 @@ function handleRelocated(location) {
     const pct = Math.round(location.start.percentage * 100);
     pageInfo.textContent     = `${pct}%`;
     progressFill.style.width = `${pct}%`;
+    if (currentArtId && location.start.cfi) savePos(currentArtId, location.start.cfi);
   }
   arrowPrev.classList.toggle('disabled', !!location.atStart);
   arrowNext.classList.toggle('disabled', !!location.atEnd);
@@ -910,36 +944,53 @@ function destroyReader() {
   epubViewerEl.innerHTML = '';
 }
 
+/* Focus trap dans le dialog (UX-02) */
+overlay.addEventListener('keydown', e => {
+  if (e.key !== 'Tab') return;
+  const focusable = [...overlay.querySelectorAll(
+    'button:not([disabled]), a[href], select, input, [tabindex]:not([tabindex="-1"])'
+  )];
+  if (!focusable.length) return;
+  const first = focusable[0], last = focusable[focusable.length - 1];
+  if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+  else            { if (document.activeElement === last)  { e.preventDefault(); first.focus(); } }
+});
+
 async function openArticle(id, restoreCfi) {
+  if (isLoading) return;
   const art = ARTICLES.find(a => a.id === id);
   if (!art) return;
 
+  isLoading    = true;
   currentArtId = id;
-  destroyReader();
+  lastFocused  = document.activeElement;
+  fontSizePct  = 100;
 
+  destroyReader();
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  readerTitle.textContent  = art.title;
-  pageInfo.textContent     = '—';
-  progressFill.style.width = '0%';
+  readerTitle.textContent   = art.title;
+  pageInfo.textContent      = '—';
+  progressFill.style.width  = '0%';
   pageLoading.style.display = 'flex';
   readerError.classList.remove('visible');
+  if (zoomLevel) zoomLevel.textContent = '100%';
 
-  // Bouton téléchargement PDF dans la barre du lecteur
-  if (art.pdf) {
-    btnReaderDl.href = art.pdf;
-    btnReaderDl.classList.remove('hidden');
-  } else {
-    btnReaderDl.classList.add('hidden');
-  }
+  if (art.pdf) { btnReaderDl.href = art.pdf; btnReaderDl.classList.remove('hidden'); }
+  else         { btnReaderDl.classList.add('hidden'); }
 
+  if (window.innerWidth < 900) currentMode = 'scroll';
   btnPageMode.classList.toggle('active',   currentMode === 'page');
   btnScrollMode.classList.toggle('active', currentMode === 'scroll');
+  readerBody.classList.toggle('scroll-mode', currentMode === 'scroll');
+
+  setTimeout(() => btnBack.focus(), 80);
 
   if (!art.epub) {
     pageLoading.style.display = 'none';
     readerError.classList.add('visible');
+    isLoading = false;
     return;
   }
 
@@ -947,52 +998,73 @@ async function openArticle(id, restoreCfi) {
     epubBook  = ePub(art.epub);
     const flowMode = currentMode === 'page' ? 'paginated' : 'scrolled-continuous';
     rendition = epubBook.renderTo('epub-viewer', {
-      flow:   flowMode,
-      width:  '100%',
-      height: '100%',
-      spread: 'none'
+      flow: flowMode, width: '100%', height: '100%', spread: 'none'
     });
-    applyEpubTheme();
+
+    rendition.hooks.content.register(contents => {
+      const doc = contents.document;
+      if (!doc) return;
+      let tx = 0;
+      doc.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
+      doc.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 50 && rendition && currentMode === 'page') {
+          dx < 0 ? rendition.next().catch(() => {}) : rendition.prev().catch(() => {});
+        }
+      });
+    });
+
     rendition.on('relocated', handleRelocated);
-    await rendition.display(restoreCfi || undefined);
+    const cfi = restoreCfi || getPos(id) || undefined;
+
+    await Promise.race([
+      rendition.display(cfi),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 15000))
+    ]);
+
+    applyEpubTheme();
     pageLoading.style.display = 'none';
   } catch (err) {
-    console.warn('EPUB load error:', err);
+    console.warn('EPUB load error:', err.message || err);
     pageLoading.style.display = 'none';
     readerError.classList.add('visible');
+  } finally {
+    isLoading = false;
   }
 }
 
-arrowPrev.addEventListener('click', () => { if (rendition) rendition.prev(); });
-arrowNext.addEventListener('click', () => { if (rendition) rendition.next(); });
+arrowPrev.addEventListener('click', () => { if (!rendition) return; stopTTS(); rendition.prev().catch(() => {}); });
+arrowNext.addEventListener('click', () => { if (!rendition) return; stopTTS(); rendition.next().catch(() => {}); });
 
 async function switchMode(newMode) {
-  if (currentMode === newMode || !currentArtId) return;
+  if (currentMode === newMode || !currentArtId || isLoading) return;
   let cfi = null;
   if (rendition) {
-    try { const loc = rendition.currentLocation(); if (loc && loc.start) cfi = loc.start.cfi; } catch(e) {}
+    try { const loc = rendition.currentLocation(); if (loc?.start) cfi = loc.start.cfi; } catch(e) {}
   }
+  const prevMode = currentMode;
   currentMode = newMode;
-  await openArticle(currentArtId, cfi);
+  try { await openArticle(currentArtId, cfi); }
+  catch(e) {
+    currentMode = prevMode;
+    btnPageMode.classList.toggle('active',   prevMode === 'page');
+    btnScrollMode.classList.toggle('active', prevMode === 'scroll');
+  }
 }
 
 btnPageMode.addEventListener('click',   () => switchMode('page'));
 btnScrollMode.addEventListener('click', () => switchMode('scroll'));
 
-btnZoomIn.addEventListener('click', () => {
-  if (fontSizePct >= 200) return;
-  fontSizePct += 15;
+function applyZoom() {
   if (rendition) rendition.themes.fontSize(fontSizePct + '%');
-});
-btnZoomOut.addEventListener('click', () => {
-  if (fontSizePct <= 70) return;
-  fontSizePct -= 15;
-  if (rendition) rendition.themes.fontSize(fontSizePct + '%');
-});
+  if (zoomLevel) zoomLevel.textContent = fontSizePct + '%';
+}
+btnZoomIn.addEventListener('click', () => { if (fontSizePct < 200) { fontSizePct += 15; applyZoom(); } });
+btnZoomOut.addEventListener('click', () => { if (fontSizePct > 70)  { fontSizePct -= 15; applyZoom(); } });
 
 function closeReader() {
   stopTTS();
-  if (typeof ttsPanel !== 'undefined') {
+  if (ttsPanel) {
     ttsPanel.classList.remove('open');
     btnTtsToggle.classList.remove('tts-active');
     btnTtsToggle.setAttribute('aria-pressed', 'false');
@@ -1001,6 +1073,7 @@ function closeReader() {
   document.body.style.overflow = '';
   readerError.classList.remove('visible');
   destroyReader();
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
 }
 
 btnClose.addEventListener('click',    closeReader);
@@ -1008,19 +1081,27 @@ btnBack.addEventListener('click',     closeReader);
 btnErrClose.addEventListener('click', closeReader);
 
 document.addEventListener('keydown', e => {
-  if (!overlay.classList.contains('open') || !rendition) return;
-  if (e.key === 'Escape')                               closeReader();
-  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   rendition.prev();
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') rendition.next();
+  if (!overlay.classList.contains('open')) return;
+  if (e.key === 'Escape') { closeReader(); return; }
+  if (!rendition || currentMode !== 'page') return;
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); stopTTS(); rendition.prev().catch(() => {}); }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); stopTTS(); rendition.next().catch(() => {}); }
 });
 
 let touchStartX = 0;
 epubViewerEl.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
 epubViewerEl.addEventListener('touchend',   e => {
   const dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 50 && rendition) { dx < 0 ? rendition.next() : rendition.prev(); }
+  if (Math.abs(dx) > 50 && rendition && currentMode === 'page') {
+    dx < 0 ? rendition.next().catch(() => {}) : rendition.prev().catch(() => {});
+  }
 });
-window.addEventListener('resize', () => { if (rendition) rendition.resize('100%', '100%'); });
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { if (rendition) rendition.resize('100%', '100%'); }, 100);
+});
 
 /* ═══════════════════════════════════════════════════
    TTS — Web Speech API
