@@ -1168,7 +1168,20 @@ btnTtsToggle.addEventListener('click', () => {
 async function getPageText() {
   if (!rendition || !epubBook) return '';
 
-  // Méthode 1 : accès direct au document de l'iframe epub.js
+  // Méthode 0 : accès direct à l'iframe dans le DOM (le plus fiable)
+  try {
+    const iframe = document.querySelector('#epub-viewer iframe');
+    if (iframe) {
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (doc && doc.body) {
+        const text = (doc.body.innerText || doc.body.textContent || '')
+          .replace(/\s+/g, ' ').trim();
+        if (text.length > 10) return text;
+      }
+    }
+  } catch(e) {}
+
+  // Méthode 1 : via l'API epub.js getContents()
   try {
     const contents = rendition.getContents();
     if (contents && contents.length > 0) {
@@ -1181,7 +1194,7 @@ async function getPageText() {
     }
   } catch(e) {}
 
-  // Méthode 2 : chargement via la spine epub.js (contourne les restrictions iframe)
+  // Méthode 2 : chargement via la spine epub.js
   try {
     const location = rendition.currentLocation();
     if (location && location.start && location.start.cfi) {
@@ -1209,7 +1222,7 @@ async function speakCurrentPage() {
 
   const text = await getPageText();
   if (!text) {
-    ttsStatus.textContent = 'Texte non accessible dans cette section.';
+    ttsStatus.textContent = 'Texte non accessible. Attendez que la page soit chargée.';
     ttsPlay.disabled = false;
     return;
   }
@@ -1217,12 +1230,17 @@ async function speakCurrentPage() {
   const art = ARTICLES.find(a => a.id === currentArtId);
   const isEnglish = art && art.en;
 
+  // Recharger les voix au dernier moment (elles chargent de façon async dans Chrome)
+  loadTTSVoices();
+
   ttsUtterance      = new SpeechSynthesisUtterance(text);
   ttsUtterance.lang = isEnglish ? 'en-US' : 'fr-FR';
   ttsUtterance.rate = parseFloat(ttsRate.value);
 
   const targetVoice = isEnglish ? ttsVoiceEn : ttsVoiceFr;
   if (targetVoice) ttsUtterance.voice = targetVoice;
+
+  ttsStatus.textContent = 'Démarrage…';
 
   ttsUtterance.onstart = () => {
     ttsDidStart = true;
@@ -1270,8 +1288,8 @@ async function speakCurrentPage() {
     ttsPause.textContent = '⏸ Pause';
   };
 
-  synth.cancel();
-  setTimeout(() => synth.speak(ttsUtterance), 50);
+  // Parler directement — stopTTS() a déjà annulé la queue en début de fonction
+  synth.speak(ttsUtterance);
 }
 
 function pauseTTS() {

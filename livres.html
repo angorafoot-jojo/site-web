@@ -1621,7 +1621,20 @@ btnTtsToggle.addEventListener('click', () => {
 async function getPageText() {
   if (!rendition || !epubBook) return '';
 
-  // Méthode 1 : accès direct au document de l'iframe epub.js
+  // Méthode 0 : accès direct à l'iframe dans le DOM (le plus fiable)
+  try {
+    const iframe = document.querySelector('#epub-viewer iframe');
+    if (iframe) {
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (doc && doc.body) {
+        const text = (doc.body.innerText || doc.body.textContent || '')
+          .replace(/\s+/g, ' ').trim();
+        if (text.length > 10) return text;
+      }
+    }
+  } catch(e) {}
+
+  // Méthode 1 : via l'API epub.js getContents()
   try {
     const contents = rendition.getContents();
     if (contents && contents.length > 0) {
@@ -1632,9 +1645,9 @@ async function getPageText() {
         if (text.length > 10) return text;
       }
     }
-  } catch(e) { /* CORS ou iframe non accessible */ }
+  } catch(e) {}
 
-  // Méthode 2 : chargement via la spine epub.js (contourne les restrictions iframe)
+  // Méthode 2 : chargement via la spine epub.js
   try {
     const location = rendition.currentLocation();
     if (location && location.start && location.start.cfi) {
@@ -1649,7 +1662,7 @@ async function getPageText() {
         }
       }
     }
-  } catch(e) { /* Section non chargeable */ }
+  } catch(e) {}
 
   return '';
 }
@@ -1672,13 +1685,18 @@ async function speakCurrentPage() {
   const book    = BOOKS.find(b => b.id === currentBookId);
   const isEnglish = book && book.tags.includes('en');
 
+  // Recharger les voix au dernier moment (elles chargent de façon async dans Chrome)
+  loadTTSVoices();
+
   ttsUtterance      = new SpeechSynthesisUtterance(text);
   ttsUtterance.lang = isEnglish ? 'en-US' : 'fr-FR';
   ttsUtterance.rate = parseFloat(ttsRate.value);
 
-  // Sélectionner explicitement la voix pour éviter le bug Chrome "voix anglaise par défaut"
+  // Sélectionner la voix explicitement — si aucune voix fr trouvée, on laisse le navigateur choisir
   const targetVoice = isEnglish ? ttsVoiceEn : ttsVoiceFr;
   if (targetVoice) ttsUtterance.voice = targetVoice;
+
+  ttsStatus.textContent = 'Démarrage…';
 
   ttsUtterance.onstart = () => {
     ttsDidStart = true;
@@ -1734,9 +1752,9 @@ async function speakCurrentPage() {
     ttsPause.textContent  = '⏸ Pause';
   };
 
-  // Anti-bug Chrome : reset de la queue avant de parler
-  synth.cancel();
-  setTimeout(() => synth.speak(ttsUtterance), 50);
+  // Parler directement — stopTTS() a déjà annulé la queue en début de fonction
+  // Un second cancel() suivi d'un setTimeout peut tuer l'utterance dans Chrome
+  synth.speak(ttsUtterance);
 }
 
 /* ── Pause / Reprendre ───────────────────────── */
