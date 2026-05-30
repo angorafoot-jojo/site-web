@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles & Méditations | L'Évangile du Royaume</title>
+  <meta name="description" content="Articles bibliques, méditations et enseignements écrits du ministère L'Évangile du Royaume — prophétie, eschatologie, vie chrétienne et ministère.">
+  <link rel="stylesheet" href="assets/css/style.css?v=articles-3">
+  <style>
+    /* ══════════════════════════════════════════
+       Variables lecteur
+    ══════════════════════════════════════════ */
+    :root {
+      --reader-bg:     #0d1117;
+      --reader-bar:    #161b27;
+      --reader-border: rgba(255,255,255,.09);
+      --reader-text:   rgba(255,255,255,.88);
+      --reader-muted:  rgba(255,255,255,.42);
+      --reader-accent: #C4892E;
+      --page-shadow:   0 8px 48px rgba(0,0,0,.7);
+    }
+
+    /* ══════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════ */
+    .media-hero {
+      background: linear-gradient(160deg, #07112a 0%, #122454 45%, #1a3a7a 100%);
+      padding: 7rem 0 3.5rem;
+      position: relative; overflow: hidden;
+    }
+    .media-hero::before {
+      content: ''; position: absolute;
+      top: -80px; right: -80px; width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,137,46,.18), transparent 65%);
+      pointer-events: none;
+    }
+    .media-hero-inner {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    }
+    .media-hero-eyebrow {
+      font-size: .72rem; font-weight: 800; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold-light, #E4A84A); margin-bottom: .7rem;
+    }
+    .media-hero-title {
+      font-family: var(--font-serif); font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      color: #fff; line-height: 1.05; margin-bottom: .6rem;
+    }
+    .media-hero-sub {
+      color: rgba(255,255,255,.68); font-size: 1rem;
+      line-height: 1.65; max-width: 520px;
+    }
+    .lib-stat-pills { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.5rem; }
+    .lib-stat-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 999px; padding: .5rem 1rem;
+      font-size: .82rem; font-weight: 700; color: #fff;
+    }
+
+    /* ── Lire tabs (sticky) ─────────────────── */
+    .type-tabs {
+      background: #07122a;
+      border-top: 1px solid rgba(255,255,255,.1);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      position: sticky; top: 82px; z-index: 90;
+    }
+    .type-tabs-inner { display: flex; gap: 0; }
+    .type-tab {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .95rem 1.5rem; font-size: .83rem; font-weight: 700;
+      color: rgba(255,255,255,.5); text-decoration: none;
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s; white-space: nowrap;
+    }
+    .type-tab:hover { color: rgba(255,255,255,.85); }
+    .type-tab.active { color: #fff; border-bottom-color: var(--gold-light, #E4A84A); }
+    .type-tab svg { opacity: .7; }
+    .type-tab.active svg { opacity: 1; }
+
+    /* ── Search & Filter bar ────────────────── */
+    .lib-filters {
+      background: #fff;
+      border-bottom: 1px solid rgba(28,28,40,.1);
+      position: sticky; top: 130px; z-index: 89;
+      padding: .85rem 0;
+    }
+    .lib-filters-inner { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .lib-search-wrap {
+      position: relative; flex: 1; min-width: 200px; max-width: 380px;
+    }
+    .lib-search-wrap svg {
+      position: absolute; left: .85rem; top: 50%;
+      transform: translateY(-50%); color: rgba(28,28,40,.35); pointer-events: none;
+    }
+    #lib-search {
+      width: 100%; padding: .6rem .9rem .6rem 2.4rem;
+      border: 1.5px solid rgba(28,28,40,.15); border-radius: 8px;
+      font-size: .88rem; font-family: inherit;
+      color: var(--charcoal, #1C1C28); background: var(--ivory, #FAF7F0);
+      outline: none; transition: border-color .18s;
+    }
+    #lib-search:focus { border-color: var(--brand-blue, #1E4FA3); background: #fff; }
+    #lib-search::placeholder { color: rgba(28,28,40,.38); }
+    .lib-results-count { font-size: .8rem; font-weight: 600; color: rgba(28,28,40,.45); white-space: nowrap; }
+    .lib-select-wrap { position: relative; display: flex; align-items: center; }
+    .lib-select-wrap::after {
+      content: ''; position: absolute; right: .7rem; top: 50%;
+      transform: translateY(-50%); width: 0; height: 0;
+      border-left: 4px solid transparent; border-right: 4px solid transparent;
+      border-top: 5px solid rgba(28,28,40,.45); pointer-events: none;
+    }
+    .lib-select {
+      appearance: none; -webkit-appearance: none;
+      padding: .55rem 2rem .55rem .85rem;
+      border: 1.5px solid rgba(28,28,40,.15); border-radius: 8px;
+      font-size: .83rem; font-weight: 600; font-family: inherit;
+      color: var(--charcoal, #1C1C28); background: #fff;
+      cursor: pointer; outline: none; transition: border-color .18s; white-space: nowrap;
+    }
+    .lib-select:focus { border-color: var(--brand-blue, #1E4FA3); }
+    .lib-select:hover { border-color: rgba(28,28,40,.4); }
+
+    /* ── Article grid ──────────────────────── */
+    .lib-body { background: var(--ivory, #FAF7F0); padding: 2.5rem 0 5rem; }
+    .lib-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── Article card ──────────────────────── */
+    .book-card {
+      display: flex; flex-direction: column;
+      background: #fff; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 18px rgba(15,45,107,.08);
+      transition: transform .22s, box-shadow .22s; cursor: pointer;
+    }
+    .book-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(15,45,107,.16); }
+    .book-card.unavailable { cursor: pointer; opacity: .72; }
+    .book-card.unavailable:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(15,45,107,.13); }
+
+    .book-cover {
+      position: relative; height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.25rem; text-align: center; overflow: hidden;
+    }
+    .gc-1 { background: linear-gradient(145deg, #07122a 0%, #1a3f8e 100%); }
+    .gc-2 { background: linear-gradient(145deg, #150a30 0%, #4a1a96 100%); }
+    .gc-3 { background: linear-gradient(145deg, #0a2010 0%, #1a6040 100%); }
+    .gc-4 { background: linear-gradient(145deg, #261408 0%, #7a4010 100%); }
+    .gc-5 { background: linear-gradient(145deg, #250808 0%, #7a1818 100%); }
+    .gc-6 { background: linear-gradient(145deg, #082020 0%, #186060 100%); }
+    .gc-7 { background: linear-gradient(145deg, #08082a 0%, #18186e 100%); }
+    .gc-8 { background: linear-gradient(145deg, #260a18 0%, #7a1848 100%); }
+
+    .book-cover-deco {
+      position: absolute; inset: 0; opacity: .07;
+      background-image:
+        linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .book-cover-badge {
+      position: absolute; top: .75rem; right: .75rem; z-index: 2;
+      display: inline-flex; align-items: center; gap: .3rem;
+      padding: .28rem .6rem; border-radius: 999px;
+      font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+    }
+    .badge-pdf  { background: rgba(76,175,80,.2);   border: 1px solid rgba(76,175,80,.4);  color: #a5d6a7; }
+    .badge-soon { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6); }
+    .badge-en   { background: rgba(33,150,243,.22);  border: 1px solid rgba(33,150,243,.4); color: #90caf9; }
+
+    .book-cover-title {
+      position: relative; z-index: 1;
+      font-family: var(--font-serif, Georgia, serif);
+      font-size: clamp(.88rem, 1.1vw, 1rem);
+      font-weight: 700; color: #fff; line-height: 1.3;
+      text-shadow: 0 2px 8px rgba(0,0,0,.5);
+    }
+    .book-meta { padding: 1rem 1rem .9rem; flex: 1; display: flex; flex-direction: column; }
+    .book-title {
+      font-family: var(--font-serif, Georgia, serif);
+      font-size: .95rem; font-weight: 700; line-height: 1.3;
+      color: var(--charcoal, #1C1C28); margin-bottom: auto; padding-bottom: .75rem;
+    }
+    .book-read-btn {
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      width: 100%; padding: .6rem 1rem; border-radius: 6px;
+      font-size: .82rem; font-weight: 700; border: none; cursor: pointer;
+      transition: background .18s, transform .1s;
+    }
+    .book-read-btn.available { background: var(--brand-blue, #1E4FA3); color: #fff; }
+    .book-read-btn.available:hover { background: #163c82; }
+    .book-read-btn.unavailable-btn {
+      background: rgba(28,28,40,.07); color: rgba(28,28,40,.35); cursor: not-allowed;
+    }
+
+    .book-dl-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      width: 100%;
+      margin-top: .45rem;
+      padding: .5rem 1rem;
+      border-radius: 6px;
+      font-size: .79rem;
+      font-weight: 700;
+      color: var(--brand-blue, #1E4FA3);
+      background: rgba(30,79,163,.08);
+      border: 1.5px solid rgba(30,79,163,.2);
+      text-decoration: none;
+      transition: background .18s, border-color .18s, color .18s;
+    }
+    .book-dl-btn:hover {
+      background: rgba(30,79,163,.15);
+      border-color: rgba(30,79,163,.4);
+      color: #163c82;
+    }
+
+    .reader-dl-btn {
+      display: flex;
+      align-items: center;
+      gap: .38rem;
+      padding: .38rem .85rem;
+      border-radius: 6px;
+      font-size: .8rem;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.07);
+      color: var(--reader-muted);
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .reader-dl-btn:hover {
+      background: rgba(196,137,46,.2);
+      border-color: rgba(196,137,46,.4);
+      color: #E4A84A;
+    }
+    .reader-dl-btn.hidden { display: none; }
+
+    /* ══════════════════════════════════════════
+       READER — full-page overlay (epub.js)
+    ══════════════════════════════════════════ */
+    #reader-overlay {
+      position: fixed; inset: 0; z-index: 9000;
+      background: var(--reader-bg);
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    #reader-overlay.open { opacity: 1; pointer-events: all; }
+
+    .reader-bar {
+      display: flex; align-items: center; gap: .75rem;
+      height: 58px; padding: 0 1.25rem;
+      background: var(--reader-bar);
+      border-bottom: 1px solid var(--reader-border); flex-shrink: 0;
+    }
+    .reader-back {
+      display: flex; align-items: center; gap: .5rem;
+      color: var(--reader-muted); font-size: .82rem; font-weight: 600;
+      white-space: nowrap; cursor: pointer;
+      background: none; border: none; padding: .3rem .5rem; border-radius: 5px;
+      transition: color .18s;
+    }
+    .reader-back:hover { color: var(--reader-text); background: rgba(255,255,255,.06); }
+    .reader-book-title {
+      font-size: .88rem; font-weight: 700; color: var(--reader-text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 280px; flex: 1;
+    }
+    .reader-bar-spacer { flex: 1; }
+    .reader-mode-toggle {
+      display: flex; background: rgba(255,255,255,.07);
+      border-radius: 7px; padding: 3px; gap: 2px;
+    }
+    .mode-btn {
+      display: flex; align-items: center; gap: .35rem;
+      padding: .35rem .8rem; border-radius: 5px;
+      font-size: .8rem; font-weight: 700;
+      border: none; background: transparent; color: var(--reader-muted);
+      cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .mode-btn.active { background: var(--reader-accent); color: #fff; }
+    .mode-btn:not(.active):hover { color: var(--reader-text); }
+    .reader-page-info {
+      font-size: .8rem; font-weight: 600; color: var(--reader-muted);
+      white-space: nowrap; min-width: 80px; text-align: center;
+    }
+    .reader-zoom { display: flex; align-items: center; gap: 2px; }
+    .zoom-btn {
+      width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.07); border: none; border-radius: 5px;
+      color: var(--reader-muted); font-size: 1rem; cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .zoom-btn:hover { background: rgba(255,255,255,.14); color: var(--reader-text); }
+    .reader-close {
+      width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.07); border: none; border-radius: 6px;
+      color: var(--reader-muted); font-size: 1.2rem; cursor: pointer;
+      transition: background .15s, color .15s; flex-shrink: 0;
+    }
+    .reader-close:hover { background: rgba(220,50,50,.3); color: #ff8080; }
+
+    /* TTS button */
+    .tts-toggle-btn {
+      display: flex; align-items: center; gap: .38rem;
+      padding: .38rem .85rem; border-radius: 6px; font-size: .8rem; font-weight: 700;
+      border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.07);
+      color: var(--reader-muted); cursor: pointer; transition: all .18s; white-space: nowrap;
+    }
+    .tts-toggle-btn:hover { background: rgba(255,255,255,.14); color: var(--reader-text); }
+    .tts-toggle-btn.tts-active {
+      background: rgba(76,175,80,.2); border-color: rgba(76,175,80,.4); color: #a5d6a7;
+      animation: tts-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes tts-pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(76,175,80,.4); }
+      50%      { box-shadow: 0 0 0 5px rgba(76,175,80,.0); }
+    }
+
+    /* TTS panel */
+    .reader-tts-panel {
+      background: #0a1020; border-bottom: 1px solid var(--reader-border);
+      overflow: hidden; max-height: 0;
+      transition: max-height .3s ease; flex-shrink: 0;
+    }
+    .reader-tts-panel.open { max-height: 80px; }
+    .reader-tts-inner { display: flex; align-items: center; gap: 1rem; padding: .65rem 1.25rem; flex-wrap: wrap; }
+    .tts-status { font-size: .8rem; color: var(--reader-muted); min-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tts-status.reading { color: #a5d6a7; }
+    .tts-controls { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; }
+    .tts-btn {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .38rem .85rem; border-radius: 6px; font-size: .78rem; font-weight: 700;
+      border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.07);
+      color: var(--reader-muted); cursor: pointer; transition: all .15s;
+    }
+    .tts-btn:hover { background: rgba(255,255,255,.15); color: var(--reader-text); }
+    .tts-btn.primary { background: rgba(76,175,80,.22); border-color: rgba(76,175,80,.4); color: #a5d6a7; }
+    .tts-btn:disabled { opacity: .3; pointer-events: none; }
+    .tts-speed {
+      appearance: none; -webkit-appearance: none;
+      padding: .35rem .7rem; border-radius: 6px; font-size: .78rem; font-weight: 700;
+      font-family: inherit; border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.07); color: var(--reader-muted); cursor: pointer;
+    }
+    .tts-auto-label { display: flex; align-items: center; gap: .4rem; font-size: .78rem; color: var(--reader-muted); cursor: pointer; user-select: none; }
+    .tts-auto-label input { accent-color: var(--reader-accent); }
+
+    /* Reader body */
+    .reader-body { flex: 1; overflow: hidden; position: relative; display: flex; }
+    #epub-viewer { flex: 1; width: 100%; height: 100%; overflow: hidden; background: #FFFDF7; }
+    #epub-viewer iframe { border: none !important; }
+
+    /* Page arrows */
+    .page-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+      width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+      background: rgba(7,18,42,.55); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%; color: rgba(255,255,255,.8); font-size: 1.3rem;
+      cursor: pointer; transition: background .18s, color .18s, transform .18s;
+      user-select: none; backdrop-filter: blur(4px);
+    }
+    .page-arrow:hover { background: rgba(7,18,42,.85); color: #fff; transform: translateY(-50%) scale(1.08); }
+    .page-arrow.disabled { opacity: .18; cursor: not-allowed; pointer-events: none; }
+    #arrow-prev { left: 1rem; }
+    #arrow-next { right: 1rem; }
+
+    /* Loading & error */
+    .page-loading {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+      background: var(--reader-bg); color: var(--reader-muted); font-size: .9rem; z-index: 15;
+    }
+    .spinner {
+      width: 40px; height: 40px; border: 3px solid rgba(255,255,255,.1);
+      border-top-color: var(--reader-accent); border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .reader-progress { height: 3px; background: rgba(255,255,255,.07); flex-shrink: 0; }
+    .reader-progress-fill { height: 100%; background: var(--reader-accent); transition: width .4s; width: 0%; }
+    .reader-error {
+      position: absolute; inset: 0; display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.25rem;
+      padding: 2rem; text-align: center; color: var(--reader-muted);
+      background: var(--reader-bg); z-index: 15;
+    }
+    .reader-error.visible { display: flex; }
+    .reader-error-icon { font-size: 3rem; }
+    .reader-error h3 { color: var(--reader-text); font-size: 1.2rem; margin-bottom: .25rem; }
+    .reader-error p { font-size: .9rem; max-width: 420px; line-height: 1.65; }
+    .reader-error-actions { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; margin-top: .5rem; }
+
+    /* ── Responsive ─────────────────────────── */
+    @media (max-width: 900px) {
+      .lib-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      #arrow-prev { left: .4rem; } #arrow-next { right: .4rem; }
+      .reader-book-title { max-width: 140px; }
+      .reader-mode-toggle { display: none; }
+    }
+    @media (max-width: 600px) {
+      .lib-grid { grid-template-columns: repeat(2, 1fr); gap: .85rem; }
+      .book-cover { height: 170px; }
+      .reader-bar { gap: .4rem; padding: 0 .75rem; }
+      .reader-book-title { display: none; }
+      .page-arrow { width: 40px; height: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG Sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="icon-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="icon-article" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+  <symbol id="icon-livre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+  <symbol id="icon-radio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></symbol>
+  <symbol id="icon-podcast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></symbol>
+  <symbol id="icon-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></symbol>
+  <symbol id="icon-cantique" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+</svg>
+
+<!-- ════════════════════ HEADER ════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li class="nav-item"><a href="index.html" class="nav-link">Accueil</a></li>
+        <li class="nav-item">
+          <a href="radio.html" class="nav-link" role="button" aria-haspopup="true">
+            Écouter
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem"><a href="radio.html" class="dropdown-link"><span class="dropdown-icon icon-bg-1"><svg width="18" height="18"><use href="#icon-radio"/></svg></span><span><strong style="display:block;font-size:.9rem">Radio en direct</strong><small style="opacity:.6">Parole Prophétique FM 24h/24</small></span></a></li>
+            <li role="menuitem"><a href="podcasts.html" class="dropdown-link"><span class="dropdown-icon icon-bg-3"><svg width="18" height="18"><use href="#icon-podcast"/></svg></span>Podcasts bibliques</a></li>
+            <li role="menuitem"><a href="audios.html" class="dropdown-link"><span class="dropdown-icon icon-bg-2"><svg width="18" height="18"><use href="#icon-audio"/></svg></span>Messages audio</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="videos.html" class="nav-link">Regarder</a></li>
+        <li class="nav-item">
+          <a href="articles.html" class="nav-link active" role="button" aria-haspopup="true">
+            Lire
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem"><a href="articles.html" class="dropdown-link"><span class="dropdown-icon icon-bg-5"><svg width="18" height="18"><use href="#icon-article"/></svg></span>Articles & Méditations</a></li>
+            <li role="menuitem"><a href="livres.html" class="dropdown-link"><span class="dropdown-icon icon-bg-4"><svg width="18" height="18"><use href="#icon-livre"/></svg></span>Livres</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="louange.html" class="nav-link">Louange</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="nav-live-badge">
+          <span class="live-dot" style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+        <a href="index.html#newsletter" class="btn btn-outline btn-sm">S'abonner</a>
+      </div>
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">
+  <a href="index.html"    class="mobile-nav-link">Accueil</a>
+  <div class="mobile-nav-link" data-sub="mob-ecouter" role="button" tabindex="0">Écouter <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+  <ul class="mobile-sub" id="mob-ecouter">
+    <li><a href="radio.html"    class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-radio"/></svg> Radio en direct</a></li>
+    <li><a href="podcasts.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-podcast"/></svg> Podcasts</a></li>
+    <li><a href="audios.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-audio"/></svg> Audios</a></li>
+  </ul>
+  <a href="videos.html"  class="mobile-nav-link">Regarder</a>
+  <div class="mobile-nav-link" data-sub="mob-lire" role="button" tabindex="0">Lire <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+  <ul class="mobile-sub" id="mob-lire">
+    <li><a href="articles.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-article"/></svg> Articles</a></li>
+    <li><a href="livres.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-livre"/></svg> Livres</a></li>
+  </ul>
+  <a href="louange.html" class="mobile-nav-link">Louange</a>
+  <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.75rem">
+    <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center"><span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span> Radio en direct</a>
+    <a href="index.html#newsletter" class="btn btn-primary" style="justify-content:center">S'abonner</a>
+  </div>
+</nav>
+
+<!-- ════════════════════ MAIN ════════════════════ -->
+<main id="main-content">
+
+  <!-- HERO -->
+  <section class="media-hero" aria-labelledby="art-title">
+    <div class="container">
+      <div class="media-hero-inner">
+        <div>
+          <p class="media-hero-eyebrow">Lire</p>
+          <h1 class="media-hero-title" id="art-title">Articles & Méditations</h1>
+          <p class="media-hero-sub">Enseignements écrits, méditations bibliques et études approfondies du ministère — lisibles directement sur cette page.</p>
+          <div class="lib-stat-pills">
+            <span class="lib-stat-pill">
+              <svg width="14" height="14"><use href="#icon-article"/></svg>
+              15 articles
+            </span>
+            <span class="lib-stat-pill">
+              <svg width="14" height="14"><use href="#icon-book-open"/></svg>
+              Lecture intégrée
+            </span>
+            <span class="lib-stat-pill" style="background:rgba(196,137,46,.2);border-color:rgba(196,137,46,.35);color:#E4A84A">
+              Gratuit · Accès libre
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIRE TABS (sticky) -->
+  <div class="type-tabs">
+    <div class="container">
+      <div class="type-tabs-inner">
+        <a href="articles.html" class="type-tab active">
+          <svg width="15" height="15"><use href="#icon-article"/></svg>
+          Articles & Méditations
+        </a>
+        <a href="livres.html" class="type-tab">
+          <svg width="15" height="15"><use href="#icon-livre"/></svg>
+          Livres
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH & FILTER BAR -->
+  <div class="lib-filters" role="search" aria-label="Rechercher et filtrer les articles">
+    <div class="container">
+      <div class="lib-filters-inner">
+
+        <div class="lib-search-wrap">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input id="lib-search" type="search" placeholder="Rechercher un article…" autocomplete="off" aria-label="Rechercher un article par titre">
+        </div>
+
+        <div class="lib-select-wrap">
+          <select id="select-cat" class="lib-select" aria-label="Filtrer par catégorie">
+            <option value="all">Toutes catégories</option>
+            <option value="eschatologie">Eschatologie</option>
+            <option value="vie">Vie chrétienne</option>
+            <option value="meditation">Méditation</option>
+            <option value="royaume">Royaume</option>
+          </select>
+        </div>
+
+        <div class="lib-select-wrap">
+          <select id="select-sort" class="lib-select" aria-label="Trier par">
+            <option value="date-desc">Date : récent → ancien</option>
+            <option value="date-asc">Date : ancien → récent</option>
+            <option value="title-asc">Titre : A → Z</option>
+            <option value="title-desc">Titre : Z → A</option>
+          </select>
+        </div>
+
+        <div class="lib-select-wrap">
+          <select id="select-dispo" class="lib-select" aria-label="Filtrer par disponibilité">
+            <option value="all">Tous les articles</option>
+            <option value="epub">Disponible</option>
+            <option value="soon">Bientôt disponible</option>
+          </select>
+        </div>
+
+        <span class="lib-results-count" id="lib-results-count">15 articles</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE GRID -->
+  <section class="lib-body">
+    <div class="container">
+      <div class="lib-grid" id="art-grid" role="list" aria-label="Liste des articles">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════ READER OVERLAY ════════════════════ -->
+<div id="reader-overlay" role="dialog" aria-modal="true" aria-label="Lecteur d'article">
+
+  <!-- Progress bar -->
+  <div class="reader-progress">
+    <div class="reader-progress-fill" id="reader-progress-fill"></div>
+  </div>
+
+  <!-- Top bar -->
+  <div class="reader-bar">
+    <button class="reader-back" id="btn-reader-back" aria-label="Retour aux articles">
+      <svg width="16" height="16"><use href="#icon-arrow-left"/></svg>
+      Articles
+    </button>
+    <span class="reader-book-title" id="reader-book-title"></span>
+
+    <div class="reader-bar-spacer"></div>
+
+    <div class="reader-mode-toggle" role="group" aria-label="Mode de lecture">
+      <button class="mode-btn active" id="btn-page-mode" title="Mode pages (← →)">
+        <svg width="15" height="15"><use href="#icon-book-open"/></svg>
+        Pages
+      </button>
+      <button class="mode-btn" id="btn-scroll-mode" title="Mode défilement (↑ ↓)">
+        <svg width="15" height="15"><use href="#icon-scroll"/></svg>
+        Défilement
+      </button>
+    </div>
+
+    <span class="reader-page-info" id="reader-page-info">—</span>
+
+    <!-- Télécharger PDF -->
+    <a class="reader-dl-btn hidden" id="btn-reader-dl" title="Télécharger le PDF" target="_blank" rel="noopener">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      PDF
+    </a>
+
+    <button class="tts-toggle-btn" id="btn-tts-toggle" title="Écouter l'article à voix haute" aria-pressed="false">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      </svg>
+      Écouter
+    </button>
+
+    <div class="reader-zoom" aria-label="Zoom">
+      <button class="zoom-btn" id="btn-zoom-out" title="Réduire" aria-label="Réduire">−</button>
+      <button class="zoom-btn" id="btn-zoom-in"  title="Agrandir" aria-label="Agrandir">+</button>
+    </div>
+
+    <button class="reader-close" id="btn-reader-close" aria-label="Fermer le lecteur">✕</button>
+  </div>
+
+  <!-- TTS Panel -->
+  <div class="reader-tts-panel" id="reader-tts-panel">
+    <div class="reader-tts-inner">
+      <span class="tts-status" id="tts-status">Prêt à lire la page courante</span>
+      <div class="tts-controls">
+        <button class="tts-btn primary" id="tts-play">▶ Lire la page</button>
+        <button class="tts-btn" id="tts-pause" disabled>⏸ Pause</button>
+        <button class="tts-btn" id="tts-stop"  disabled>⏹ Arrêter</button>
+        <select class="tts-speed" id="tts-rate" aria-label="Vitesse de lecture">
+          <option value="0.75">0.75×</option>
+          <option value="1" selected>1×</option>
+          <option value="1.25">1.25×</option>
+          <option value="1.5">1.5×</option>
+          <option value="2">2×</option>
+        </select>
+        <label class="tts-auto-label" title="Passer automatiquement à la page suivante">
+          <input type="checkbox" id="tts-auto" checked> Page suivante auto
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reader body -->
+  <div class="reader-body">
+    <div id="epub-viewer" aria-label="Contenu de l'article"></div>
+    <button class="page-arrow disabled" id="arrow-prev" aria-label="Page précédente">
+      <svg width="20" height="20"><use href="#icon-arrow-left"/></svg>
+    </button>
+    <button class="page-arrow disabled" id="arrow-next" aria-label="Page suivante">
+      <svg width="20" height="20"><use href="#icon-arrow-right"/></svg>
+    </button>
+    <div class="page-loading" id="page-loading">
+      <div class="spinner"></div>
+      <span>Chargement de l'article…</span>
+    </div>
+    <div class="reader-error" id="reader-error">
+      <div class="reader-error-icon">📄</div>
+      <h3>Article bientôt disponible</h3>
+      <p>Cet article est en cours de préparation. Il sera disponible prochainement sur cette page.</p>
+      <div class="reader-error-actions">
+        <button class="btn btn-ghost" id="btn-error-close">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- epub.js -->
+<script src="https://cdn.jsdelivr.net/npm/jszip/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+<script src="assets/js/main.js" defer></script>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   ARTICLES DATA — 15 articles
+   cat: eschatologie | vie | meditation | royaume
+   color: 1-8 gradient preset
+   en: true → article en anglais
+═══════════════════════════════════════════════════ */
+const ARTICLES = [
+  { id: 1, title:'Confession de la Parole de foi et de liberté',               color:1, cat:'vie',         year:2024,
+    epub:'assets/articles/1.epub', pdf:'https://levangileduroyaume.com/wp-content/uploads/2024/07/CONFESSION-DE-LA-PAROLE-DE-FOI-ET-DE-LIBERTE-version-francaise.pdf' },
+  { id: 2, title:'La grandeur de Dieu et la fragilité de l\'homme',            color:6, cat:'meditation',   year:2024,
+    epub:'assets/articles/2.epub', pdf:'https://levangileduroyaume.com/wp-content/uploads/2024/07/LA-GRANDEUR-DE-DIEU-ET-LA-FRAGILITE-DE-LHOMME1.pdf' },
+  { id: 3, title:'Le temps de remettre les choses en ordre',                   color:1, cat:'royaume',      year:2024,
+    epub:'assets/articles/3.epub', pdf:'https://levangileduroyaume.com/wp-content/uploads/2024/06/LE-TEMPS-DE-REMETTRE-LES-CHOSES-EN-ORDRE.pdf' },
+  { id: 4, title:'The Time of Putting All Things Straight',                    color:1, cat:'royaume',      year:2024, en:true,
+    epub:'assets/articles/4.epub', pdf:'https://levangileduroyaume.com/wp-content/uploads/2024/06/THE-TIME-OF-PUTTING-ALL-THINGS-STRAIGHT.pdf' },
+  { id: 5, title:'Des Antichrists et du corps ayant la charge de les détruire',color:5, cat:'eschatologie', year:2024,
+    epub:'assets/articles/5.epub', pdf:'https://levangileduroyaume.com/wp-content/uploads/2024/06/DES-ANTICHRISTS-ET-DU-CORPS-AYANT-LA-CHARGE-DE-LES-DETRUIRE.pdf' },
+  { id: 6, title:'Of Antichrists and of a Body That Destroys Them',            color:5, cat:'eschatologie', year:2024, en:true,
+    epub:'assets/articles/6.epub', pdf:'https://levangileduroyaume.com/wp-content/uploads/2024/06/OF-ANTICHRISTS-AND-A-BODY-THAT-DESTROYS-THEM.pdf' },
+  { id: 7, title:'Le Combat Spirituel',                                        color:3, cat:'vie',         year:2021,
+    epub:'assets/articles/7.epub', pdf:'https://levangileduroyaume.com/wp-content/uploads/2021/04/LE-COMBAT-SPIRITUEL.pdf' },
+  { id: 8, title:'Vous devez naître de nouveau',                               color:3, cat:'vie',        year:2021,
+    epub:'assets/articles/8.epub', pdf:'assets/pdfs/articles/vous-devez-naitre-de-nouveau.pdf' },
+  { id: 9, title:'Vivre le mariage : le modèle de Christ et l\'Église',        color:8, cat:'vie',        year:2021,
+    epub:'assets/articles/9.epub', pdf:'assets/pdfs/articles/vivre-le-mariage-modele-christ.pdf' },
+  { id:10, title:'Se marier : le modèle de Christ et l\'Église',               color:8, cat:'vie',        year:2021,
+    epub:'assets/articles/10.epub', pdf:'assets/pdfs/articles/se-marier-modele-christ.pdf' },
+  { id:11, title:'Pourquoi beaucoup de chrétiens sont-ils lents à comprendre ?', color:4, cat:'vie',      year:2020,
+    epub:'assets/articles/11.epub', pdf:'assets/pdfs/articles/pourquoi-chretiens-lents-comprendre.pdf' },
+  { id:12, title:'Ayons la justice de Dieu pour être sauvés de la mort',       color:3, cat:'vie',        year:2020,
+    epub:'assets/articles/12.epub', pdf:'assets/pdfs/articles/ayons-la-justice-de-dieu.pdf' },
+  { id:13, title:'Comment allumer les lampes du chandelier ?',                 color:6, cat:'meditation', year:2020,
+    epub:'assets/articles/13.epub', pdf:'assets/pdfs/articles/comment-allumer-lampes-chandelier.pdf' },
+  { id:14, title:'Le mystère de Christ',                                       color:7, cat:'royaume',    year:2020,
+    epub:'assets/articles/14.epub', pdf:'assets/pdfs/articles/le-mystere-de-christ.pdf' },
+  { id:15, title:'Le renoncement aux œuvres mortes : les doctrines fondamentales', color:2, cat:'vie',   year:2020,
+    epub:'assets/articles/15.epub', pdf:'assets/pdfs/articles/le-renoncement-aux-oeuvres-mortes.pdf' },
+  { id:16, title:'Le Salut',                                                   color:5, cat:'vie',        year:2020,
+    epub:'assets/articles/16.epub', pdf:'assets/pdfs/articles/le-salut.pdf' },
+];
+
+/* ═══════════════════════════════════════════════════
+   CATALOGUE — render, search, sort & filter
+═══════════════════════════════════════════════════ */
+const grid         = document.getElementById('art-grid');
+const searchInput  = document.getElementById('lib-search');
+const selectCat    = document.getElementById('select-cat');
+const selectSort   = document.getElementById('select-sort');
+const selectDispo  = document.getElementById('select-dispo');
+const resultsCount = document.getElementById('lib-results-count');
+
+function renderGrid() {
+  const query = searchInput.value.trim().toLowerCase();
+  const cat   = selectCat.value;
+  const sort  = selectSort.value;
+  const dispo = selectDispo.value;
+
+  let list = ARTICLES.filter(a => {
+    if (query && !a.title.toLowerCase().includes(query)) return false;
+    if (cat  !== 'all'  && a.cat !== cat) return false;
+    if (dispo === 'epub' && !a.epub) return false;
+    if (dispo === 'soon' &&  a.epub) return false;
+    return true;
+  });
+
+  list = [...list].sort((a, b) => {
+    switch (sort) {
+      case 'date-desc':  return b.year - a.year || b.id - a.id;
+      case 'date-asc':   return a.year - b.year || a.id - b.id;
+      case 'title-asc':  return a.title.localeCompare(b.title, 'fr');
+      case 'title-desc': return b.title.localeCompare(a.title, 'fr');
+      default: return 0;
+    }
+  });
+
+  resultsCount.textContent = list.length === 1 ? '1 article' : `${list.length} articles`;
+
+  if (list.length === 0) {
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Aucun résultat pour « ${searchInput.value} »</p>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(a => {
+    const avail = !!a.epub;
+    return `
+    <div class="book-card ${avail ? '' : 'unavailable'}"
+         role="listitem"
+         onclick="openArticle(${a.id})"
+         tabindex="0"
+         onkeydown="if(event.key==='Enter')openArticle(${a.id})"
+         aria-label="${a.title}${avail ? ' — Lire' : ' — Bientôt disponible'}">
+      <div class="book-cover gc-${a.color}">
+        <div class="book-cover-deco" aria-hidden="true"></div>
+        ${a.en ? '<span class="book-cover-badge badge-en">EN</span>' : ''}
+        ${!avail ? '<span class="book-cover-badge badge-soon">Bientôt</span>' : '<span class="book-cover-badge badge-pdf">EPUB</span>'}
+        <span class="book-cover-title">${a.title}</span>
+      </div>
+      <div class="book-meta">
+        <p class="book-title">${a.title}</p>
+        <button class="book-read-btn ${avail ? 'available' : 'unavailable-btn'}"
+                onclick="event.stopPropagation();openArticle(${a.id})"
+                tabindex="${avail ? '0' : '-1'}">
+          ${avail
+            ? '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Lire maintenant'
+            : '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Bientôt disponible'}
+        </button>
+        ${a.pdf ? `
+        <a class="book-dl-btn" href="${a.pdf}" target="_blank" rel="noopener"
+           onclick="event.stopPropagation()"
+           title="Télécharger le PDF — ${a.title}">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Télécharger PDF
+        </a>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+searchInput.addEventListener('input',   renderGrid);
+selectCat.addEventListener('change',    renderGrid);
+selectSort.addEventListener('change',   renderGrid);
+selectDispo.addEventListener('change',  renderGrid);
+renderGrid();
+
+/* ═══════════════════════════════════════════════════
+   EPUB READER — epub.js (identique à livres.html)
+═══════════════════════════════════════════════════ */
+const overlay       = document.getElementById('reader-overlay');
+const readerTitle   = document.getElementById('reader-book-title');
+const pageInfo      = document.getElementById('reader-page-info');
+const progressFill  = document.getElementById('reader-progress-fill');
+const epubViewerEl  = document.getElementById('epub-viewer');
+const pageLoading   = document.getElementById('page-loading');
+const readerError   = document.getElementById('reader-error');
+const arrowPrev     = document.getElementById('arrow-prev');
+const arrowNext     = document.getElementById('arrow-next');
+const btnPageMode   = document.getElementById('btn-page-mode');
+const btnScrollMode = document.getElementById('btn-scroll-mode');
+const btnClose      = document.getElementById('btn-reader-close');
+const btnBack       = document.getElementById('btn-reader-back');
+const btnErrClose   = document.getElementById('btn-error-close');
+const btnZoomIn     = document.getElementById('btn-zoom-in');
+const btnZoomOut    = document.getElementById('btn-zoom-out');
+const btnReaderDl   = document.getElementById('btn-reader-dl');
+
+let epubBook      = null;
+let rendition     = null;
+let currentMode   = 'page';
+let fontSizePct   = 100;
+let currentArtId  = null;
+
+function applyEpubTheme() {
+  if (!rendition) return;
+  rendition.themes.register('site', {
+    'body': { 'font-family': 'Georgia, "Times New Roman", serif', 'line-height': '1.75',
+              'padding': '1.5rem 2.5rem', 'color': '#1C1C28', 'background': '#FFFDF7' },
+    'p':        { 'margin-bottom': '.85em', 'text-align': 'justify' },
+    'h1,h2,h3': { 'color': '#07122a', 'margin-top': '1.4em', 'line-height': '1.3' },
+    'img':      { 'max-width': '100%', 'height': 'auto' }
+  });
+  rendition.themes.select('site');
+  rendition.themes.fontSize(fontSizePct + '%');
+}
+
+function handleRelocated(location) {
+  pageLoading.style.display = 'none';
+  if (location.start && location.start.percentage !== undefined) {
+    const pct = Math.round(location.start.percentage * 100);
+    pageInfo.textContent     = `${pct}%`;
+    progressFill.style.width = `${pct}%`;
+  }
+  arrowPrev.classList.toggle('disabled', !!location.atStart);
+  arrowNext.classList.toggle('disabled', !!location.atEnd);
+}
+
+function destroyReader() {
+  if (rendition) { try { rendition.destroy(); } catch(e){} rendition = null; }
+  if (epubBook)  { try { epubBook.destroy();  } catch(e){} epubBook  = null; }
+  epubViewerEl.innerHTML = '';
+}
+
+async function openArticle(id, restoreCfi) {
+  const art = ARTICLES.find(a => a.id === id);
+  if (!art) return;
+
+  currentArtId = id;
+  destroyReader();
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  readerTitle.textContent  = art.title;
+  pageInfo.textContent     = '—';
+  progressFill.style.width = '0%';
+  pageLoading.style.display = 'flex';
+  readerError.classList.remove('visible');
+
+  // Bouton téléchargement PDF dans la barre du lecteur
+  if (art.pdf) {
+    btnReaderDl.href = art.pdf;
+    btnReaderDl.classList.remove('hidden');
+  } else {
+    btnReaderDl.classList.add('hidden');
+  }
+
+  btnPageMode.classList.toggle('active',   currentMode === 'page');
+  btnScrollMode.classList.toggle('active', currentMode === 'scroll');
+
+  if (!art.epub) {
+    pageLoading.style.display = 'none';
+    readerError.classList.add('visible');
+    return;
+  }
+
+  try {
+    epubBook  = ePub(art.epub);
+    const flowMode = currentMode === 'page' ? 'paginated' : 'scrolled-continuous';
+    rendition = epubBook.renderTo('epub-viewer', {
+      flow:   flowMode,
+      width:  '100%',
+      height: '100%',
+      spread: 'none'
+    });
+    applyEpubTheme();
+    rendition.on('relocated', handleRelocated);
+    await rendition.display(restoreCfi || undefined);
+    pageLoading.style.display = 'none';
+  } catch (err) {
+    console.warn('EPUB load error:', err);
+    pageLoading.style.display = 'none';
+    readerError.classList.add('visible');
+  }
+}
+
+arrowPrev.addEventListener('click', () => { if (rendition) rendition.prev(); });
+arrowNext.addEventListener('click', () => { if (rendition) rendition.next(); });
+
+async function switchMode(newMode) {
+  if (currentMode === newMode || !currentArtId) return;
+  let cfi = null;
+  if (rendition) {
+    try { const loc = rendition.currentLocation(); if (loc && loc.start) cfi = loc.start.cfi; } catch(e) {}
+  }
+  currentMode = newMode;
+  await openArticle(currentArtId, cfi);
+}
+
+btnPageMode.addEventListener('click',   () => switchMode('page'));
+btnScrollMode.addEventListener('click', () => switchMode('scroll'));
+
+btnZoomIn.addEventListener('click', () => {
+  if (fontSizePct >= 200) return;
+  fontSizePct += 15;
+  if (rendition) rendition.themes.fontSize(fontSizePct + '%');
+});
+btnZoomOut.addEventListener('click', () => {
+  if (fontSizePct <= 70) return;
+  fontSizePct -= 15;
+  if (rendition) rendition.themes.fontSize(fontSizePct + '%');
+});
+
+function closeReader() {
+  stopTTS();
+  if (typeof ttsPanel !== 'undefined') {
+    ttsPanel.classList.remove('open');
+    btnTtsToggle.classList.remove('tts-active');
+    btnTtsToggle.setAttribute('aria-pressed', 'false');
+  }
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  readerError.classList.remove('visible');
+  destroyReader();
+}
+
+btnClose.addEventListener('click',    closeReader);
+btnBack.addEventListener('click',     closeReader);
+btnErrClose.addEventListener('click', closeReader);
+
+document.addEventListener('keydown', e => {
+  if (!overlay.classList.contains('open') || !rendition) return;
+  if (e.key === 'Escape')                               closeReader();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   rendition.prev();
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') rendition.next();
+});
+
+let touchStartX = 0;
+epubViewerEl.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+epubViewerEl.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50 && rendition) { dx < 0 ? rendition.next() : rendition.prev(); }
+});
+window.addEventListener('resize', () => { if (rendition) rendition.resize('100%', '100%'); });
+
+/* ═══════════════════════════════════════════════════
+   TTS — Web Speech API
+═══════════════════════════════════════════════════ */
+const btnTtsToggle = document.getElementById('btn-tts-toggle');
+const ttsPanel     = document.getElementById('reader-tts-panel');
+const ttsStatus    = document.getElementById('tts-status');
+const ttsPlay      = document.getElementById('tts-play');
+const ttsPause     = document.getElementById('tts-pause');
+const ttsStop      = document.getElementById('tts-stop');
+const ttsRate      = document.getElementById('tts-rate');
+const ttsAuto      = document.getElementById('tts-auto');
+
+const synth      = window.speechSynthesis || null;
+let ttsUtterance = null;
+let ttsSpeaking  = false;
+let ttsPaused    = false;
+
+btnTtsToggle.addEventListener('click', () => {
+  const isOpen = ttsPanel.classList.contains('open');
+  if (isOpen) {
+    ttsPanel.classList.remove('open');
+    btnTtsToggle.classList.remove('tts-active');
+    btnTtsToggle.setAttribute('aria-pressed', 'false');
+    stopTTS();
+  } else {
+    ttsPanel.classList.add('open');
+    btnTtsToggle.classList.add('tts-active');
+    btnTtsToggle.setAttribute('aria-pressed', 'true');
+    ttsStatus.textContent = synth
+      ? 'Prêt à lire la section courante'
+      : 'Synthèse vocale non supportée sur ce navigateur.';
+  }
+});
+
+async function getPageText() {
+  if (!rendition) return '';
+  try {
+    const contents = rendition.getContents();
+    if (contents && contents.length > 0) {
+      const doc = contents[0].document;
+      if (doc && doc.body) return (doc.body.innerText || doc.body.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+  } catch(e) {}
+  return '';
+}
+
+async function speakCurrentPage() {
+  if (!synth) { ttsStatus.textContent = 'Synthèse vocale non supportée.'; return; }
+  stopTTS();
+  ttsStatus.textContent = 'Extraction du texte…';
+  ttsPlay.disabled = true;
+  const text = await getPageText();
+  if (!text) { ttsStatus.textContent = 'Aucun texte lisible dans cette section.'; ttsPlay.disabled = false; return; }
+
+  ttsUtterance = new SpeechSynthesisUtterance(text);
+  const art = ARTICLES.find(a => a.id === currentArtId);
+  ttsUtterance.lang = (art && art.en) ? 'en-US' : 'fr-FR';
+  ttsUtterance.rate = parseFloat(ttsRate.value);
+
+  ttsUtterance.onstart = () => {
+    ttsSpeaking = true; ttsPaused = false;
+    const loc = rendition ? rendition.currentLocation() : null;
+    const pct = loc && loc.start ? Math.round(loc.start.percentage * 100) : '—';
+    ttsStatus.textContent = `Lecture — ${pct}%`;
+    ttsStatus.classList.add('reading');
+    ttsPlay.disabled = true; ttsPause.disabled = false; ttsStop.disabled = false;
+  };
+  ttsUtterance.onend = () => {
+    ttsSpeaking = false; ttsPaused = false;
+    ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
+    ttsStatus.classList.remove('reading');
+    ttsPause.textContent = '⏸ Pause';
+    const loc = rendition ? rendition.currentLocation() : null;
+    const atEnd = loc ? loc.atEnd : true;
+    if (ttsAuto.checked && !atEnd && rendition) {
+      rendition.next().then(() => setTimeout(speakCurrentPage, 400));
+    } else {
+      ttsStatus.textContent = atEnd ? 'Lecture terminée.' : 'Prêt à lire la section courante';
+    }
+  };
+  ttsUtterance.onerror = e => {
+    if (e.error === 'interrupted' || e.error === 'canceled') return;
+    ttsSpeaking = false;
+    ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
+    ttsStatus.classList.remove('reading');
+    ttsStatus.textContent = 'Erreur lors de la lecture audio.';
+    ttsPause.textContent = '⏸ Pause';
+  };
+  synth.speak(ttsUtterance);
+}
+
+function pauseTTS() {
+  if (!synth) return;
+  if (ttsSpeaking && !ttsPaused) {
+    synth.pause(); ttsPaused = true;
+    ttsPause.textContent = '▶ Reprendre';
+    ttsStatus.classList.remove('reading');
+    const loc = rendition ? rendition.currentLocation() : null;
+    ttsStatus.textContent = `En pause — ${loc && loc.start ? Math.round(loc.start.percentage * 100) : '—'}%`;
+  } else if (ttsPaused) {
+    synth.resume(); ttsPaused = false;
+    ttsPause.textContent = '⏸ Pause';
+    ttsStatus.classList.add('reading');
+    const loc = rendition ? rendition.currentLocation() : null;
+    ttsStatus.textContent = `Lecture — ${loc && loc.start ? Math.round(loc.start.percentage * 100) : '—'}%`;
+  }
+}
+
+function stopTTS() {
+  if (!synth) return;
+  synth.cancel();
+  ttsSpeaking = false; ttsPaused = false;
+  if (ttsPlay)  ttsPlay.disabled  = false;
+  if (ttsPause) { ttsPause.disabled = true; ttsPause.textContent = '⏸ Pause'; }
+  if (ttsStop)  ttsStop.disabled  = true;
+  if (ttsStatus) { ttsStatus.classList.remove('reading'); ttsStatus.textContent = 'Prêt à lire la section courante'; }
+}
+
+ttsRate.addEventListener('change', () => { if (ttsSpeaking) speakCurrentPage(); });
+ttsPlay.addEventListener('click',  () => speakCurrentPage());
+ttsPause.addEventListener('click', pauseTTS);
+ttsStop.addEventListener('click',  stopTTS);
+</script>
+</body>
+</html>

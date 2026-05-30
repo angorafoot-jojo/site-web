@@ -145,7 +145,7 @@ def import_single_episode(base_url: str, station_id: int, playlist_id: int, api_
     if isinstance(result, dict):
         import_results = result.get("import_results", [])
         if isinstance(import_results, list):
-            matched = len(import_results)
+            matched = sum(1 for item in import_results if item.get("match"))
         if matched == 0:
             # Fallback sur d'autres formes de réponse possibles
             matched = (
