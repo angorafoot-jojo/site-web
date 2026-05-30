@@ -1460,6 +1460,29 @@ const synth      = window.speechSynthesis || null;
 let ttsUtterance = null;
 let ttsSpeaking  = false;
 let ttsPaused    = false;
+let ttsKeepAlive = null;   // Intervalle anti-bug Chrome
+
+/* ── Chargement des voix (asynchrone dans Chrome) ── */
+let ttsVoiceFr = null;
+let ttsVoiceEn = null;
+
+function loadTTSVoices() {
+  const voices = synth ? synth.getVoices() : [];
+  ttsVoiceFr = voices.find(v => v.lang === 'fr-FR')
+            || voices.find(v => v.lang.startsWith('fr'))
+            || null;
+  ttsVoiceEn = voices.find(v => v.lang === 'en-US')
+            || voices.find(v => v.lang.startsWith('en'))
+            || null;
+}
+
+if (synth) {
+  loadTTSVoices();
+  // Chrome charge les voix de façon asynchrone — on écoute l'événement
+  if (typeof synth.onvoiceschanged !== 'undefined') {
+    synth.onvoiceschanged = loadTTSVoices;
+  }
+}
 
 /* ── Toggle TTS panel ────────────────────────── */
 btnTtsToggle.addEventListener('click', () => {
@@ -1473,29 +1496,54 @@ btnTtsToggle.addEventListener('click', () => {
     ttsPanel.classList.add('open');
     btnTtsToggle.classList.add('tts-active');
     btnTtsToggle.setAttribute('aria-pressed', 'true');
-    ttsStatus.textContent = synth
-      ? 'Prêt à lire la section courante'
-      : 'Synthèse vocale non supportée sur ce navigateur.';
+    if (!synth) {
+      ttsStatus.textContent = 'Synthèse vocale non supportée sur ce navigateur.';
+    } else if (!ttsVoiceFr) {
+      ttsStatus.textContent = 'Aucune voix française détectée — tentative avec la voix par défaut.';
+    } else {
+      ttsStatus.textContent = `Prêt · Voix : ${ttsVoiceFr.name}`;
+    }
   }
 });
 
-/* ── Extract text from the current EPUB section  */
+/* ── Extraction du texte de la section courante ─ */
 async function getPageText() {
-  if (!rendition) return '';
+  if (!rendition || !epubBook) return '';
+
+  // Méthode 1 : accès direct au document de l'iframe epub.js
   try {
     const contents = rendition.getContents();
     if (contents && contents.length > 0) {
       const doc = contents[0].document;
       if (doc && doc.body) {
-        return (doc.body.innerText || doc.body.textContent || '')
+        const text = (doc.body.innerText || doc.body.textContent || '')
           .replace(/\s+/g, ' ').trim();
+        if (text.length > 10) return text;
       }
     }
-  } catch(e) {}
+  } catch(e) { /* CORS ou iframe non accessible */ }
+
+  // Méthode 2 : chargement via la spine epub.js (contourne les restrictions iframe)
+  try {
+    const location = rendition.currentLocation();
+    if (location && location.start && location.start.cfi) {
+      const section = epubBook.spine.get(location.start.cfi);
+      if (section) {
+        const doc = await section.load(epubBook.load.bind(epubBook));
+        if (doc && doc.body) {
+          const text = (doc.body.innerText || doc.body.textContent || '')
+            .replace(/\s+/g, ' ').trim();
+          section.unload();
+          if (text.length > 10) return text;
+        }
+      }
+    }
+  } catch(e) { /* Section non chargeable */ }
+
   return '';
 }
 
-/* ── Speak current section ───────────────────── */
+/* ── Lecture de la section courante ──────────── */
 async function speakCurrentPage() {
   if (!synth) { ttsStatus.textContent = 'Synthèse vocale non supportée.'; return; }
   stopTTS();
@@ -1505,15 +1553,21 @@ async function speakCurrentPage() {
 
   const text = await getPageText();
   if (!text) {
-    ttsStatus.textContent = 'Aucun texte lisible dans cette section.';
+    ttsStatus.textContent = 'Texte non accessible dans cette section.';
     ttsPlay.disabled = false;
     return;
   }
 
-  ttsUtterance = new SpeechSynthesisUtterance(text);
-  const book = BOOKS.find(b => b.id === currentBookId);
-  ttsUtterance.lang = (book && book.tags.includes('en')) ? 'en-US' : 'fr-FR';
+  const book    = BOOKS.find(b => b.id === currentBookId);
+  const isEnglish = book && book.tags.includes('en');
+
+  ttsUtterance      = new SpeechSynthesisUtterance(text);
+  ttsUtterance.lang = isEnglish ? 'en-US' : 'fr-FR';
   ttsUtterance.rate = parseFloat(ttsRate.value);
+
+  // Sélectionner explicitement la voix pour éviter le bug Chrome "voix anglaise par défaut"
+  const targetVoice = isEnglish ? ttsVoiceEn : ttsVoiceFr;
+  if (targetVoice) ttsUtterance.voice = targetVoice;
 
   ttsUtterance.onstart = () => {
     ttsSpeaking = true; ttsPaused = false;
@@ -1522,9 +1576,19 @@ async function speakCurrentPage() {
     ttsStatus.textContent = `Lecture — ${pct}%`;
     ttsStatus.classList.add('reading');
     ttsPlay.disabled = true; ttsPause.disabled = false; ttsStop.disabled = false;
+
+    // Anti-bug Chrome : la synthèse s'arrête silencieusement après ~15s
+    ttsKeepAlive = setInterval(() => {
+      if (synth && ttsSpeaking && !ttsPaused) {
+        synth.pause();
+        synth.resume();
+      }
+    }, 10000);
   };
 
   ttsUtterance.onend = () => {
+    clearInterval(ttsKeepAlive);
+    ttsKeepAlive = null;
     ttsSpeaking = false; ttsPaused = false;
     ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
     ttsStatus.classList.remove('reading');
@@ -1539,22 +1603,27 @@ async function speakCurrentPage() {
   };
 
   ttsUtterance.onerror = e => {
+    clearInterval(ttsKeepAlive);
+    ttsKeepAlive = null;
     if (e.error === 'interrupted' || e.error === 'canceled') return;
     ttsSpeaking = false;
     ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
     ttsStatus.classList.remove('reading');
-    ttsStatus.textContent = 'Erreur lors de la lecture audio.';
+    ttsStatus.textContent = `Erreur audio : ${e.error || 'inconnue'}`;
     ttsPause.textContent  = '⏸ Pause';
   };
 
-  synth.speak(ttsUtterance);
+  // Anti-bug Chrome : reset de la queue avant de parler
+  synth.cancel();
+  setTimeout(() => synth.speak(ttsUtterance), 50);
 }
 
-/* ── Pause / Resume ──────────────────────────── */
+/* ── Pause / Reprendre ───────────────────────── */
 function pauseTTS() {
   if (!synth) return;
   if (ttsSpeaking && !ttsPaused) {
     synth.pause(); ttsPaused = true;
+    clearInterval(ttsKeepAlive);
     ttsPause.textContent = '▶ Reprendre';
     ttsStatus.classList.remove('reading');
     const loc = rendition ? rendition.currentLocation() : null;
@@ -1567,12 +1636,18 @@ function pauseTTS() {
     const loc = rendition ? rendition.currentLocation() : null;
     const pct = loc && loc.start ? Math.round(loc.start.percentage * 100) : '—';
     ttsStatus.textContent = `Lecture — ${pct}%`;
+    // Relancer le keepalive après reprise
+    ttsKeepAlive = setInterval(() => {
+      if (synth && ttsSpeaking && !ttsPaused) { synth.pause(); synth.resume(); }
+    }, 10000);
   }
 }
 
-/* ── Stop ────────────────────────────────────── */
+/* ── Arrêter ─────────────────────────────────── */
 function stopTTS() {
   if (!synth) return;
+  clearInterval(ttsKeepAlive);
+  ttsKeepAlive = null;
   synth.cancel();
   ttsSpeaking = false; ttsPaused = false;
   if (ttsPlay)   ttsPlay.disabled   = false;
