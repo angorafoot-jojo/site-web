@@ -1115,64 +1115,12 @@ const ttsStop      = document.getElementById('tts-stop');
 const ttsRate      = document.getElementById('tts-rate');
 const ttsAuto      = document.getElementById('tts-auto');
 
-const synth      = window.speechSynthesis || null;
+const synth     = window.speechSynthesis || null;
 let ttsUtterance = null;
 let ttsSpeaking  = false;
 let ttsPaused    = false;
 let ttsKeepAlive = null;
 let ttsDidStart  = false;
-
-let ttsVoiceFr = null;
-let ttsVoiceEn = null;
-function loadTTSVoices() {
-  const voices = synth ? synth.getVoices() : [];
-  ttsVoiceFr = voices.find(v => v.lang === 'fr-FR') || voices.find(v => v.lang.startsWith('fr')) || null;
-  ttsVoiceEn = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en')) || null;
-}
-if (synth) {
-  loadTTSVoices();
-  if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = loadTTSVoices;
-}
-
-/* ── Google Translate TTS fallback ───────────── */
-let gAudio = null, gPlaying = false, gPaused = false;
-
-function splitText(text, maxLen = 180) {
-  const chunks = []; let rem = text.trim();
-  while (rem.length > 0) {
-    if (rem.length <= maxLen) { chunks.push(rem); break; }
-    const slice = rem.substring(0, maxLen);
-    let cut = Math.max(slice.lastIndexOf('. '), slice.lastIndexOf('? '), slice.lastIndexOf('! '));
-    if (cut > maxLen * 0.4) cut += 2;
-    else { const c = slice.lastIndexOf(', '); cut = (c > maxLen * 0.4) ? c + 2 : (slice.lastIndexOf(' ') || maxLen); }
-    chunks.push(rem.substring(0, cut).trim()); rem = rem.substring(cut).trim();
-  }
-  return chunks.filter(c => c.length > 0);
-}
-function gTtsUrl(text, lang) {
-  const tl = lang.startsWith('fr') ? 'fr' : lang.startsWith('en') ? 'en' : 'fr';
-  return `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=${tl}&client=tw-ob&ttsspeed=0.9`;
-}
-async function speakWithGoogleTTS(text, lang, { onStart, onEnd, onError }) {
-  const chunks = splitText(text);
-  gPlaying = true; gPaused = false;
-  if (onStart) onStart();
-  for (let i = 0; i < chunks.length; i++) {
-    if (!gPlaying) break;
-    await new Promise((res, rej) => {
-      gAudio = new Audio(gTtsUrl(chunks[i], lang));
-      gAudio.onended = res;
-      gAudio.onerror = () => gPlaying ? rej(new Error('gTTS error')) : res();
-      gAudio.play().catch(rej);
-    }).catch(e => { gPlaying = false; if (onError) onError(e); });
-    if (gPlaying && i < chunks.length - 1) await new Promise(x => setTimeout(x, 80));
-  }
-  if (gPlaying && onEnd) onEnd();
-  gPlaying = false;
-}
-function stopGoogleTTS()   { gPlaying = false; gPaused = false; if (gAudio) { gAudio.pause(); gAudio.src = ''; gAudio = null; } }
-function pauseGoogleTTS()  { if (gAudio && gPlaying && !gPaused)  { gAudio.pause(); gPaused = true; } }
-function resumeGoogleTTS() { if (gAudio && gPaused) { gAudio.play(); gPaused = false; } }
 
 btnTtsToggle.addEventListener('click', () => {
   const isOpen = ttsPanel.classList.contains('open');
@@ -1185,13 +1133,7 @@ btnTtsToggle.addEventListener('click', () => {
     ttsPanel.classList.add('open');
     btnTtsToggle.classList.add('tts-active');
     btnTtsToggle.setAttribute('aria-pressed', 'true');
-    if (!synth) {
-      ttsStatus.textContent = 'Synthèse vocale non supportée sur ce navigateur.';
-    } else if (!ttsVoiceFr) {
-      ttsStatus.textContent = 'Aucune voix française détectée — tentative avec la voix par défaut.';
-    } else {
-      ttsStatus.textContent = `Prêt · Voix : ${ttsVoiceFr.name}`;
-    }
+    ttsStatus.textContent = synth ? 'Prêt à lire la section courante' : 'Synthèse vocale non supportée.';
   }
 });
 
@@ -1247,39 +1189,57 @@ async function getPageText() {
 }
 
 async function speakCurrentPage() {
-  if (!synth) { ttsStatus.textContent = 'Synthèse vocale non supportée.'; return; }
+  if (!synth) { ttsStatus.textContent = 'Synthèse vocale non supportée sur ce navigateur.'; return; }
   stopTTS();
   ttsStatus.textContent = 'Extraction du texte…';
   ttsPlay.disabled = true;
 
   const text = await getPageText();
   if (!text) {
-    ttsStatus.textContent = 'Texte non accessible. Attendez que la page soit chargée.';
+    ttsStatus.textContent = 'Texte non accessible — attendez que la page soit chargée.';
     ttsPlay.disabled = false;
     return;
   }
 
-  const art = ARTICLES.find(a => a.id === currentArtId);
+  const art       = ARTICLES.find(a => a.id === currentArtId);
   const isEnglish = art && art.en;
-  loadTTSVoices();
+  const lang      = isEnglish ? 'en-US' : 'fr-FR';
 
-  const targetVoice = isEnglish ? ttsVoiceEn : ttsVoiceFr;
-  const wantedLang  = isEnglish ? 'en-US' : 'fr-FR';
+  ttsUtterance      = new SpeechSynthesisUtterance(text);
+  ttsUtterance.lang = lang;
+  ttsUtterance.rate = parseFloat(ttsRate.value);
 
-  const onReadingStart = (voiceName) => {
+  const noVoiceTimer = setTimeout(() => {
+    if (!ttsDidStart) {
+      synth.cancel();
+      ttsPlay.disabled = false;
+      ttsStatus.textContent = lang.startsWith('fr')
+        ? '⚠️ Aucune voix française. Sur macOS : Réglages → Accessibilité → Contenu parlé → télécharger une voix française.'
+        : '⚠️ Aucune voix disponible pour cette langue.';
+    }
+  }, 2000);
+
+  ttsUtterance.onstart = () => {
+    clearTimeout(noVoiceTimer);
     ttsDidStart = true; ttsSpeaking = true; ttsPaused = false;
     const loc = rendition ? rendition.currentLocation() : null;
     const pct = loc?.start ? Math.round(loc.start.percentage * 100) : '—';
-    ttsStatus.textContent = `Lecture — ${pct}% · ${voiceName}`;
+    ttsStatus.textContent = `Lecture — ${pct}% · ${ttsUtterance.voice?.name || lang}`;
     ttsStatus.classList.add('reading');
     ttsPlay.disabled = true; ttsPause.disabled = false; ttsStop.disabled = false;
+    ttsKeepAlive = setInterval(() => {
+      if (synth && ttsSpeaking && !ttsPaused) { synth.pause(); synth.resume(); }
+    }, 10000);
   };
-  const onReadingEnd = () => {
+
+  ttsUtterance.onend = () => {
+    clearTimeout(noVoiceTimer);
     clearInterval(ttsKeepAlive); ttsKeepAlive = null;
+    if (!ttsDidStart) return;
     ttsDidStart = false; ttsSpeaking = false; ttsPaused = false;
     ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
     ttsStatus.classList.remove('reading'); ttsPause.textContent = '⏸ Pause';
-    const loc = rendition ? rendition.currentLocation() : null;
+    const loc   = rendition ? rendition.currentLocation() : null;
     const atEnd = loc ? loc.atEnd : true;
     if (ttsAuto.checked && !atEnd && rendition) {
       rendition.next().then(() => setTimeout(speakCurrentPage, 400));
@@ -1288,54 +1248,29 @@ async function speakCurrentPage() {
     }
   };
 
-  if (synth && targetVoice) {
-    ttsStatus.textContent = 'Démarrage…';
-    ttsUtterance = new SpeechSynthesisUtterance(text);
-    ttsUtterance.voice = targetVoice;
-    ttsUtterance.lang  = targetVoice.lang;
-    ttsUtterance.rate  = parseFloat(ttsRate.value);
-    const fallbackTimer = setTimeout(() => {
-      if (!ttsDidStart) { synth.cancel(); ttsStatus.textContent = 'Voix locale indisponible — voix en ligne…'; useGoogleTTS(); }
-    }, 1500);
-    ttsUtterance.onstart = () => {
-      clearTimeout(fallbackTimer);
-      onReadingStart(targetVoice.name);
-      ttsKeepAlive = setInterval(() => {
-        if (synth && ttsSpeaking && !ttsPaused) { synth.pause(); synth.resume(); }
-      }, 10000);
-    };
-    ttsUtterance.onend = () => { clearTimeout(fallbackTimer); if (ttsDidStart) onReadingEnd(); };
-    ttsUtterance.onerror = e => {
-      clearTimeout(fallbackTimer);
-      if (e.error === 'interrupted' || e.error === 'canceled') return;
-      if (!ttsDidStart) { ttsStatus.textContent = 'Voix locale erreur — voix en ligne…'; useGoogleTTS(); }
-    };
-    synth.speak(ttsUtterance);
-  } else {
-    ttsStatus.textContent = 'Chargement voix en ligne…';
-    useGoogleTTS();
-  }
+  ttsUtterance.onerror = e => {
+    clearTimeout(noVoiceTimer);
+    clearInterval(ttsKeepAlive); ttsKeepAlive = null;
+    if (e.error === 'interrupted' || e.error === 'canceled') return;
+    ttsDidStart = false; ttsSpeaking = false;
+    ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
+    ttsStatus.classList.remove('reading');
+    ttsStatus.textContent = `Erreur : ${e.error}. Vérifiez les paramètres de langue.`;
+  };
 
-  function useGoogleTTS() {
-    ttsPlay.disabled = true;
-    speakWithGoogleTTS(text, wantedLang, {
-      onStart: () => onReadingStart('🌐 Voix en ligne'),
-      onEnd:   onReadingEnd,
-      onError: () => { ttsPlay.disabled = false; ttsStatus.textContent = 'Lecture audio non disponible sur ce navigateur.'; }
-    });
-  }
+  ttsStatus.textContent = 'Démarrage…';
+  synth.speak(ttsUtterance);
 }
 
 function pauseTTS() {
-  if (!ttsSpeaking) return;
+  if (!ttsSpeaking || !synth) return;
   if (!ttsPaused) {
-    if (synth) synth.pause(); pauseGoogleTTS(); ttsPaused = true;
-    clearInterval(ttsKeepAlive); ttsPause.textContent = '▶ Reprendre';
-    ttsStatus.classList.remove('reading');
+    synth.pause(); ttsPaused = true; clearInterval(ttsKeepAlive);
+    ttsPause.textContent = '▶ Reprendre'; ttsStatus.classList.remove('reading');
     const loc = rendition ? rendition.currentLocation() : null;
     ttsStatus.textContent = `En pause — ${loc?.start ? Math.round(loc.start.percentage * 100) : '—'}%`;
   } else {
-    if (synth) synth.resume(); resumeGoogleTTS(); ttsPaused = false;
+    synth.resume(); ttsPaused = false;
     ttsPause.textContent = '⏸ Pause'; ttsStatus.classList.add('reading');
     const loc = rendition ? rendition.currentLocation() : null;
     ttsStatus.textContent = `Lecture — ${loc?.start ? Math.round(loc.start.percentage * 100) : '—'}%`;
@@ -1348,7 +1283,7 @@ function pauseTTS() {
 function stopTTS() {
   clearInterval(ttsKeepAlive); ttsKeepAlive = null;
   ttsDidStart = false; ttsSpeaking = false; ttsPaused = false;
-  if (synth) synth.cancel(); stopGoogleTTS();
+  if (synth) synth.cancel();
   if (ttsPlay)  ttsPlay.disabled  = false;
   if (ttsPause) { ttsPause.disabled = true; ttsPause.textContent = '⏸ Pause'; }
   if (ttsStop)  ttsStop.disabled  = true;
