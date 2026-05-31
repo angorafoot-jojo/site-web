@@ -1570,10 +1570,10 @@ const synth      = window.speechSynthesis || null;
 let ttsUtterance = null;
 let ttsSpeaking  = false;
 let ttsPaused    = false;
-let ttsKeepAlive = null;   // Intervalle anti-bug Chrome
-let ttsDidStart  = false;  // Garde : onstart a-t-il été appelé ?
+let ttsKeepAlive = null;
+let ttsDidStart  = false;
 
-/* ── Chargement des voix (asynchrone dans Chrome) ── */
+/* ── Chargement des voix locales ─────────────── */
 let ttsVoiceFr = null;
 let ttsVoiceEn = null;
 
@@ -1586,13 +1586,66 @@ function loadTTSVoices() {
             || voices.find(v => v.lang.startsWith('en'))
             || null;
 }
-
 if (synth) {
   loadTTSVoices();
-  // Chrome charge les voix de façon asynchrone — on écoute l'événement
-  if (typeof synth.onvoiceschanged !== 'undefined') {
-    synth.onvoiceschanged = loadTTSVoices;
+  if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = loadTTSVoices;
+}
+
+/* ── Google Translate TTS — fallback cloud, gratuit, universel ── */
+let gAudio    = null;   // Audio element courant
+let gPlaying  = false;  // En cours de lecture
+let gPaused   = false;  // En pause
+
+function splitText(text, maxLen = 180) {
+  /* Découpe le texte en morceaux ≤ maxLen sans couper les mots */
+  const chunks = [];
+  let rem = text.trim();
+  while (rem.length > 0) {
+    if (rem.length <= maxLen) { chunks.push(rem); break; }
+    const slice = rem.substring(0, maxLen);
+    let cut = Math.max(slice.lastIndexOf('. '), slice.lastIndexOf('? '), slice.lastIndexOf('! '));
+    if (cut > maxLen * 0.4) cut += 2;
+    else { const c = slice.lastIndexOf(', '); cut = (c > maxLen * 0.4) ? c + 2 : (slice.lastIndexOf(' ') || maxLen); }
+    chunks.push(rem.substring(0, cut).trim());
+    rem = rem.substring(cut).trim();
   }
+  return chunks.filter(c => c.length > 0);
+}
+
+function gTtsUrl(text, lang) {
+  const tl = lang.startsWith('fr') ? 'fr' : lang.startsWith('en') ? 'en' : 'fr';
+  return `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=${tl}&client=tw-ob&ttsspeed=0.9`;
+}
+
+async function speakWithGoogleTTS(text, lang, { onStart, onEnd, onError }) {
+  const chunks = splitText(text);
+  gPlaying = true; gPaused = false;
+  if (onStart) onStart();
+  for (let i = 0; i < chunks.length; i++) {
+    if (!gPlaying) break;
+    await new Promise((res, rej) => {
+      gAudio = new Audio(gTtsUrl(chunks[i], lang));
+      gAudio.onended = res;
+      gAudio.onerror = () => gPlaying ? rej(new Error('gTTS audio error')) : res();
+      gAudio.play().catch(rej);
+    }).catch(e => { gPlaying = false; if (onError) onError(e); });
+    /* Petite pause entre les morceaux */
+    if (gPlaying && i < chunks.length - 1) await new Promise(x => setTimeout(x, 80));
+  }
+  if (gPlaying && onEnd) onEnd();
+  gPlaying = false;
+}
+
+function stopGoogleTTS() {
+  gPlaying = false; gPaused = false;
+  if (gAudio) { gAudio.pause(); gAudio.src = ''; gAudio = null; }
+}
+
+function pauseGoogleTTS() {
+  if (gAudio && gPlaying && !gPaused) { gAudio.pause(); gPaused = true; }
+}
+function resumeGoogleTTS() {
+  if (gAudio && gPaused) { gAudio.play(); gPaused = false; }
 }
 
 /* ── Toggle TTS panel ────────────────────────── */
@@ -1692,150 +1745,119 @@ async function speakCurrentPage() {
   const targetVoice = isEnglish ? ttsVoiceEn : ttsVoiceFr;
   const wantedLang  = isEnglish ? 'en-US' : 'fr-FR';
 
-  /* Fonction qui construit et lance une utterance.
-     firstTry=true → avec voix explicite (fr-FR ou fr-CA)
-     firstTry=false → sans voix explicite, juste lang (fallback si mismatch) */
-  const launchUtterance = (firstTry) => {
-    ttsUtterance = new SpeechSynthesisUtterance(text);
-    ttsUtterance.rate = parseFloat(ttsRate.value);
-
-    if (firstTry && targetVoice) {
-      ttsUtterance.voice = targetVoice;
-      // Utiliser la lang RÉELLE de la voix pour éviter le mismatch (ex: fr-CA ≠ fr-FR)
-      ttsUtterance.lang = targetVoice.lang;
+  /* ── Helpers UI ── */
+  const onReadingStart = (voiceName) => {
+    ttsDidStart = true; ttsSpeaking = true; ttsPaused = false;
+    const loc = rendition ? rendition.currentLocation() : null;
+    const pct = loc?.start ? Math.round(loc.start.percentage * 100) : '—';
+    ttsStatus.textContent = `Lecture — ${pct}% · ${voiceName}`;
+    ttsStatus.classList.add('reading');
+    ttsPlay.disabled = true; ttsPause.disabled = false; ttsStop.disabled = false;
+  };
+  const onReadingEnd = () => {
+    clearInterval(ttsKeepAlive); ttsKeepAlive = null;
+    ttsDidStart = false; ttsSpeaking = false; ttsPaused = false;
+    ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
+    ttsStatus.classList.remove('reading'); ttsPause.textContent = '⏸ Pause';
+    const loc = rendition ? rendition.currentLocation() : null;
+    const atEnd = loc ? loc.atEnd : true;
+    if (ttsAuto.checked && !atEnd && rendition) {
+      rendition.next().then(() => setTimeout(speakCurrentPage, 400));
     } else {
-      // Fallback : pas de voix explicite, le navigateur choisit
-      ttsUtterance.lang = wantedLang;
+      ttsStatus.textContent = atEnd ? 'Lecture terminée.' : 'Prêt à lire la section courante';
     }
+  };
 
-    // Timeout : si onstart ne se déclenche pas en 1,5s, retry sans voix explicite
-    let startTimeout = null;
-    if (firstTry) {
-      startTimeout = setTimeout(() => {
-        if (!ttsDidStart) {
-          synth.cancel();
-          ttsStatus.textContent = 'Voix indisponible, tentative sans voix explicite…';
-          launchUtterance(false); // retry
-        }
-      }, 1500);
-    }
+  /* ── Tentative 1 : Web Speech API avec voix locale ── */
+  if (synth && targetVoice) {
+    ttsStatus.textContent = 'Démarrage…';
+    ttsUtterance = new SpeechSynthesisUtterance(text);
+    ttsUtterance.voice = targetVoice;
+    ttsUtterance.lang  = targetVoice.lang;
+    ttsUtterance.rate  = parseFloat(ttsRate.value);
+
+    /* Timeout 1,5s : si onstart ne se déclenche pas → fallback Google TTS */
+    const fallbackTimer = setTimeout(() => {
+      if (!ttsDidStart) {
+        synth.cancel();
+        ttsStatus.textContent = 'Voix locale indisponible — chargement voix en ligne…';
+        useGoogleTTS();
+      }
+    }, 1500);
 
     ttsUtterance.onstart = () => {
-      if (startTimeout) clearTimeout(startTimeout);
-      ttsDidStart = true;
-      ttsSpeaking = true; ttsPaused = false;
-      const loc = rendition ? rendition.currentLocation() : null;
-      const pct = loc && loc.start ? Math.round(loc.start.percentage * 100) : '—';
-      const voiceName = ttsUtterance.voice?.name || wantedLang;
-      ttsStatus.textContent = `Lecture — ${pct}% · ${voiceName}`;
-      ttsStatus.classList.add('reading');
-      ttsPlay.disabled = true; ttsPause.disabled = false; ttsStop.disabled = false;
-
-      // Anti-bug Chrome : la synthèse s'arrête silencieusement après ~15s
+      clearTimeout(fallbackTimer);
+      onReadingStart(targetVoice.name);
       ttsKeepAlive = setInterval(() => {
-        if (synth && ttsSpeaking && !ttsPaused) {
-          synth.pause();
-          synth.resume();
-        }
+        if (synth && ttsSpeaking && !ttsPaused) { synth.pause(); synth.resume(); }
       }, 10000);
     };
-
-    ttsUtterance.onend = () => {
-      if (startTimeout) clearTimeout(startTimeout);
-      clearInterval(ttsKeepAlive);
-      ttsKeepAlive = null;
-      const didStart = ttsDidStart;
-      ttsDidStart = false;
-      ttsSpeaking = false; ttsPaused = false;
-      ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
-      ttsStatus.classList.remove('reading');
-      ttsPause.textContent = '⏸ Pause';
-
-      if (!didStart && firstTry) {
-        // onstart jamais appelé en première tentative → retry sans voix explicite
-        ttsStatus.textContent = 'Voix indisponible, tentative sans voix explicite…';
-        setTimeout(() => launchUtterance(false), 200);
-        return;
-      }
-      if (!didStart) {
-        ttsStatus.textContent = 'Lecture audio impossible sur ce navigateur.';
-        return;
-      }
-
-      const loc   = rendition ? rendition.currentLocation() : null;
-      const atEnd = loc ? loc.atEnd : true;
-      if (ttsAuto.checked && !atEnd && rendition) {
-        rendition.next().then(() => setTimeout(speakCurrentPage, 400));
-      } else {
-        ttsStatus.textContent = atEnd ? 'Lecture terminée.' : 'Prêt à lire la section courante';
-      }
-    };
-
+    ttsUtterance.onend = () => { clearTimeout(fallbackTimer); if (ttsDidStart) onReadingEnd(); };
     ttsUtterance.onerror = e => {
-      if (startTimeout) clearTimeout(startTimeout);
-      clearInterval(ttsKeepAlive);
-      ttsKeepAlive = null;
+      clearTimeout(fallbackTimer);
       if (e.error === 'interrupted' || e.error === 'canceled') return;
-      ttsSpeaking = false;
-      ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
-      ttsStatus.classList.remove('reading');
-      if (firstTry && !ttsDidStart) {
-        // Erreur en première tentative → retry sans voix
-        ttsStatus.textContent = `Voix indisponible (${e.error}), retry…`;
-        setTimeout(() => launchUtterance(false), 200);
-      } else {
-        ttsStatus.textContent = `Erreur audio : ${e.error || 'inconnue'}`;
-      }
-      ttsPause.textContent = '⏸ Pause';
+      if (!ttsDidStart) { ttsStatus.textContent = `Voix locale erreur — chargement voix en ligne…`; useGoogleTTS(); }
     };
-
     synth.speak(ttsUtterance);
-  }; // fin launchUtterance
+  } else {
+    /* Pas de voix locale : aller directement à Google TTS */
+    ttsStatus.textContent = 'Chargement voix en ligne…';
+    useGoogleTTS();
+  }
 
-  ttsStatus.textContent = 'Démarrage…';
-  launchUtterance(true); // première tentative avec voix explicite
+  /* ── Tentative 2 (fallback) : Google Translate TTS — marche partout ── */
+  function useGoogleTTS() {
+    ttsPlay.disabled = true;
+    speakWithGoogleTTS(text, wantedLang, {
+      onStart: () => onReadingStart('🌐 Voix en ligne'),
+      onEnd:   onReadingEnd,
+      onError: (e) => {
+        console.warn('Google TTS error:', e);
+        ttsPlay.disabled = false;
+        ttsStatus.textContent = 'Lecture audio non disponible sur ce navigateur.';
+      }
+    });
+  }
 }
 
-/* ── Pause / Reprendre ───────────────────────── */
+/* ── Pause / Reprendre (Web Speech + Google TTS) ── */
 function pauseTTS() {
-  if (!synth) return;
-  if (ttsSpeaking && !ttsPaused) {
-    synth.pause(); ttsPaused = true;
+  if (!ttsSpeaking) return;
+  if (!ttsPaused) {
+    if (synth) synth.pause();
+    pauseGoogleTTS();
+    ttsPaused = true;
     clearInterval(ttsKeepAlive);
     ttsPause.textContent = '▶ Reprendre';
     ttsStatus.classList.remove('reading');
     const loc = rendition ? rendition.currentLocation() : null;
-    const pct = loc && loc.start ? Math.round(loc.start.percentage * 100) : '—';
+    const pct = loc?.start ? Math.round(loc.start.percentage * 100) : '—';
     ttsStatus.textContent = `En pause — ${pct}%`;
-  } else if (ttsPaused) {
-    synth.resume(); ttsPaused = false;
+  } else {
+    if (synth) synth.resume();
+    resumeGoogleTTS();
+    ttsPaused = false;
     ttsPause.textContent = '⏸ Pause';
     ttsStatus.classList.add('reading');
     const loc = rendition ? rendition.currentLocation() : null;
-    const pct = loc && loc.start ? Math.round(loc.start.percentage * 100) : '—';
+    const pct = loc?.start ? Math.round(loc.start.percentage * 100) : '—';
     ttsStatus.textContent = `Lecture — ${pct}%`;
-    // Relancer le keepalive après reprise
     ttsKeepAlive = setInterval(() => {
       if (synth && ttsSpeaking && !ttsPaused) { synth.pause(); synth.resume(); }
     }, 10000);
   }
 }
 
-/* ── Arrêter ─────────────────────────────────── */
+/* ── Arrêter (Web Speech + Google TTS) ──────── */
 function stopTTS() {
-  if (!synth) return;
-  clearInterval(ttsKeepAlive);
-  ttsKeepAlive = null;
-  ttsDidStart = false;
-  synth.cancel();
-  ttsSpeaking = false; ttsPaused = false;
+  clearInterval(ttsKeepAlive); ttsKeepAlive = null;
+  ttsDidStart = false; ttsSpeaking = false; ttsPaused = false;
+  if (synth) synth.cancel();
+  stopGoogleTTS();
   if (ttsPlay)   ttsPlay.disabled   = false;
   if (ttsPause)  { ttsPause.disabled = true; ttsPause.textContent = '⏸ Pause'; }
   if (ttsStop)   ttsStop.disabled   = true;
-  if (ttsStatus) {
-    ttsStatus.classList.remove('reading');
-    ttsStatus.textContent = 'Prêt à lire la section courante';
-  }
+  if (ttsStatus) { ttsStatus.classList.remove('reading'); ttsStatus.textContent = 'Prêt à lire la section courante'; }
 }
 
 ttsRate.addEventListener('change', () => { if (ttsSpeaking) speakCurrentPage(); });
