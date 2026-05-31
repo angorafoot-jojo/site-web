@@ -1166,9 +1166,7 @@ btnTtsToggle.addEventListener('click', () => {
 
 /* ── Extraction du texte de la section courante ─ */
 async function getPageText() {
-  if (!rendition || !epubBook) return '';
-
-  // Méthode 0 : accès direct à l'iframe dans le DOM (le plus fiable)
+  // Méthode 0 : accès direct à l'iframe dans le DOM — ne nécessite pas rendition
   try {
     const iframe = document.querySelector('#epub-viewer iframe');
     if (iframe) {
@@ -1180,6 +1178,9 @@ async function getPageText() {
       }
     }
   } catch(e) {}
+
+  // Les méthodes suivantes nécessitent rendition et epubBook
+  if (!rendition || !epubBook) return '';
 
   // Méthode 1 : via l'API epub.js getContents()
   try {
