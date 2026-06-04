@@ -304,19 +304,20 @@ def pick_bible_sequential(
     bible_books: dict[str, list[MediaItem]],
     target_seconds: int,
     used_books_cycle: set[str],
-    avoid_paths: set[str],
+    bible_progress: dict[str, int],
+    message_path: str = "",
 ) -> tuple[list[MediaItem], int, str]:
     """
-    Choisit un livre Bible non encore utilisé ce cycle, puis lit ses chapitres
-    dans l'ordre jusqu'à atteindre la durée cible.
+    Choisit un livre Bible non encore utilisé ce cycle, reprend là où on
+    s'était arrêté (bible_progress[livre] = index du prochain fichier à lire),
+    lit les chapitres dans l'ordre jusqu'à la durée cible, puis enchaîne avec
+    un autre livre si nécessaire.
 
-    Si le livre se termine avant la cible, enchaîne avec un autre livre.
+    Met à jour bible_progress en place.
     Retourne (fichiers_sélectionnés, durée_totale, nom_du_premier_livre).
     """
-    # Livres disponibles : préférer ceux non utilisés ce cycle
     preferred = [b for b in bible_books if b not in used_books_cycle]
     others    = [b for b in bible_books if b in used_books_cycle]
-
     random.shuffle(preferred)
     random.shuffle(others)
     book_order = preferred + others
@@ -327,29 +328,35 @@ def pick_bible_sequential(
 
     for book_name in book_order:
         chapters = bible_books[book_name]
-        for item in chapters:
-            if item.path in avoid_paths:
-                continue
+        next_idx = bible_progress.get(book_name, 0)
+
+        # Si on a déjà tout lu, on repart du début
+        if next_idx >= len(chapters):
+            next_idx = 0
+
+        reading_slice = chapters[next_idx:]
+
+        for local_i, item in enumerate(reading_slice):
+            if item.path == message_path:
+                continue  # Ne jamais inclure le message du jour dans la Bible
             selected.append(item)
             total += item.length
             if first_book is None:
                 first_book = book_name
+
+            # Prochain index après ce fichier
+            new_idx = next_idx + local_i + 1
+            if new_idx >= len(chapters):
+                new_idx = 0  # Livre terminé → repartira du début la prochaine fois
+                print(f"  ✅ Livre '{book_name}' terminé — progression remise à zéro")
+            bible_progress[book_name] = new_idx
+
             if total >= target_seconds:
                 return selected, total, first_book
 
-    # Fallback : si toujours sous la cible, on ignore avoid_paths et on complète
-    if total < target_seconds:
-        used_paths = {i.path for i in selected}
-        for book_name in book_order:
-            for item in bible_books[book_name]:
-                if item.path not in used_paths:
-                    selected.append(item)
-                    total += item.length
-                    if first_book is None:
-                        first_book = book_name
-                    if total >= target_seconds:
-                        return selected, total, first_book or "inconnue"
+        # Livre épuisé avant d'atteindre la cible → on enchaîne avec un autre
 
+    # Fallback extrême : bibliothèque insuffisante
     if total < target_seconds:
         print(f"AVERTISSEMENT: Bible insuffisante: {seconds_to_hms(total)} / {seconds_to_hms(target_seconds)}")
 
@@ -407,12 +414,12 @@ def build_full_cycle(
     bible_books: dict[str, list[MediaItem]],
     jingle_categories: dict[str, list[MediaItem]],
     used_music_global: set[str],
-    used_bible_global: set[str],
+    bible_progress: dict[str, int],
 ):
     playlist_paths = []
     debug_blocks = []
     used_music_cycle = set()
-    used_bible_books_cycle: set[str] = set()   # livres déjà utilisés dans ce bloc
+    used_bible_books_cycle: set[str] = set()
     used_jingles_cycle = set()
     previous_jingle = None
     total_duration_without_message = 0
@@ -448,13 +455,12 @@ def build_full_cycle(
 
         if block_type == "bible":
             target_seconds = param
-            avoid = used_bible_global | {message.path}
             selected, duration, starting_book = pick_bible_sequential(
-                bible_books, target_seconds, used_bible_books_cycle, avoid
+                bible_books, target_seconds, used_bible_books_cycle,
+                bible_progress, message.path,
             )
             for item in selected:
                 playlist_paths.append(item.path)
-                used_bible_global.add(item.path)
             used_bible_books_cycle.add(starting_book)
             total_duration_without_message += duration
             books_in_slot = list(dict.fromkeys(
@@ -646,7 +652,8 @@ def main() -> None:
     }
 
     used_music_global: set[str] = set()
-    used_bible_global: set[str] = set()
+    bible_progress: dict[str, int] = state.get("bible_progress", {})
+    print(f"Progression Bible chargée: {len(bible_progress)} livre(s) en cours")
 
     for block_name, playlist_id in block_playlists:
         print(f"\n===== Construction {block_name} =====")
@@ -657,7 +664,7 @@ def main() -> None:
             bible_books=bible_books,
             jingle_categories=jingle_categories,
             used_music_global=used_music_global,
-            used_bible_global=used_bible_global,
+            bible_progress=bible_progress,
         )
         print_debug_summary(debug)
         all_debug["blocks"].append(debug)
@@ -677,6 +684,8 @@ def main() -> None:
         else:
             print(f"AVERTISSEMENT: Redémarrage AutoDJ échoué (status {restart_resp.status_code}). Les blocs peuvent reprendre en cours de route.")
 
+        # Nettoyer la progression : supprimer les livres remis à 0 pour alléger le fichier
+        bible_progress_clean = {k: v for k, v in bible_progress.items() if v > 0}
         save_json(state_path, {
             "episode_index": next_index,
             "last_run_date": today,
@@ -685,8 +694,10 @@ def main() -> None:
             "active_path": ep.path,
             "total_episodes": len(episodes),
             "block_playlists": BLOCK_PLAYLISTS,
+            "bible_progress": bible_progress_clean,
         })
         print("État sauvegardé:", state_path)
+        print(f"Progression Bible sauvegardée: {len(bible_progress_clean)} livre(s) en cours")
 
     print("Terminé.")
 

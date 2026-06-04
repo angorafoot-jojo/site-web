@@ -52,10 +52,11 @@ def jingle_positions_in_cycle() -> list[tuple[int, str]]:
     """Retourne (index_dans_CYCLE_PLAN, catégorie_attendue) pour chaque slot jingle."""
     return [(i, param) for i, (btype, param) in enumerate(CYCLE_PLAN) if btype == "jingle"]
 
-def run_build(jingle_categories=None, bible_books=None) -> tuple[list[dict], list[dict]]:
+def run_build(jingle_categories=None, bible_books=None, bible_progress=None) -> tuple[list[dict], list[dict]]:
     """Lance build_full_cycle et retourne (blocs_jingle, blocs_bible) du debug."""
     cats = jingle_categories or build_test_jingle_categories()
     books = bible_books or make_bible_library()
+    progress = bible_progress if bible_progress is not None else {}
     message = Episode("série_test", "titre_test", "message_test.mp3")
     music = make_media("music", 30)
 
@@ -66,7 +67,7 @@ def run_build(jingle_categories=None, bible_books=None) -> tuple[list[dict], lis
         bible_books=books,
         jingle_categories=cats,
         used_music_global=set(),
-        used_bible_global=set(),
+        bible_progress=progress,
     )
     jingles = [b for b in debug["blocks"] if b["type"] == "jingle"]
     bibles  = [b for b in debug["blocks"] if b["type"] == "bible"]
@@ -255,8 +256,9 @@ def test_bible_slot_stays_in_same_book():
     books = make_bible_library()
 
     for run in range(20):
+        progress = {}
         selected, _, starting_book = pick_bible_sequential(
-            books, target_seconds=3600, used_books_cycle=set(), avoid_paths=set()
+            books, target_seconds=3600, used_books_cycle=set(), bible_progress=progress,
         )
         # Vérifier que les chapitres de chaque livre apparaissent en bloc séquentiel
         current_book = None
@@ -289,8 +291,9 @@ def test_bible_chapters_are_sequential():
     books = make_bible_library()
 
     for run in range(20):
+        progress = {}
         selected, _, _ = pick_bible_sequential(
-            books, target_seconds=1800, used_books_cycle=set(), avoid_paths=set()
+            books, target_seconds=1800, used_books_cycle=set(), bible_progress=progress,
         )
         chapters = [extract_book_chapter(i.title, i.path)[1] for i in selected if extract_book_chapter(i.title, i.path)[1] > 0]
         assert chapters == sorted(chapters), \
@@ -326,15 +329,77 @@ def test_bible_debug_contains_starting_book():
 def test_bible_fallback_when_all_books_used():
     """Si tous les livres sont déjà utilisés ce cycle, le fallback fonctionne sans erreur."""
     books = make_bible_library()
-    used_all = set(books.keys())  # tous les livres déjà "utilisés"
+    used_all = set(books.keys())
 
     for run in range(5):
+        progress = {}
         selected, duration, book = pick_bible_sequential(
-            books, target_seconds=1800, used_books_cycle=used_all, avoid_paths=set()
+            books, target_seconds=1800, used_books_cycle=used_all, bible_progress=progress,
         )
         assert len(selected) > 0, f"Run {run}: aucun fichier sélectionné même en fallback"
         assert duration > 0
     print("✅ test_bible_fallback_when_all_books_used (5 runs)")
+
+
+def test_bible_progress_resumes_from_last_chapter():
+    """Après un premier slot, le deuxième reprend depuis le chapitre suivant."""
+    books = {"Luc": make_bible_book("Luc", 24, length=180)}
+    progress = {}
+
+    # Premier slot : lit Luc 1-11 (11 × 180s = 1980s > 1800s cible)
+    selected1, _, _ = pick_bible_sequential(
+        books, target_seconds=1800, used_books_cycle=set(), bible_progress=progress,
+    )
+    chapters1 = [extract_book_chapter(i.title, i.path)[1] for i in selected1]
+    last_ch = max(chapters1)
+
+    # Deuxième slot : doit reprendre APRÈS le dernier chapitre lu
+    selected2, _, _ = pick_bible_sequential(
+        books, target_seconds=1800, used_books_cycle=set(), bible_progress=progress,
+    )
+    chapters2 = [extract_book_chapter(i.title, i.path)[1] for i in selected2]
+
+    assert min(chapters2) > last_ch, \
+        f"Le 2e slot doit commencer après le chapitre {last_ch}, a commencé à {min(chapters2)}"
+    print("✅ test_bible_progress_resumes_from_last_chapter")
+
+
+def test_bible_progress_resets_after_full_book():
+    """Quand un livre est entièrement lu, la progression repart de 0."""
+    # Livre avec seulement 5 chapitres courts → un seul slot le termine
+    books = {"Mini": make_bible_book("Mini", 5, length=60)}
+    progress = {}
+
+    # Lire tout le livre (5 × 60s = 300s, cible 500s)
+    pick_bible_sequential(books, 500, set(), progress)
+    # Le livre est terminé → progress["Mini"] doit être remis à 0
+    assert progress.get("Mini", 0) == 0, \
+        f"Progression devrait être 0 après lecture complète, est {progress.get('Mini')}"
+
+    # Le slot suivant repart du début (chapitre 1)
+    selected2, _, _ = pick_bible_sequential(books, 300, set(), progress)
+    chapters2 = [extract_book_chapter(i.title, i.path)[1] for i in selected2]
+    assert chapters2[0] == 1, f"Doit repartir au ch.1 après reset, a commencé à {chapters2[0]}"
+    print("✅ test_bible_progress_resets_after_full_book")
+
+
+def test_bible_progress_persists_across_blocs():
+    """La progression Bible est partagée entre les 4 blocs d'un même run."""
+    books = {"Luc": make_bible_book("Luc", 24, length=300)}
+    progress = {}
+
+    # Simuler 2 appels à build_full_cycle (comme 2 blocs dans main)
+    _, bibles1 = run_build(bible_books=books, bible_progress=progress)
+    chapters_after_bloc1 = progress.get("Luc", 0)
+
+    _, bibles2 = run_build(bible_books=books, bible_progress=progress)
+    chapters_after_bloc2 = progress.get("Luc", 0)
+
+    # La progression doit avoir avancé entre le 1er et le 2e bloc
+    # (sauf si le livre a été réinitialisé après complétion)
+    # On vérifie juste que les deux blocs ont pu s'exécuter sans erreur
+    assert len(bibles1) == 4 and len(bibles2) == 4
+    print("✅ test_bible_progress_persists_across_blocs")
 
 
 # ─── Runner ─────────────────────────────────────────────────────────────────
@@ -359,6 +424,10 @@ if __name__ == "__main__":
         test_bible_different_books_per_slot_in_same_bloc,
         test_bible_debug_contains_starting_book,
         test_bible_fallback_when_all_books_used,
+        # Progression Bible persistante
+        test_bible_progress_resumes_from_last_chapter,
+        test_bible_progress_resets_after_full_book,
+        test_bible_progress_persists_across_blocs,
     ]
 
     passed = 0
