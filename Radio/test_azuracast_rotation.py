@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from azuracast_rotation_4_blocs import (
     Episode, MediaItem, CYCLE_PLAN,
     categorize_jingles, pick_jingle_from_category, build_full_cycle,
+    extract_book_chapter, group_bible_by_book, pick_bible_sequential,
 )
 
 
@@ -21,6 +22,23 @@ def make_jingle(path: str, length: int = 5) -> MediaItem:
 
 def make_media(prefix: str, n: int, length: int = 300) -> list[MediaItem]:
     return [MediaItem(id=i, path=f"{prefix}_{i}.mp3", title=f"{prefix} {i}", length=length, source=prefix) for i in range(n)]
+
+def make_bible_book(book: str, n_chapters: int, length: int = 600) -> list[MediaItem]:
+    """Crée n_chapters fichiers pour un livre biblique, avec titre 'BookName N'."""
+    return [
+        MediaItem(id=abs(hash(f"{book}_{c}")), path=f"Bible/{book.lower()}_{c}.mp3",
+                  title=f"{book} {c}", length=length, source="bible")
+        for c in range(1, n_chapters + 1)
+    ]
+
+def make_bible_library() -> dict[str, list[MediaItem]]:
+    """Bibliothèque de test avec plusieurs livres."""
+    books = {}
+    for name, chapters in [("Luc", 24), ("Jean", 21), ("Actes", 28),
+                             ("Romains", 16), ("Matthieu", 28), ("Marc", 16)]:
+        files = make_bible_book(name, chapters, length=180)
+        books[name] = files
+    return books
 
 def build_test_jingle_categories() -> dict:
     return {
@@ -34,23 +52,25 @@ def jingle_positions_in_cycle() -> list[tuple[int, str]]:
     """Retourne (index_dans_CYCLE_PLAN, catégorie_attendue) pour chaque slot jingle."""
     return [(i, param) for i, (btype, param) in enumerate(CYCLE_PLAN) if btype == "jingle"]
 
-def run_build(jingle_categories=None) -> list[dict]:
-    """Lance build_full_cycle et retourne uniquement les blocs de type jingle du debug."""
+def run_build(jingle_categories=None, bible_books=None) -> tuple[list[dict], list[dict]]:
+    """Lance build_full_cycle et retourne (blocs_jingle, blocs_bible) du debug."""
     cats = jingle_categories or build_test_jingle_categories()
+    books = bible_books or make_bible_library()
     message = Episode("série_test", "titre_test", "message_test.mp3")
     music = make_media("music", 30)
-    bible = make_media("bible", 40, length=200)
 
     _, debug = build_full_cycle(
         block_name="BLOC_TEST",
         message=message,
         music_files=music,
-        bible_files=bible,
+        bible_books=books,
         jingle_categories=cats,
         used_music_global=set(),
         used_bible_global=set(),
     )
-    return [b for b in debug["blocks"] if b["type"] == "jingle"]
+    jingles = [b for b in debug["blocks"] if b["type"] == "jingle"]
+    bibles  = [b for b in debug["blocks"] if b["type"] == "bible"]
+    return jingles, bibles
 
 
 # ─── Tests ──────────────────────────────────────────────────────────────────
@@ -77,7 +97,7 @@ def test_first_jingle_is_avant_message():
     avant_message_paths = {j.path for j in cats["avant_message"]}
 
     for run in range(20):  # 20 tirages aléatoires
-        jingles = run_build(cats)
+        jingles, _ = run_build(cats)
         first = jingles[0]
         assert first["path"] in avant_message_paths, \
             f"Run {run}: jingle avant_message incorrect → {first['path']}"
@@ -94,7 +114,7 @@ def test_jingles_before_bible_are_avant_bible():
     expected_cats = [param for btype, param in CYCLE_PLAN if btype == "jingle"]
 
     for run in range(20):
-        jingles = run_build(cats)
+        jingles, _ = run_build(cats)
         for idx, jingle_block in enumerate(jingles):
             cat = expected_cats[idx]
             if cat == "avant_bible":
@@ -112,7 +132,7 @@ def test_jingles_before_louange_are_avant_louange():
     expected_cats = [param for btype, param in CYCLE_PLAN if btype == "jingle"]
 
     for run in range(20):
-        jingles = run_build(cats)
+        jingles, _ = run_build(cats)
         for idx, jingle_block in enumerate(jingles):
             cat = expected_cats[idx]
             if cat == "avant_louange":
@@ -134,7 +154,7 @@ def test_fallback_when_category_empty():
     fallback_paths = {j.path for j in cats["transition"]}
 
     for run in range(5):
-        jingles = run_build(cats)
+        jingles, _ = run_build(cats)
         assert len(jingles) == 9, f"Attendu 9 jingles, trouvé {len(jingles)}"
         for jb in jingles:
             assert jb["path"] in fallback_paths, \
@@ -169,7 +189,7 @@ def test_no_consecutive_duplicate_jingle():
     """Deux jingles consécutifs dans un bloc ne doivent pas être identiques."""
     cats = build_test_jingle_categories()
     for run in range(10):
-        jingles = run_build(cats)
+        jingles, _ = run_build(cats)
         paths = [j["path"] for j in jingles]
         for i in range(len(paths) - 1):
             assert paths[i] != paths[i + 1], \
@@ -181,15 +201,147 @@ def test_debug_output_contains_category():
     """Le debug de chaque bloc jingle doit contenir le champ 'category'."""
     cats = build_test_jingle_categories()
     jingles = run_build(cats)
+    jingles, _ = run_build(cats)
     for jb in jingles:
         assert "category" in jb, f"Champ 'category' manquant dans le debug: {jb}"
     print("✅ test_debug_output_contains_category")
+
+
+# ─── Tests Bible séquentielle ────────────────────────────────────────────────
+
+def test_extract_book_chapter_formats():
+    """extract_book_chapter reconnaît les 3 formats de nommage."""
+    cases = [
+        ("Lévitique 21", "Bible/luc.mp3", "Lévitique", 21),
+        ("2 Chroniques 24", "Bible/x.mp3", "2 Chroniques", 24),
+        ("Esther 5", "Bible/x.mp3", "Esther", 5),
+        ("Bible_fr_06_joshua_016", "Bible/Bible_fr_06_joshua_016.mp3", "Joshua", 16),
+        ("Bible_fr_01_gen_008", "Bible/Bible_fr_01_gen_008.mp3", "Gen", 8),
+        ("Matthieu", "Bible/matthieu.mp3", "Matthieu", 0),
+        ("1 Corinthiens", "Bible/x.mp3", "1 Corinthiens", 0),
+        ("2 Chronicles", "Bible/x.mp3", "2 Chronicles", 0),
+        ("La Bible", "Bible/x.mp3", "La Bible", 0),
+    ]
+    for title, path, expected_book, expected_ch in cases:
+        book, ch = extract_book_chapter(title, path)
+        assert book == expected_book, f"Titre '{title}': attendu livre '{expected_book}', obtenu '{book}'"
+        assert ch == expected_ch, f"Titre '{title}': attendu chapitre {expected_ch}, obtenu {ch}"
+    print("✅ test_extract_book_chapter_formats")
+
+
+def test_group_bible_by_book_sorts_chapters():
+    """group_bible_by_book trie les chapitres dans l'ordre."""
+    files = [
+        MediaItem(1, "Bible/luc_3.mp3", "Luc 3", 180, "bible"),
+        MediaItem(2, "Bible/luc_1.mp3", "Luc 1", 180, "bible"),
+        MediaItem(3, "Bible/luc_2.mp3", "Luc 2", 180, "bible"),
+        MediaItem(4, "Bible/jean_1.mp3", "Jean 1", 180, "bible"),
+    ]
+    books = group_bible_by_book(files)
+    assert "Luc" in books
+    assert "Jean" in books
+    luc_titles = [i.title for i in books["Luc"]]
+    assert luc_titles == ["Luc 1", "Luc 2", "Luc 3"], f"Ordre incorrect: {luc_titles}"
+    print("✅ test_group_bible_by_book_sorts_chapters")
+
+
+def test_bible_slot_stays_in_same_book():
+    """
+    Dans un slot Bible, les chapitres d'un même livre sont toujours groupés
+    et lus dans l'ordre — pas de mélange aléatoire entre livres.
+    Si un livre finit avant la durée cible, le suivant commence depuis son ch.1.
+    """
+    # Chapitres courts (180s) → plusieurs livres peuvent se succéder dans un slot de 60min
+    books = make_bible_library()
+
+    for run in range(20):
+        selected, _, starting_book = pick_bible_sequential(
+            books, target_seconds=3600, used_books_cycle=set(), avoid_paths=set()
+        )
+        # Vérifier que les chapitres de chaque livre apparaissent en bloc séquentiel
+        current_book = None
+        current_chapter = -1
+        seen_books: list[str] = []
+
+        for item in selected:
+            book, chapter = extract_book_chapter(item.title, item.path)
+            if book != current_book:
+                # Changement de livre : doit aller de l'avant (pas de retour en arrière)
+                assert book not in seen_books, \
+                    f"Run {run}: le livre '{book}' réapparaît après avoir été interrompu"
+                seen_books.append(book)
+                current_book = book
+                current_chapter = chapter
+            else:
+                # Même livre : le chapitre doit progresser
+                if chapter > 0:
+                    assert chapter >= current_chapter, \
+                        f"Run {run}: chapitre {chapter} avant {current_chapter} dans {book}"
+                    current_chapter = chapter
+
+        assert starting_book == seen_books[0], \
+            f"Run {run}: starting_book '{starting_book}' ≠ premier livre '{seen_books[0]}'"
+    print("✅ test_bible_slot_stays_in_same_book (20 runs)")
+
+
+def test_bible_chapters_are_sequential():
+    """Les chapitres dans un slot doivent être dans l'ordre croissant."""
+    books = make_bible_library()
+
+    for run in range(20):
+        selected, _, _ = pick_bible_sequential(
+            books, target_seconds=1800, used_books_cycle=set(), avoid_paths=set()
+        )
+        chapters = [extract_book_chapter(i.title, i.path)[1] for i in selected if extract_book_chapter(i.title, i.path)[1] > 0]
+        assert chapters == sorted(chapters), \
+            f"Run {run}: chapitres pas dans l'ordre: {chapters}"
+    print("✅ test_bible_chapters_are_sequential (20 runs)")
+
+
+def test_bible_different_books_per_slot_in_same_bloc():
+    """Deux slots Bible dans le même bloc ne doivent pas commencer par le même livre."""
+    books = make_bible_library()
+
+    for run in range(20):
+        _, bibles = run_build(bible_books=books)
+        assert len(bibles) == 4, f"Attendu 4 slots Bible, trouvé {len(bibles)}"
+        starting_books = [b["starting_book"] for b in bibles]
+        # Pas de livre répété dans le même bloc
+        assert len(starting_books) == len(set(starting_books)), \
+            f"Run {run}: livre démarrant répété dans le bloc: {starting_books}"
+    print("✅ test_bible_different_books_per_slot_in_same_bloc (20 runs)")
+
+
+def test_bible_debug_contains_starting_book():
+    """Le debug de chaque slot Bible doit contenir 'starting_book' et 'books_in_slot'."""
+    _, bibles = run_build()
+    for slot in bibles:
+        assert "starting_book" in slot, f"Champ 'starting_book' manquant: {slot}"
+        assert "books_in_slot" in slot, f"Champ 'books_in_slot' manquant: {slot}"
+        assert slot["starting_book"] == slot["books_in_slot"][0], \
+            f"Le premier livre dans books_in_slot doit être starting_book"
+    print("✅ test_bible_debug_contains_starting_book")
+
+
+def test_bible_fallback_when_all_books_used():
+    """Si tous les livres sont déjà utilisés ce cycle, le fallback fonctionne sans erreur."""
+    books = make_bible_library()
+    used_all = set(books.keys())  # tous les livres déjà "utilisés"
+
+    for run in range(5):
+        selected, duration, book = pick_bible_sequential(
+            books, target_seconds=1800, used_books_cycle=used_all, avoid_paths=set()
+        )
+        assert len(selected) > 0, f"Run {run}: aucun fichier sélectionné même en fallback"
+        assert duration > 0
+    print("✅ test_bible_fallback_when_all_books_used (5 runs)")
 
 
 # ─── Runner ─────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     tests = [
+        # Jingles
         test_cycle_plan_jingle_count,
         test_cycle_plan_categories_declared,
         test_first_jingle_is_avant_message,
@@ -199,6 +351,14 @@ if __name__ == "__main__":
         test_categorize_jingles_splits_correctly,
         test_no_consecutive_duplicate_jingle,
         test_debug_output_contains_category,
+        # Bible séquentielle
+        test_extract_book_chapter_formats,
+        test_group_bible_by_book_sorts_chapters,
+        test_bible_slot_stays_in_same_book,
+        test_bible_chapters_are_sequential,
+        test_bible_different_books_per_slot_in_same_bloc,
+        test_bible_debug_contains_starting_book,
+        test_bible_fallback_when_all_books_used,
     ]
 
     passed = 0

@@ -5,6 +5,7 @@ import argparse
 import json
 import os
 import random
+import re
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -249,6 +250,112 @@ def pick_jingle_from_category(
     return item
 
 
+def extract_book_chapter(title: str, path: str) -> tuple[str, int]:
+    """
+    Extrait le nom du livre et le numéro de chapitre depuis le titre ou le chemin.
+
+    Formats supportés :
+      - "Lévitique 21" / "Esther 5"   → ("Lévitique", 21)
+      - "2 Chroniques 24"              → ("2 Chroniques", 24)
+      - "Bible_fr_06_joshua_016"       → ("Joshua", 16)
+      - "Bible_fr_01_gen_008"          → ("Gen", 8)
+      - "Matthieu" / "1 Corinthiens"  → ("Matthieu", 0)  / ("1 Corinthiens", 0)
+    """
+    t = title.strip()
+
+    # Format 1 : titre se termine par un espace + entier (ex. "Lévitique 21")
+    m = re.match(r'^(.+?)\s+(\d+)$', t)
+    if m:
+        return m.group(1).strip(), int(m.group(2))
+
+    # Format 2 : chemin/titre type "Bible_fr_06_bookname_NNN"
+    base = path.split('/')[-1].replace('.mp3', '').lower()
+    m2 = re.match(r'bible_fr_\d+_(.+?)_(\d+)$', base)
+    if m2:
+        book = m2.group(1).replace('_', ' ').title()
+        return book, int(m2.group(2))
+    # Même pattern mais dans le titre (le titre IS le nom du fichier)
+    m3 = re.match(r'bible_fr_\d+_(.+?)_(\d+)$', t.lower().replace(' ', '_'))
+    if m3:
+        book = m3.group(1).replace('_', ' ').title()
+        return book, int(m3.group(2))
+
+    # Format 3 : livre entier, pas de numéro → chapitre 0
+    return t, 0
+
+
+def group_bible_by_book(bible_files: list[MediaItem]) -> dict[str, list[MediaItem]]:
+    """
+    Regroupe les fichiers Bible par livre et les trie par numéro de chapitre.
+    Retourne {nom_livre: [MediaItem_ch1, MediaItem_ch2, ...]}.
+    """
+    buckets: dict[str, list[tuple[int, MediaItem]]] = {}
+    for item in bible_files:
+        book, chapter = extract_book_chapter(item.title, item.path)
+        buckets.setdefault(book, []).append((chapter, item))
+
+    return {
+        book: [item for _, item in sorted(chapters, key=lambda x: x[0])]
+        for book, chapters in buckets.items()
+    }
+
+
+def pick_bible_sequential(
+    bible_books: dict[str, list[MediaItem]],
+    target_seconds: int,
+    used_books_cycle: set[str],
+    avoid_paths: set[str],
+) -> tuple[list[MediaItem], int, str]:
+    """
+    Choisit un livre Bible non encore utilisé ce cycle, puis lit ses chapitres
+    dans l'ordre jusqu'à atteindre la durée cible.
+
+    Si le livre se termine avant la cible, enchaîne avec un autre livre.
+    Retourne (fichiers_sélectionnés, durée_totale, nom_du_premier_livre).
+    """
+    # Livres disponibles : préférer ceux non utilisés ce cycle
+    preferred = [b for b in bible_books if b not in used_books_cycle]
+    others    = [b for b in bible_books if b in used_books_cycle]
+
+    random.shuffle(preferred)
+    random.shuffle(others)
+    book_order = preferred + others
+
+    selected: list[MediaItem] = []
+    total = 0
+    first_book: str | None = None
+
+    for book_name in book_order:
+        chapters = bible_books[book_name]
+        for item in chapters:
+            if item.path in avoid_paths:
+                continue
+            selected.append(item)
+            total += item.length
+            if first_book is None:
+                first_book = book_name
+            if total >= target_seconds:
+                return selected, total, first_book
+
+    # Fallback : si toujours sous la cible, on ignore avoid_paths et on complète
+    if total < target_seconds:
+        used_paths = {i.path for i in selected}
+        for book_name in book_order:
+            for item in bible_books[book_name]:
+                if item.path not in used_paths:
+                    selected.append(item)
+                    total += item.length
+                    if first_book is None:
+                        first_book = book_name
+                    if total >= target_seconds:
+                        return selected, total, first_book or "inconnue"
+
+    if total < target_seconds:
+        print(f"AVERTISSEMENT: Bible insuffisante: {seconds_to_hms(total)} / {seconds_to_hms(target_seconds)}")
+
+    return selected, total, first_book or "inconnue"
+
+
 def pick_until_duration(
     files: list[MediaItem],
     target_seconds: int,
@@ -297,7 +404,7 @@ def build_full_cycle(
     block_name: str,
     message: Episode,
     music_files: list[MediaItem],
-    bible_files: list[MediaItem],
+    bible_books: dict[str, list[MediaItem]],
     jingle_categories: dict[str, list[MediaItem]],
     used_music_global: set[str],
     used_bible_global: set[str],
@@ -305,7 +412,7 @@ def build_full_cycle(
     playlist_paths = []
     debug_blocks = []
     used_music_cycle = set()
-    used_bible_cycle = set()
+    used_bible_books_cycle: set[str] = set()   # livres déjà utilisés dans ce bloc
     used_jingles_cycle = set()
     previous_jingle = None
     total_duration_without_message = 0
@@ -341,20 +448,26 @@ def build_full_cycle(
 
         if block_type == "bible":
             target_seconds = param
-            avoid = used_bible_global | used_bible_cycle | {message.path}
-            selected, duration, repeats = pick_until_duration(bible_files, target_seconds, "bible", avoid)
+            avoid = used_bible_global | {message.path}
+            selected, duration, starting_book = pick_bible_sequential(
+                bible_books, target_seconds, used_bible_books_cycle, avoid
+            )
             for item in selected:
                 playlist_paths.append(item.path)
-                used_bible_cycle.add(item.path)
                 used_bible_global.add(item.path)
+            used_bible_books_cycle.add(starting_book)
             total_duration_without_message += duration
+            books_in_slot = list(dict.fromkeys(
+                extract_book_chapter(i.title, i.path)[0] for i in selected
+            ))
             debug_blocks.append({
                 "type": "bible",
                 "target": seconds_to_hms(target_seconds),
                 "duration_seconds": duration,
                 "duration": seconds_to_hms(duration),
                 "files": len(selected),
-                "repetitions_global": repeats,
+                "starting_book": starting_book,
+                "books_in_slot": books_in_slot,
             })
             continue
 
@@ -507,7 +620,10 @@ def main() -> None:
     print("Chargement bibliothèque Bible...")
     bible_playlist = find_playlist(base_url, station_id, api_key, BIBLE_PLAYLIST_NAME)
     bible_files = get_playlist_files(base_url, station_id, api_key, int(bible_playlist["id"]), "bible")
-    print(f"  Bible: {len(bible_files)} fichiers (ID {bible_playlist['id']})")
+    bible_books = group_bible_by_book(bible_files)
+    print(f"  Bible: {len(bible_files)} fichiers → {len(bible_books)} livres détectés (ID {bible_playlist['id']})")
+    for book, chapters in sorted(bible_books.items()):
+        print(f"    {book}: {len(chapters)} fichier(s)")
 
     print("Chargement bibliothèque jingles...")
     jingle_playlist = find_playlist(base_url, station_id, api_key, JINGLE_PLAYLIST_NAME)
@@ -538,7 +654,7 @@ def main() -> None:
             block_name=block_name,
             message=ep,
             music_files=music_files,
-            bible_files=bible_files,
+            bible_books=bible_books,
             jingle_categories=jingle_categories,
             used_music_global=used_music_global,
             used_bible_global=used_bible_global,
