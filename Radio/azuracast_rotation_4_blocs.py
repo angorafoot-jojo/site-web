@@ -41,23 +41,23 @@ BLOCK_PLAYLISTS = [
 ]
 
 CYCLE_PLAN = [
-    ("jingle", 1),
-    ("message", 1),
-    ("jingle", 1),
+    ("jingle", "avant_message"),
+    ("message", None),
+    ("jingle", "avant_bible"),
     ("bible", 60 * 60),
-    ("jingle", 1),
+    ("jingle", "avant_louange"),
     ("music", 60 * 60),
-    ("jingle", 1),
+    ("jingle", "avant_bible"),
     ("bible", 30 * 60),
-    ("jingle", 1),
+    ("jingle", "avant_louange"),
     ("music", 60 * 60),
-    ("jingle", 1),
+    ("jingle", "avant_bible"),
     ("bible", 45 * 60),
-    ("jingle", 1),
+    ("jingle", "avant_louange"),
     ("music", 60 * 60),
-    ("jingle", 1),
+    ("jingle", "avant_bible"),
     ("bible", 20 * 60),
-    ("jingle", 1),
+    ("jingle", "avant_louange"),
     ("music", 25 * 60),
 ]
 
@@ -189,21 +189,62 @@ def clear_playlist_contents(base_url: str, station_id: int, playlist_id: int, ap
     return count
 
 
-def pick_jingle(jingles: list[MediaItem], used_jingles: set[str], previous_path: str | None) -> MediaItem:
-    candidates = jingles[:]
-    random.shuffle(candidates)
+def categorize_jingles(
+    all_jingles: list[MediaItem],
+    config_categories: dict[str, list[str]],
+) -> dict[str, list[MediaItem]]:
+    """Répartit les jingles en catégories selon les chemins définis dans la config."""
+    path_to_item = {item.path: item for item in all_jingles}
+    categorized: dict[str, list[MediaItem]] = {}
 
-    for item in candidates:
-        if item.path != previous_path and item.path not in used_jingles:
-            used_jingles.add(item.path)
-            return item
+    categorized_paths: set[str] = set()
+    for cat, paths in config_categories.items():
+        items = [path_to_item[p] for p in paths if p in path_to_item]
+        categorized[cat] = items
+        categorized_paths.update(p for p in paths if p in path_to_item)
 
-    for item in candidates:
-        if item.path != previous_path:
-            used_jingles.add(item.path)
-            return item
+    uncategorized = [j for j in all_jingles if j.path not in categorized_paths]
+    if uncategorized:
+        categorized.setdefault("transition", []).extend(uncategorized)
 
-    item = candidates[0]
+    total = sum(len(v) for v in categorized.values())
+    for cat, items in categorized.items():
+        print(f"  Catégorie jingle '{cat}': {len(items)} fichier(s)")
+    if not total:
+        raise RuntimeError("Aucun jingle trouvé dans aucune catégorie.")
+    return categorized
+
+
+def pick_jingle_from_category(
+    category: str,
+    jingle_categories: dict[str, list[MediaItem]],
+    used_jingles: set[str],
+    previous_path: str | None,
+) -> MediaItem:
+    """Sélectionne un jingle dans la catégorie demandée, avec fallback sur 'transition' puis tout."""
+    fallback_order = [category, "transition"] + [k for k in jingle_categories if k not in (category, "transition")]
+
+    for cat in fallback_order:
+        pool = jingle_categories.get(cat, [])[:]
+        random.shuffle(pool)
+        for item in pool:
+            if item.path != previous_path and item.path not in used_jingles:
+                used_jingles.add(item.path)
+                return item
+
+    # Dernière chance : ignorer used_jingles, juste éviter le précédent
+    for cat in fallback_order:
+        pool = jingle_categories.get(cat, [])[:]
+        random.shuffle(pool)
+        for item in pool:
+            if item.path != previous_path:
+                used_jingles.add(item.path)
+                return item
+
+    all_items = [j for lst in jingle_categories.values() for j in lst]
+    if not all_items:
+        raise RuntimeError("Aucun jingle disponible.")
+    item = all_items[0]
     used_jingles.add(item.path)
     return item
 
@@ -257,7 +298,7 @@ def build_full_cycle(
     message: Episode,
     music_files: list[MediaItem],
     bible_files: list[MediaItem],
-    jingles: list[MediaItem],
+    jingle_categories: dict[str, list[MediaItem]],
     used_music_global: set[str],
     used_bible_global: set[str],
 ):
@@ -269,7 +310,7 @@ def build_full_cycle(
     previous_jingle = None
     total_duration_without_message = 0
 
-    for block_type, target in CYCLE_PLAN:
+    for block_type, param in CYCLE_PLAN:
         if block_type == "message":
             playlist_paths.append(message.path)
             debug_blocks.append({
@@ -282,12 +323,14 @@ def build_full_cycle(
             continue
 
         if block_type == "jingle":
-            item = pick_jingle(jingles, used_jingles_cycle, previous_jingle)
+            jingle_category = param  # "avant_message", "avant_bible" ou "avant_louange"
+            item = pick_jingle_from_category(jingle_category, jingle_categories, used_jingles_cycle, previous_jingle)
             previous_jingle = item.path
             playlist_paths.append(item.path)
             total_duration_without_message += item.length
             debug_blocks.append({
                 "type": "jingle",
+                "category": jingle_category,
                 "title": item.title,
                 "path": item.path,
                 "duration_seconds": item.length,
@@ -297,8 +340,9 @@ def build_full_cycle(
             continue
 
         if block_type == "bible":
+            target_seconds = param
             avoid = used_bible_global | used_bible_cycle | {message.path}
-            selected, duration, repeats = pick_until_duration(bible_files, target, "bible", avoid)
+            selected, duration, repeats = pick_until_duration(bible_files, target_seconds, "bible", avoid)
             for item in selected:
                 playlist_paths.append(item.path)
                 used_bible_cycle.add(item.path)
@@ -306,7 +350,7 @@ def build_full_cycle(
             total_duration_without_message += duration
             debug_blocks.append({
                 "type": "bible",
-                "target": seconds_to_hms(target),
+                "target": seconds_to_hms(target_seconds),
                 "duration_seconds": duration,
                 "duration": seconds_to_hms(duration),
                 "files": len(selected),
@@ -315,8 +359,9 @@ def build_full_cycle(
             continue
 
         if block_type == "music":
+            target_seconds = param
             avoid = used_music_global | used_music_cycle | {message.path}
-            selected, duration, repeats = pick_until_duration(music_files, target, "music", avoid)
+            selected, duration, repeats = pick_until_duration(music_files, target_seconds, "music", avoid)
             for item in selected:
                 playlist_paths.append(item.path)
                 used_music_cycle.add(item.path)
@@ -324,7 +369,7 @@ def build_full_cycle(
             total_duration_without_message += duration
             debug_blocks.append({
                 "type": "music",
-                "target": seconds_to_hms(target),
+                "target": seconds_to_hms(target_seconds),
                 "duration_seconds": duration,
                 "duration": seconds_to_hms(duration),
                 "files": len(selected),
@@ -466,8 +511,15 @@ def main() -> None:
 
     print("Chargement bibliothèque jingles...")
     jingle_playlist = find_playlist(base_url, station_id, api_key, JINGLE_PLAYLIST_NAME)
-    jingles = get_playlist_files(base_url, station_id, api_key, int(jingle_playlist["id"]), "jingle")
-    print(f"  Jingles: {len(jingles)} fichiers (ID {jingle_playlist['id']})")
+    all_jingles = get_playlist_files(base_url, station_id, api_key, int(jingle_playlist["id"]), "jingle")
+    print(f"  Jingles: {len(all_jingles)} fichiers (ID {jingle_playlist['id']})")
+
+    print("Catégorisation des jingles...")
+    config_jingle_cats = config.get("jingle_categories", {})
+    if not config_jingle_cats:
+        print("  AVERTISSEMENT: aucune 'jingle_categories' dans la config — tous les jingles vont en 'transition'.")
+        config_jingle_cats = {"transition": [j.path for j in all_jingles]}
+    jingle_categories = categorize_jingles(all_jingles, config_jingle_cats)
 
     all_debug = {
         "date": today,
@@ -487,7 +539,7 @@ def main() -> None:
             message=ep,
             music_files=music_files,
             bible_files=bible_files,
-            jingles=jingles,
+            jingle_categories=jingle_categories,
             used_music_global=used_music_global,
             used_bible_global=used_bible_global,
         )
