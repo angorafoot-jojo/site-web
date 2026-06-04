@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio en direct — Parole Prophétique FM | L'Évangile du Royaume</title>
+  <meta name="description" content="Écoutez Parole Prophétique FM en direct 24h/24 — enseignements bibliques, louange et prière en continu.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
+  <style>
+    /* ─── Radio page overrides ────────────────────────────────────── */
+    body { background: var(--charcoal); color: #fff; }
+
+    /* ── Type tabs (Radio / Messages audio / Séries podcast) ── */
+    .type-tabs { background: rgba(0,0,0,.25); border-top: 1px solid rgba(255,255,255,.1); }
+    .type-tabs-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .type-tabs-inner::-webkit-scrollbar { display: none; }
+    .type-tab {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .85rem 1.4rem; font-size: .85rem; font-weight: 600;
+      color: rgba(255,255,255,.5); border-bottom: 2px solid transparent;
+      text-decoration: none; white-space: nowrap; transition: color .2s;
+      flex-shrink: 0;
+    }
+    .type-tab:hover { color: rgba(255,255,255,.85); }
+    .type-tab.active { color: #fff; border-bottom-color: var(--gold-light, #E4A84A); }
+    .type-tab svg { opacity: .7; }
+    .type-tab.active svg { opacity: 1; }
+
+    .radio-page {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Hero zone ─── */
+    .radio-hero {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1.5rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Animated background orbs */
+    .radio-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 40%, rgba(30,79,163,.55) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 75% 65%, rgba(196,137,46,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .radio-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: radio-float 8s ease-in-out infinite alternate;
+    }
+    .radio-orb-1 {
+      width: 500px; height: 500px;
+      background: rgba(30,79,163,.3);
+      top: -10%; left: -10%;
+    }
+    .radio-orb-2 {
+      width: 380px; height: 380px;
+      background: rgba(196,137,46,.18);
+      bottom: -5%; right: -5%;
+      animation-delay: -3s;
+    }
+
+    @keyframes radio-float {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, -20px) scale(1.08); }
+    }
+
+    /* ── Station badge ─── */
+    .radio-station-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: rgba(76,175,80,.12);
+      border: 1px solid rgba(76,175,80,.3);
+      border-radius: 99px;
+      padding: .5rem 1.25rem;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: #4CAF50;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+    .radio-station-badge .live-dot-lg {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: #4CAF50;
+      box-shadow: 0 0 0 0 rgba(76,175,80,.6);
+      animation: live-pulse 1.5s ease-in-out infinite;
+    }
+
+    /* ── Station name ─── */
+    .radio-station-name {
+      position: relative;
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: .75rem;
+    }
+    .radio-station-name em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .radio-station-tagline {
+      font-size: 1rem;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 3.5rem;
+      max-width: 420px;
+    }
+
+    /* ── THE BIG PLAY BUTTON (R4) ─── */
+    .radio-big-play {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      transition: transform .2s, box-shadow .3s;
+      box-shadow: 0 0 0 0 rgba(196,137,46,.5), 0 16px 48px rgba(0,0,0,.4);
+    }
+    .radio-big-play:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 16px rgba(196,137,46,.15), 0 20px 56px rgba(0,0,0,.5);
+    }
+    .radio-big-play:active { transform: scale(.97); }
+    .radio-big-play.is-playing {
+      box-shadow: 0 0 0 20px rgba(196,137,46,.12), 0 0 0 40px rgba(196,137,46,.06), 0 20px 56px rgba(0,0,0,.5);
+      animation: play-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes play-pulse {
+      0%, 100% { box-shadow: 0 0 0 12px rgba(196,137,46,.12), 0 0 0 28px rgba(196,137,46,.06), 0 20px 56px rgba(0,0,0,.5); }
+      50%       { box-shadow: 0 0 0 24px rgba(196,137,46,.1),  0 0 0 48px rgba(196,137,46,.04), 0 20px 56px rgba(0,0,0,.5); }
+    }
+    .radio-big-play svg { color: #fff; filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
+
+    .radio-play-label {
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.6);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+
+    /* Audio element hidden */
+    #radio-main-audio { display: none; }
+
+    /* ── Volume control ─── */
+    .radio-vol-control {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .radio-vol-control svg { color: rgba(255,255,255,.45); }
+    .radio-vol-range {
+      -webkit-appearance: none;
+      width: 160px;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.2);
+      outline: none;
+      cursor: pointer;
+    }
+    .radio-vol-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    }
+
+    /* ── Info chips ─── */
+    .radio-chips {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .radio-chip {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 99px;
+      padding: .45rem 1.1rem;
+      font-size: .78rem;
+      color: rgba(255,255,255,.6);
+    }
+
+    /* ── External links ─── */
+    .radio-external {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .radio-ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .65rem 1.4rem;
+      border-radius: 99px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 500;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .radio-ext-link:hover {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      border-color: rgba(255,255,255,.25);
+    }
+
+    /* ── Now Playing ─── */
+    .radio-nowplaying {
+      margin-bottom: 1.5rem;
+      text-align: center;
+      max-width: 380px;
+    }
+    .nowplaying-label {
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      color: #4CAF50;
+      margin-bottom: .35rem;
+    }
+    .nowplaying-title {
+      font-family: var(--font-serif, Georgia, serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: .2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 360px;
+    }
+    .nowplaying-artist {
+      font-size: .8rem;
+      color: rgba(255,255,255,.45);
+      margin-bottom: .75rem;
+    }
+    .nowplaying-bar {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,.12);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .nowplaying-progress {
+      height: 100%;
+      background: var(--gold, #C4892E);
+      border-radius: 99px;
+      transition: width 1s linear;
+    }
+
+    /* ── Loading / error states ─── */
+    .radio-status {
+      font-size: .8rem;
+      color: rgba(255,255,255,.4);
+      min-height: 1.4em;
+      margin-bottom: .5rem;
+    }
+    .radio-status.is-loading { color: var(--gold-light); }
+    .radio-status.is-error   { color: #ef5350; }
+
+    /* ── Back link ─── */
+    .radio-back {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.45);
+      text-decoration: none;
+      font-size: .85rem;
+      margin-bottom: 2rem;
+      transition: color .2s;
+      align-self: flex-start;
+    }
+    .radio-back:hover { color: rgba(255,255,255,.8); }
+
+    /* ── Programs section ─── */
+    .radio-programs {
+      background: rgba(255,255,255,.04);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 3rem 1.5rem;
+    }
+    .radio-programs-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .radio-programs h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .program-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .program-time {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--gold-light);
+      margin-bottom: .4rem;
+    }
+    .program-name {
+      font-size: .95rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+      margin-bottom: .25rem;
+    }
+    .program-desc {
+      font-size: .78rem;
+      color: rgba(255,255,255,.4);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 600px) {
+      .radio-big-play { width: 112px; height: 112px; }
+      .radio-station-name { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+    }
+  </style>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
+</head>
+<body>
+
+<!-- SVG Sprite (icons) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+  </symbol>
+  <symbol id="icon-volume" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.8-1-3.3-2.5-4v8c1.5-.7 2.5-2.2 2.5-4z"/>
+  </symbol>
+  <symbol id="icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    <polyline points="15 3 21 3 21 9"/>
+    <line x1="10" y1="14" x2="21" y2="3"/>
+  </symbol>
+  <symbol id="icon-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></symbol>
+  <symbol id="icon-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></symbol>
+  <symbol id="icon-radio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/>
+    <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/>
+    <circle cx="12" cy="12" r="2"/>
+    <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/>
+    <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/>
+  </symbol>
+  <symbol id="icon-youtube" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.4 5 12 5 12 5s-4.4 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.4 0 7-.1c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l6 3-6 3z"/>
+  </symbol>
+</svg>
+
+<div class="radio-page">
+
+  <!-- ── Header ─────────────────────────────────────────────── -->
+  <header class="site-header" style="background:rgba(10,16,40,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+    <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation">
+      <a href="index.html" class="logo" aria-label="Retour à l'accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8" y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8" y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" style="list-style:none;margin:0;padding:0">
+        <li><a href="index.html"    class="nav-link">Accueil</a></li>
+        <li><a href="radio.html"    class="nav-link active" aria-current="page">Radio en direct</a></li>
+        <li><a href="audios.html"   class="nav-link">Messages audio</a></li>
+        <li><a href="podcasts.html" class="nav-link">Séries podcast</a></li>
+        <li><a href="videos.html"   class="nav-link">Vidéos</a></li>
+        <li><a href="louange.html"  class="nav-link">Louange</a></li>
+        <li><a href="articles.html" class="nav-link">Lire</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href="https://www.radioking.com/play/parole-prophetique-fm"
+           target="_blank" rel="noopener" class="nav-live-badge" aria-label="Écouter la radio en direct">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+        <a href="contact.html" class="btn btn-outline btn-sm">Contact</a>
+      </div>
+
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    </div>
+  </header>
+
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Menu mobile">
+    <a href="index.html"      class="mobile-nav-link">Accueil</a>
+    <a href="radio.html"      class="mobile-nav-link" aria-current="page">Radio en direct</a>
+    <a href="audios.html"     class="mobile-nav-link">Messages audio</a>
+    <a href="podcasts.html"   class="mobile-nav-link">Séries podcast</a>
+    <a href="videos.html"     class="mobile-nav-link">Vidéos</a>
+    <a href="articles.html"   class="mobile-nav-link">Lire</a>
+    <a href="louange.html"    class="mobile-nav-link">Louange</a>
+    <a href="https://www.radioking.com/play/parole-prophetique-fm"
+       target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+      Écouter la radio live
+    </a>
+    <a href="contact.html" class="btn btn-primary" style="justify-content:center">Nous contacter</a>
+  </nav>
+
+  <!-- ── Type tabs : Radio / Messages audio / Séries podcast ───── -->
+  <div class="type-tabs" role="navigation" aria-label="Type de contenu">
+    <div class="container">
+      <div class="type-tabs-inner">
+        <a href="radio.html"    class="type-tab active">
+          <svg width="15" height="15" aria-hidden="true"><use href="#icon-radio"/></svg>
+          Radio en direct
+        </a>
+        <a href="audios.html"   class="type-tab">
+          <svg width="15" height="15" aria-hidden="true"><use href="#icon-headphones"/></svg>
+          Messages audio
+        </a>
+        <a href="podcasts.html" class="type-tab">
+          <svg width="15" height="15" aria-hidden="true"><use href="#icon-mic"/></svg>
+          Séries podcast
+        </a>
+        <a href="videos.html" class="type-tab">
+          <svg width="15" height="15" aria-hidden="true"><use href="#icon-youtube"/></svg>
+          Vidéos
+        </a>
+        <a href="louange.html" class="type-tab">
+          <svg width="15" height="15" aria-hidden="true"><use href="#icon-mic"/></svg>
+          Louange
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Radio Hero ──────────────────────────────────────────── -->
+  <main>
+    <section class="radio-hero">
+      <div class="radio-orb radio-orb-1" aria-hidden="true"></div>
+      <div class="radio-orb radio-orb-2" aria-hidden="true"></div>
+
+      <!-- Station badge -->
+      <div class="radio-station-badge">
+        <span class="live-dot-lg"></span>
+        En direct maintenant
+      </div>
+
+      <!-- Station name -->
+      <h1 class="radio-station-name">
+        Parole <em>Prophétique</em> FM
+      </h1>
+      <p class="radio-station-tagline">
+        La voix de l'Évangile du Royaume — enseignements, louange et prière 24h/24
+      </p>
+
+      <!-- Audio element -->
+      <audio id="radio-main-audio" preload="none">
+        <source src="https://parole-prophetique-fm.levangileduroyaume.com:8000/radio.mp3" type="audio/mpeg">
+      </audio>
+
+      <!-- Now Playing -->
+      <div class="radio-nowplaying" id="radio-nowplaying">
+        <div class="nowplaying-label">EN DIFFUSION</div>
+        <div class="nowplaying-title" id="nowplaying-title">Chargement…</div>
+        <div class="nowplaying-artist" id="nowplaying-artist"></div>
+        <div class="nowplaying-bar">
+          <div class="nowplaying-progress" id="nowplaying-progress" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Status line -->
+      <p id="radio-status" class="radio-status" aria-live="polite"></p>
+
+      <!-- BIG PLAY BUTTON -->
+      <button id="radio-main-play" class="radio-big-play" aria-label="Lancer la radio en direct" aria-pressed="false">
+        <svg id="radio-main-icon" width="52" height="52" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path id="radio-main-path" d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+
+      <p id="radio-play-label-text" class="radio-play-label">Appuyez pour écouter</p>
+
+      <!-- Volume -->
+      <div class="radio-vol-control">
+        <svg width="16" height="16"><use href="#icon-volume"/></svg>
+        <input type="range" id="radio-main-vol" class="radio-vol-range" min="0" max="1" step="0.05" value="0.8" aria-label="Volume">
+      </div>
+
+      <!-- Info chips -->
+      <div class="radio-chips" role="list">
+        <span class="radio-chip" role="listitem">24h/24 · 7j/7</span>
+        <span class="radio-chip" role="listitem">Francophone</span>
+        <span class="radio-chip" role="listitem">43 pays</span>
+        <span class="radio-chip" role="listitem">Gratuit</span>
+      </div>
+
+      <!-- External links -->
+      <div class="radio-external">
+        <a href="https://parole-prophetique-fm.levangileduroyaume.com/public/evangile_du_royaume"
+           target="_blank" rel="noopener" class="radio-ext-link">
+          <svg width="14" height="14"><use href="#icon-radio"/></svg>
+          Ouvrir le lecteur web
+        </a>
+        <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g"
+           target="_blank" rel="noopener" class="radio-ext-link">
+          <svg width="14" height="14"><use href="#icon-youtube"/></svg>
+          Chaîne YouTube
+        </a>
+      </div>
+
+    </section>
+
+    <!-- ── Programme du jour ───────────────────────────────── -->
+    <section class="radio-programs">
+      <div class="radio-programs-inner">
+        <h2>Programme du jour</h2>
+        <div class="program-grid">
+          <div class="program-card">
+            <div class="program-time">06h00 – 09h00</div>
+            <div class="program-name">Réveil avec la Parole</div>
+            <div class="program-desc">Commencez votre journée avec des versets et prières matinales.</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">09h00 – 12h00</div>
+            <div class="program-name">Enseignements Bibliques</div>
+            <div class="program-desc">Séries thématiques approfondies sur les Écritures.</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">12h00 – 14h00</div>
+            <div class="program-name">Louange & Adoration</div>
+            <div class="program-desc">Cantiques et chants de louange pour le milieu de journée.</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">14h00 – 17h00</div>
+            <div class="program-name">Le Royaume en Marche</div>
+            <div class="program-desc">Messages prophétiques et témoignages d'évangélisation.</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">17h00 – 20h00</div>
+            <div class="program-name">Heure de la Famille</div>
+            <div class="program-desc">Enseignements pour la vie de famille et l'éducation chrétienne.</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">20h00 – 22h00</div>
+            <div class="program-name">Veillée de Prière</div>
+            <div class="program-desc">Intercession et prières collectives pour la soirée.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</div><!-- /.radio-page -->
+
+<script>
+(function() {
+  var NOWPLAYING_API = 'https://parole-prophetique-fm.levangileduroyaume.com/api/nowplaying/1';
+
+  var audio       = document.getElementById('radio-main-audio');
+  var playBtn     = document.getElementById('radio-main-play');
+  var pathEl      = document.getElementById('radio-main-path');
+  var labelEl     = document.getElementById('radio-play-label-text');
+  var statusEl    = document.getElementById('radio-status');
+  var volEl       = document.getElementById('radio-main-vol');
+  var npTitle     = document.getElementById('nowplaying-title');
+  var npArtist    = document.getElementById('nowplaying-artist');
+  var npProgress  = document.getElementById('nowplaying-progress');
+
+  var PLAY_D  = 'M8 5v14l11-7z';
+  var PAUSE_D = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+  var npInterval = null;
+
+  /* ── NowPlaying API ─────────────────────── */
+  function fetchNowPlaying() {
+    fetch(NOWPLAYING_API)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data || !data.now_playing) return;
+        var np = data.now_playing;
+        if (npTitle)   npTitle.textContent  = np.title  || 'En diffusion';
+        if (npArtist)  npArtist.textContent = np.artist || '';
+        if (npProgress && np.duration > 0) {
+          var pct = Math.min(100, Math.round((np.elapsed / np.duration) * 100));
+          npProgress.style.width = pct + '%';
+        }
+      })
+      .catch(function() {
+        if (npTitle) npTitle.textContent = 'Parole Prophétique FM';
+      });
+  }
+
+  /* Fetch immédiatement puis toutes les 15s */
+  fetchNowPlaying();
+  setInterval(fetchNowPlaying, 15000);
+
+  /* ── Player states ──────────────────────── */
+  function setState(state) {
+    if (state === 'playing') {
+      pathEl.setAttribute('d', PAUSE_D);
+      playBtn.setAttribute('aria-label', 'Mettre en pause');
+      playBtn.setAttribute('aria-pressed', 'true');
+      playBtn.classList.add('is-playing');
+      labelEl.textContent = 'En cours de diffusion';
+      statusEl.textContent = '';
+      statusEl.className = 'radio-status';
+      /* Accélérer le refresh NowPlaying quand on écoute */
+      if (!npInterval) npInterval = setInterval(fetchNowPlaying, 10000);
+    } else if (state === 'loading') {
+      pathEl.setAttribute('d', PAUSE_D);
+      playBtn.setAttribute('aria-pressed', 'true');
+      labelEl.textContent = 'Connexion en cours…';
+      statusEl.textContent = 'Chargement du flux…';
+      statusEl.className = 'radio-status is-loading';
+    } else if (state === 'error') {
+      pathEl.setAttribute('d', PLAY_D);
+      playBtn.setAttribute('aria-pressed', 'false');
+      playBtn.classList.remove('is-playing');
+      labelEl.textContent = 'Appuyez pour écouter';
+      statusEl.textContent = '⚠️ Flux indisponible — essayez le lecteur web';
+      statusEl.className = 'radio-status is-error';
+      clearInterval(npInterval); npInterval = null;
+    } else {
+      pathEl.setAttribute('d', PLAY_D);
+      playBtn.setAttribute('aria-label', 'Lancer la radio en direct');
+      playBtn.setAttribute('aria-pressed', 'false');
+      playBtn.classList.remove('is-playing');
+      labelEl.textContent = 'Appuyez pour écouter';
+      statusEl.textContent = '';
+      statusEl.className = 'radio-status';
+      clearInterval(npInterval); npInterval = null;
+    }
+  }
+
+  playBtn.addEventListener('click', function() {
+    if (audio.paused) {
+      setState('loading');
+      audio.load();
+      audio.play().catch(function() { setState('error'); });
+    } else {
+      audio.pause();
+      setState('paused');
+    }
+  });
+
+  audio.addEventListener('playing', function() { setState('playing'); });
+  audio.addEventListener('pause',   function() { setState('paused');  });
+  audio.addEventListener('error',   function() { setState('error');   });
+  audio.addEventListener('stalled', function() {
+    statusEl.textContent = 'Connexion instable…';
+    statusEl.className = 'radio-status is-loading';
+  });
+
+  if (volEl) {
+    volEl.addEventListener('input', function() {
+      audio.volume = parseFloat(volEl.value);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

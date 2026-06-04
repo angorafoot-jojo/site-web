@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Évangile du Royaume — Radio, messages audio, séries podcast & vidéos</title>
+  <meta name="description" content="Plateforme chrétienne francophone pour écouter des enseignements bibliques, podcasts et radio en direct. Proclamez l'Évangile du Royaume.">
+  <meta property="og:type"    content="website">
+  <meta property="og:url"     content="https://levangileduroyaume.com/">
+  <meta property="og:title"   content="L'Évangile du Royaume — Radio, messages audio, séries podcast & vidéos">
+  <meta property="og:description" content="Plateforme chrétienne francophone pour écouter des enseignements bibliques, podcasts et radio en direct.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
+  <meta name="twitter:card"   content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
+</head>
+<body>
+
+<!-- Accessibilité clavier -->
+<a href="#main-content" style="position:fixed;top:1rem;left:1rem;z-index:9999;padding:.6rem 1.2rem;background:var(--gold);color:#fff;border-radius:6px;font-weight:700;font-size:.9rem;transform:translateY(-200%);transition:.2s;text-decoration:none" onfocus="this.style.transform='translateY(0)'" onblur="this.style.transform='translateY(-200%)'">Aller au contenu</a>
+
+<!-- SVG Sprite inline -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+  </symbol>
+  <symbol id="icon-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+  </symbol>
+  <symbol id="icon-podcast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+    <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+  </symbol>
+  <symbol id="icon-livre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <symbol id="icon-article" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+    <polyline points="14 2 14 8 20 8"/>
+    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+  </symbol>
+  <symbol id="icon-cantique" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </symbol>
+  <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor">
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
+  <symbol id="icon-radio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="2"/>
+    <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+  </symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="icon-youtube" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
+  </symbol>
+  <symbol id="icon-facebook" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  </symbol>
+  <symbol id="icon-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M11.99 2C6.47 2 1.99 6.48 1.99 12c0 1.78.47 3.44 1.28 4.89L1.5 22l5.26-1.74C8.19 21.4 10.04 22 12 22c5.52 0 10-4.48 10-10S17.51 2 11.99 2zm.01 18c-1.72 0-3.34-.47-4.74-1.28l-.34-.2-3.12 1.03 1.05-3.04-.22-.37C3.47 14.97 3 13.55 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9z"/>
+  </symbol>
+</svg>
+
+
+<!-- ══════════════════════════════════════════════
+     HEADER — Navigation éditoriale (R7)
+══════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+
+      <!-- Logo inline SVG — toujours visible -->
+      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8" y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8" y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+
+      <!-- Navigation éditoriale — thèmes, pas formats techniques -->
+      <ul class="nav-links" role="list">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link active">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a href="#ecouter" class="nav-link" role="button" aria-haspopup="true">
+            Écouter
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem">
+              <a href="radio.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-1"><svg width="18" height="18"><use href="#icon-radio"/></svg></span>
+                <span>
+                  <strong style="display:block;font-size:.9rem">Radio en direct</strong>
+                  <small style="opacity:.6">Parole Prophétique FM 24h/24</small>
+                </span>
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="podcasts.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-3"><svg width="18" height="18"><use href="#icon-podcast"/></svg></span>
+                Podcasts bibliques
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="audios.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-2"><svg width="18" height="18"><use href="#icon-audio"/></svg></span>
+                Messages audio
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="videos.html" class="nav-link">Regarder</a>
+        </li>
+        <li class="nav-item">
+          <a href="articles.html" class="nav-link" role="button" aria-haspopup="true">
+            Lire
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem">
+              <a href="articles.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-5"><svg width="18" height="18"><use href="#icon-article"/></svg></span>
+                Articles & Méditations
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="livres.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-4"><svg width="18" height="18"><use href="#icon-livre"/></svg></span>
+                Livres
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="louange.html" class="nav-link">Louange</a>
+        </li>
+      </ul>
+
+      <!-- Radio live + S'abonner -->
+      <div class="nav-right">
+        <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="nav-live-badge" aria-label="Écouter la radio en direct">
+          <span class="live-dot" style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+      </div>
+
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- Menu Mobile -->
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">
+  <a href="index.html"   class="mobile-nav-link">Accueil</a>
+
+  <div class="mobile-nav-link" data-sub="mob-ecouter" role="button" tabindex="0">
+    Écouter
+    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <ul class="mobile-sub" id="mob-ecouter">
+    <li><a href="radio.html"    class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-radio"/></svg> Radio en direct</a></li>
+    <li><a href="podcasts.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-podcast"/></svg> Podcasts</a></li>
+    <li><a href="audios.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-audio"/></svg> Audios</a></li>
+  </ul>
+
+  <a href="videos.html" class="mobile-nav-link">Regarder</a>
+
+  <div class="mobile-nav-link" data-sub="mob-lire" role="button" tabindex="0">
+    Lire
+    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <ul class="mobile-sub" id="mob-lire">
+    <li><a href="articles.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-article"/></svg> Articles</a></li>
+    <li><a href="livres.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-livre"/></svg> Livres</a></li>
+  </ul>
+
+  <a href="louange.html" class="mobile-nav-link">Louange</a>
+
+  <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.75rem">
+    <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+          Radio en direct
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════
+     HERO — 1 action dominante : Découvrir (R1)
+══════════════════════════════════════════════ -->
+<main id="main-content">
+<section class="hero" aria-label="Section principale">
+
+  <div class="hero-bg" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1476882898681-f21e3f793fd3?w=1920&q=80&auto=format&fit=crop"
+         alt="" width="1920" height="1080" loading="eager" fetchpriority="high"
+         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.15;mix-blend-mode:luminosity">
+  </div>
+  <div class="hero-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero-content">
+
+      <!-- Mission en une phrase (R13) -->
+      <div class="hero-eyebrow" data-animate>
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        <span>Plateforme d'enseignements bibliques francophones</span>
+      </div>
+
+      <h1 class="hero-title" data-animate>
+        L'Évangile du<br>
+        <span class="accent">Royaume de Dieu</span>
+      </h1>
+
+      <blockquote>
+        <p class="hero-verse" data-animate>
+          « Et cette bonne nouvelle du royaume sera prêchée dans le monde entier,
+          pour servir de témoignage à toutes les nations. »
+        </p>
+        <footer class="hero-verse-ref" data-animate>— Matthieu 24:14</footer>
+      </blockquote>
+
+      <!-- Thèmes rotatifs -->
+      <div class="hero-themes" data-animate aria-live="polite">
+        <div class="hero-theme active">
+          <span class="theme-ref">Apoc. 18:4</span>
+          <span class="theme-text">Sortez de Babylone</span>
+        </div>
+        <div class="hero-theme">
+          <span class="theme-ref">Éph. 5:26-27</span>
+          <span class="theme-text">Préparez-vous pour l'Époux</span>
+        </div>
+        <div class="hero-theme">
+          <span class="theme-ref">Rom. 2:7</span>
+          <span class="theme-text">Saisissez la vie éternelle</span>
+        </div>
+      </div>
+
+      <!-- UNE action primaire + radio inline (R1) -->
+      <div class="hero-actions" data-animate>
+        <a href="#commencer" class="btn btn-primary">
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-play"/></svg>
+          Commencer ici
+        </a>
+        <button id="btn-radio-live" type="button"
+           class="btn btn-ghost" aria-label="Écouter la radio prophétique en direct">
+          <span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Radio en direct
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Défiler</span>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     PAR OÙ COMMENCER — 3 chemins éditoriaux
+     Chaque format a son identité (R4·R7·R8)
+══════════════════════════════════════════════ -->
+<section class="section start-section" id="commencer" aria-labelledby="start-title">
+  <div class="container">
+
+    <header class="section-header text-center" data-animate>
+      <span class="label">Par où commencer ?</span>
+      <h2 id="start-title" class="display-2">Choisissez votre format</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <p>Que vous ayez 5 minutes ou une heure, un format vous correspond.</p>
+    </header>
+
+    <div class="start-grid">
+
+      <!-- MESSAGES AUDIO — Radio · Séries podcast · Messages audio -->
+      <a href="audios.html" class="start-card start-card-listen" data-animate data-delay="1" aria-label="Écouter les messages audio et podcasts">
+        <div class="start-card-badge">
+          <svg width="14" height="14" aria-hidden="true"><use href="#icon-audio"/></svg>
+          Écouter
+        </div>
+        <div class="start-card-icon">
+          <svg width="26" height="26" aria-hidden="true"><use href="#icon-audio"/></svg>
+        </div>
+        <h3 class="start-card-title">Messages audio</h3>
+        <p class="start-card-desc">La radio en direct, les podcasts et les messages audio pour vous accompagner dans vos journées.</p>
+        <ul class="start-card-items" aria-label="Contenus disponibles">
+          <li>Radio Prophétique FM — 24h/24</li>
+          <li>Séries podcast</li>
+          <li>Messages audio & séries</li>
+          <li>Enseignements thématiques</li>
+        </ul>
+        <span class="start-card-cta">
+          Écouter les messages
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+        </span>
+      </a>
+
+      <!-- VIDÉOS — Messages vidéo · YouTube Live -->
+      <a href="videos.html" class="start-card start-card-watch" data-animate data-delay="2" aria-label="Regarder les vidéos et enseignements">
+        <div class="start-card-badge">
+          <svg width="14" height="14" aria-hidden="true"><use href="#icon-youtube"/></svg>
+          YouTube
+        </div>
+        <div class="start-card-icon">
+          <svg width="26" height="26" aria-hidden="true"><use href="#icon-video"/></svg>
+        </div>
+        <h3 class="start-card-title">Vidéos</h3>
+        <p class="start-card-desc">Des messages vidéos puissants, des enseignements approfondis et le live YouTube du ministère.</p>
+        <ul class="start-card-items" aria-label="Contenus disponibles">
+          <li>Messages vidéo complets</li>
+          <li>Séries d'enseignements</li>
+          <li>Live YouTube en direct</li>
+          <li>Archives complètes</li>
+        </ul>
+        <span class="start-card-cta">
+          Voir les vidéos
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+        </span>
+      </a>
+
+      <!-- LIRE — Articles · Livres -->
+      <a href="articles.html" class="start-card start-card-read" data-animate data-delay="3" aria-label="Lire les articles et livres">
+        <div class="start-card-badge">
+          <svg width="14" height="14" aria-hidden="true"><use href="#icon-livre"/></svg>
+          Lecture
+        </div>
+        <div class="start-card-icon">
+          <svg width="26" height="26" aria-hidden="true"><use href="#icon-article"/></svg>
+        </div>
+        <h3 class="start-card-title">Lire</h3>
+        <p class="start-card-desc">Des articles de fond, des études bibliques et des livres pour approfondir votre connaissance de la Parole.</p>
+        <ul class="start-card-items" aria-label="Contenus disponibles">
+          <li>Articles & méditations</li>
+          <li>Études bibliques</li>
+          <li>Livres du ministère</li>
+          <li>Versets commentés</li>
+        </ul>
+        <span class="start-card-cta">
+          Lire
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+        </span>
+      </a>
+
+      <!-- LOUANGE — Cantiques -->
+      <a href="louange.html" class="start-card start-card-praise" data-animate data-delay="4" aria-label="Louange et cantiques">
+        <div class="start-card-badge">
+          <svg width="14" height="14" aria-hidden="true"><use href="#icon-cantique"/></svg>
+          Cantiques
+        </div>
+        <div class="start-card-icon">
+          <svg width="26" height="26" aria-hidden="true"><use href="#icon-cantique"/></svg>
+        </div>
+        <h3 class="start-card-title">Louange</h3>
+        <p class="start-card-desc">Des cantiques et chants de louange pour adorer l'Éternel et entrer dans sa présence.</p>
+        <ul class="start-card-items" aria-label="Contenus disponibles">
+          <li>14 cantiques</li>
+          <li>Chants en vidéo</li>
+          <li>Messages musicaux</li>
+          <li>Louange & adoration</li>
+        </ul>
+        <span class="start-card-cta">
+          Louer
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+        </span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     MESSAGE DU MOMENT — miniature + YouTube (R4)
+══════════════════════════════════════════════ -->
+<section class="section featured-section" id="ecouter" aria-labelledby="featured-title">
+  <div class="container">
+    <div class="featured-grid">
+
+      <div>
+        <span class="label featured-label" data-animate>Message du moment</span>
+        <h2 class="featured-title" id="featured-title" data-animate>
+          Sortez de Babylone —<br>L'appel à la séparation
+        </h2>
+        <div class="featured-meta" data-animate>
+          <span>18 mai 2025</span>
+          <span>52 min</span>
+          <span class="tag tag-gold">Vidéo</span>
+        </div>
+        <p class="featured-excerpt" data-animate>
+          Découvrez l'appel de Dieu à se séparer des systèmes du monde pour se consacrer
+          entièrement à son Royaume. Une révélation prophétique pour l'heure présente
+          tirée d'Apocalypse 18:4.
+        </p>
+        <div data-animate style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g" target="_blank" rel="noopener"
+             class="btn btn-primary">
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-play"/></svg>
+            Regarder maintenant
+          </a>
+          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g/live" target="_blank" rel="noopener"
+             class="btn btn-outline" style="color:var(--brand-blue);border-color:var(--brand-blue)">
+            <svg width="15" height="15" aria-hidden="true"><use href="#icon-youtube"/></svg>
+            Live YouTube
+          </a>
+        </div>
+      </div>
+
+      <div class="featured-media" data-animate>
+        <img class="featured-thumb"
+             src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=800&q=80&auto=format&fit=crop"
+             alt="Message : Sortez de Babylone"
+             width="800" height="500" loading="lazy">
+        <div class="play-overlay">
+          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g" target="_blank" rel="noopener"
+             class="play-btn" aria-label="Lire sur YouTube">
+            <svg width="22" height="22" style="margin-left:3px" aria-hidden="true"><use href="#icon-play"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     ARTICLES RÉCENTS — layout éditorial magazine
+══════════════════════════════════════════════ -->
+<section class="section articles-section" aria-labelledby="articles-title">
+  <div class="container">
+
+    <header class="section-header flex-between" data-animate>
+      <div>
+        <span class="label">Lectures récentes</span>
+        <h2 id="articles-title" class="display-2">À lire cette semaine</h2>
+        <div class="divider" aria-hidden="true"></div>
+      </div>
+      <a href="articles.html" class="btn btn-outline">Tous les articles</a>
+    </header>
+
+    <div class="articles-editorial" role="list">
+
+      <article class="article-card article-featured" data-animate data-delay="1" role="listitem">
+        <div class="article-thumb">
+          <img class="article-thumb-img"
+               src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80&auto=format&fit=crop"
+               alt="Paysage montagneux au lever du soleil" width="800" height="600" loading="lazy">
+        </div>
+        <div class="article-body">
+          <span class="tag tag-wine">Prophétie</span>
+          <h3>Les signes de la fin des temps selon les Écritures</h3>
+          <p class="article-excerpt">
+            Une étude approfondie des prophéties bibliques et de leur accomplissement dans notre génération.
+            Comprendre les temps pour se préparer à la venue de l'Époux céleste. Du livre de Daniel aux Évangiles.
+          </p>
+          <div class="article-footer">
+            <span>12 mai 2025</span>
+            <a href="articles.html" class="read-more">
+              Lire
+              <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-animate data-delay="2" role="listitem">
+        <div class="article-thumb">
+          <img class="article-thumb-img"
+               src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80&auto=format&fit=crop"
+               alt="Bible ouverte" width="600" height="400" loading="lazy">
+        </div>
+        <div class="article-body">
+          <span class="tag tag-navy">Enseignement</span>
+          <h3>La sainteté : condition indispensable pour voir Dieu</h3>
+          <p class="article-excerpt">Poursuivez la paix avec tous, et la sanctification, sans laquelle personne ne verra le Seigneur.</p>
+          <div class="article-footer">
+            <span>5 mai 2025</span>
+            <a href="articles.html" class="read-more">Lire <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-animate data-delay="3" role="listitem">
+        <div class="article-thumb">
+          <img class="article-thumb-img"
+               src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80&auto=format&fit=crop"
+               alt="Lever de soleil sur un lac de montagne" width="600" height="400" loading="lazy">
+        </div>
+        <div class="article-body">
+          <span class="tag tag-gold">Vie chrétienne</span>
+          <h3>Préparer son cœur : la prière comme fondement</h3>
+          <p class="article-excerpt">Des principes pratiques tirés de l'exemple de Jésus pour bâtir une vie de prière transformante.</p>
+          <div class="article-footer">
+            <span>28 avr. 2025</span>
+            <a href="articles.html" class="read-more">Lire <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+
+</main>
+
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Accueil" style="margin-bottom:1.25rem">
+          <svg class="logo-mark" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="8" y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="8" y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-title">L'Évangile du Royaume</span>
+            <span class="logo-sub">La Bonne Nouvelle</span>
+          </div>
+        </a>
+        <p>Plateforme chrétienne francophone pour écouter des enseignements bibliques, podcasts et radio en direct.</p>
+        <nav class="social-links" aria-label="Réseaux sociaux">
+          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g" target="_blank" rel="noopener" class="social-btn" aria-label="YouTube" style="color:#FF0000">
+            <svg width="18" height="18"><use href="#icon-youtube"/></svg>
+          </a>
+          <a href="https://www.facebook.com/L%C3%89vangile-du-Royaume-103619371612103" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook" style="color:#1877F2">
+            <svg width="18" height="18"><use href="#icon-facebook"/></svg>
+          </a>
+          <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="social-btn" aria-label="Radio" style="color:#4CAF50">
+            <svg width="18" height="18"><use href="#icon-radio"/></svg>
+          </a>
+        </nav>
+      </div>
+
+      <nav aria-label="Radio et audio">
+        <h4>Radio et audio</h4>
+        <ul class="footer-links">
+          <li><a href="radio.html"    class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Radio en direct</a></li>
+          <li><a href="podcasts.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Séries podcast</a></li>
+          <li><a href="audios.html"   class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Messages audio</a></li>
+          <li><a href="louange.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Louanges</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Vidéos et lecture">
+        <h4>Vidéos et lecture</h4>
+        <ul class="footer-links">
+          <li><a href="videos.html"   class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Vidéos</a></li>
+          <li><a href="articles.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Articles</a></li>
+          <li><a href="livres.html"   class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Livres</a></li>
+          <li><a href="qui-sommes-nous.html"  class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> À propos</a></li>
+          <li><a href="nospartenaires.html"   class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Nos partenaires</a></li>
+        </ul>
+      </nav>
+
+      <address>
+        <h4>Contact</h4>
+        <div class="footer-contact-item">
+          <div class="contact-icon"><svg width="16" height="16"><use href="#icon-mail"/></svg></div>
+          <a href="mailto:nousecrire@levangileduroyaume.com" style="color:inherit">nousecrire@levangileduroyaume.com</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="contact-icon"><svg width="16" height="16"><use href="#icon-radio"/></svg></div>
+          <span>Parole Prophétique FM — <span style="color:#4CAF50">24h/24</span></span>
+        </div>
+        <div class="footer-contact-item">
+          <div class="contact-icon"><svg width="16" height="16"><use href="#icon-globe"/></svg></div>
+          <span>Présence dans 43 pays</span>
+        </div>
+      </address>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 L'Évangile du Royaume. Tous droits réservés.</span>
+      <nav class="footer-bottom-links">
+        <a href="qui-sommes-nous.html">Qui sommes-nous</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  /* Badge Radio Live dans la nav */
+  .nav-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: #4CAF50;
+    background: rgba(76,175,80,.1);
+    border: 1px solid rgba(76,175,80,.25);
+    padding: .35rem .85rem;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: background .25s, border-color .25s;
+  }
+  .nav-live-badge:hover { background: rgba(76,175,80,.18); border-color: rgba(76,175,80,.4); }
+</style>
+<script src="assets/js/main.js" defer></script>
+<script>
+/* ── Thèmes rotatifs du hero ─────────────────────── */
+(function () {
+  const themes = document.querySelectorAll('.hero-theme');
+  if (!themes.length) return;
+  let current = 0;
+  setInterval(() => {
+    themes[current].classList.remove('active');
+    current = (current + 1) % themes.length;
+    themes[current].classList.add('active');
+  }, 4000);
+})();
+</script>
+
+
+<!-- ══════════════════════════════════════════════
+     STICKY RADIO PLAYER — R4 + R14 (zero friction)
+══════════════════════════════════════════════ -->
+<div id="radio-player" class="radio-player" role="complementary" aria-label="Lecteur radio — Parole Prophétique FM" hidden>
+  <div class="radio-player-inner">
+
+    <div class="radio-live-badge">
+      <span class="radio-live-dot"></span>
+      EN DIRECT
+    </div>
+
+    <div class="radio-player-info">
+      <strong>Parole Prophétique FM</strong>
+      <span>L'Évangile du Royaume · 24h/24</span>
+    </div>
+
+    <audio id="radio-audio" preload="none">
+      <source src="https://parole-prophetique-fm.levangileduroyaume.com:8000/radio.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="radio-play-btn" class="radio-play-btn" aria-label="Lancer la radio" aria-pressed="false">
+      <svg id="radio-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+
+    <div class="radio-vol-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="opacity:.55">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.8-1-3.3-2.5-4v8c1.5-.7 2.5-2.2 2.5-4z"/>
+      </svg>
+      <input type="range" id="radio-vol" class="radio-vol" min="0" max="1" step="0.05" value="0.8" aria-label="Volume">
+    </div>
+
+    <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener"
+       class="radio-ext-btn" aria-label="Ouvrir dans une nouvelle page">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+    </a>
+
+    <button id="radio-close-btn" class="radio-close-btn" aria-label="Fermer le lecteur">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+  </div>
+</div>
+
+<style>
+/* ─── Sticky Radio Player ─────────────────────────────────────────── */
+.radio-player {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #0A1A3E 0%, #1E4FA3 100%);
+  border-top: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 -4px 32px rgba(0,0,0,.4);
+  transform: translateY(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+}
+.radio-player.is-visible { transform: translateY(0); }
+
+.radio-player-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: .85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.radio-live-badge {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: #4CAF50;
+  background: rgba(76,175,80,.12);
+  border: 1px solid rgba(76,175,80,.3);
+  padding: .3rem .75rem;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+/* ── Thèmes rotatifs du hero ── */
+.hero-themes {
+  position: relative;
+  height: 2rem;
+  margin: 1.25rem 0 1.5rem;
+  overflow: hidden;
+}
+.hero-theme {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease;
+  pointer-events: none;
+}
+.hero-theme.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.theme-ref {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(196,137,46,.15);
+  border: 1px solid rgba(196,137,46,.3);
+  padding: .2rem .55rem;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.theme-text {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  white-space: nowrap;
+}
+
+.radio-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4CAF50;
+  animation: live-pulse 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.radio-player-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+.radio-player-info strong {
+  font-family: var(--font-serif);
+  font-size: .95rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.radio-player-info span {
+  font-size: .72rem;
+  color: rgba(255,255,255,.55);
+  white-space: nowrap;
+}
+
+.radio-play-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s, transform .15s;
+}
+.radio-play-btn:hover { background: var(--gold-light); transform: scale(1.08); }
+.radio-play-btn:active { transform: scale(.95); }
+
+.radio-vol-wrap {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.radio-vol {
+  -webkit-appearance: none;
+  width: 90px;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.25);
+  outline: none;
+  cursor: pointer;
+}
+.radio-vol::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+.radio-ext-btn {
+  color: rgba(255,255,255,.45);
+  text-decoration: none;
+  transition: color .2s;
+  padding: .3rem;
+  flex-shrink: 0;
+}
+.radio-ext-btn:hover { color: rgba(255,255,255,.85); }
+
+.radio-close-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.45);
+  cursor: pointer;
+  padding: .3rem;
+  flex-shrink: 0;
+  transition: color .2s;
+}
+.radio-close-btn:hover { color: #fff; }
+
+@media (max-width: 600px) {
+  .radio-player-inner { gap: .85rem; padding: .75rem 1rem; }
+  .radio-vol-wrap { display: none; }
+  .radio-ext-btn { display: none; }
+  .radio-player-info span { display: none; }
+}
+</style>
+
+<script>
+(function() {
+  var player   = document.getElementById('radio-player');
+  var audio    = document.getElementById('radio-audio');
+  var playBtn  = document.getElementById('radio-play-btn');
+  var closeBtn = document.getElementById('radio-close-btn');
+  var volSlider= document.getElementById('radio-vol');
+  var radioIcon= document.getElementById('radio-icon');
+  var heroBtn  = document.getElementById('btn-radio-live');
+
+  var PLAY_PATH  = 'M8 5v14l11-7z';
+  var PAUSE_PATH = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+
+  function setPlaying(isPlaying) {
+    radioIcon.querySelector('path').setAttribute('d', isPlaying ? PAUSE_PATH : PLAY_PATH);
+    playBtn.setAttribute('aria-label', isPlaying ? 'Mettre en pause' : 'Lancer la radio');
+    playBtn.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+  }
+
+  function openPlayer() {
+    player.hidden = false;
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        player.classList.add('is-visible');
+      });
+    });
+    audio.play().then(function() { setPlaying(true); }).catch(function() {});
+  }
+
+  if (heroBtn) {
+    heroBtn.addEventListener('click', openPlayer);
+  }
+
+  playBtn.addEventListener('click', function() {
+    if (audio.paused) {
+      audio.play().then(function() { setPlaying(true); }).catch(function() {});
+    } else {
+      audio.pause();
+      setPlaying(false);
+    }
+  });
+
+  closeBtn.addEventListener('click', function() {
+    player.classList.remove('is-visible');
+    audio.pause();
+    audio.currentTime = 0;
+    setPlaying(false);
+    setTimeout(function() { player.hidden = true; }, 350);
+  });
+
+  if (volSlider) {
+    volSlider.addEventListener('input', function() {
+      audio.volume = parseFloat(volSlider.value);
+    });
+  }
+
+  audio.addEventListener('play',  function() { setPlaying(true);  });
+  audio.addEventListener('pause', function() { setPlaying(false); });
+})();
+</script>
+
+</body>
+</html>

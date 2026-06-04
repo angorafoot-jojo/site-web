@@ -1,0 +1,19 @@
+# Fichiers de configuration avec clés API réelles (ne jamais committer)
+azuracast_rotation_config.json
+azuracast_rotation_config_option_a.json
+
+# Fichiers de debug générés à chaque run
+azuracast_4_blocs_debug.json
+azuracast_cycle_debug.json
+
+# Logs locaux
+rotation.log
+*.log
+
+# Environnement virtuel Python
+.venv/
+__pycache__/
+*.pyc
+
+# Fichiers système
+.DS_Store

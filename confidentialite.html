@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentions légales & Confidentialité | L'Évangile du Royaume</title>
+  <meta name="description" content="Politique de confidentialité et mentions légales de L'Évangile du Royaume — collecte, protection et utilisation de vos données personnelles.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
+  <style>
+
+    /* ══ Hero ═══════════════════════════════════════════════ */
+    .legal-hero {
+      background: linear-gradient(160deg, #0d1b3e 0%, #1a3060 55%, #1e3a6e 100%);
+      padding: 7rem 0 3.5rem;
+    }
+    .legal-hero-eyebrow {
+      font-size: .7rem; font-weight: 800; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: .6rem;
+    }
+    .legal-hero-title {
+      font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: .65rem;
+    }
+    .legal-hero-sub {
+      font-size: .93rem; color: rgba(255,255,255,.55); max-width: 520px; line-height: 1.7;
+    }
+    .legal-hero-meta {
+      margin-top: 1.25rem;
+      font-size: .78rem;
+      color: rgba(255,255,255,.35);
+    }
+
+    /* ══ Page body ══════════════════════════════════════════ */
+    .legal-body {
+      background: var(--ivory);
+      padding: 4rem 0 6rem;
+    }
+
+    /* ══ Layout ═════════════════════════════════════════════ */
+    .legal-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ══ Table of contents ══════════════════════════════════ */
+    .legal-toc {
+      position: sticky;
+      top: 5rem;
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .legal-toc-title {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .legal-toc ul {
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+    .legal-toc a {
+      display: block;
+      font-size: .8rem;
+      color: #777;
+      text-decoration: none;
+      padding: .35rem .5rem;
+      border-radius: 6px;
+      line-height: 1.4;
+      transition: background .15s, color .15s;
+    }
+    .legal-toc a:hover { background: rgba(196,137,46,.08); color: var(--gold); }
+
+    /* ══ Content ════════════════════════════════════════════ */
+    .legal-content {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2.75rem 3rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.07);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .legal-section {
+      padding-bottom: 2.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .legal-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .legal-section-number {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .4rem;
+    }
+
+    .legal-section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .legal-section p {
+      font-size: .92rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: .85rem;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+
+    .legal-section ul {
+      margin: .75rem 0 .75rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    .legal-section ul li {
+      font-size: .92rem;
+      color: #555;
+      line-height: 1.7;
+    }
+    .legal-section ul li::marker { color: var(--gold); }
+
+    .legal-section a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .legal-section a:hover { text-decoration: underline; }
+
+    .legal-highlight {
+      background: rgba(196,137,46,.07);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      font-size: .9rem;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* ══ Responsive ════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .legal-layout { grid-template-columns: 1fr; }
+      .legal-toc { position: static; }
+    }
+    @media (max-width: 560px) {
+      .legal-content { padding: 1.75rem 1.25rem; }
+    }
+
+  </style>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
+</head>
+<body>
+
+<!-- ══ SVG Sprite ═══════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-menu"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="icon-close"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></symbol>
+</svg>
+
+
+<!-- ══ HEADER ═══════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+      <ul class="nav-links" style="list-style:none;margin:0;padding:0">
+        <li><a href="index.html"    class="nav-link">Accueil</a></li>
+        <li><a href="radio.html"    class="nav-link">Radio en direct</a></li>
+        <li><a href="audios.html"   class="nav-link">Messages audio</a></li>
+        <li><a href="podcasts.html" class="nav-link">Séries podcast</a></li>
+        <li><a href="videos.html"   class="nav-link">Vidéos</a></li>
+        <li><a href="louange.html"  class="nav-link">Louange</a></li>
+        <li><a href="articles.html" class="nav-link">Lire</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="nav-live-badge">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+      </div>
+      <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-menu"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<nav id="mobile-menu" class="mobile-menu" aria-label="Menu mobile" hidden>
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-title">Menu</span>
+    <button class="mobile-menu-close" aria-label="Fermer">
+      <svg width="20" height="20" aria-hidden="true"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-links" style="list-style:none;margin:0;padding:1rem 0">
+    <li><a href="index.html"    class="mobile-nav-link">Accueil</a></li>
+    <li><a href="radio.html"    class="mobile-nav-link">Radio en direct</a></li>
+    <li><a href="audios.html"   class="mobile-nav-link">Messages audio</a></li>
+    <li><a href="podcasts.html" class="mobile-nav-link">Séries podcast</a></li>
+    <li><a href="videos.html"   class="mobile-nav-link">Vidéos</a></li>
+    <li><a href="louange.html"  class="mobile-nav-link">Louange</a></li>
+    <li><a href="articles.html" class="mobile-nav-link">Lire</a></li>
+  </ul>
+  <div style="margin-top:2rem;padding:0 1rem">
+    <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center;display:flex;align-items:center;gap:.5rem">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+      Radio en direct
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══ HERO ═════════════════════════════════════════════════ -->
+<section class="legal-hero" aria-labelledby="legal-hero-title">
+  <div class="container">
+    <p class="legal-hero-eyebrow">Informations légales</p>
+    <h1 class="legal-hero-title" id="legal-hero-title">Mentions légales &amp;<br>Politique de confidentialité</h1>
+    <p class="legal-hero-sub">Tout ce que vous devez savoir sur la collecte, la protection et l'utilisation de vos données personnelles sur notre plateforme.</p>
+    <p class="legal-hero-meta">Dernière mise à jour : 2025</p>
+  </div>
+</section>
+
+
+<!-- ══ CONTENU ══════════════════════════════════════════════ -->
+<main class="legal-body" id="main-content">
+  <div class="container">
+    <div class="legal-layout">
+
+      <!-- Table des matières -->
+      <aside class="legal-toc" aria-label="Table des matières">
+        <p class="legal-toc-title">Sommaire</p>
+        <ul>
+          <li><a href="#contexte">1. Contexte</a></li>
+          <li><a href="#collecte">2. Collecte de l'information</a></li>
+          <li><a href="#utilisation">3. Utilisation des informations</a></li>
+          <li><a href="#divulgation">4. Divulgation à des tiers</a></li>
+          <li><a href="#protection">5. Protection des informations</a></li>
+          <li><a href="#droits">6. Vos droits</a></li>
+          <li><a href="#cookies">7. Utilisation des cookies</a></li>
+          <li><a href="#contact-legal">8. Nous contacter</a></li>
+        </ul>
+      </aside>
+
+      <!-- Contenu -->
+      <div class="legal-content">
+
+        <!-- 1. Contexte -->
+        <div class="legal-section" id="contexte">
+          <p class="legal-section-number">01</p>
+          <h2>Contexte</h2>
+          <p>
+            L'Évangile du Royaume s'engage à protéger la vie privée de ses visiteurs et utilisateurs. La présente politique de confidentialité définit et informe de la façon dont nous utilisons et gérons les données personnelles que vous êtes susceptibles de nous transmettre dans le cadre de la diffusion de notre ministère.
+          </p>
+          <p>
+            Cette politique s'applique à l'ensemble de notre plateforme accessible à l'adresse <strong>levangileduroyaume.com</strong> ainsi qu'à toutes les pages et services qui y sont associés.
+          </p>
+          <div class="legal-highlight">
+            En utilisant notre site, vous acceptez les pratiques décrites dans la présente politique de confidentialité.
+          </div>
+        </div>
+
+        <!-- 2. Collecte de l'information -->
+        <div class="legal-section" id="collecte">
+          <p class="legal-section-number">02</p>
+          <h2>Collecte de l'information</h2>
+          <p>
+            Nous recueillons des informations lorsque vous remplissez un formulaire ou nous contactez directement. Les informations recueillies peuvent inclure :
+          </p>
+          <ul>
+            <li>Votre pays de résidence</li>
+            <li>Votre prénom et nom</li>
+            <li>Votre adresse e-mail</li>
+            <li>Votre numéro de téléphone (si fourni)</li>
+            <li>Votre adresse postale (si fournie)</li>
+            <li>Votre organisme ou organisation (si applicable)</li>
+            <li>Votre mode de contribution ou de contact</li>
+          </ul>
+          <p>
+            En outre, nous recevons et enregistrons automatiquement des informations à partir de votre navigateur, notamment votre adresse IP, des données relatives aux cookies et les pages que vous consultez.
+          </p>
+        </div>
+
+        <!-- 3. Utilisation des informations -->
+        <div class="legal-section" id="utilisation">
+          <p class="legal-section-number">03</p>
+          <h2>Utilisation des informations</h2>
+          <p>
+            Les informations que nous recueillons auprès de vous peuvent être utilisées pour :
+          </p>
+          <ul>
+            <li>Vous contacter et répondre à vos demandes ou questions</li>
+            <li>Améliorer notre plateforme et son contenu</li>
+            <li>Personnaliser votre expérience et adapter nos contenus à vos besoins</li>
+            <li>Administrer des sondages ou enquêtes de satisfaction</li>
+            <li>Vous informer des mises à jour de contenus ou d'événements du ministère</li>
+          </ul>
+          <p>
+            Nous ne traiterons vos données que dans les limites strictement nécessaires aux finalités décrites ci-dessus.
+          </p>
+        </div>
+
+        <!-- 4. Divulgation à des tiers -->
+        <div class="legal-section" id="divulgation">
+          <p class="legal-section-number">04</p>
+          <h2>Divulgation à des tiers</h2>
+          <p>
+            Nous ne vendons, n'échangeons et ne transférons pas vos renseignements personnels identifiables à des tiers sans votre consentement préalable.
+          </p>
+          <p>
+            Cette règle ne s'applique pas aux partenaires de confiance qui nous aident à exploiter notre site ou à mener nos activités, dans la mesure où ces parties conviennent de garder ces informations confidentielles. Ces partenaires sont tenus de traiter vos données conformément à la présente politique.
+          </p>
+          <div class="legal-highlight">
+            Nous pourrions être amenés à divulguer vos informations personnelles si la loi l'exige ou si nous pensons en toute bonne foi qu'une telle action est nécessaire pour nous conformer à une procédure judiciaire ou pour protéger nos droits ou ceux d'autrui.
+          </div>
+        </div>
+
+        <!-- 5. Protection des informations -->
+        <div class="legal-section" id="protection">
+          <p class="legal-section-number">05</p>
+          <h2>Protection des informations</h2>
+          <p>
+            Nous mettons en œuvre diverses mesures de sécurité pour préserver la sécurité de vos informations personnelles. Nous utilisons des mécanismes de chiffrement à la pointe de la technologie pour protéger les informations sensibles transmises en ligne.
+          </p>
+          <p>
+            Seuls les employés et partenaires qui ont besoin d'effectuer un travail spécifique ont accès aux informations personnelles identifiables. Les ordinateurs et serveurs utilisés pour stocker des informations personnelles identifiables sont conservés dans un environnement sécurisé.
+          </p>
+        </div>
+
+        <!-- 6. Vos droits -->
+        <div class="legal-section" id="droits">
+          <p class="legal-section-number">06</p>
+          <h2>Vos droits</h2>
+          <p>
+            Conformément à la réglementation applicable en matière de protection des données, vous disposez des droits suivants :
+          </p>
+          <ul>
+            <li>
+              <strong>Droit d'opposition et de retrait :</strong> vous pouvez vous opposer à tout moment au traitement de vos données ou en demander le retrait.
+            </li>
+            <li>
+              <strong>Droit d'accès :</strong> vous pouvez demander à accéder aux informations personnelles vous concernant que nous détenons.
+            </li>
+            <li>
+              <strong>Droit de rectification :</strong> vous pouvez demander la correction de toute information inexacte ou incomplète.
+            </li>
+            <li>
+              <strong>Droit à l'effacement :</strong> vous pouvez demander la suppression de vos données personnelles dans les cas prévus par la loi.
+            </li>
+          </ul>
+          <p>
+            Pour exercer l'un de ces droits, contactez-nous à l'adresse suivante :
+            <a href="mailto:nousecrire@levangileduroyaume.com">nousecrire@levangileduroyaume.com</a>
+          </p>
+          <p>
+            Pour vous désinscrire de nos communications, envoyez-nous simplement un e-mail à l'adresse ci-dessus avec la mention <strong>« Désinscription »</strong> en objet.
+          </p>
+        </div>
+
+        <!-- 7. Cookies -->
+        <div class="legal-section" id="cookies">
+          <p class="legal-section-number">07</p>
+          <h2>Utilisation des cookies</h2>
+          <p>
+            Notre site utilise des cookies pour améliorer l'accès et personnaliser votre expérience de navigation. Les cookies sont de petits fichiers qu'un site ou son prestataire de services transfère sur le disque dur de votre ordinateur par l'intermédiaire de votre navigateur Web (si vous l'autorisez).
+          </p>
+          <p>
+            Les cookies nous permettent de reconnaître votre navigateur et de mémoriser certaines informations. Ils nous aident à comprendre et à enregistrer les préférences pour vos futures visites, et à compiler des données globales sur le trafic du site.
+          </p>
+          <p>
+            Les cookies utilisés sur ce site ne sont <strong>pas liés à la collecte d'informations personnelles identifiables</strong>. Vous pouvez choisir de désactiver les cookies via les paramètres de votre navigateur, bien que cela puisse affecter certaines fonctionnalités du site.
+          </p>
+        </div>
+
+        <!-- 8. Nous contacter -->
+        <div class="legal-section" id="contact-legal">
+          <p class="legal-section-number">08</p>
+          <h2>Nous contacter</h2>
+          <p>
+            Pour toute question relative à la présente politique de confidentialité ou à l'utilisation de vos données personnelles, n'hésitez pas à nous contacter :
+          </p>
+          <ul>
+            <li>Par e-mail : <a href="mailto:nousecrire@levangileduroyaume.com">nousecrire@levangileduroyaume.com</a></li>
+            <li>Via notre <a href="contact.html">page de contact</a></li>
+          </ul>
+          <p style="margin-top:1.5rem;font-size:.83rem;color:#aaa">
+            © 2025 L'Évangile du Royaume. Tous droits réservés.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Accueil" style="margin-bottom:1.25rem">
+          <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+            <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-title">L'Évangile du Royaume</span>
+            <span class="logo-sub">La Bonne Nouvelle</span>
+          </div>
+        </a>
+        <p>Plateforme chrétienne francophone pour écouter des enseignements bibliques, podcasts et radio en direct.</p>
+      </div>
+
+      <nav aria-label="Radio et audio">
+        <h4>Radio et audio</h4>
+        <ul class="footer-links">
+          <li><a href="radio.html"    class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Radio en direct</a></li>
+          <li><a href="podcasts.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Séries podcast</a></li>
+          <li><a href="audios.html"   class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Messages audio</a></li>
+          <li><a href="louange.html"  class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Louanges</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Vidéos et lecture">
+        <h4>Vidéos et lecture</h4>
+        <ul class="footer-links">
+          <li><a href="videos.html"         class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Vidéos</a></li>
+          <li><a href="articles.html"       class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Articles</a></li>
+          <li><a href="livres.html"         class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Livres</a></li>
+          <li><a href="nospartenaires.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Nos partenaires</a></li>
+        </ul>
+      </nav>
+
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 L'Évangile du Royaume. Tous droits réservés.</span>
+      <nav class="footer-bottom-links">
+        <a href="confidentialite.html" aria-current="page">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .nav-live-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:#4CAF50;background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.25);padding:.35rem .85rem;border-radius:99px;text-decoration:none;transition:background .25s}
+  .nav-live-badge:hover{background:rgba(76,175,80,.18)}
+</style>
+<script src="assets/js/main.js" defer></script>
+
+</body>
+</html>

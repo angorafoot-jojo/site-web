@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qui sommes-nous | L'Évangile du Royaume</title>
+  <meta name="description" content="Découvrez la mission et l'équipe de L'Évangile du Royaume — une plateforme chrétienne francophone bénévole dédiée à la proclamation de l'Évangile du Royaume de Dieu.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
+  <style>
+
+    /* ══ Hero ═══════════════════════════════════════════════ */
+    .about-hero {
+      background: linear-gradient(160deg, #0d1b3e 0%, #1a3060 55%, #1e3a6e 100%);
+      padding: 7rem 0 4rem;
+    }
+    .about-hero-eyebrow {
+      font-size: .7rem; font-weight: 800; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: .6rem;
+    }
+    .about-hero-title {
+      font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: .75rem;
+    }
+    .about-hero-sub {
+      font-size: .95rem; color: rgba(255,255,255,.55); max-width: 520px; line-height: 1.7;
+    }
+
+    /* ══ Page body ══════════════════════════════════════════ */
+    .about-body { background: var(--ivory); padding: 4rem 0 6rem; }
+
+    /* ══ Mission section ════════════════════════════════════ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .about-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .about-card-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: linear-gradient(135deg, #0d1b3e, #1e3a6e);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.1rem;
+      color: var(--gold);
+    }
+
+    .about-card h2 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .75rem;
+    }
+
+    .about-card p {
+      font-size: .9rem;
+      color: #666;
+      line-height: 1.75;
+      margin-bottom: .65rem;
+    }
+    .about-card p:last-child { margin-bottom: 0; }
+
+    .about-card ul {
+      margin: .5rem 0 .65rem 1.1rem;
+      display: flex; flex-direction: column; gap: .5rem;
+    }
+    .about-card ul li {
+      font-size: .9rem;
+      color: #666;
+      line-height: 1.65;
+    }
+    .about-card ul li::marker { color: var(--gold); }
+
+    /* ══ Full-width cards ═══════════════════════════════════ */
+    .about-card-full {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      border: 1px solid rgba(0,0,0,.06);
+      margin-bottom: 2rem;
+    }
+
+    .about-card-full h2 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: .75rem;
+    }
+    .about-card-full p {
+      font-size: .9rem; color: #666; line-height: 1.75;
+      margin-bottom: .65rem;
+    }
+    .about-card-full p:last-child { margin-bottom: 0; }
+
+    /* ══ Bible quote ════════════════════════════════════════ */
+    .bible-quote {
+      background: linear-gradient(135deg, #0d1b3e 0%, #1e3a6e 100%);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .bible-quote blockquote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      color: #fff;
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto .75rem;
+    }
+    .bible-quote blockquote::before { content: '\201C'; }
+    .bible-quote blockquote::after  { content: '\201D'; }
+    .bible-quote cite {
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ══ Pillars ════════════════════════════════════════════ */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .pillar-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      border: 1px solid rgba(0,0,0,.06);
+      border-top: 3px solid var(--gold);
+    }
+    .pillar-number {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      opacity: .3;
+      line-height: 1;
+      margin-bottom: .6rem;
+    }
+    .pillar-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .5rem;
+    }
+    .pillar-card p {
+      font-size: .85rem;
+      color: #777;
+      line-height: 1.65;
+    }
+
+    /* ══ CTA ════════════════════════════════════════════════ */
+    .about-cta {
+      background: linear-gradient(135deg, #0d1b3e, #1e3a6e);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .about-cta h3 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .35rem;
+    }
+    .about-cta p {
+      font-size: .88rem;
+      color: rgba(255,255,255,.55);
+    }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: var(--gold); color: #fff;
+      padding: .75rem 1.5rem; border-radius: 99px;
+      font-size: .86rem; font-weight: 700; text-decoration: none;
+      white-space: nowrap; transition: background .2s, transform .15s;
+      flex-shrink: 0;
+    }
+    .btn-gold:hover { background: #a8721e; transform: scale(1.04); }
+
+    /* ══ Responsive ════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .about-grid    { grid-template-columns: 1fr; }
+      .pillars-grid  { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .pillars-grid  { grid-template-columns: 1fr; }
+      .bible-quote   { padding: 2rem 1.25rem; }
+      .about-cta     { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
+</head>
+<body>
+
+<!-- ══ SVG Sprite ═══════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-menu"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="icon-close"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></symbol>
+  <symbol id="icon-target"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="icon-globe"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="icon-users"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="icon-mail"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></symbol>
+</svg>
+
+
+<!-- ══ HEADER ═══════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+      <ul class="nav-links" style="list-style:none;margin:0;padding:0">
+        <li><a href="index.html"    class="nav-link">Accueil</a></li>
+        <li><a href="radio.html"    class="nav-link">Radio en direct</a></li>
+        <li><a href="audios.html"   class="nav-link">Messages audio</a></li>
+        <li><a href="podcasts.html" class="nav-link">Séries podcast</a></li>
+        <li><a href="videos.html"   class="nav-link">Vidéos</a></li>
+        <li><a href="louange.html"  class="nav-link">Louange</a></li>
+        <li><a href="articles.html" class="nav-link">Lire</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="nav-live-badge">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+      </div>
+      <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-menu"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<nav id="mobile-menu" class="mobile-menu" aria-label="Menu mobile" hidden>
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-title">Menu</span>
+    <button class="mobile-menu-close" aria-label="Fermer">
+      <svg width="20" height="20" aria-hidden="true"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-links" style="list-style:none;margin:0;padding:1rem 0">
+    <li><a href="index.html"         class="mobile-nav-link">Accueil</a></li>
+    <li><a href="radio.html"         class="mobile-nav-link">Radio en direct</a></li>
+    <li><a href="audios.html"        class="mobile-nav-link">Messages audio</a></li>
+    <li><a href="podcasts.html"      class="mobile-nav-link">Séries podcast</a></li>
+    <li><a href="videos.html"        class="mobile-nav-link">Vidéos</a></li>
+    <li><a href="louange.html"       class="mobile-nav-link">Louange</a></li>
+    <li><a href="articles.html"      class="mobile-nav-link">Lire</a></li>
+    <li><a href="qui-sommes-nous.html" class="mobile-nav-link active" aria-current="page">Qui sommes-nous</a></li>
+  </ul>
+  <div style="margin-top:2rem;padding:0 1rem">
+    <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center;display:flex;align-items:center;gap:.5rem">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+      Radio en direct
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══ HERO ═════════════════════════════════════════════════ -->
+<section class="about-hero" aria-labelledby="about-hero-title">
+  <div class="container">
+    <p class="about-hero-eyebrow">Notre ministère</p>
+    <h1 class="about-hero-title" id="about-hero-title">Qui sommes-nous ?</h1>
+    <p class="about-hero-sub">Une équipe de chrétiens bénévoles francophones unis par une même vision : proclamer l'Évangile du Royaume de Dieu au monde entier par les médias numériques.</p>
+  </div>
+</section>
+
+
+<!-- ══ CONTENU ══════════════════════════════════════════════ -->
+<main class="about-body" id="main-content">
+  <div class="container">
+
+    <!-- Citation biblique -->
+    <div class="bible-quote">
+      <blockquote>
+        Allez chez tous les peuples pour que les gens deviennent mes disciples. Baptisez-les au nom du Père, du Fils et de l'Esprit Saint.
+      </blockquote>
+      <cite>— Matthieu 28:19</cite>
+    </div>
+
+    <!-- Mission + Contexte -->
+    <div class="about-grid">
+
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg width="22" height="22" aria-hidden="true"><use href="#icon-target"/></svg>
+        </div>
+        <h2>Notre mission</h2>
+        <p>
+          L'Évangile du Royaume a pour but de répandre par les médias et réseaux sociaux les enseignements de Jésus-Christ. Nous nous engageons à :
+        </p>
+        <ul>
+          <li>Éduquer les croyants à une compréhension claire du dessein éternel de Dieu et développer l'esprit prophétique</li>
+          <li>Exposer les voies pour une vie chrétienne victorieuse</li>
+          <li>Entretenir et encourager la foi par des cantiques, témoignages, exhortations et prières</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg width="22" height="22" aria-hidden="true"><use href="#icon-globe"/></svg>
+        </div>
+        <h2>Notre contexte</h2>
+        <p>
+          Le numérique est devenu un puissant moyen de communication. Cependant, de nombreux messages religieux diffusés sur ces plateformes ne sont pas conformes à la vérité de l'Évangile.
+        </p>
+        <p>
+          Inspirée par des chrétiens fidèles à travers le monde, notre équipe a créé cette plateforme numérique spécialement destinée au monde francophone, afin d'y diffuser un enseignement biblique sain et solide.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Qui nous sommes -->
+    <div class="about-card-full">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+        <div class="about-card-icon" style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#0d1b3e,#1e3a6e);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0">
+          <svg width="22" height="22" aria-hidden="true"><use href="#icon-users"/></svg>
+        </div>
+        <h2 style="margin:0">Notre équipe</h2>
+      </div>
+      <p>
+        La plateforme L'Évangile du Royaume est gérée par un groupe de <strong>chrétiens bénévoles</strong> issus de pays francophones. Animés par la passion de l'Évangile du Royaume de Dieu, ils consacrent leur temps et leurs compétences à la création, la diffusion et la maintenance de cette plateforme.
+      </p>
+      <p>
+        Notre équipe réunit des croyants aux profils variés — rédacteurs, techniciens, traducteurs, administrateurs — tous partageant la même conviction que l'Évangile du Royaume doit être prêché dans le monde entier avant la fin des temps (Matthieu 24:14).
+      </p>
+    </div>
+
+    <!-- Les 3 piliers -->
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-number">01</div>
+        <h3>Enseigner</h3>
+        <p>Des enseignements bibliques approfondis sur l'Évangile du Royaume, disponibles en audio, vidéo, articles et livres.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">02</div>
+        <h3>Édifier</h3>
+        <p>Des ressources pour fortifier la foi des croyants et les équiper pour une vie chrétienne victorieuse au quotidien.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">03</div>
+        <h3>Évangéliser</h3>
+        <p>Diffuser la Bonne Nouvelle du Royaume de Dieu au monde francophone à travers tous les canaux numériques disponibles.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="about-cta">
+      <div>
+        <h3>Une question ou un besoin spirituel ?</h3>
+        <p>Notre équipe est disponible pour vous répondre et vous accompagner.</p>
+      </div>
+      <a href="contact.html" class="btn-gold">
+        <svg width="15" height="15" aria-hidden="true"><use href="#icon-mail"/></svg>
+        Nous contacter
+      </a>
+    </div>
+
+  </div>
+</main>
+
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Accueil" style="margin-bottom:1.25rem">
+          <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+            <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-title">L'Évangile du Royaume</span>
+            <span class="logo-sub">La Bonne Nouvelle</span>
+          </div>
+        </a>
+        <p>Plateforme chrétienne francophone pour écouter des enseignements bibliques, podcasts et radio en direct.</p>
+      </div>
+
+      <nav aria-label="Radio et audio">
+        <h4>Radio et audio</h4>
+        <ul class="footer-links">
+          <li><a href="radio.html"    class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Radio en direct</a></li>
+          <li><a href="podcasts.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Séries podcast</a></li>
+          <li><a href="audios.html"   class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Messages audio</a></li>
+          <li><a href="louange.html"  class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Louanges</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Vidéos et lecture">
+        <h4>Vidéos et lecture</h4>
+        <ul class="footer-links">
+          <li><a href="videos.html"         class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Vidéos</a></li>
+          <li><a href="articles.html"       class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Articles</a></li>
+          <li><a href="livres.html"         class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Livres</a></li>
+          <li><a href="nospartenaires.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Nos partenaires</a></li>
+        </ul>
+      </nav>
+
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 L'Évangile du Royaume. Tous droits réservés.</span>
+      <nav class="footer-bottom-links">
+        <a href="qui-sommes-nous.html" aria-current="page">Qui sommes-nous</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .nav-live-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:#4CAF50;background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.25);padding:.35rem .85rem;border-radius:99px;text-decoration:none;transition:background .25s}
+  .nav-live-badge:hover{background:rgba(76,175,80,.18)}
+</style>
+<script src="assets/js/main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | L'Évangile du Royaume</title>
+  <meta name="description" content="Contactez L'Évangile du Royaume — pour un soutien spirituel ou toute autre question, nous sommes là pour vous répondre.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
+  <style>
+
+    /* ══ Hero ═══════════════════════════════════════════════ */
+    .contact-hero {
+      background: linear-gradient(160deg, #0d1b3e 0%, #1a3060 55%, #1e3a6e 100%);
+      padding: 7rem 0 3.5rem;
+    }
+    .contact-hero-eyebrow {
+      font-size: .7rem; font-weight: 800; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: .6rem;
+    }
+    .contact-hero-title {
+      font-family: var(--font-serif); font-size: clamp(2rem,4vw,3rem);
+      font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: .65rem;
+    }
+    .contact-hero-sub {
+      font-size: .95rem; color: rgba(255,255,255,.55); max-width: 480px; line-height: 1.7;
+    }
+
+    /* ══ Page body ══════════════════════════════════════════ */
+    .contact-body {
+      background: var(--ivory);
+      padding: 4rem 0 6rem;
+    }
+
+    /* ══ Layout ═════════════════════════════════════════════ */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ══ Form card ══════════════════════════════════════════ */
+    .contact-form-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .contact-form-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .4rem;
+    }
+    .contact-form-sub {
+      font-size: .88rem;
+      color: #777;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      margin-bottom: 1.25rem;
+    }
+    .form-group:last-of-type { margin-bottom: 0; }
+
+    .form-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .form-label span { color: var(--gold); margin-left: 2px; }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: .92rem;
+      font-family: inherit;
+      color: var(--navy);
+      background: #fafafa;
+      transition: border-color .2s, box-shadow .2s;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(196,137,46,.12);
+      background: #fff;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: #bbb; }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 150px;
+      line-height: 1.6;
+    }
+
+    .form-submit {
+      margin-top: 1.75rem;
+      width: 100%;
+      padding: .9rem 1.5rem;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 99px;
+      font-size: .92rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+    .form-submit:hover { background: #a8721e; transform: scale(1.02); }
+    .form-submit:disabled { opacity: .6; pointer-events: none; }
+
+    /* Success / error messages */
+    .form-feedback {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-size: .88rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .form-feedback.success {
+      background: rgba(76,175,80,.1);
+      border: 1px solid rgba(76,175,80,.3);
+      color: #2e7d32;
+    }
+    .form-feedback.error {
+      background: rgba(220,50,50,.08);
+      border: 1px solid rgba(220,50,50,.25);
+      color: #c62828;
+    }
+
+    /* ══ Info column ════════════════════════════════════════ */
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .contact-info-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .info-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .info-card-title svg {
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .65rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: .88rem;
+      color: #555;
+      line-height: 1.5;
+    }
+    .info-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-item svg { color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+    .info-item a { color: var(--navy); text-decoration: none; font-weight: 600; }
+    .info-item a:hover { color: var(--gold); }
+
+    /* Social links */
+    .social-links {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-top: .25rem;
+    }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .5rem 1rem;
+      border-radius: 99px;
+      font-size: .78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .15s, opacity .15s;
+      border: 1.5px solid transparent;
+    }
+    .social-btn:hover { transform: scale(1.05); opacity: .9; }
+    .social-btn.yt  { background: #ff0000; color: #fff; }
+    .social-btn.fb  { background: #1877f2; color: #fff; }
+    .social-btn.rad { background: rgba(76,175,80,.12); color: #2e7d32; border-color: rgba(76,175,80,.3); }
+
+    /* ══ Responsive ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-card { padding: 1.75rem 1.25rem; }
+    }
+
+  </style>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
+</head>
+<body>
+
+<!-- ══ SVG Sprite ═══════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-menu"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="icon-close"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></symbol>
+  <symbol id="icon-mail"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></symbol>
+  <symbol id="icon-share"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></symbol>
+  <symbol id="icon-radio"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"/></symbol>
+  <symbol id="icon-send"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+</svg>
+
+
+<!-- ══ HEADER ═══════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+      <ul class="nav-links" style="list-style:none;margin:0;padding:0">
+        <li><a href="index.html"    class="nav-link">Accueil</a></li>
+        <li><a href="radio.html"    class="nav-link">Radio en direct</a></li>
+        <li><a href="audios.html"   class="nav-link">Messages audio</a></li>
+        <li><a href="podcasts.html" class="nav-link">Séries podcast</a></li>
+        <li><a href="videos.html"   class="nav-link">Vidéos</a></li>
+        <li><a href="louange.html"  class="nav-link">Louange</a></li>
+        <li><a href="articles.html" class="nav-link">Lire</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="nav-live-badge">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+      </div>
+      <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-menu"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<nav id="mobile-menu" class="mobile-menu" aria-label="Menu mobile" hidden>
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-title">Menu</span>
+    <button class="mobile-menu-close" aria-label="Fermer">
+      <svg width="20" height="20" aria-hidden="true"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-links" style="list-style:none;margin:0;padding:1rem 0">
+    <li><a href="index.html"    class="mobile-nav-link">Accueil</a></li>
+    <li><a href="radio.html"    class="mobile-nav-link">Radio en direct</a></li>
+    <li><a href="audios.html"   class="mobile-nav-link">Messages audio</a></li>
+    <li><a href="podcasts.html" class="mobile-nav-link">Séries podcast</a></li>
+    <li><a href="videos.html"   class="mobile-nav-link">Vidéos</a></li>
+    <li><a href="louange.html"  class="mobile-nav-link">Louange</a></li>
+    <li><a href="articles.html" class="mobile-nav-link">Lire</a></li>
+    <li><a href="contact.html"  class="mobile-nav-link active" aria-current="page">Contact</a></li>
+  </ul>
+  <div style="margin-top:2rem;padding:0 1rem">
+    <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center;display:flex;align-items:center;gap:.5rem">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+      Radio en direct
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══ HERO ═════════════════════════════════════════════════ -->
+<section class="contact-hero" aria-labelledby="contact-hero-title">
+  <div class="container">
+    <p class="contact-hero-eyebrow">Nous écrire</p>
+    <h1 class="contact-hero-title" id="contact-hero-title">Nous contacter</h1>
+    <p class="contact-hero-sub">Vous avez une question, un besoin de soutien spirituel ou souhaitez simplement nous rejoindre ? Écrivez-nous, nous vous répondrons avec plaisir.</p>
+  </div>
+</section>
+
+
+<!-- ══ CONTENU ══════════════════════════════════════════════ -->
+<main class="contact-body" id="main-content">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Formulaire -->
+      <div class="contact-form-card">
+        <h2 class="contact-form-title">Envoyez-nous un message</h2>
+        <p class="contact-form-sub">Tous les champs marqués d'un <span style="color:var(--gold)">*</span> sont obligatoires.</p>
+
+        <form id="contact-form" novalidate>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="first-name">Prénom <span>*</span></label>
+              <input class="form-input" type="text" id="first-name" name="first_name"
+                     placeholder="Jean" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="last-name">Nom <span>*</span></label>
+              <input class="form-input" type="text" id="last-name" name="last_name"
+                     placeholder="Dupont" required autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Adresse e-mail <span>*</span></label>
+            <input class="form-input" type="email" id="email" name="email"
+                   placeholder="votre@email.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message <span>*</span></label>
+            <textarea class="form-textarea" id="message" name="message"
+                      placeholder="Écrivez votre message ici…" required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit" id="submit-btn">
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-send"/></svg>
+            Envoyer le message
+          </button>
+
+          <div class="form-feedback success" id="form-success">
+            ✅ Votre message a bien été envoyé ! Nous vous répondrons dans les meilleurs délais.
+          </div>
+          <div class="form-feedback error" id="form-error">
+            ⚠️ Une erreur s'est produite. Veuillez réessayer ou nous écrire directement à <strong>nousecrire@levangileduroyaume.com</strong>.
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Infos -->
+      <div class="contact-info">
+
+        <div class="contact-info-card">
+          <h3 class="info-card-title">
+            <svg width="18" height="18" aria-hidden="true"><use href="#icon-mail"/></svg>
+            Coordonnées
+          </h3>
+          <div class="info-item">
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-mail"/></svg>
+            <span>
+              Email :<br>
+              <a href="mailto:nousecrire@levangileduroyaume.com">nousecrire@levangileduroyaume.com</a>
+            </span>
+          </div>
+          <div class="info-item">
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-radio"/></svg>
+            <span>
+              Radio en direct :<br>
+              <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener">Parole Prophétique FM — 24h/24</a>
+            </span>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <h3 class="info-card-title">
+            <svg width="18" height="18" aria-hidden="true"><use href="#icon-share"/></svg>
+            Nous retrouver
+          </h3>
+          <p style="font-size:.85rem;color:#777;margin-bottom:1rem;line-height:1.6">Suivez-nous sur nos réseaux sociaux pour rester connecté à la Parole.</p>
+          <div class="social-links">
+            <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g"
+               target="_blank" rel="noopener" class="social-btn yt" aria-label="YouTube">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+              </svg>
+              YouTube
+            </a>
+            <a href="https://www.facebook.com/L%C3%89vangile-du-Royaume-103619371612103"
+               target="_blank" rel="noopener" class="social-btn fb" aria-label="Facebook">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+              Facebook
+            </a>
+            <a href="https://www.radioking.com/play/parole-prophetique-fm"
+               target="_blank" rel="noopener" class="social-btn rad" aria-label="Radio">
+              <svg width="15" height="15" aria-hidden="true"><use href="#icon-radio"/></svg>
+              Radio
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Accueil" style="margin-bottom:1.25rem">
+          <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+            <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-title">L'Évangile du Royaume</span>
+            <span class="logo-sub">La Bonne Nouvelle</span>
+          </div>
+        </a>
+        <p>Plateforme chrétienne francophone pour écouter des enseignements bibliques, podcasts et radio en direct.</p>
+      </div>
+
+      <nav aria-label="Radio et audio">
+        <h4>Radio et audio</h4>
+        <ul class="footer-links">
+          <li><a href="radio.html"    class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Radio en direct</a></li>
+          <li><a href="podcasts.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Séries podcast</a></li>
+          <li><a href="audios.html"   class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Messages audio</a></li>
+          <li><a href="louange.html"  class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Louanges</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Vidéos et lecture">
+        <h4>Vidéos et lecture</h4>
+        <ul class="footer-links">
+          <li><a href="videos.html"          class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Vidéos</a></li>
+          <li><a href="articles.html"        class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Articles</a></li>
+          <li><a href="livres.html"          class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Livres</a></li>
+          <li><a href="nospartenaires.html"  class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Nos partenaires</a></li>
+        </ul>
+      </nav>
+
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 L'Évangile du Royaume. Tous droits réservés.</span>
+      <nav class="footer-bottom-links">
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .nav-live-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:#4CAF50;background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.25);padding:.35rem .85rem;border-radius:99px;text-decoration:none;transition:background .25s}
+  .nav-live-badge:hover{background:rgba(76,175,80,.18)}
+</style>
+<script src="assets/js/main.js" defer></script>
+
+<script>
+/* ── Formulaire de contact ─────────────────────────────── */
+(function () {
+  const form       = document.getElementById('contact-form');
+  const submitBtn  = document.getElementById('submit-btn');
+  const successMsg = document.getElementById('form-success');
+  const errorMsg   = document.getElementById('form-error');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Validation basique
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName  = document.getElementById('last-name').value.trim();
+    const email     = document.getElementById('email').value.trim();
+    const message   = document.getElementById('message').value.trim();
+
+    if (!firstName || !lastName || !email || !message) {
+      errorMsg.textContent = '⚠️ Veuillez remplir tous les champs obligatoires.';
+      errorMsg.style.display = 'block';
+      successMsg.style.display = 'none';
+      return;
+    }
+
+    // État chargement
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<svg width="16" height="16" aria-hidden="true" style="animation:spin 1s linear infinite"><use href="#icon-send"/></svg> Envoi en cours…';
+
+    try {
+      // Envoi via Formspree — remplacez YOUR_FORM_ID par votre ID Formspree
+      const res = await fetch('https://formspree.io/f/nousecrire@levangileduroyaume.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ first_name: firstName, last_name: lastName, email, message })
+      });
+
+      if (res.ok) {
+        successMsg.style.display = 'block';
+        errorMsg.style.display   = 'none';
+        form.reset();
+      } else {
+        throw new Error('Erreur serveur');
+      }
+    } catch (err) {
+      errorMsg.textContent = '⚠️ Une erreur s\'est produite. Écrivez-nous directement à nousecrire@levangileduroyaume.com';
+      errorMsg.style.display   = 'block';
+      successMsg.style.display = 'none';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<svg width="16" height="16" aria-hidden="true"><use href="#icon-send"/></svg> Envoyer le message';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

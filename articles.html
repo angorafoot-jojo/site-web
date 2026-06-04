@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Articles & Méditations | L'Évangile du Royaume</title>
   <meta name="description" content="Articles bibliques, méditations et enseignements écrits du ministère L'Évangile du Royaume — prophétie, eschatologie, vie chrétienne et ministère.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
   <link rel="stylesheet" href="assets/css/style.css?v=articles-3">
   <style>
     /* ══════════════════════════════════════════
@@ -307,52 +309,6 @@
     }
     .reader-close:hover { background: rgba(220,50,50,.3); color: #ff8080; }
 
-    /* TTS button */
-    .tts-toggle-btn {
-      display: flex; align-items: center; gap: .38rem;
-      padding: .38rem .85rem; border-radius: 6px; font-size: .8rem; font-weight: 700;
-      border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.07);
-      color: var(--reader-muted); cursor: pointer; transition: all .18s; white-space: nowrap;
-    }
-    .tts-toggle-btn:hover { background: rgba(255,255,255,.14); color: var(--reader-text); }
-    .tts-toggle-btn.tts-active {
-      background: rgba(76,175,80,.2); border-color: rgba(76,175,80,.4); color: #a5d6a7;
-      animation: tts-pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes tts-pulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(76,175,80,.4); }
-      50%      { box-shadow: 0 0 0 5px rgba(76,175,80,.0); }
-    }
-
-    /* TTS panel */
-    .reader-tts-panel {
-      background: #0a1020; border-bottom: 1px solid var(--reader-border);
-      overflow: hidden; max-height: 0;
-      transition: max-height .3s ease; flex-shrink: 0;
-    }
-    .reader-tts-panel.open { max-height: 80px; }
-    .reader-tts-inner { display: flex; align-items: center; gap: 1rem; padding: .65rem 1.25rem; flex-wrap: wrap; }
-    .tts-status { font-size: .8rem; color: var(--reader-muted); min-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .tts-status.reading { color: #a5d6a7; }
-    .tts-controls { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; }
-    .tts-btn {
-      display: inline-flex; align-items: center; gap: .35rem;
-      padding: .38rem .85rem; border-radius: 6px; font-size: .78rem; font-weight: 700;
-      border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.07);
-      color: var(--reader-muted); cursor: pointer; transition: all .15s;
-    }
-    .tts-btn:hover { background: rgba(255,255,255,.15); color: var(--reader-text); }
-    .tts-btn.primary { background: rgba(76,175,80,.22); border-color: rgba(76,175,80,.4); color: #a5d6a7; }
-    .tts-btn:disabled { opacity: .3; pointer-events: none; }
-    .tts-speed {
-      appearance: none; -webkit-appearance: none;
-      padding: .35rem .7rem; border-radius: 6px; font-size: .78rem; font-weight: 700;
-      font-family: inherit; border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.07); color: var(--reader-muted); cursor: pointer;
-    }
-    .tts-auto-label { display: flex; align-items: center; gap: .4rem; font-size: .78rem; color: var(--reader-muted); cursor: pointer; user-select: none; }
-    .tts-auto-label input { accent-color: var(--reader-accent); }
-
     /* Reader body */
     .reader-body { flex: 1; overflow: hidden; position: relative; display: flex; }
     #epub-viewer { flex: 1; width: 100%; height: 100%; overflow: hidden; background: #FFFDF7; }
@@ -423,6 +379,7 @@
       .page-arrow { width: 40px; height: 40px; }
     }
   </style>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
 </head>
 <body>
 
@@ -494,7 +451,7 @@
           <span class="live-dot" style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
           Live
         </a>
-        <a href="index.html#newsletter" class="btn btn-outline btn-sm">S'abonner</a>
+        <a href="contact.html" class="btn btn-outline btn-sm">Contact</a>
       </div>
       <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
@@ -520,7 +477,7 @@
   <a href="louange.html" class="mobile-nav-link">Louange</a>
   <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.75rem">
     <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center"><span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span> Radio en direct</a>
-    <a href="index.html#newsletter" class="btn btn-primary" style="justify-content:center">S'abonner</a>
+    <a href="contact.html" class="btn btn-primary" style="justify-content:center">Nous contacter</a>
   </div>
 </nav>
 
@@ -539,10 +496,6 @@
             <span class="lib-stat-pill">
               <svg width="14" height="14"><use href="#icon-article"/></svg>
               16 articles
-            </span>
-            <span class="lib-stat-pill">
-              <svg width="14" height="14"><use href="#icon-book-open"/></svg>
-              Lecture intégrée
             </span>
             <span class="lib-stat-pill" style="background:rgba(196,137,46,.2);border-color:rgba(196,137,46,.35);color:#E4A84A">
               Gratuit · Accès libre
@@ -665,15 +618,6 @@
       PDF
     </a>
 
-    <button class="tts-toggle-btn" id="btn-tts-toggle" title="Écouter l'article à voix haute" aria-pressed="false">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-      </svg>
-      Écouter
-    </button>
-
     <div class="reader-zoom" aria-label="Zoom">
       <button class="zoom-btn" id="btn-zoom-out" title="Réduire" aria-label="Réduire">−</button>
       <span id="reader-zoom-level" aria-live="polite" title="Taille du texte">100%</span>
@@ -681,28 +625,6 @@
     </div>
 
     <button class="reader-close" id="btn-reader-close" aria-label="Fermer le lecteur">✕</button>
-  </div>
-
-  <!-- TTS Panel -->
-  <div class="reader-tts-panel" id="reader-tts-panel">
-    <div class="reader-tts-inner">
-      <span class="tts-status" id="tts-status">Prêt à lire la page courante</span>
-      <div class="tts-controls">
-        <button class="tts-btn primary" id="tts-play">▶ Lire la page</button>
-        <button class="tts-btn" id="tts-pause" disabled>⏸ Pause</button>
-        <button class="tts-btn" id="tts-stop"  disabled>⏹ Arrêter</button>
-        <select class="tts-speed" id="tts-rate" aria-label="Vitesse de lecture">
-          <option value="0.75">0.75×</option>
-          <option value="1" selected>1×</option>
-          <option value="1.25">1.25×</option>
-          <option value="1.5">1.5×</option>
-          <option value="2">2×</option>
-        </select>
-        <label class="tts-auto-label" title="Passer automatiquement à la page suivante">
-          <input type="checkbox" id="tts-auto"> Page suivante auto
-        </label>
-      </div>
-    </div>
   </div>
 
   <!-- Reader body -->
@@ -1033,8 +955,8 @@ async function openArticle(id, restoreCfi) {
   }
 }
 
-arrowPrev.addEventListener('click', () => { if (!rendition) return; stopTTS(); rendition.prev().catch(() => {}); });
-arrowNext.addEventListener('click', () => { if (!rendition) return; stopTTS(); rendition.next().catch(() => {}); });
+arrowPrev.addEventListener('click', () => { if (!rendition) return; rendition.prev().catch(() => {}); });
+arrowNext.addEventListener('click', () => { if (!rendition) return; rendition.next().catch(() => {}); });
 
 async function switchMode(newMode) {
   if (currentMode === newMode || !currentArtId || isLoading) return;
@@ -1063,12 +985,6 @@ btnZoomIn.addEventListener('click', () => { if (fontSizePct < 200) { fontSizePct
 btnZoomOut.addEventListener('click', () => { if (fontSizePct > 70)  { fontSizePct -= 15; applyZoom(); } });
 
 function closeReader() {
-  stopTTS();
-  if (ttsPanel) {
-    ttsPanel.classList.remove('open');
-    btnTtsToggle.classList.remove('tts-active');
-    btnTtsToggle.setAttribute('aria-pressed', 'false');
-  }
   overlay.classList.remove('open');
   document.body.style.overflow = '';
   readerError.classList.remove('visible');
@@ -1084,8 +1000,8 @@ document.addEventListener('keydown', e => {
   if (!overlay.classList.contains('open')) return;
   if (e.key === 'Escape') { closeReader(); return; }
   if (!rendition || currentMode !== 'page') return;
-  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); stopTTS(); rendition.prev().catch(() => {}); }
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); stopTTS(); rendition.next().catch(() => {}); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); rendition.prev().catch(() => {}); }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); rendition.next().catch(() => {}); }
 });
 
 let touchStartX = 0;
@@ -1103,197 +1019,6 @@ window.addEventListener('resize', () => {
   resizeTimer = setTimeout(() => { if (rendition) rendition.resize('100%', '100%'); }, 100);
 });
 
-/* ═══════════════════════════════════════════════════
-   TTS — Web Speech API
-═══════════════════════════════════════════════════ */
-const btnTtsToggle = document.getElementById('btn-tts-toggle');
-const ttsPanel     = document.getElementById('reader-tts-panel');
-const ttsStatus    = document.getElementById('tts-status');
-const ttsPlay      = document.getElementById('tts-play');
-const ttsPause     = document.getElementById('tts-pause');
-const ttsStop      = document.getElementById('tts-stop');
-const ttsRate      = document.getElementById('tts-rate');
-const ttsAuto      = document.getElementById('tts-auto');
-
-const synth     = window.speechSynthesis || null;
-let ttsUtterance = null;
-let ttsSpeaking  = false;
-let ttsPaused    = false;
-let ttsKeepAlive = null;
-let ttsDidStart  = false;
-
-btnTtsToggle.addEventListener('click', () => {
-  const isOpen = ttsPanel.classList.contains('open');
-  if (isOpen) {
-    ttsPanel.classList.remove('open');
-    btnTtsToggle.classList.remove('tts-active');
-    btnTtsToggle.setAttribute('aria-pressed', 'false');
-    stopTTS();
-  } else {
-    ttsPanel.classList.add('open');
-    btnTtsToggle.classList.add('tts-active');
-    btnTtsToggle.setAttribute('aria-pressed', 'true');
-    ttsStatus.textContent = synth ? 'Prêt à lire la section courante' : 'Synthèse vocale non supportée.';
-  }
-});
-
-/* ── Extraction du texte de la section courante ─ */
-async function getPageText() {
-  // Méthode 0 : accès direct à l'iframe dans le DOM — ne nécessite pas rendition
-  try {
-    const iframe = document.querySelector('#epub-viewer iframe');
-    if (iframe) {
-      const doc = iframe.contentDocument || iframe.contentWindow?.document;
-      if (doc && doc.body) {
-        const text = (doc.body.innerText || doc.body.textContent || '')
-          .replace(/\s+/g, ' ').trim();
-        if (text.length > 10) return text;
-      }
-    }
-  } catch(e) {}
-
-  // Les méthodes suivantes nécessitent rendition et epubBook
-  if (!rendition || !epubBook) return '';
-
-  // Méthode 1 : via l'API epub.js getContents()
-  try {
-    const contents = rendition.getContents();
-    if (contents && contents.length > 0) {
-      const doc = contents[0].document;
-      if (doc && doc.body) {
-        const text = (doc.body.innerText || doc.body.textContent || '')
-          .replace(/\s+/g, ' ').trim();
-        if (text.length > 10) return text;
-      }
-    }
-  } catch(e) {}
-
-  // Méthode 2 : chargement via la spine epub.js
-  try {
-    const location = rendition.currentLocation();
-    if (location && location.start && location.start.cfi) {
-      const section = epubBook.spine.get(location.start.cfi);
-      if (section) {
-        const doc = await section.load(epubBook.load.bind(epubBook));
-        if (doc && doc.body) {
-          const text = (doc.body.innerText || doc.body.textContent || '')
-            .replace(/\s+/g, ' ').trim();
-          section.unload();
-          if (text.length > 10) return text;
-        }
-      }
-    }
-  } catch(e) {}
-
-  return '';
-}
-
-async function speakCurrentPage() {
-  if (!synth) { ttsStatus.textContent = 'Synthèse vocale non supportée sur ce navigateur.'; return; }
-  stopTTS();
-  ttsStatus.textContent = 'Extraction du texte…';
-  ttsPlay.disabled = true;
-
-  const text = await getPageText();
-  if (!text) {
-    ttsStatus.textContent = 'Texte non accessible — attendez que la page soit chargée.';
-    ttsPlay.disabled = false;
-    return;
-  }
-
-  const art       = ARTICLES.find(a => a.id === currentArtId);
-  const isEnglish = art && art.en;
-  const lang      = isEnglish ? 'en-US' : 'fr-FR';
-
-  ttsUtterance      = new SpeechSynthesisUtterance(text);
-  ttsUtterance.lang = lang;
-  ttsUtterance.rate = parseFloat(ttsRate.value);
-
-  const noVoiceTimer = setTimeout(() => {
-    if (!ttsDidStart) {
-      synth.cancel();
-      ttsPlay.disabled = false;
-      ttsStatus.textContent = lang.startsWith('fr')
-        ? '⚠️ Aucune voix française. Sur macOS : Réglages → Accessibilité → Contenu parlé → télécharger une voix française.'
-        : '⚠️ Aucune voix disponible pour cette langue.';
-    }
-  }, 2000);
-
-  ttsUtterance.onstart = () => {
-    clearTimeout(noVoiceTimer);
-    ttsDidStart = true; ttsSpeaking = true; ttsPaused = false;
-    const loc = rendition ? rendition.currentLocation() : null;
-    const pct = loc?.start ? Math.round(loc.start.percentage * 100) : '—';
-    ttsStatus.textContent = `Lecture — ${pct}% · ${ttsUtterance.voice?.name || lang}`;
-    ttsStatus.classList.add('reading');
-    ttsPlay.disabled = true; ttsPause.disabled = false; ttsStop.disabled = false;
-    ttsKeepAlive = setInterval(() => {
-      if (synth && ttsSpeaking && !ttsPaused) { synth.pause(); synth.resume(); }
-    }, 10000);
-  };
-
-  ttsUtterance.onend = () => {
-    clearTimeout(noVoiceTimer);
-    clearInterval(ttsKeepAlive); ttsKeepAlive = null;
-    if (!ttsDidStart) return;
-    ttsDidStart = false; ttsSpeaking = false; ttsPaused = false;
-    ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
-    ttsStatus.classList.remove('reading'); ttsPause.textContent = '⏸ Pause';
-    const loc   = rendition ? rendition.currentLocation() : null;
-    const atEnd = loc ? loc.atEnd : true;
-    if (ttsAuto.checked && !atEnd && rendition) {
-      rendition.next().then(() => setTimeout(speakCurrentPage, 400));
-    } else {
-      ttsStatus.textContent = atEnd ? 'Lecture terminée.' : 'Prêt à lire la section courante';
-    }
-  };
-
-  ttsUtterance.onerror = e => {
-    clearTimeout(noVoiceTimer);
-    clearInterval(ttsKeepAlive); ttsKeepAlive = null;
-    if (e.error === 'interrupted' || e.error === 'canceled') return;
-    ttsDidStart = false; ttsSpeaking = false;
-    ttsPlay.disabled = false; ttsPause.disabled = true; ttsStop.disabled = true;
-    ttsStatus.classList.remove('reading');
-    ttsStatus.textContent = `Erreur : ${e.error}. Vérifiez les paramètres de langue.`;
-  };
-
-  ttsStatus.textContent = 'Démarrage…';
-  synth.speak(ttsUtterance);
-}
-
-function pauseTTS() {
-  if (!ttsSpeaking || !synth) return;
-  if (!ttsPaused) {
-    synth.pause(); ttsPaused = true; clearInterval(ttsKeepAlive);
-    ttsPause.textContent = '▶ Reprendre'; ttsStatus.classList.remove('reading');
-    const loc = rendition ? rendition.currentLocation() : null;
-    ttsStatus.textContent = `En pause — ${loc?.start ? Math.round(loc.start.percentage * 100) : '—'}%`;
-  } else {
-    synth.resume(); ttsPaused = false;
-    ttsPause.textContent = '⏸ Pause'; ttsStatus.classList.add('reading');
-    const loc = rendition ? rendition.currentLocation() : null;
-    ttsStatus.textContent = `Lecture — ${loc?.start ? Math.round(loc.start.percentage * 100) : '—'}%`;
-    ttsKeepAlive = setInterval(() => {
-      if (synth && ttsSpeaking && !ttsPaused) { synth.pause(); synth.resume(); }
-    }, 10000);
-  }
-}
-
-function stopTTS() {
-  clearInterval(ttsKeepAlive); ttsKeepAlive = null;
-  ttsDidStart = false; ttsSpeaking = false; ttsPaused = false;
-  if (synth) synth.cancel();
-  if (ttsPlay)  ttsPlay.disabled  = false;
-  if (ttsPause) { ttsPause.disabled = true; ttsPause.textContent = '⏸ Pause'; }
-  if (ttsStop)  ttsStop.disabled  = true;
-  if (ttsStatus) { ttsStatus.classList.remove('reading'); ttsStatus.textContent = 'Prêt à lire la section courante'; }
-}
-
-ttsRate.addEventListener('change', () => { if (ttsSpeaking) speakCurrentPage(); });
-ttsPlay.addEventListener('click',  () => speakCurrentPage());
-ttsPause.addEventListener('click', pauseTTS);
-ttsStop.addEventListener('click',  stopTTS);
 </script>
 </body>
 </html>

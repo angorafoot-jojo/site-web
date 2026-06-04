@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Louange | L'Évangile du Royaume</title>
+  <meta name="description" content="Cantiques et chants de louange de L'Évangile du Royaume — adorez l'Éternel en ligne.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
+  <style>
+
+    /* ══ Hero ═══════════════════════════════════════════════ */
+    .media-hero {
+      background: linear-gradient(160deg, #2D1B4E 0%, #5B2D8E 55%, #7B3FB0 100%);
+      padding: 7rem 0 3rem;
+    }
+    .media-hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .media-hero-eyebrow { font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-light); margin-bottom: .6rem; }
+    .media-hero-title { font-family: var(--font-serif); font-size: clamp(2rem,4vw,3rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: .65rem; }
+    .media-hero-sub { font-size: .93rem; color: rgba(255,255,255,.55); max-width: 420px; line-height: 1.6; }
+
+    /* ══ Page body ══════════════════════════════════════════ */
+    .media-body { background: var(--ivory); padding: 2.5rem 0 6rem; }
+
+    /* ══ Cantique grid ══════════════════════════════════════ */
+    .cantique-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .cantique-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .cantique-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.13); }
+
+    /* Thumbnail area */
+    .cantique-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #1a1a2e;
+      overflow: hidden;
+    }
+    .cantique-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s;
+    }
+    .cantique-card:hover .cantique-thumb img { transform: scale(1.04); }
+
+    /* Audio placeholder (for GD tracks) */
+    .cantique-thumb-audio {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #2D1B4E, #5B2D8E);
+    }
+    .cantique-thumb-audio svg { opacity: .4; color: #fff; }
+
+    /* Play overlay */
+    .cantique-play-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.3);
+      opacity: 0; transition: opacity .2s;
+    }
+    .cantique-card:hover .cantique-play-overlay { opacity: 1; }
+    .cantique-play-btn {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,.9);
+      display: flex; align-items: center; justify-content: center;
+      color: #1a1a2e;
+      box-shadow: 0 4px 16px rgba(0,0,0,.3);
+      transition: transform .15s, background .15s;
+    }
+    .cantique-card:hover .cantique-play-btn { transform: scale(1.08); }
+
+    /* Type badge on thumb */
+    .cantique-type-badge {
+      position: absolute; top: .6rem; left: .6rem;
+      font-size: .6rem; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .5rem; border-radius: 99px;
+      backdrop-filter: blur(6px);
+    }
+    .badge-yt  { background: rgba(255,0,0,.75); color: #fff; }
+    .badge-audio { background: rgba(91,45,142,.75); color: #fff; }
+
+    /* Card body */
+    .cantique-body {
+      padding: .9rem 1rem 1rem;
+    }
+    .cantique-title {
+      font-size: .88rem; font-weight: 700; color: var(--charcoal);
+      line-height: 1.35; margin-bottom: .3rem;
+    }
+    .cantique-meta {
+      font-size: .7rem; color: var(--warm-grey);
+      display: flex; align-items: center; gap: .35rem;
+    }
+
+    /* ══ Video / Audio Modal ════════════════════════════════ */
+    .media-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .media-modal-overlay.open { display: flex; }
+
+    .media-modal {
+      background: #0c1931; border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.6);
+      width: min(700px, 95vw); overflow: hidden;
+    }
+    .media-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .85rem 1.1rem .7rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .media-modal-title { font-size: .85rem; font-weight: 700; color: #fff; }
+    .media-modal-sub   { font-size: .68rem; color: rgba(255,255,255,.4); margin-top: .1rem; }
+    .media-modal-close {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,.5); padding: .35rem;
+      border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: color .15s, background .15s;
+    }
+    .media-modal-close:hover { color: #fff; background: rgba(255,255,255,.1); }
+
+    /* YouTube embed: 16/9 ratio */
+    .media-modal-yt {
+      position: relative; width: 100%; padding-top: 56.25%;
+    }
+    .media-modal-yt iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+
+    /* GD audio embed */
+    .media-modal-audio iframe {
+      display: block; width: 100%; height: 160px; border: none;
+    }
+
+    /* ══ CTA bar ════════════════════════════════════════════ */
+    .yt-cta {
+      margin-top: 3rem;
+      background: linear-gradient(135deg, #2D1B4E 0%, #5B2D8E 100%);
+      border-radius: var(--radius-lg); padding: 2rem 1.75rem;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .yt-cta-left { display: flex; align-items: center; gap: 1rem; }
+    .yt-cta-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .yt-cta strong { display: block; font-family: var(--font-serif); font-size: 1.1rem; color: #fff; margin-bottom: .2rem; }
+    .yt-cta span { font-size: .78rem; color: rgba(255,255,255,.5); }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gold); color: #fff;
+      padding: .75rem 1.5rem; border-radius: 99px;
+      font-size: .86rem; font-weight: 700; text-decoration: none;
+      transition: background .2s, transform .15s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--gold-dk, #a8721e); transform: scale(1.04); }
+
+    /* ══ Responsive ═════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .cantique-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .cantique-grid { grid-template-columns: 1fr; }
+      .media-hero-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
+</head>
+<body>
+
+<!-- ══ SVG Sprite ═══════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-play"     viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="icon-cantique" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="icon-menu"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="icon-close"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="icon-arrow-r"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+</svg>
+
+
+<!-- ══ HEADER ═══════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+      <ul class="nav-links" style="list-style:none;margin:0;padding:0">
+        <li><a href="index.html"    class="nav-link">Accueil</a></li>
+        <li><a href="radio.html"    class="nav-link">Radio en direct</a></li>
+        <li><a href="audios.html"   class="nav-link">Messages audio</a></li>
+        <li><a href="podcasts.html" class="nav-link">Séries podcast</a></li>
+        <li><a href="videos.html"   class="nav-link">Vidéos</a></li>
+        <li><a href="louange.html"  class="nav-link active" aria-current="page">Louange</a></li>
+        <li><a href="articles.html" class="nav-link">Lire</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g/live"
+           target="_blank" rel="noopener" class="nav-live-badge">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+        <a href="contact.html" class="btn btn-outline">S'abonner</a>
+      </div>
+      <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-menu"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<nav id="mobile-menu" class="mobile-menu" aria-label="Menu mobile" hidden>
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-title">Menu</span>
+    <button class="mobile-menu-close" aria-label="Fermer">
+      <svg width="20" height="20" aria-hidden="true"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-list">
+    <li><a href="index.html"    class="mobile-nav-link">Accueil</a></li>
+    <li><a href="radio.html"    class="mobile-nav-link">Radio en direct</a></li>
+    <li><a href="audios.html"   class="mobile-nav-link">Messages audio</a></li>
+    <li><a href="podcasts.html" class="mobile-nav-link">Séries podcast</a></li>
+    <li><a href="videos.html"   class="mobile-nav-link">Vidéos</a></li>
+    <li><a href="louange.html"  class="mobile-nav-link" aria-current="page">Louange</a></li>
+    <li><a href="articles.html" class="mobile-nav-link">Lire</a></li>
+  </ul>
+</nav>
+<div class="mobile-overlay" aria-hidden="true"></div>
+
+
+<!-- ══ HERO ═══════════════════════════════════════════════ -->
+<div class="media-hero">
+  <div class="container">
+    <div class="media-hero-inner">
+      <div>
+        <p class="media-hero-eyebrow">Médias · L'Évangile du Royaume</p>
+        <h1 class="media-hero-title">Louange</h1>
+        <p class="media-hero-sub">14 cantiques et chants de louange — adorez l'Éternel directement en ligne.</p>
+        <blockquote style="margin-top:1.25rem;border-left:3px solid rgba(196,137,46,.5);padding-left:1rem;max-width:480px">
+          <p style="font-style:italic;font-size:.9rem;color:rgba(255,255,255,.65);line-height:1.6">
+            « Entretenez-vous par des psaumes, des hymnes, et des cantiques spirituels, chantant et célébrant de tout votre cœur les louanges du Seigneur. »
+          </p>
+          <footer style="font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light);margin-top:.5rem">— Éphésiens 5:19-20</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ MAIN ═══════════════════════════════════════════════ -->
+<main class="media-body" id="main-content">
+  <div class="container">
+
+    <div class="cantique-grid">
+
+      <!-- 01 — Qui est digne d'ouvrir le livre (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="t1GNRlGR6NY" data-title="Qui est digne d'ouvrir le livre" role="button" tabindex="0" aria-label="Lire — Qui est digne d'ouvrir le livre">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/t1GNRlGR6NY/mqdefault.jpg" alt="Qui est digne d'ouvrir le livre" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Qui est digne d'ouvrir le livre</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 02 — Oh Eternel DIEU tu es le DIEU incomparable (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="jz40zSg8TJg" data-title="Oh Eternel DIEU tu es le DIEU incomparable" role="button" tabindex="0" aria-label="Lire — Oh Eternel DIEU tu es le DIEU incomparable">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/jz40zSg8TJg/mqdefault.jpg" alt="Oh Eternel DIEU tu es le DIEU incomparable" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Oh Eternel DIEU tu es le DIEU incomparable</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 03 — J'ai donné ma vie à Jésus (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="931prcU7c4E" data-title="J'ai donné ma vie à Jésus" role="button" tabindex="0" aria-label="Lire — J'ai donné ma vie à Jésus">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/931prcU7c4E/mqdefault.jpg" alt="J'ai donné ma vie à Jésus" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">J'ai donné ma vie à Jésus</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 04 — Jahweh, Tu es élevé au dessus de tout (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="DBxIeptKfZY" data-title="Jahweh, Tu es élevé au dessus de tout" role="button" tabindex="0" aria-label="Lire — Jahweh, Tu es élevé au dessus de tout">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/DBxIeptKfZY/mqdefault.jpg" alt="Jahweh, Tu es élevé au dessus de tout" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Jahweh, Tu es élevé au dessus de tout</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 05 — Béni soit le DIEU d'Israël (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="JKpPMJXvRu0" data-title="Béni soit le DIEU d'Israël" role="button" tabindex="0" aria-label="Lire — Béni soit le DIEU d'Israël">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/JKpPMJXvRu0/mqdefault.jpg" alt="Béni soit le DIEU d'Israël" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Béni soit le DIEU d'Israël</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 06 — Victorieux est l'agneau (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="upL4BM3U7K8" data-title="Victorieux est l'agneau" role="button" tabindex="0" aria-label="Lire — Victorieux est l'agneau">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/upL4BM3U7K8/mqdefault.jpg" alt="Victorieux est l'agneau" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Victorieux est l'agneau</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 07 — Prends tout le contrôle (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="0binqCDW4i0" data-title="Prends tout le contrôle" role="button" tabindex="0" aria-label="Lire — Prends tout le contrôle">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/0binqCDW4i0/mqdefault.jpg" alt="Prends tout le contrôle" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Prends tout le contrôle</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 08 — TA BONTE (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="cWhpirB9_Ao" data-title="Ta bonté" role="button" tabindex="0" aria-label="Lire — Ta bonté">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/cWhpirB9_Ao/mqdefault.jpg" alt="Ta bonté" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Ta bonté</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 09 — L'ETERNEL est mon berger (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="Nj4_QnBIcDU" data-title="L'Éternel est mon berger" role="button" tabindex="0" aria-label="Lire — L'Éternel est mon berger">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/Nj4_QnBIcDU/mqdefault.jpg" alt="L'Éternel est mon berger" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">L'Éternel est mon berger</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 10 — Esprit de DIEU (YouTube) -->
+      <div class="cantique-card" data-type="yt" data-id="9SW5NBQhkOI" data-title="Esprit de DIEU" role="button" tabindex="0" aria-label="Lire — Esprit de DIEU">
+        <div class="cantique-thumb">
+          <img src="https://img.youtube.com/vi/9SW5NBQhkOI/mqdefault.jpg" alt="Esprit de DIEU" loading="lazy">
+          <span class="cantique-type-badge badge-yt">YouTube</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Esprit de DIEU</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 11 — Heureux l'homme qui ne marche pas (Google Drive audio) -->
+      <div class="cantique-card" data-type="gd" data-id="1zRsdyrCCRtqgFTkBrdxxK_v5SYJqisS8" data-title="Heureux l'homme qui ne marche pas" role="button" tabindex="0" aria-label="Lire — Heureux l'homme qui ne marche pas">
+        <div class="cantique-thumb">
+          <div class="cantique-thumb-audio">
+            <svg width="52" height="52"><use href="#icon-cantique"/></svg>
+          </div>
+          <span class="cantique-type-badge badge-yt">Vidéo</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Heureux l'homme qui ne marche pas selon le conseil des méchants</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 12 — Nous sommes le sel de la terre (Google Drive audio) -->
+      <div class="cantique-card" data-type="gd" data-id="10Ve6SUcSsrkNzsoev7sqw5E6epTGl0jp" data-title="Nous sommes le sel de la terre" role="button" tabindex="0" aria-label="Lire — Nous sommes le sel de la terre">
+        <div class="cantique-thumb">
+          <div class="cantique-thumb-audio">
+            <svg width="52" height="52"><use href="#icon-cantique"/></svg>
+          </div>
+          <span class="cantique-type-badge badge-yt">Vidéo</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Nous sommes le sel de la terre</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 13 — Sa miséricorde (Google Drive audio) -->
+      <div class="cantique-card" data-type="gd" data-id="1CbCDHnUmTKgO3o-xQt4SW42AWeZ3WW9G" data-title="Sa miséricorde" role="button" tabindex="0" aria-label="Lire — Sa miséricorde">
+        <div class="cantique-thumb">
+          <div class="cantique-thumb-audio">
+            <svg width="52" height="52"><use href="#icon-cantique"/></svg>
+          </div>
+          <span class="cantique-type-badge badge-yt">Vidéo</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Sa miséricorde</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+      <!-- 14 — Il a pris mes iniquités (Google Drive audio) -->
+      <div class="cantique-card" data-type="gd" data-id="1-tipwGEQDDRSKX30AOPQr8wmhMaaJptZ" data-title="Il a pris mes iniquités" role="button" tabindex="0" aria-label="Lire — Il a pris mes iniquités">
+        <div class="cantique-thumb">
+          <div class="cantique-thumb-audio">
+            <svg width="52" height="52"><use href="#icon-cantique"/></svg>
+          </div>
+          <span class="cantique-type-badge badge-yt">Vidéo</span>
+          <div class="cantique-play-overlay"><div class="cantique-play-btn"><svg width="20" height="20"><use href="#icon-play"/></svg></div></div>
+        </div>
+        <div class="cantique-body">
+          <div class="cantique-title">Il a pris mes iniquités</div>
+          <div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>
+        </div>
+      </div>
+
+    </div><!-- /cantique-grid -->
+
+
+    <!-- CTA -->
+    <div class="yt-cta">
+      <div class="yt-cta-left">
+        <div class="yt-cta-icon" aria-hidden="true">
+          <svg width="22" height="22" style="color:#fff"><use href="#icon-cantique"/></svg>
+        </div>
+        <div>
+          <strong>14 cantiques</strong>
+          <span>Louange & adoration — cliquez pour écouter directement</span>
+        </div>
+      </div>
+      <a href="audios.html" class="btn-primary">
+        <svg width="15" height="15" aria-hidden="true"><use href="#icon-arrow-r"/></svg>
+        Voir les messages audio
+      </a>
+    </div>
+
+  </div>
+</main>
+
+
+<!-- ══ MEDIA MODAL (YouTube + GD audio) ═════════════════════ -->
+<div class="media-modal-overlay" id="mediaModal" role="dialog" aria-modal="true" aria-label="Lecteur">
+  <div class="media-modal" id="mediaModalInner">
+    <div class="media-modal-header">
+      <div>
+        <div class="media-modal-title" id="modalTitle">—</div>
+        <div class="media-modal-sub" id="modalSub">Cantique · L'Évangile du Royaume</div>
+      </div>
+      <button class="media-modal-close" id="modalClose" aria-label="Fermer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Content injected by JS: either .media-modal-yt or .media-modal-audio -->
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Accueil" style="margin-bottom:1.25rem">
+          <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+            <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-title">L'Évangile du Royaume</span>
+            <span class="logo-sub">La Bonne Nouvelle</span>
+          </div>
+        </a>
+        <p>Plateforme chrétienne francophone d'enseignements bibliques, podcasts et radio en direct.</p>
+      </div>
+      <nav aria-label="Médias">
+        <h4>Médias</h4>
+        <ul class="footer-links">
+          <li><a href="videos.html"   class="footer-link">Vidéos</a></li>
+          <li><a href="audios.html"   class="footer-link">Messages audio</a></li>
+          <li><a href="podcasts.html" class="footer-link">Séries podcast</a></li>
+          <li><a href="louange.html"  class="footer-link">Louange</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Liens rapides">
+        <h4>Explorer</h4>
+        <ul class="footer-links">
+          <li><a href="radio.html"    class="footer-link">Radio en direct</a></li>
+          <li><a href="articles.html" class="footer-link">Articles</a></li>
+          <li><a href="index.html"    class="footer-link">Accueil</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 L'Évangile du Royaume. Tous droits réservés.</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .nav-live-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:#4CAF50;background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.25);padding:.35rem .85rem;border-radius:99px;text-decoration:none;transition:background .25s}
+  .nav-live-badge:hover{background:rgba(76,175,80,.18)}
+  .nav-link.active{color:#fff;font-weight:700}
+</style>
+<script src="assets/js/main.js" defer></script>
+
+<script>
+(function () {
+  const modal       = document.getElementById('mediaModal');
+  const modalTitle  = document.getElementById('modalTitle');
+  const modalContent= document.getElementById('modalContent');
+  const modalClose  = document.getElementById('modalClose');
+
+  function openModal(type, id, title) {
+    modalTitle.textContent = title;
+
+    if (type === 'yt') {
+      modalContent.innerHTML =
+        '<div class="media-modal-yt">' +
+          '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" ' +
+          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+          'allowfullscreen loading="lazy"></iframe>' +
+        '</div>';
+    } else {
+      // Google Drive video — same 16:9 container as YouTube
+      modalContent.innerHTML =
+        '<div class="media-modal-yt">' +
+          '<iframe src="https://drive.google.com/file/d/' + id + '/preview" ' +
+          'allow="autoplay" allowfullscreen loading="lazy"></iframe>' +
+        '</div>';
+    }
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modalContent.innerHTML = '';  // stops playback
+    document.body.style.overflow = '';
+  }
+
+  // Wire up all cantique cards
+  document.querySelectorAll('.cantique-card').forEach(card => {
+    function activate() {
+      openModal(card.dataset.type, card.dataset.id, card.dataset.title);
+    }
+    card.addEventListener('click', activate);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+})();
+</script>
+</body>
+</html>

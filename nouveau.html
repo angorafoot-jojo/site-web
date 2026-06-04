@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouveau | L'Évangile du Royaume</title>
+  <meta name="description" content="Les derniers contenus mis en avant de chaque catégorie sur une seule page : radio, vidéos, messages audio, séries podcast, louange et articles.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
+  <style>
+    .media-hero {
+      background: linear-gradient(160deg, var(--brand-blue-dk) 0%, #16305f 50%, #234e9a 100%);
+      padding: 7rem 0 3rem;
+    }
+    .media-hero-inner {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .media-hero-eyebrow {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: .7rem;
+    }
+    .media-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4.2vw, 3.3rem);
+      color: #fff;
+      line-height: 1.06;
+      margin-bottom: .65rem;
+    }
+    .media-hero-sub {
+      max-width: 620px;
+      color: rgba(255,255,255,.72);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      padding: .8rem 1.2rem;
+      font-size: .84rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .new-body {
+      background: var(--white);
+      padding: 2.5rem 0 6rem;
+    }
+    .new-section {
+      margin-bottom: 3rem;
+    }
+    .new-section-hd {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px solid rgba(28,28,40,.08);
+      padding-bottom: .9rem;
+    }
+    .new-section-hd h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      margin-bottom: .15rem;
+    }
+    .new-section-hd p {
+      color: var(--warm-grey);
+      font-size: .92rem;
+    }
+    .new-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: var(--brand-blue);
+      font-size: .84rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+    }
+    .highlight-card {
+      background: #fff;
+      border: 1px solid rgba(28,28,40,.08);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(15,45,107,.08);
+    }
+    .highlight-card.primary { grid-column: span 7; }
+    .highlight-card.secondary { grid-column: span 5; }
+    .highlight-media {
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #112857, #214f9a);
+      position: relative;
+      overflow: hidden;
+    }
+    .highlight-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .highlight-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .38rem .75rem;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(12,25,49,.72);
+      backdrop-filter: blur(10px);
+    }
+    .highlight-badge.live { background: rgba(76,175,80,.18); border: 1px solid rgba(76,175,80,.35); color: #7edc89; }
+    .highlight-badge.video { background: rgba(255,0,0,.82); }
+    .highlight-badge.audio { background: rgba(30,79,163,.9); }
+    .highlight-badge.podcast { background: rgba(80,63,181,.88); }
+    .highlight-badge.louange { background: rgba(123,63,176,.88); }
+    .highlight-body {
+      padding: 1.3rem 1.3rem 1.45rem;
+    }
+    .highlight-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin-bottom: .7rem;
+      color: var(--warm-grey);
+      font-size: .8rem;
+      font-weight: 600;
+    }
+    .highlight-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      margin-bottom: .55rem;
+      line-height: 1.18;
+    }
+    .highlight-body p {
+      color: var(--warm-grey);
+      margin-bottom: 1rem;
+    }
+    .row-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .9rem;
+    }
+    .row-card {
+      background: #fff;
+      border: 1px solid rgba(28,28,40,.08);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 8px 22px rgba(15,45,107,.05);
+    }
+    .row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-bottom: .7rem;
+    }
+    .row-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .3rem .65rem;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: var(--brand-blue-pale);
+      color: var(--brand-blue-dk);
+    }
+    .row-date {
+      color: var(--warm-grey);
+      font-size: .78rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .row-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.18rem;
+      line-height: 1.2;
+      margin-bottom: .45rem;
+    }
+    .row-card p {
+      color: var(--warm-grey);
+      font-size: .92rem;
+      margin-bottom: .9rem;
+    }
+    .row-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      color: var(--brand-blue);
+      font-size: .84rem;
+      font-weight: 700;
+    }
+    .live-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top right, rgba(76,175,80,.22), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(196,137,46,.2), transparent 32%),
+        linear-gradient(145deg, #09142f, #15386f);
+      color: #fff;
+      padding: 1.4rem;
+    }
+    .live-panel h3 {
+      color: #fff;
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      margin-bottom: .6rem;
+    }
+    .live-panel p {
+      color: rgba(255,255,255,.72);
+      margin-bottom: 1rem;
+    }
+    .live-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: .35rem;
+    }
+    @media (max-width: 1100px) {
+      .highlight-card.primary,
+      .highlight-card.secondary { grid-column: span 12; }
+    }
+    @media (max-width: 900px) {
+      .row-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="icon-radio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="2"/>
+    <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+  </symbol>
+  <symbol id="icon-podcast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+    <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+  </symbol>
+  <symbol id="icon-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+  </symbol>
+  <symbol id="icon-article" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+    <polyline points="14 2 14 8 20 8"/>
+    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+  </symbol>
+  <symbol id="icon-livre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <symbol id="icon-cantique" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </symbol>
+</svg>
+
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="8" y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8" y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">L'Évangile du Royaume</span>
+          <span class="logo-sub">La Bonne Nouvelle</span>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li class="nav-item"><a href="index.html"   class="nav-link">Accueil</a></li>
+        <li class="nav-item"><a href="nouveau.html" class="nav-link active" aria-current="page">Nouveau</a></li>
+        <li class="nav-item">
+          <a href="radio.html" class="nav-link" role="button" aria-haspopup="true">
+            Écouter
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem">
+              <a href="radio.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-1"><svg width="18" height="18"><use href="#icon-radio"/></svg></span>
+                <span><strong style="display:block;font-size:.9rem">Radio en direct</strong><small style="opacity:.6">Parole Prophétique FM 24h/24</small></span>
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="podcasts.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-3"><svg width="18" height="18"><use href="#icon-podcast"/></svg></span>
+                Podcasts bibliques
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="audios.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-2"><svg width="18" height="18"><use href="#icon-audio"/></svg></span>
+                Messages audio
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="videos.html"  class="nav-link">Regarder</a></li>
+        <li class="nav-item">
+          <a href="articles.html" class="nav-link" role="button" aria-haspopup="true">
+            Lire
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem">
+              <a href="articles.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-5"><svg width="18" height="18"><use href="#icon-article"/></svg></span>
+                Articles & Méditations
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="livres.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-4"><svg width="18" height="18"><use href="#icon-livre"/></svg></span>
+                Livres
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="louange.html" class="nav-link">Louange</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="nav-live-badge" aria-label="Écouter la radio en direct">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
+          Live
+        </a>
+        <a href="contact.html" class="btn btn-outline btn-sm">Contact</a>
+      </div>
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">
+  <a href="index.html"    class="mobile-nav-link">Accueil</a>
+  <a href="nouveau.html"  class="mobile-nav-link" aria-current="page">Nouveau</a>
+  <div class="mobile-nav-link" data-sub="mob-ecouter" role="button" tabindex="0">
+    Écouter
+    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <ul class="mobile-sub" id="mob-ecouter">
+    <li><a href="radio.html"    class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-radio"/></svg> Radio en direct</a></li>
+    <li><a href="podcasts.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-podcast"/></svg> Podcasts</a></li>
+    <li><a href="audios.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-audio"/></svg> Audios</a></li>
+  </ul>
+  <a href="videos.html"   class="mobile-nav-link">Regarder</a>
+  <div class="mobile-nav-link" data-sub="mob-lire" role="button" tabindex="0">
+    Lire
+    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <ul class="mobile-sub" id="mob-lire">
+    <li><a href="articles.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-article"/></svg> Articles</a></li>
+    <li><a href="livres.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-livre"/></svg> Livres</a></li>
+  </ul>
+  <a href="louange.html"  class="mobile-nav-link">Louange</a>
+  <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.75rem">
+    <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost" style="justify-content:center">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+      Radio en direct
+    </a>
+    <a href="contact.html" class="btn btn-primary" style="justify-content:center">Nous contacter</a>
+  </div>
+</nav>
+
+<main id="main-content">
+  <section class="media-hero">
+    <div class="container">
+      <div class="media-hero-inner">
+        <div>
+          <p class="media-hero-eyebrow">Vue d'ensemble éditoriale</p>
+          <h1 class="media-hero-title">Nouveau</h1>
+          <p class="media-hero-sub">Les derniers contenus mis en avant de chaque catégorie, rassemblés sur une seule page pour découvrir rapidement ce qui mérite votre attention.</p>
+        </div>
+        <div class="hero-pill">
+          <span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+          Derniers contenus
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="new-body">
+    <div class="container">
+      <section class="new-section" aria-labelledby="recent-highlights">
+        <div class="new-section-hd">
+          <div>
+            <h2 id="recent-highlights">À découvrir maintenant</h2>
+            <p>Une sélection directe pour écouter, regarder et lire sans changer sans cesse de page.</p>
+          </div>
+        </div>
+
+        <div class="highlight-grid">
+          <article class="highlight-card primary">
+            <div class="highlight-media">
+              <span class="highlight-badge video">Vidéo</span>
+              <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop" alt="Message du moment" loading="lazy">
+            </div>
+            <div class="highlight-body">
+              <div class="highlight-meta">
+                <span>18 mai 2025</span>
+                <span>52 min</span>
+                <span>Message du moment</span>
+              </div>
+              <h3>Sortez de Babylone — L'appel à la séparation</h3>
+              <p>Le contenu vidéo actuellement mis en avant sur la plateforme pour commencer par le message éditorial le plus visible.</p>
+              <a href="videos.html" class="row-cta">Voir les vidéos <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+            </div>
+          </article>
+
+          <article class="highlight-card secondary">
+            <div class="live-panel">
+              <span class="highlight-badge live">En direct</span>
+              <h3>Parole Prophétique FM</h3>
+              <p>La radio tourne 24h/24 avec enseignements, louange et prière. C’est le point d’entrée le plus immédiat si vous voulez simplement appuyer sur lecture.</p>
+              <div class="live-actions">
+                <a href="radio.html" class="btn btn-primary">Aller à la radio</a>
+                <a href="https://www.radioking.com/play/parole-prophetique-fm" target="_blank" rel="noopener" class="btn btn-ghost">Ouvrir le direct</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="new-section" aria-labelledby="audio-title">
+        <div class="new-section-hd">
+          <div>
+            <h2 id="audio-title">Derniers messages audio</h2>
+            <p>Les premières entrées actuellement visibles dans la page audio.</p>
+          </div>
+          <a href="audios.html" class="new-link">Tous les messages audio <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+        </div>
+        <div class="row-grid">
+          <article class="row-card">
+            <div class="row-top"><span class="row-tag">Audio</span><span class="row-date">26 fév. 2022</span></div>
+            <h3>Session du 26 Février 2022</h3>
+            <p>Dernière session mise en tête de la série “Aux pieds du Seigneur”.</p>
+            <a href="audios.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+          </article>
+          <article class="row-card">
+            <div class="row-top"><span class="row-tag">Audio</span><span class="row-date">19 fév. 2022</span></div>
+            <h3>Session du 19 Février 2022</h3>
+            <p>Deuxième session la plus récente visible dans la même série.</p>
+            <a href="audios.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+          </article>
+          <article class="row-card">
+            <div class="row-top"><span class="row-tag">Audio</span><span class="row-date">29 janv. 2022</span></div>
+            <h3>Session du 29 Janvier 2022</h3>
+            <p>Troisième entrée récente affichée dans la même série.</p>
+            <a href="audios.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+          </article>
+        </div>
+      </section>
+
+      <section class="new-section" aria-labelledby="podcast-title">
+        <div class="new-section-hd">
+          <div>
+            <h2 id="podcast-title">Dernières séries podcast</h2>
+            <p>Les épisodes les plus en avant dans la page podcast actuelle.</p>
+          </div>
+          <a href="podcasts.html" class="new-link">Toutes les séries podcast <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+        </div>
+        <div class="row-grid">
+          <article class="row-card">
+            <div class="row-top"><span class="row-tag">Podcast</span><span class="row-date">Fondements</span></div>
+            <h3>Être fondé et être enraciné dans l'amour</h3>
+            <p>Premier épisode visible de la série “Fondements de la foi”.</p>
+            <a href="podcasts.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+          </article>
+          <article class="row-card">
+            <div class="row-top"><span class="row-tag">Podcast</span><span class="row-date">Fondements</span></div>
+            <h3>L'œuvre de la foi et l'épreuve de la foi</h3>
+            <p>Deuxième contenu actuellement mis en tête de la série.</p>
+            <a href="podcasts.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+          </article>
+          <article class="row-card">
+            <div class="row-top"><span class="row-tag">Podcast</span><span class="row-date">Fondements</span></div>
+            <h3>Qu'est-ce qu'une doctrine et la doctrine de la résurrection des morts</h3>
+            <p>Troisième épisode visible dans la même sélection.</p>
+            <a href="podcasts.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+          </article>
+        </div>
+      </section>
+
+      <section class="new-section" aria-labelledby="louange-title">
+        <div class="new-section-hd">
+          <div>
+            <h2 id="louange-title">Dernière louange mise en avant</h2>
+            <p>Le premier contenu actuellement visible dans la page Louange et l’article le plus récent mis en avant.</p>
+          </div>
+        </div>
+        <div class="highlight-grid">
+          <article class="highlight-card primary">
+            <div class="highlight-media">
+              <span class="highlight-badge louange">Louange</span>
+              <img src="https://img.youtube.com/vi/t1GNRlGR6NY/mqdefault.jpg" alt="Qui est digne d'ouvrir le livre" loading="lazy">
+            </div>
+            <div class="highlight-body">
+              <div class="highlight-meta">
+                <span>Premier cantique affiché</span>
+                <span>YouTube</span>
+              </div>
+              <h3>Qui est digne d'ouvrir le livre</h3>
+              <p>La première entrée de la page Louange, idéale pour relancer une session d’écoute ou de méditation.</p>
+              <a href="louange.html" class="row-cta">Aller à la louange <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+            </div>
+          </article>
+
+          <article class="highlight-card secondary">
+            <div class="highlight-media">
+              <span class="highlight-badge audio">Article</span>
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80&auto=format&fit=crop" alt="Article récent" loading="lazy">
+            </div>
+            <div class="highlight-body">
+              <div class="highlight-meta">
+                <span>12 mai 2025</span>
+                <span>Lecture récente</span>
+              </div>
+              <h3>Les signes de la fin des temps selon les Écritures</h3>
+              <p>L’article actuellement mis en tête des lectures récentes sur la page d’accueil.</p>
+              <a href="articles.html" class="row-cta">Lire les articles <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Accueil" style="margin-bottom:1.25rem">
+          <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+            <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="8" y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="8" y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-title">L'Évangile du Royaume</span>
+            <span class="logo-sub">La Bonne Nouvelle</span>
+          </div>
+        </a>
+        <p>Une page unique pour retrouver ce qui est nouveau et important à écouter, regarder ou lire.</p>
+      </div>
+
+      <nav aria-label="Derniers accès">
+        <h4>Derniers accès</h4>
+        <ul class="footer-links">
+          <li><a href="nouveau.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Nouveau</a></li>
+          <li><a href="radio.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Radio en direct</a></li>
+          <li><a href="audios.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Messages audio</a></li>
+          <li><a href="podcasts.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Séries podcast</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Formats">
+        <h4>Formats</h4>
+        <ul class="footer-links">
+          <li><a href="videos.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Vidéos</a></li>
+          <li><a href="louange.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Louange</a></li>
+          <li><a href="articles.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Articles</a></li>
+          <li><a href="livres.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Livres</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 L'Évangile du Royaume. Tous droits réservés.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
