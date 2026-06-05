@@ -199,19 +199,23 @@
 
 
 <!-- ══ HEADER ═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════
+     HEADER — Navigation éditoriale
+══════════════════════════════════════════════ -->
 <header class="site-header" role="banner">
   <div class="container">
     <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
+
       <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
-        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
+        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
           <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
           <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
           <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
           <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
           <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
-          <line x1="8"  y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
-          <line x1="8"  y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8" y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="8" y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
           <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
           <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
         </svg>
@@ -220,46 +224,124 @@
           <span class="logo-sub">La Bonne Nouvelle</span>
         </div>
       </a>
-      <ul class="nav-links" style="list-style:none;margin:0;padding:0">
-        <li><a href="index.html"    class="nav-link">Accueil</a></li>
-        <li><a href="radio.html"    class="nav-link">Radio en direct</a></li>
-        <li><a href="audios.html"   class="nav-link">Messages audio</a></li>
-        <li><a href="podcasts.html" class="nav-link">Séries podcast</a></li>
-        <li><a href="videos.html"   class="nav-link">Vidéos</a></li>
-        <li><a href="louange.html"  class="nav-link active" aria-current="page">Louange</a></li>
-        <li><a href="articles.html" class="nav-link">Lire</a></li>
+
+      <ul class="nav-links" role="list">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link ">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a href="#ecouter" class="nav-link " role="button" aria-haspopup="true">
+            Écouter
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem">
+              <a href="radio.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-1"><svg width="18" height="18"><use href="#icon-radio"/></svg></span>
+                <span>
+                  <strong style="display:block;font-size:.9rem">Radio en direct</strong>
+                  <small style="opacity:.6">Parole Prophétique FM 24h/24</small>
+                </span>
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="podcasts.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-3"><svg width="18" height="18"><use href="#icon-podcast"/></svg></span>
+                Podcasts bibliques
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="audios.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-2"><svg width="18" height="18"><use href="#icon-audio"/></svg></span>
+                Messages audio
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="videos.html" class="nav-link ">Regarder</a>
+        </li>
+        <li class="nav-item">
+          <a href="articles.html" class="nav-link " role="button" aria-haspopup="true">
+            Lire
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="menuitem">
+              <a href="articles.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-5"><svg width="18" height="18"><use href="#icon-article"/></svg></span>
+                Articles &amp; Méditations
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="livres.html" class="dropdown-link">
+                <span class="dropdown-icon icon-bg-4"><svg width="18" height="18"><use href="#icon-livre"/></svg></span>
+                Livres
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="louange.html" class="nav-link active">Louange</a>
+        </li>
       </ul>
+
+      <!-- Radio live -->
       <div class="nav-right">
-        <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g/live"
-           target="_blank" rel="noopener" class="nav-live-badge">
+        <a href="radio.html" class="nav-live-badge" aria-label="Écouter la radio en direct">
           <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
           Live
         </a>
+        <a href="contact.html" class="btn btn-outline btn-sm">Contact</a>
       </div>
-      <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg width="22" height="22" aria-hidden="true"><use href="#icon-menu"/></svg>
+
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
       </button>
     </nav>
   </div>
 </header>
 
-<nav id="mobile-menu" class="mobile-menu" aria-label="Menu mobile" hidden>
-  <div class="mobile-menu-header">
-    <span class="mobile-menu-title">Menu</span>
-    <button class="mobile-menu-close" aria-label="Fermer">
-      <svg width="20" height="20" aria-hidden="true"><use href="#icon-close"/></svg>
-    </button>
+<!-- Menu Mobile -->
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">
+  <a href="index.html" class="mobile-nav-link">Accueil</a>
+
+  <div class="mobile-nav-link" data-sub="mob-ecouter" role="button" tabindex="0">
+    Écouter
+    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
   </div>
-  <ul class="mobile-nav-list">
-    <li><a href="index.html"    class="mobile-nav-link">Accueil</a></li>
-    <li><a href="radio.html"    class="mobile-nav-link">Radio en direct</a></li>
-    <li><a href="audios.html"   class="mobile-nav-link">Messages audio</a></li>
-    <li><a href="podcasts.html" class="mobile-nav-link">Séries podcast</a></li>
-    <li><a href="videos.html"   class="mobile-nav-link">Vidéos</a></li>
-    <li><a href="louange.html"  class="mobile-nav-link" aria-current="page">Louange</a></li>
-    <li><a href="articles.html" class="mobile-nav-link">Lire</a></li>
+  <ul class="mobile-sub" id="mob-ecouter">
+    <li><a href="radio.html"    class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-radio"/></svg> Radio en direct</a></li>
+    <li><a href="podcasts.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-podcast"/></svg> Podcasts</a></li>
+    <li><a href="audios.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-audio"/></svg> Audios</a></li>
   </ul>
+
+  <a href="videos.html" class="mobile-nav-link">Regarder</a>
+
+  <div class="mobile-nav-link" data-sub="mob-lire" role="button" tabindex="0">
+    Lire
+    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <ul class="mobile-sub" id="mob-lire">
+    <li><a href="articles.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-article"/></svg> Articles</a></li>
+    <li><a href="livres.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-livre"/></svg> Livres</a></li>
+  </ul>
+
+  <a href="louange.html" class="mobile-nav-link">Louange</a>
+
+  <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.75rem">
+    <a href="radio.html" class="btn btn-ghost" style="justify-content:center">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
+      Radio en direct
+    </a>
+    <a href="contact.html" class="btn btn-primary" style="justify-content:center">Nous contacter</a>
+  </div>
 </nav>
+
 <div class="mobile-overlay" aria-hidden="true"></div>
 
 
