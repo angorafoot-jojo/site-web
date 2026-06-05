@@ -162,7 +162,8 @@ def get_playlist_files(base_url: str, station_id: int, api_key: str, playlist_id
 
 def clear_playlist_contents(base_url: str, station_id: int, playlist_id: int, api_key: str, dry_run: bool) -> int:
     url = f"{base_url.rstrip('/')}/api/station/{station_id}/files"
-    response = request_api("GET", url, api_key, timeout=120, params={"playlist": playlist_id})
+    # rowsPerPage=500 pour récupérer tous les fichiers (défaut AzuraCast ~50 → clear incomplet)
+    response = request_api("GET", url, api_key, timeout=120, params={"playlist": playlist_id, "rowsPerPage": 500})
     if not response.ok:
         raise RuntimeError(f"Impossible de lister les fichiers. Status={response.status_code}\n{response.text[:800]}")
 
@@ -391,15 +392,30 @@ def pick_until_duration(
     random.shuffle(candidates)
 
     for item in candidates:
-        if item.path in selected_paths:
+        # 2e passage : autorise les répétitions globales (avoid_paths) mais pas les doublons
+        # dans ce même appel (selected_paths) ni les répétitions dans le même cycle (avoid_paths)
+        if item.path in selected_paths or item.path in avoid_paths:
             continue
         selected.append(item)
         selected_paths.add(item.path)
         total += item.length
-        if item.path in avoid_paths:
-            repeated_count += 1
+        repeated_count += 1
         if total >= target_seconds:
             break
+
+    # 3e passage (dernier recours) : si toujours sous la cible, autorise toutes les répétitions
+    if total < target_seconds:
+        candidates = files[:]
+        random.shuffle(candidates)
+        for item in candidates:
+            if item.path in selected_paths:
+                continue
+            selected.append(item)
+            selected_paths.add(item.path)
+            total += item.length
+            repeated_count += 1
+            if total >= target_seconds:
+                break
 
     if total < target_seconds:
         print(f"AVERTISSEMENT: bloc {source_name} sous la cible: {seconds_to_hms(total)} / {seconds_to_hms(target_seconds)}")
@@ -529,6 +545,76 @@ def print_debug_summary(debug: dict[str, Any]) -> None:
                 f"| fichiers {block['files']} | répétitions globales {block.get('repetitions_global', 0)}"
             )
     print("=====================================\n")
+
+
+def reorder_playlist(base_url: str, station_id: int, playlist_id: int, api_key: str, m3u_paths: list[str], dry_run: bool) -> bool:
+    """Réordonne la playlist selon l'ordre exact du M3U après import.
+    Nécessaire car l'import M3U d'AzuraCast ne préserve pas l'ordre des fichiers.
+    """
+    if dry_run:
+        print("[DRY-RUN] Reorder ignoré.")
+        return True
+
+    from collections import defaultdict
+
+    # 1. Récupère tous les items SPM avec leur spm_id et media_id
+    order_url = f"{base_url.rstrip('/')}/api/station/{station_id}/playlist/{playlist_id}/order"
+    r = request_api("GET", order_url, api_key, timeout=30)
+    if not r.ok:
+        print(f"AVERTISSEMENT: Impossible de lire l'ordre de la playlist. Status={r.status_code}")
+        return False
+    spm_items = r.json()
+    if not isinstance(spm_items, list):
+        print("AVERTISSEMENT: Format inattendu de /order.")
+        return False
+
+    # 2. Récupère le chemin de chaque fichier dans la playlist
+    files_url = f"{base_url.rstrip('/')}/api/station/{station_id}/files"
+    r2 = request_api("GET", files_url, api_key, timeout=180,
+                     params={"playlist": playlist_id, "rowsPerPage": 500})
+    if not r2.ok:
+        print(f"AVERTISSEMENT: Impossible de lister les fichiers pour reorder. Status={r2.status_code}")
+        return False
+    all_files = extract_rows(parse_json_or_explain(r2))
+    media_path = {
+        int(f["id"]): f["path"]
+        for f in all_files
+        if any(p.get("id") == playlist_id for p in f.get("playlists", []))
+    }
+
+    # 3. Groupe les spm_id disponibles par media_id (gère les doublons)
+    spm_by_media: dict[int, list[int]] = defaultdict(list)
+    for item in spm_items:
+        spm_by_media[int(item["media_id"])].append(int(item["id"]))
+
+    # 4. path → media_id
+    path_to_media = {v: k for k, v in media_path.items()}
+
+    # 5. Construit la liste ordonnée des spm_id en suivant l'ordre du M3U
+    used_spm: set[int] = set()
+    ordered_ids: list[int] = []
+    missing = 0
+    for path in m3u_paths:
+        media_id = path_to_media.get(path)
+        if media_id is None:
+            missing += 1
+            continue
+        available = [s for s in spm_by_media.get(media_id, []) if s not in used_spm]
+        if available:
+            used_spm.add(available[0])
+            ordered_ids.append(available[0])
+
+    if missing:
+        print(f"  AVERTISSEMENT reorder: {missing} chemin(s) M3U introuvable(s) dans la playlist.")
+
+    # 6. Envoie le nouvel ordre à AzuraCast
+    order_payload = [{"id": spm_id, "weight": i + 1} for i, spm_id in enumerate(ordered_ids)]
+    r3 = request_api("PUT", order_url, api_key, json=order_payload, timeout=60)
+    if r3.ok:
+        print(f"  Reorder OK — {len(ordered_ids)} fichiers réordonnés.")
+    else:
+        print(f"  AVERTISSEMENT reorder échoué: {r3.status_code} — {r3.text[:200]}")
+    return r3.ok
 
 
 def import_playlist_paths(base_url: str, station_id: int, playlist_id: int, api_key: str, paths: list[str], dry_run: bool) -> int:
@@ -671,6 +757,7 @@ def main() -> None:
 
         clear_playlist_contents(base_url, station_id, playlist_id, api_key, args.dry_run)
         import_playlist_paths(base_url, station_id, playlist_id, api_key, cycle_paths, args.dry_run)
+        reorder_playlist(base_url, station_id, playlist_id, api_key, cycle_paths, args.dry_run)
 
     save_json(Path(args.debug_output), all_debug)
     print(f"Résumé debug sauvegardé: {args.debug_output}")

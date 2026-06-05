@@ -617,7 +617,7 @@
 
 
 <!-- ══════════════════════════════════════════════
-     MESSAGE DU MOMENT — miniature + YouTube (R4)
+     MESSAGE DU MOMENT — dynamique via YouTube RSS
 ══════════════════════════════════════════════ -->
 <section class="section featured-section" id="ecouter" aria-labelledby="featured-title">
   <div class="container">
@@ -625,26 +625,24 @@
 
       <div>
         <span class="label featured-label" data-animate>Message du moment</span>
-        <h2 class="featured-title" id="featured-title" data-animate>
-          Sortez de Babylone —<br>L'appel à la séparation
+        <h2 class="featured-title" id="featured-title" id="yt-title" data-animate>
+          Chargement en cours…
         </h2>
         <div class="featured-meta" data-animate>
-          <span>18 mai 2025</span>
-          <span>52 min</span>
+          <span id="yt-date">—</span>
           <span class="tag tag-gold">Vidéo</span>
         </div>
-        <p class="featured-excerpt" data-animate>
-          Découvrez l'appel de Dieu à se séparer des systèmes du monde pour se consacrer
-          entièrement à son Royaume. Une révélation prophétique pour l'heure présente
-          tirée d'Apocalypse 18:4.
+        <p class="featured-excerpt" id="yt-desc" data-animate>
+          Chargement de la description…
         </p>
         <div data-animate style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
-          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g" target="_blank" rel="noopener"
-             class="btn btn-primary">
+          <a id="yt-link" href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g"
+             target="_blank" rel="noopener" class="btn btn-primary">
             <svg width="16" height="16" aria-hidden="true"><use href="#icon-play"/></svg>
             Regarder maintenant
           </a>
-          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g/live" target="_blank" rel="noopener"
+          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g/live"
+             target="_blank" rel="noopener"
              class="btn btn-outline" style="color:var(--brand-blue);border-color:var(--brand-blue)">
             <svg width="15" height="15" aria-hidden="true"><use href="#icon-youtube"/></svg>
             Live YouTube
@@ -653,21 +651,65 @@
       </div>
 
       <div class="featured-media" data-animate>
-        <img class="featured-thumb"
-             src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=800&q=80&auto=format&fit=crop"
-             alt="Message : Sortez de Babylone"
-             width="800" height="500" loading="lazy">
-        <div class="play-overlay">
-          <a href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g" target="_blank" rel="noopener"
-             class="play-btn" aria-label="Lire sur YouTube">
-            <svg width="22" height="22" style="margin-left:3px" aria-hidden="true"><use href="#icon-play"/></svg>
-          </a>
-        </div>
+        <a id="yt-thumb-link" href="https://www.youtube.com/channel/UCycAoa7k7LqyvG_TQWlG5_g"
+           target="_blank" rel="noopener">
+          <img class="featured-thumb" id="yt-thumb"
+               src="https://levangileduroyaume.com/wp-content/uploads/2020/11/LEVANGILEDUROYAUME.jpg"
+               alt="Dernière vidéo YouTube"
+               width="800" height="500" loading="lazy">
+          <div class="play-overlay">
+            <span class="play-btn" aria-hidden="true">
+              <svg width="22" height="22" style="margin-left:3px"><use href="#icon-play"/></svg>
+            </span>
+          </div>
+        </a>
       </div>
 
     </div>
   </div>
 </section>
+
+<script>
+(function () {
+  const CHANNEL = 'UCycAoa7k7LqyvG_TQWlG5_g';
+  const API = `https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtube.com%2Ffeeds%2Fvideos.xml%3Fchannel_id%3D${CHANNEL}`;
+
+  fetch(API)
+    .then(r => r.json())
+    .then(data => {
+      const v = data.items?.[0];
+      if (!v) return;
+
+      // Extraire l'ID de la vidéo
+      const videoId = v.link.includes('v=')
+        ? v.link.split('v=')[1].split('&')[0]
+        : v.guid.split(':').pop();
+
+      const videoUrl   = `https://www.youtube.com/watch?v=${videoId}`;
+      const thumbUrl   = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+      const pubDate    = new Date(v.pubDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      // Nettoyer la description HTML → texte brut, tronquer à 220 chars
+      const tmpDiv = document.createElement('div');
+      tmpDiv.innerHTML = v.description || '';
+      const desc = (tmpDiv.textContent || tmpDiv.innerText || '').trim().slice(0, 220);
+
+      // Injecter dans la page
+      document.getElementById('featured-title').textContent = v.title;
+      document.getElementById('yt-date').textContent         = pubDate;
+      document.getElementById('yt-desc').textContent         = desc + (desc.length === 220 ? '…' : '');
+      document.getElementById('yt-thumb').src                = thumbUrl;
+      document.getElementById('yt-thumb').alt                = v.title;
+      document.getElementById('yt-link').href                = videoUrl;
+      document.getElementById('yt-thumb-link').href          = videoUrl;
+    })
+    .catch(() => {
+      // Fallback silencieux : le contenu statique par défaut reste visible
+      document.getElementById('featured-title').textContent = 'Dernier message';
+      document.getElementById('yt-desc').textContent = 'Consultez notre chaîne YouTube pour le dernier enseignement.';
+    });
+})();
+</script>
 
 
 <!-- ══════════════════════════════════════════════
@@ -685,66 +727,47 @@
       <a href="articles.html" class="btn btn-outline">Tous les articles</a>
     </header>
 
-    <div class="articles-editorial" role="list">
+    <div class="articles-editorial" id="home-articles-grid" role="list"></div>
 
-      <article class="article-card article-featured" data-animate data-delay="1" role="listitem">
-        <div class="article-thumb">
-          <img class="article-thumb-img"
-               src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80&auto=format&fit=crop"
-               alt="Paysage montagneux au lever du soleil" width="800" height="600" loading="lazy">
-        </div>
-        <div class="article-body">
-          <span class="tag tag-wine">Prophétie</span>
-          <h3>Les signes de la fin des temps selon les Écritures</h3>
-          <p class="article-excerpt">
-            Une étude approfondie des prophéties bibliques et de leur accomplissement dans notre génération.
-            Comprendre les temps pour se préparer à la venue de l'Époux céleste. Du livre de Daniel aux Évangiles.
-          </p>
-          <div class="article-footer">
-            <span>12 mai 2025</span>
-            <a href="articles.html" class="read-more">
-              Lire
-              <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
-            </a>
+    <script src="assets/js/articles-data.js"></script>
+    <script>
+    (function () {
+      const CAT_LABELS = { vie:'Vie chrétienne', meditation:'Méditation', royaume:'Royaume', eschatologie:'Eschatologie' };
+      const CAT_TAGS   = { vie:'tag-navy', meditation:'tag-gold', royaume:'tag-wine', eschatologie:'tag-wine' };
+
+      const recent = ARTICLES
+        .filter(a => !a.en)
+        .sort((a, b) => b.year - a.year || b.id - a.id)
+        .slice(0, 3);
+
+      const grid = document.getElementById('home-articles-grid');
+      grid.innerHTML = recent.map((a, i) => {
+        const label   = CAT_LABELS[a.cat] || a.cat;
+        const tagCls  = CAT_TAGS[a.cat]   || 'tag-navy';
+        const featured = i === 0 ? 'article-featured' : '';
+        const delay   = i + 1;
+        return `
+        <article class="article-card ${featured}" data-animate data-delay="${delay}" role="listitem">
+          <div class="article-thumb">
+            <div class="article-thumb-cover gc-${a.color}">
+              <span class="article-thumb-cover-title">${a.title}</span>
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article class="article-card" data-animate data-delay="2" role="listitem">
-        <div class="article-thumb">
-          <img class="article-thumb-img"
-               src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80&auto=format&fit=crop"
-               alt="Bible ouverte" width="600" height="400" loading="lazy">
-        </div>
-        <div class="article-body">
-          <span class="tag tag-navy">Enseignement</span>
-          <h3>La sainteté : condition indispensable pour voir Dieu</h3>
-          <p class="article-excerpt">Poursuivez la paix avec tous, et la sanctification, sans laquelle personne ne verra le Seigneur.</p>
-          <div class="article-footer">
-            <span>5 mai 2025</span>
-            <a href="articles.html" class="read-more">Lire <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a>
+          <div class="article-body">
+            <span class="tag ${tagCls}">${label}</span>
+            <h3>${a.title}</h3>
+            <div class="article-footer">
+              <span>${a.year}</span>
+              <a href="articles.html" class="read-more">
+                Lire
+                <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+              </a>
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article class="article-card" data-animate data-delay="3" role="listitem">
-        <div class="article-thumb">
-          <img class="article-thumb-img"
-               src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80&auto=format&fit=crop"
-               alt="Lever de soleil sur un lac de montagne" width="600" height="400" loading="lazy">
-        </div>
-        <div class="article-body">
-          <span class="tag tag-gold">Vie chrétienne</span>
-          <h3>Préparer son cœur : la prière comme fondement</h3>
-          <p class="article-excerpt">Des principes pratiques tirés de l'exemple de Jésus pour bâtir une vie de prière transformante.</p>
-          <div class="article-footer">
-            <span>28 avr. 2025</span>
-            <a href="articles.html" class="read-more">Lire <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a>
-          </div>
-        </div>
-      </article>
-
-    </div>
+        </article>`;
+      }).join('');
+    })();
+    </script>
   </div>
 </section>
 

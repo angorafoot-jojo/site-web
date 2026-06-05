@@ -1026,6 +1026,32 @@ h1, h2, h3, h4 {
 }
 .article-card:hover .read-more { gap: .6rem; }
 
+/* Couleurs de couverture d'articles (partagées avec articles.html) */
+.gc-1 { background: linear-gradient(145deg, #07122a 0%, #1a3f8e 100%); }
+.gc-2 { background: linear-gradient(145deg, #150a30 0%, #4a1a96 100%); }
+.gc-3 { background: linear-gradient(145deg, #0a2010 0%, #1a6040 100%); }
+.gc-4 { background: linear-gradient(145deg, #261408 0%, #7a4010 100%); }
+.gc-5 { background: linear-gradient(145deg, #250808 0%, #7a1818 100%); }
+.gc-6 { background: linear-gradient(145deg, #082020 0%, #186060 100%); }
+.gc-7 { background: linear-gradient(145deg, #08082a 0%, #18186e 100%); }
+.gc-8 { background: linear-gradient(145deg, #260a18 0%, #7a1848 100%); }
+
+.article-thumb-cover {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+.article-thumb-cover-title {
+  color: rgba(255,255,255,.85);
+  font-size: .82rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  font-family: var(--font-display);
+}
+
 /* ═══════════════════════════════════════════════════════════
    RADIO LIVE BANNER
 ═══════════════════════════════════════════════════════════ */
