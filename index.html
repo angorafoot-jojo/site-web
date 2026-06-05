@@ -306,35 +306,201 @@
 
 
 <!-- ══════════════════════════════════════════════
-     VERSETS DU JOUR — Carousel rotatif
+     VERSETS — Grand carousel plein écran
 ══════════════════════════════════════════════ -->
-<section class="section" style="padding-block:3rem" aria-label="Versets bibliques">
-  <div class="container">
-    <div class="verse-carousel" role="region" aria-label="Verset du moment" aria-live="polite">
-      <span class="verse-quote" aria-hidden="true">"</span>
-      <p class="verse-text">
-        Proclamez l'Évangile du Royaume dans le monde entier, pour servir de témoignage à toutes les nations. Alors viendra la fin.
-      </p>
-      <div class="verse-ref">
-        <span>Matthieu 24:14</span>
-      </div>
+<section class="vslider" aria-label="Versets bibliques" aria-live="polite">
 
-      <div class="verse-nav" style="display:flex;align-items:center;justify-content:center;gap:1.25rem;margin-top:1.75rem">
-        <button class="verse-prev" aria-label="Verset précédent"
-          style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--gold);background:none;cursor:pointer;color:var(--gold);font-size:1.1rem;display:flex;align-items:center;justify-content:center">‹</button>
-        <div style="display:flex;gap:.5rem">
-          <button class="verse-dot active" aria-label="Verset 1" style="width:8px;height:8px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;padding:0;transition:opacity .2s"></button>
-          <button class="verse-dot" aria-label="Verset 2" style="width:8px;height:8px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;padding:0;opacity:.3;transition:opacity .2s"></button>
-          <button class="verse-dot" aria-label="Verset 3" style="width:8px;height:8px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;padding:0;opacity:.3;transition:opacity .2s"></button>
-          <button class="verse-dot" aria-label="Verset 4" style="width:8px;height:8px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;padding:0;opacity:.3;transition:opacity .2s"></button>
-          <button class="verse-dot" aria-label="Verset 5" style="width:8px;height:8px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;padding:0;opacity:.3;transition:opacity .2s"></button>
-        </div>
-        <button class="verse-next" aria-label="Verset suivant"
-          style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--gold);background:none;cursor:pointer;color:var(--gold);font-size:1.1rem;display:flex;align-items:center;justify-content:center">›</button>
+  <!-- Slides -->
+  <div class="vslider-track" id="vslider-track">
+
+    <div class="vslide active">
+      <div class="vslide-img" style="background-image:url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1000&q=80&auto=format&fit=crop')"></div>
+      <div class="vslide-content">
+        <h2 class="vslide-title">Proclamez l'Évangile du Royaume</h2>
+        <p class="vslide-text">Cette bonne nouvelle du royaume sera prêchée dans le monde entier, pour servir de témoignage à toutes les nations. Alors viendra la fin.</p>
+        <p class="vslide-ref">Matthieu 24:14</p>
       </div>
     </div>
+
+    <div class="vslide">
+      <div class="vslide-img" style="background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=1000&q=80&auto=format&fit=crop')"></div>
+      <div class="vslide-content">
+        <h2 class="vslide-title">Prépare-toi à la rencontre de l'Époux</h2>
+        <p class="vslide-text">… afin de la conduire à la sainteté après l'avoir purifiée et lavée par l'eau de la parole, pour faire paraître devant lui cette Église glorieuse, sans tache, ni ride, ni rien de semblable, mais sainte et irréprochable.</p>
+        <p class="vslide-ref">Éphésiens 5:26-27</p>
+      </div>
+    </div>
+
+    <div class="vslide">
+      <div class="vslide-img" style="background-image:url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1000&q=80&auto=format&fit=crop')"></div>
+      <div class="vslide-content">
+        <h2 class="vslide-title">Sortez de Babylone</h2>
+        <p class="vslide-text">Et j'entendis du ciel une autre voix qui disait : Sortez du milieu d'elle, mon peuple, afin que vous ne participiez point à ses péchés, et que vous n'ayez point de part à ses fléaux.</p>
+        <p class="vslide-ref">Apocalypse 18:4</p>
+      </div>
+    </div>
+
+    <div class="vslide">
+      <div class="vslide-img" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80&auto=format&fit=crop')"></div>
+      <div class="vslide-content">
+        <h2 class="vslide-title">Saisissez la vie éternelle</h2>
+        <p class="vslide-text">Ceux qui, en pratiquant le bien avec persévérance, cherchent l'approbation de Dieu, l'honneur et l'immortalité, recevront de lui la vie éternelle.</p>
+        <p class="vslide-ref">Romains 2:7</p>
+      </div>
+    </div>
+
+    <div class="vslide">
+      <div class="vslide-img" style="background-image:url('https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1000&q=80&auto=format&fit=crop')"></div>
+      <div class="vslide-content">
+        <h2 class="vslide-title">Cherchez le Seigneur</h2>
+        <p class="vslide-text">Cherchez le Seigneur pendant qu'il se trouve ; invoquez-le, tandis qu'il est proche. Que le méchant abandonne sa voie, et l'homme inique ses pensées ; qu'il retourne à l'Éternel, qui aura compassion de lui.</p>
+        <p class="vslide-ref">Ésaïe 55:6-7</p>
+      </div>
+    </div>
+
   </div>
+
+  <!-- Flèches -->
+  <button class="vslider-arrow vslider-prev" aria-label="Verset précédent">&#8249;</button>
+  <button class="vslider-arrow vslider-next" aria-label="Verset suivant">&#8250;</button>
+
+  <!-- Dots -->
+  <div class="vslider-dots">
+    <button class="vslider-dot active" aria-label="Verset 1"></button>
+    <button class="vslider-dot" aria-label="Verset 2"></button>
+    <button class="vslider-dot" aria-label="Verset 3"></button>
+    <button class="vslider-dot" aria-label="Verset 4"></button>
+    <button class="vslider-dot" aria-label="Verset 5"></button>
+  </div>
+
 </section>
+
+<style>
+/* ─── Grand carousel versets ─────────────────────────────────── */
+.vslider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #f5f2ee;
+}
+.vslider-track { position: relative; }
+.vslide {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+}
+@media (max-width: 700px) {
+  .vslide { grid-template-columns: 1fr; min-height: auto; }
+  .vslide-img { min-height: 220px; }
+}
+.vslide.active { display: grid; }
+.vslide-img {
+  background-size: cover;
+  background-position: center;
+  min-height: 420px;
+}
+.vslide-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3.5rem 3rem;
+  background: #f5f2ee;
+}
+.vslide-title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+.vslide-text {
+  font-size: clamp(.95rem, 1.5vw, 1.1rem);
+  color: #333;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+.vslide-ref {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0;
+}
+/* Flèches */
+.vslider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,.2);
+  background: rgba(255,255,255,.8);
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: #333;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10;
+  transition: background .2s, border-color .2s;
+}
+.vslider-arrow:hover { background: #fff; border-color: #999; }
+.vslider-prev { left: 1rem; }
+.vslider-next { right: 1rem; }
+/* Dots */
+.vslider-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: .5rem;
+  z-index: 10;
+}
+.vslider-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,.25);
+  cursor: pointer;
+  transition: background .25s;
+  padding: 0;
+}
+.vslider-dot.active { background: #111; }
+/* Fade transition */
+.vslide { animation: none; }
+.vslide.active { animation: vfade .5s ease; }
+@keyframes vfade { from { opacity: 0; } to { opacity: 1; } }
+</style>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.vslide');
+  const dots   = document.querySelectorAll('.vslider-dot');
+  let cur = 0, timer;
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+
+  function startAuto() { timer = setInterval(() => goTo(cur + 1), 7000); }
+  function stopAuto()  { clearInterval(timer); }
+
+  document.querySelector('.vslider-prev')?.addEventListener('click', () => { stopAuto(); goTo(cur - 1); startAuto(); });
+  document.querySelector('.vslider-next')?.addEventListener('click', () => { stopAuto(); goTo(cur + 1); startAuto(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); }));
+
+  const section = document.querySelector('.vslider');
+  section?.addEventListener('mouseenter', stopAuto);
+  section?.addEventListener('mouseleave', startAuto);
+
+  startAuto();
+})();
+</script>
 
 
 <!-- ══════════════════════════════════════════════
