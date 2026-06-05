@@ -767,7 +767,6 @@ function renderGrid() {
       </div>
       <div class="book-meta">
         <p class="book-title">${titleSafe}</p>
-        /* Fix INC-04/05 : bouton disabled et pas d'onclick pour les articles unavailable */
         <button class="book-read-btn ${avail ? 'available' : 'unavailable-btn'}"
                 ${avail ? `onclick="event.stopPropagation();openArticle(${a.id})"` : 'disabled'}
                 tabindex="${avail ? '0' : '-1'}">
