@@ -1,9 +1,9 @@
 {
-  "episode_index": 4,
-  "last_run_date": "2026-06-05",
-  "active_series": "003_AM_Chandelier_dor",
-  "active_title": "Aa la révélation de la victoire du fils mâle",
-  "active_path": "aa_la_révélation_de_la_victoire_du_fils_mâle.mp3",
+  "episode_index": 5,
+  "last_run_date": "2026-06-06",
+  "active_series": "004_Au_milieu_des_Chandeliers",
+  "active_title": "2017 ndimy distraction comme aux jours de Noé et Lot 1-2",
+  "active_path": "2017_ndimy_distraction_comme_aux_jours_de_noe_et_lot_1-2.mp3",
   "total_episodes": 54,
   "block_playlists": [
     "BLOC_A_SERIE_DU_JOUR",
@@ -12,18 +12,25 @@
     "BLOC_D_SERIE_DU_JOUR"
   ],
   "bible_progress": {
-    "2 Chronicles": 18,
+    "2 Chronicles": 11,
     "Judges": 5,
-    "Gen": 5,
-    "Lévitique": 12,
-    "Apocalypse": 3,
+    "Gen": 10,
+    "Lévitique": 19,
+    "Apocalypse": 13,
     "2 Pierre": 2,
     "Osee": 4,
-    "Marc": 11,
     "2 Corinthiens": 2,
     "1 Samuel": 12,
-    "Job": 1,
+    "Job": 3,
     "2 Roi": 8,
-    "Hebreux": 10
+    "Hebreux": 10,
+    "Nehemie": 8,
+    "Exode": 1,
+    "Jean": 16,
+    "Esaie": 19,
+    "1 Thessaloniciens": 2,
+    "Actes": 9,
+    "Lamentation": 1,
+    "2 Samuel": 5
   }
 }
