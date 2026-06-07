@@ -7,3 +7,9 @@ Radio/rotation.log
 
 # macOS
 .DS_Store
+
+# Claude Code
+.claude/
+
+# IDE
+.idea/
