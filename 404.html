@@ -6,80 +6,7 @@
   <title>Page introuvable — L'Évangile du Royaume</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
   <link rel="stylesheet" href="assets/css/style.css?v=nav-labels-1">
-  <style>
-    .error-page {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem 1.5rem;
-      background: var(--charcoal, #1a1a2e);
-      color: #fff;
-    }
-    .error-code {
-      font-size: clamp(5rem, 20vw, 10rem);
-      font-weight: 800;
-      line-height: 1;
-      color: var(--gold, #D4A84B);
-      opacity: .3;
-      margin-bottom: 1rem;
-    }
-    .error-title {
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .error-sub {
-      opacity: .7;
-      max-width: 40ch;
-      margin: 0 auto 2.5rem;
-      line-height: 1.6;
-    }
-    .error-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .btn-gold {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .85rem 1.75rem;
-      background: var(--gold, #D4A84B);
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: opacity .2s;
-    }
-    .btn-gold:hover { opacity: .85; }
-    .btn-ghost-white {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .85rem 1.75rem;
-      border: 1.5px solid rgba(255,255,255,.35);
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: border-color .2s, background .2s;
-    }
-    .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.08); }
-    .verse-404 {
-      margin-top: 3rem;
-      padding: 1.25rem 2rem;
-      border-left: 3px solid var(--gold, #D4A84B);
-      text-align: left;
-      max-width: 38ch;
-      font-style: italic;
-      opacity: .65;
-      font-size: .95rem;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/pages/404.css">
 </head>
 <body data-page="404">
 <script src="assets/js/nav.js"></script>
@@ -97,7 +24,7 @@
   </div>
   <blockquote class="verse-404">
     "Je suis le chemin, la vérité et la vie."<br>
-    <strong style="font-style:normal;opacity:.8">— Jean 14:6</strong>
+    <strong class="verse-source">— Jean 14:6</strong>
   </blockquote>
 </div>
 

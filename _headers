@@ -29,7 +29,7 @@
   #   - unsplash     : images hero (temporaire → T43)
   #   - img.youtube  : thumbnails vidéo
   #
-  # 'unsafe-inline' pour les scripts est requis tant que des blocs
-  # <script> inline existent dans les pages. Supprimer dès que tous
-  # les scripts inline sont extraits dans des fichiers .js.
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: images.unsplash.com img.youtube.com; frame-src www.youtube.com drive.google.com; media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com; connect-src 'self' parole-prophetique-fm.levangileduroyaume.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
+  # Tous les blocs <script> inline ont été externalisés → 'unsafe-inline' supprimé de script-src.
+  # 'unsafe-inline' dans style-src est conservé pour les <style> encore présents dans index.html
+  # (radio-player, hero-themes) — à supprimer après migration CSS complète (CAT-05).
+  Content-Security-Policy: default-src 'self'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: images.unsplash.com img.youtube.com; frame-src www.youtube.com drive.google.com; media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com; connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests

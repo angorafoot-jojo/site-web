@@ -61,8 +61,8 @@
       <div class="yt-cta-left">
         <div class="yt-cta-icon" aria-hidden="true"><svg width="22" height="22" style="color:#fff"><use href="#icon-headphones"/></svg></div>
         <div>
-          <strong>50 messages audio</strong>
-          <span>50 enseignements — cliquez pour écouter directement</span>
+          <strong id="cta-audio-strong">42 messages audio</strong>
+          <span id="cta-audio-span">42 enseignements — cliquez pour écouter directement</span>
         </div>
       </div>
       <a href="https://levangileduroyaume.com/category/medias/audios/" target="_blank" rel="noopener noreferrer" class="btn-primary">
@@ -131,14 +131,7 @@
 <script src="assets/js/utils.js"></script>
 <script src="assets/js/media-player.js"></script>
 <script src="assets/js/main.js" defer></script>
-<script>
-EduRoyaume.MediaPlayer.init({
-  dataUrl       : 'assets/data/audios.json',
-  icon          : '#icon-headphones',
-  labelSingular : 'partie',
-  labelPlural   : 'parties',
-});
-</script>
+<script src="assets/js/pages/audios-init.js"></script>
 
 </body>
 </html>

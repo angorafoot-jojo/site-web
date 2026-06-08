@@ -137,32 +137,7 @@
 
 <script src="assets/js/utils.js"></script>
 <script src="assets/js/radio-player.js"></script>
-<script>
-(function() {
-  var esc = window.EduRoyaume && window.EduRoyaume.escapeHtml
-    ? window.EduRoyaume.escapeHtml
-    : function(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
-
-  fetch('assets/data/radio-schedule.json')
-    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(function(data) {
-      var grid = document.getElementById('program-grid');
-      if (!grid) return;
-      grid.innerHTML = data.map(function(p) {
-        return '<div class="program-card">' +
-          '<div class="program-time">' + esc(p.time) + '</div>' +
-          '<div class="program-name">' + esc(p.name) + '</div>' +
-          '<div class="program-desc">' + esc(p.desc) + '</div>' +
-        '</div>';
-      }).join('');
-    })
-    .catch(function(e) {
-      var grid = document.getElementById('program-grid');
-      if (grid) grid.innerHTML = '<p style="padding:1rem;color:rgba(255,255,255,.5)">Programme temporairement indisponible.</p>';
-      console.error('radio-schedule.json load error:', e);
-    });
-})();
-</script>
+<script src="assets/js/pages/radio-schedule-init.js"></script>
 
 </body>
 </html>

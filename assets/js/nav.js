@@ -188,17 +188,19 @@
   var page = document.body.getAttribute('data-page') || '';
 
   /* CSP via <meta> — actif sur GitHub Pages (le fichier _headers ne l'est pas).
-     'unsafe-inline' requis tant que des blocs <script> inline subsistent.
-     À durcir (nonces ou hash) quand tous les scripts seront externalisés. */
+     ✓ script-src : 'unsafe-inline' supprimé — tous les blocs <script> inline externalisés.
+     ⚠ style-src  : 'unsafe-inline' conservé — 28 attributs style= répartis sur 10+ pages.
+       Certains sont dynamiques (background-image URL, progress width=0%).
+       Supprimer après migration vers classes CSS ou initialisation JS (CAT-05). */
   var CSP_META = '<meta http-equiv="Content-Security-Policy" content="'
     + "default-src 'self';"
-    + " script-src 'self' 'unsafe-inline' cdn.jsdelivr.net;"
+    + " script-src 'self' cdn.jsdelivr.net;"
     + " style-src 'self' 'unsafe-inline' fonts.googleapis.com;"
     + " font-src 'self' fonts.gstatic.com;"
     + " img-src 'self' data: images.unsplash.com img.youtube.com;"
     + " frame-src www.youtube.com drive.google.com;"
     + " media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com;"
-    + " connect-src 'self' parole-prophetique-fm.levangileduroyaume.com;"
+    + " connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com;"
     + " object-src 'none';"
     + " base-uri 'self';"
     + " form-action 'none';"

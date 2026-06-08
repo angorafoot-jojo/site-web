@@ -337,6 +337,7 @@
         renderAudioSections(tracks, opts);
         initRows();
         preloadDurations();
+        if (typeof opts.onLoaded === 'function') opts.onLoaded(tracks);
       })
       .catch(function(e) {
         var container = document.getElementById(opts.containerId);

@@ -189,27 +189,6 @@
 <script src="assets/js/utils.js"></script>
 <script src="assets/js/book-catalogue.js"></script>
 <script src="assets/js/epub-reader.js"></script>
-<script>
-EduRoyaume.BookCatalogue.init({
-  dataUrl    : 'assets/data/articles.json',
-  gridId     : 'art-grid',
-  countId    : 'lib-results-count',
-  searchId   : 'lib-search',
-  sortId     : 'select-sort',
-  dispoId    : 'select-dispo',
-  catId      : 'select-cat',
-  singular   : 'article',
-  plural     : 'articles',
-  openFnName : 'openArticle',
-  availFn    : function(a) { return !!(a.epub || a.pdf); },
-  isEnFn     : function(a) { return !!a.en; },
-  errorMsg   : 'Impossible de charger les articles.',
-});
-
-function openArticle(id) {
-  var item = EduRoyaume.BookCatalogue.find('art-grid', id);
-  if (item) EduRoyaume.EpubReader.open(item);
-}
-</script>
+<script src="assets/js/pages/articles-init.js"></script>
 </body>
 </html>
