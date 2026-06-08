@@ -1,3 +1,6 @@
+# Téléchargements temporaires pour migration CDN (gros fichiers MP3)
+scripts/audio-downloads/
+
 # Fichiers de config avec clé API réelle (utiliser les secrets GitHub à la place)
 Radio/azuracast_rotation_config_option_a.json
 Radio/azuracast_rotation_config.json

@@ -44,6 +44,9 @@
   --shadow-lg:  0 16px 48px rgba(30,79,163,.20);
 
   --transition: .28s cubic-bezier(.4,0,.2,1);
+
+  /* Hauteur du header fixe — utilisée pour décaler le premier élément de chaque page */
+  --header-height: 82px;
 }
 
 /* ── Reset & Base ───────────────────────────────────────────── */

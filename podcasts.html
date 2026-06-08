@@ -199,6 +199,10 @@
       max-width: 200px;
     }
     .pb-series { font-size: .68rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
+    .pb-status { font-size: .65rem; margin-top: .15rem; display: none; }
+    .pb-status.is-error   { color: #ff8a80; display: block; }
+    .pb-status.is-loading { color: rgba(255,255,255,.5); display: block; }
+    .pb-status a { color: inherit; text-decoration: underline; }
 
     .pb-controls {
       flex: 1; display: flex; flex-direction: column;
@@ -266,28 +270,6 @@
     }
     .pb-close:hover { color: #fff; background: rgba(255,255,255,.1); }
 
-    /* ══ Drive mode dans la barre du bas ═══════════════ */
-    .player-bar.drive-mode {
-      height: auto; min-height: 76px;
-      flex-wrap: wrap; padding: .6rem 1.5rem;
-      gap: .8rem;
-    }
-    .player-bar.drive-mode .pb-controls,
-    .player-bar.drive-mode .pb-vol { display: none; }
-    .pb-drive-embed {
-      display: none;
-      flex: 1 1 340px;
-      min-width: 200px;
-      height: 56px;
-      border: none;
-      border-radius: 6px;
-      background: rgba(255,255,255,.04);
-    }
-    .player-bar.drive-mode .pb-drive-embed { display: block; }
-
-    /* ══ Google Drive Audio Modal (désactivé) ═══════════ */
-    .gd-modal-overlay { display: none !important; }
-
     /* ── YouTube CTA ─────────────────────────────────── */
     .yt-cta {
       margin-top: 3rem;
@@ -330,227 +312,10 @@
   </style>
   <meta property="og:image" content="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80&auto=format&fit=crop">
 </head>
-<body>
-
-<!-- ══ SVG Sprite ═══════════════════════════════════════════ -->
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-  <symbol id="icon-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-  </symbol>
-  <symbol id="icon-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
-    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-  </symbol>
-  <symbol id="icon-podcast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-    <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
-  </symbol>
-  <symbol id="icon-livre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-  </symbol>
-  <symbol id="icon-article" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-    <polyline points="14 2 14 8 20 8"/>
-    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-  </symbol>
-  <symbol id="icon-cantique" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-  </symbol>
-  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-  </symbol>
-  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="6 9 12 15 18 9"/>
-  </symbol>
-  <symbol id="icon-radio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="2"/>
-    <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49"/>
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
-  </symbol>
-  <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-    <polyline points="22,6 12,13 2,6"/>
-  </symbol>
-  <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-  </symbol>
-  <symbol id="icon-youtube" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
-    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
-  </symbol>
-  <symbol id="icon-facebook" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  </symbol>
-  <symbol id="icon-whatsapp" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-    <path d="M11.99 2C6.47 2 1.99 6.48 1.99 12c0 1.78.47 3.44 1.28 4.89L1.5 22l5.26-1.74C8.19 21.4 10.04 22 12 22c5.52 0 10-4.48 10-10S17.51 2 11.99 2zm.01 18c-1.72 0-3.34-.47-4.74-1.28l-.34-.2-3.12 1.03 1.05-3.04-.22-.37C3.47 14.97 3 13.55 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9z"/>
-  </symbol>
-  <symbol id="icon-play"        viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></symbol>
-  <symbol id="icon-pause"       viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></symbol>
-  <symbol id="icon-skip-next"   viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></symbol>
-  <symbol id="icon-skip-prev"   viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></symbol>
-  <symbol id="icon-headphones"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></symbol>
-  <symbol id="icon-film"        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></symbol>
-  <symbol id="icon-mic"         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></symbol>
-  <symbol id="icon-download"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
-  <symbol id="icon-volume"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
-  <symbol id="icon-arrow-r"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
-  <symbol id="icon-menu"        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
-  <symbol id="icon-close"       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
-</svg>
-
+<body data-page="podcasts">
+<script src="assets/js/nav.js"></script>
 
 <!-- ══ HEADER ═══════════════════════════════════════════════ -->
-<!-- ══════════════════════════════════════════════
-     HEADER — Navigation éditoriale
-══════════════════════════════════════════════ -->
-<header class="site-header" role="banner">
-  <div class="container">
-    <nav class="nav-inner" role="navigation" aria-label="Navigation principale">
-
-      <a href="index.html" class="logo" aria-label="L'Évangile du Royaume — Accueil">
-        <svg class="logo-mark" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
-          <path d="M10 11h18M10 7.5c2.5 1 5.5 1.5 9 1.5s6.5-.5 9-1.5M10 14.5c2.5-1 5.5-1.5 9-1.5s6.5.5 9 1.5" stroke="currentColor" stroke-width="1.1"/>
-          <path d="M19 2c-3 2.5-5 5.5-5 9s2 6.5 5 9M19 2c3 2.5 5 5.5 5 9s-2 6.5-5 9" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
-          <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
-          <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
-          <line x1="8" y1="30" x2="14" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
-          <line x1="8" y1="33" x2="14" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
-          <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity=".5"/>
-          <line x1="24" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="1" opacity=".5"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-title">L'Évangile du Royaume</span>
-          <span class="logo-sub">La Bonne Nouvelle</span>
-        </div>
-      </a>
-
-      <ul class="nav-links" role="list">
-        <li class="nav-item">
-          <a href="index.html" class="nav-link ">Accueil</a>
-        </li>
-        <li class="nav-item">
-          <a href="#ecouter" class="nav-link active" role="button" aria-haspopup="true">
-            Écouter
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </a>
-          <ul class="dropdown" role="menu">
-            <li role="menuitem">
-              <a href="radio.html" class="dropdown-link">
-                <span class="dropdown-icon icon-bg-1"><svg width="18" height="18"><use href="#icon-radio"/></svg></span>
-                <span>
-                  <strong style="display:block;font-size:.9rem">Radio en direct</strong>
-                  <small style="opacity:.6">Parole Prophétique FM 24h/24</small>
-                </span>
-              </a>
-            </li>
-            <li role="menuitem">
-              <a href="podcasts.html" class="dropdown-link">
-                <span class="dropdown-icon icon-bg-3"><svg width="18" height="18"><use href="#icon-podcast"/></svg></span>
-                Podcasts bibliques
-              </a>
-            </li>
-            <li role="menuitem">
-              <a href="audios.html" class="dropdown-link">
-                <span class="dropdown-icon icon-bg-2"><svg width="18" height="18"><use href="#icon-audio"/></svg></span>
-                Messages audio
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="videos.html" class="nav-link ">Regarder</a>
-        </li>
-        <li class="nav-item">
-          <a href="articles.html" class="nav-link " role="button" aria-haspopup="true">
-            Lire
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </a>
-          <ul class="dropdown" role="menu">
-            <li role="menuitem">
-              <a href="articles.html" class="dropdown-link">
-                <span class="dropdown-icon icon-bg-5"><svg width="18" height="18"><use href="#icon-article"/></svg></span>
-                Articles &amp; Méditations
-              </a>
-            </li>
-            <li role="menuitem">
-              <a href="livres.html" class="dropdown-link">
-                <span class="dropdown-icon icon-bg-4"><svg width="18" height="18"><use href="#icon-livre"/></svg></span>
-                Livres
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="louange.html" class="nav-link ">Louange</a>
-        </li>
-      </ul>
-
-      <!-- Radio live -->
-      <div class="nav-right">
-        <a href="radio.html" class="nav-live-badge" aria-label="Écouter la radio en direct">
-          <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;flex-shrink:0;animation:live-pulse 1.5s ease-in-out infinite"></span>
-          Live
-        </a>
-        <a href="contact.html" class="btn btn-outline btn-sm">Contact</a>
-      </div>
-
-      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<!-- Menu Mobile -->
-<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">
-  <a href="index.html" class="mobile-nav-link">Accueil</a>
-
-  <div class="mobile-nav-link" data-sub="mob-ecouter" role="button" tabindex="0">
-    Écouter
-    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
-  <ul class="mobile-sub" id="mob-ecouter">
-    <li><a href="radio.html"    class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-radio"/></svg> Radio en direct</a></li>
-    <li><a href="podcasts.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-podcast"/></svg> Podcasts</a></li>
-    <li><a href="audios.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-audio"/></svg> Audios</a></li>
-  </ul>
-
-  <a href="videos.html" class="mobile-nav-link">Regarder</a>
-
-  <div class="mobile-nav-link" data-sub="mob-lire" role="button" tabindex="0">
-    Lire
-    <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
-  <ul class="mobile-sub" id="mob-lire">
-    <li><a href="articles.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-article"/></svg> Articles</a></li>
-    <li><a href="livres.html"   class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-livre"/></svg> Livres</a></li>
-  </ul>
-
-  <a href="louange.html" class="mobile-nav-link">Louange</a>
-
-  <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.75rem">
-    <a href="radio.html" class="btn btn-ghost" style="justify-content:center">
-      <span style="width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block"></span>
-      Radio en direct
-    </a>
-    <a href="contact.html" class="btn btn-primary" style="justify-content:center">Nous contacter</a>
-  </div>
-</nav>
-
-<div class="mobile-overlay" aria-hidden="true"></div>
-
-
 <!-- ══ HERO ═══════════════════════════════════════════════ -->
 <div class="media-hero">
   <div class="container">
@@ -584,7 +349,6 @@
   </div>
 </div>
 
-
 <!-- ══ MAIN ═══════════════════════════════════════════════ -->
 <main class="media-body" id="main-content">
   <div class="container">
@@ -598,44 +362,44 @@
       </div>
       <div class="audio-list">
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1dlMqM_rv-5UXqpd1BDdqvAl__AnQf0JG" data-title="Etre fondé et être enraciné dans l'amour" data-series="Fondements">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_001_fonde-et-enracine-dans-l-amour.mp3" data-title="Etre fondé et être enraciné dans l'amour" data-series="Fondements">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">01</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Etre fondé et être enraciné dans l'amour</div><span class="ar-series">Fondements</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1dlMqM_rv-5UXqpd1BDdqvAl__AnQf0JG" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_001_fonde-et-enracine-dans-l-amour.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1z2MiPIzxzy587Wka-Ng09O-6XiehfRhY" data-title="L'œuvre de la foi et l'épreuve de la foi" data-series="Fondements">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_002_oeuvre-de-la-foi-et-epreuve.mp3" data-title="L'œuvre de la foi et l'épreuve de la foi" data-series="Fondements">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">02</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">L'œuvre de la foi et l'épreuve de la foi</div><span class="ar-series">Fondements</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1z2MiPIzxzy587Wka-Ng09O-6XiehfRhY" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_002_oeuvre-de-la-foi-et-epreuve.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1V9fqWsP451YK4VSoEco9Y9Z-k7oiO-gV" data-title="Qu'est-ce qu'une doctrine et la doctrine de la résurrection des morts" data-series="Fondements">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_003_doctrine-de-la-resurrection.mp3" data-title="Qu'est-ce qu'une doctrine et la doctrine de la résurrection des morts" data-series="Fondements">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">03</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Qu'est-ce qu'une doctrine et la doctrine de la résurrection</div><span class="ar-series">Fondements</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1V9fqWsP451YK4VSoEco9Y9Z-k7oiO-gV" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_003_doctrine-de-la-resurrection.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1BJ2g8RI17r6ZDu2fsWvQ8GEer7nP6swm" data-title="Qu'est-ce que la repentance, la confession et la restitution" data-series="Fondements">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_004_repentance-confession-restitution.mp3" data-title="Qu'est-ce que la repentance, la confession et la restitution" data-series="Fondements">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">04</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Qu'est-ce que la repentance, la confession et la restitution</div><span class="ar-series">Fondements</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1BJ2g8RI17r6ZDu2fsWvQ8GEer7nP6swm" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_004_repentance-confession-restitution.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1_Nf2hyi4Uz6YAeAL-_vVvlgmj-86WLsu" data-title="Qu'est-ce que l'action de grâces" data-series="Fondements">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_005_action-de-graces.mp3" data-title="Qu'est-ce que l'action de grâces" data-series="Fondements">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">05</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Qu'est-ce que l'action de grâces</div><span class="ar-series">Fondements</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1_Nf2hyi4Uz6YAeAL-_vVvlgmj-86WLsu" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_005_action-de-graces.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
       </div>
@@ -650,36 +414,36 @@
       </div>
       <div class="audio-list">
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1GQ3hVMUuqwtXsXaqYz7rrmY-z43_WiVj" data-title="Du stade d'invités à appelés, choisis et fidèles" data-series="Église · Royaume">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_006_du-stade-d-invites-a-appeles.mp3" data-title="Du stade d'invités à appelés, choisis et fidèles" data-series="Église · Royaume">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">01</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Du stade d'invités à appelés, choisis et fidèles</div><span class="ar-series">Église · Royaume</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1GQ3hVMUuqwtXsXaqYz7rrmY-z43_WiVj" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_006_du-stade-d-invites-a-appeles.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1ssHva52f_Wgsq2p_A8RkHZqqn1Db51h1" data-title="L'exercice des dons du Seigneur face aux réalités du monde" data-series="Église · Royaume">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_007_exercice-des-dons-face-au-monde.mp3" data-title="L'exercice des dons du Seigneur face aux réalités du monde" data-series="Église · Royaume">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">02</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">L'exercice des dons du Seigneur face aux réalités du monde</div><span class="ar-series">Église · Royaume</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1ssHva52f_Wgsq2p_A8RkHZqqn1Db51h1" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_007_exercice-des-dons-face-au-monde.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1eCvWYHRtSqUG0uRb-Z5lRgEPNscp_bw8" data-title="La dîme du testament de la loi au testament de la grâce" data-series="Église · Royaume">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_008_dime-de-la-loi-a-la-grace.mp3" data-title="La dîme du testament de la loi au testament de la grâce" data-series="Église · Royaume">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">03</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">La dîme du testament de la loi au testament de la grâce</div><span class="ar-series">Église · Royaume</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1eCvWYHRtSqUG0uRb-Z5lRgEPNscp_bw8" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_008_dime-de-la-loi-a-la-grace.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1crU8lznoUqCDkAxJQW9ybVOGDiKYsH84" data-title="La capacité donnée par DIEU de ramener les morts à la vie" data-series="Église · Royaume">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_009_capacite-de-ramener-les-morts.mp3" data-title="La capacité donnée par DIEU de ramener les morts à la vie" data-series="Église · Royaume">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">04</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">La capacité donnée par DIEU de ramener les morts à la vie</div><span class="ar-series">Église · Royaume</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1crU8lznoUqCDkAxJQW9ybVOGDiKYsH84" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_009_capacite-de-ramener-les-morts.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
       </div>
@@ -694,20 +458,20 @@
       </div>
       <div class="audio-list">
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1kJRswRssMiHbO1dsBZrrnZjxRpBqIMcz" data-title="L'eau de vie" data-series="Vie spirituelle">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_010_l-eau-de-vie.mp3" data-title="L'eau de vie" data-series="Vie spirituelle">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">01</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">L'eau de vie</div><span class="ar-series">Vie spirituelle</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1kJRswRssMiHbO1dsBZrrnZjxRpBqIMcz" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_010_l-eau-de-vie.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1xZC3iUuiGk7spIdC1nxCmlZeONv8Frrb" data-title="Comment mène-t-on un combat spirituel" data-series="Vie spirituelle">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_011_comment-mener-un-combat-spirituel.mp3" data-title="Comment mène-t-on un combat spirituel" data-series="Vie spirituelle">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">02</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Comment mène-t-on un combat spirituel</div><span class="ar-series">Vie spirituelle</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1xZC3iUuiGk7spIdC1nxCmlZeONv8Frrb" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_011_comment-mener-un-combat-spirituel.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
       </div>
@@ -722,28 +486,28 @@
       </div>
       <div class="audio-list">
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1udTINaOhdGKDw5mApmM6k5inaVSqFGAZ" data-title="L'église de Christ et le mariage" data-series="Mariage · Famille">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_012_l-eglise-de-christ-et-le-mariage.mp3" data-title="L'église de Christ et le mariage" data-series="Mariage · Famille">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">01</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">L'église de Christ et le mariage</div><span class="ar-series">Mariage · Famille</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1udTINaOhdGKDw5mApmM6k5inaVSqFGAZ" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_012_l-eglise-de-christ-et-le-mariage.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1v3IguTB3Y-_jaBAPRY32IFPIv20Z4FUr" data-title="Le mariage selon le modèle de Christ et de l'église" data-series="Mariage · Famille">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_013_mariage-selon-le-modele-de-christ.mp3" data-title="Le mariage selon le modèle de Christ et de l'église" data-series="Mariage · Famille">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">02</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Le mariage selon le modèle de Christ et de l'église</div><span class="ar-series">Mariage · Famille</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1v3IguTB3Y-_jaBAPRY32IFPIv20Z4FUr" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_013_mariage-selon-le-modele-de-christ.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1tlMSWrtHiDnVwvuO5ykNJ8f3J12YSXYv" data-title="Que doit-on comprendre par la femme est la gloire de l'homme" data-series="Mariage · Famille">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_014_la-femme-est-la-gloire-de-l-homme.mp3" data-title="Que doit-on comprendre par la femme est la gloire de l'homme" data-series="Mariage · Famille">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">03</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Que doit-on comprendre par la femme est la gloire de l'homme</div><span class="ar-series">Mariage · Famille</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1tlMSWrtHiDnVwvuO5ykNJ8f3J12YSXYv" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_014_la-femme-est-la-gloire-de-l-homme.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
       </div>
@@ -758,28 +522,28 @@
       </div>
       <div class="audio-list">
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1gkYt11MpYjtw_JgKUpGG6WoMSk0SddUn" data-title="Les sept esprits de DIEU" data-series="Saint-Esprit">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_015_les-sept-esprits-de-dieu.mp3" data-title="Les sept esprits de DIEU" data-series="Saint-Esprit">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">01</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Les sept esprits de DIEU</div><span class="ar-series">Saint-Esprit</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1gkYt11MpYjtw_JgKUpGG6WoMSk0SddUn" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_015_les-sept-esprits-de-dieu.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1jpGBBBoCxvRgNPOA0f5yvImV0X69n-R6" data-title="Que signifie le blasphème contre le Saint-Esprit" data-series="Saint-Esprit">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_016_blaspheme-contre-le-saint-esprit.mp3" data-title="Que signifie le blasphème contre le Saint-Esprit" data-series="Saint-Esprit">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">02</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Que signifie le blasphème contre le Saint-Esprit</div><span class="ar-series">Saint-Esprit</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1jpGBBBoCxvRgNPOA0f5yvImV0X69n-R6" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_016_blaspheme-contre-le-saint-esprit.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1VKWVnck8yy0nH_dcG_C4Y3v1ECrQSgJg" data-title="Que signifient les expressions Révélation, Connaissance, Prophétie et Doctrine" data-series="Saint-Esprit">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_017_revelation-connaissance-prophetie-doctrine.mp3" data-title="Que signifient les expressions Révélation, Connaissance, Prophétie et Doctrine" data-series="Saint-Esprit">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">03</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Révélation, Connaissance, Prophétie et Doctrine</div><span class="ar-series">Saint-Esprit</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1VKWVnck8yy0nH_dcG_C4Y3v1ECrQSgJg" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_017_revelation-connaissance-prophetie-doctrine.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
       </div>
@@ -794,36 +558,36 @@
       </div>
       <div class="audio-list">
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1T1xiHErxLmbWogwNyTFbpHkzCx0eGvvv" data-title="Je ferai trembler non seulement la terre mais aussi le ciel" data-series="Eschatologie">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_018_je-ferai-trembler-la-terre-et-le-ciel.mp3" data-title="Je ferai trembler non seulement la terre mais aussi le ciel" data-series="Eschatologie">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">01</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Je ferai trembler non seulement la terre mais aussi le ciel</div><span class="ar-series">Eschatologie</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1T1xiHErxLmbWogwNyTFbpHkzCx0eGvvv" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_018_je-ferai-trembler-la-terre-et-le-ciel.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1aBCliW3u8tUxozn8_1zzKhxSrssLnC1I" data-title="La parabole des dix vierges" data-series="Eschatologie">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_019_parabole-des-dix-vierges.mp3" data-title="La parabole des dix vierges" data-series="Eschatologie">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">02</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">La parabole des dix vierges</div><span class="ar-series">Eschatologie</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1aBCliW3u8tUxozn8_1zzKhxSrssLnC1I" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_019_parabole-des-dix-vierges.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1A6sKVgPpGFrBtGEv_HB-4CnUkdFXVply" data-title="Les esprits des justes parvenus à la perfection" data-series="Eschatologie">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_020_esprits-des-justes-a-la-perfection.mp3" data-title="Les esprits des justes parvenus à la perfection" data-series="Eschatologie">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">03</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Les esprits des justes parvenus à la perfection</div><span class="ar-series">Eschatologie</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1A6sKVgPpGFrBtGEv_HB-4CnUkdFXVply" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_020_esprits-des-justes-a-la-perfection.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1KOsI0hwEYx-0R8AEGM1VPWoUCbXMNe9R" data-title="Quel sort est réservé aux juifs" data-series="Eschatologie">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_021_quel-sort-reserve-aux-juifs.mp3" data-title="Quel sort est réservé aux juifs" data-series="Eschatologie">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">04</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Quel sort est réservé aux juifs</div><span class="ar-series">Eschatologie</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1KOsI0hwEYx-0R8AEGM1VPWoUCbXMNe9R" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_021_quel-sort-reserve-aux-juifs.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
       </div>
@@ -838,33 +602,32 @@
       </div>
       <div class="audio-list">
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1WlREC-38gyqCYBdoCTBV3r3P5a0WaZFl" data-title="Jésus Christ, l'étoile brillante du matin" data-series="Christ · Êtres célestes">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_022_jesus-christ-etoile-brillante-du-matin.mp3" data-title="Jésus Christ, l'étoile brillante du matin" data-series="Christ · Êtres célestes">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">01</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Jésus Christ, l'étoile brillante du matin</div><span class="ar-series">Christ · Êtres célestes</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1WlREC-38gyqCYBdoCTBV3r3P5a0WaZFl" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_022_jesus-christ-etoile-brillante-du-matin.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1JkuwtQGeQEuDQc2rFdcvSxzViAXDlpyE" data-title="Différence entre DIEU le père et le Seigneur Jésus Christ" data-series="Christ · Êtres célestes">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_023_difference-dieu-pere-et-jesus-christ.mp3" data-title="Différence entre DIEU le père et le Seigneur Jésus Christ" data-series="Christ · Êtres célestes">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">02</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Différence entre DIEU le père et le Seigneur Jésus Christ</div><span class="ar-series">Christ · Êtres célestes</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1JkuwtQGeQEuDQc2rFdcvSxzViAXDlpyE" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_023_difference-dieu-pere-et-jesus-christ.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
-        <div class="audio-row" data-src="https://drive.google.com/uc?export=download&id=1sD9L-aHOmzyGvvibjtl5VuPbIUJo6zDY" data-title="Qui est l'Ange de l'Eternel dans les saintes écritures" data-series="Christ · Êtres célestes">
+        <div class="audio-row" data-src="https://f005.backblazeb2.com/file/audio-site-web/podcasts_024_qui-est-l-ange-de-l-eternel.mp3" data-title="Qui est l'Ange de l'Eternel dans les saintes écritures" data-series="Christ · Êtres célestes">
           <button class="ar-play-btn" aria-label="Lire"><svg width="14" height="14"><use href="#icon-play"/></svg></button>
           <div><span class="ar-num">03</span><span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span></div>
           <div class="ar-info"><div class="ar-title">Qui est l'Ange de l'Eternel dans les saintes écritures</div><span class="ar-series">Christ · Êtres célestes</span></div>
           <span class="ar-dur">—</span>
-          <a href="https://drive.google.com/uc?export=download&id=1sD9L-aHOmzyGvvibjtl5VuPbIUJo6zDY" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
+          <a href="https://f005.backblazeb2.com/file/audio-site-web/podcasts_024_qui-est-l-ange-de-l-eternel.mp3" target="_blank" rel="noopener" class="ar-dl" aria-label="Télécharger"><svg width="15" height="15"><use href="#icon-download"/></svg></a>
         </div>
 
       </div>
     </section>
-
 
     <!-- CTA -->
     <div class="yt-cta">
@@ -884,25 +647,6 @@
   </div>
 </main>
 
-
-<!-- ══ GOOGLE DRIVE AUDIO MODAL ══════════════════════════ -->
-<div class="gd-modal-overlay" id="gdModal" role="dialog" aria-modal="true" aria-label="Lecteur audio">
-  <div class="gd-modal">
-    <div class="gd-modal-header">
-      <div>
-        <div class="gd-modal-title" id="gdModalTitle">—</div>
-        <div class="gd-modal-sub" id="gdModalSeries">—</div>
-      </div>
-      <button class="gd-modal-close" id="gdModalClose" aria-label="Fermer">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <iframe id="gdModalIframe" src="" allow="autoplay" loading="lazy"></iframe>
-  </div>
-</div>
-
 <!-- ══ STICKY PLAYER BAR ══════════════════════════════════ -->
 <div class="player-bar" id="playerBar" role="region" aria-label="Lecteur audio">
   <audio id="audioEl" preload="none"></audio>
@@ -914,6 +658,7 @@
     <div class="pb-info">
       <div class="pb-title" id="pbTitle">—</div>
       <div class="pb-series" id="pbSeries">—</div>
+      <div class="pb-status" id="pbStatus" role="alert" aria-live="polite"></div>
     </div>
   </div>
 
@@ -939,17 +684,6 @@
     </div>
   </div>
 
-  <!-- Drive player (mode Drive) -->
-  <div class="pb-btns" id="pbDriveBtns" style="display:none">
-    <button class="pb-btn pb-skip" id="btnDrivePrev" aria-label="Précédent">
-      <svg width="20" height="20"><use href="#icon-skip-prev"/></svg>
-    </button>
-    <button class="pb-btn pb-skip" id="btnDriveNext" aria-label="Suivant">
-      <svg width="20" height="20"><use href="#icon-skip-next"/></svg>
-    </button>
-  </div>
-  <iframe id="pbDriveEmbed" class="pb-drive-embed" src="" allow="autoplay" loading="lazy"></iframe>
-
   <div class="pb-vol">
     <button class="pb-vol-btn" id="btnMute" aria-label="Muet">
       <svg width="16" height="16"><use href="#icon-volume"/></svg>
@@ -963,50 +697,6 @@
     </svg>
   </button>
 </div>
-
-
-<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
-<footer class="site-footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo" aria-label="Accueil" style="margin-bottom:1.25rem">
-          <svg class="logo-mark" viewBox="0 0 38 44" fill="none" aria-hidden="true">
-            <circle cx="19" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M4 26a2 2 0 0 1 2-2h11v18H6a2 2 0 0 1-2-2V26z" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M34 26a2 2 0 0 0-2-2H21v18h11a2 2 0 0 0 2-2V26z" stroke="currentColor" stroke-width="1.8"/>
-            <line x1="19" y1="24" x2="19" y2="42" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-          <div class="logo-text">
-            <span class="logo-title">L'Évangile du Royaume</span>
-            <span class="logo-sub">La Bonne Nouvelle</span>
-          </div>
-        </a>
-        <p>Plateforme chrétienne francophone d'enseignements bibliques, podcasts et radio en direct.</p>
-      </div>
-      <nav aria-label="Médias">
-        <h4>Médias</h4>
-        <ul class="footer-links">
-          <li><a href="videos.html"   class="footer-link">Vidéos</a></li>
-          <li><a href="audios.html"   class="footer-link">Messages audio</a></li>
-          <li><a href="podcasts.html" class="footer-link">Séries podcast</a></li>
-          <li><a href="louange.html"  class="footer-link">Louange</a></li>
-        </ul>
-      </nav>
-      <nav aria-label="Liens rapides">
-        <h4>Explorer</h4>
-        <ul class="footer-links">
-          <li><a href="radio.html"    class="footer-link">Radio en direct</a></li>
-          <li><a href="articles.html" class="footer-link">Articles</a></li>
-          <li><a href="index.html"    class="footer-link">Accueil</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2025 L'Évangile du Royaume. Tous droits réservés.</span>
-    </div>
-  </div>
-</footer>
 
 <style>
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
@@ -1033,9 +723,26 @@
   const volSlider  = document.getElementById('volSlider');
   const btnMute    = document.getElementById('btnMute');
   const btnClose   = document.getElementById('btnClose');
+  const pbStatus   = document.getElementById('pbStatus');
 
-  let allRows    = [];
-  let currentIdx = -1;
+  let allRows      = [];
+  let currentIdx   = -1;
+  let stallRetryId = null;
+
+  function setStatus(type, html) {
+    pbStatus.className = 'pb-status' + (type ? ' is-' + type : '');
+    pbStatus.innerHTML = html || '';
+  }
+  function clearStatus() { setStatus('', ''); }
+  function downloadLink(idx) { return allRows[idx]?.querySelector('.ar-dl'); }
+  function showAudioError() {
+    const dl = downloadLink(currentIdx);
+    const dlHtml = dl
+      ? ' — <a href="' + dl.href + '" target="_blank" rel="noopener noreferrer">Télécharger</a>'
+      : '';
+    setStatus('error', '⚠️ Fichier indisponible' + dlHtml);
+    setPlayingRow(-1);
+  }
 
   function fmt(s) {
     if (!s || isNaN(s)) return '0:00';
@@ -1059,10 +766,6 @@
       if (!src) return resolve();
       const durEl = row.querySelector('.ar-dur');
       if (durEl && durEl.textContent !== '—') return resolve();
-      const probeSrc = src.includes('drive.google.com/uc') && src.includes('id=')
-        ? 'https://drive.google.com/uc?export=download&id=' + src.split('id=')[1]
-        : src;
-
       const probe = new Audio();
       let settled = false;
       const cleanup = () => {
@@ -1080,7 +783,7 @@
       probe.preload = 'metadata';
       probe.addEventListener('loadedmetadata', () => finish(probe.duration), { once: true });
       probe.addEventListener('error', () => finish(null), { once: true });
-      probe.src = probeSrc;
+      probe.src = src;
     });
   }
 
@@ -1098,21 +801,10 @@
     });
   }
 
-  /* ── Helpers ──────────────────────────────────────── */
-  const driveEmbed = document.getElementById('pbDriveEmbed');
-  const driveBtns  = document.getElementById('pbDriveBtns');
-
-  function isDrive(src) { return src.includes('drive.google.com'); }
-  function driveId(src) { return src.split('id=').pop().split('&')[0]; }
-
-  function closeDriveMode() {
-    driveEmbed.src = '';
-    playerBar.classList.remove('drive-mode');
-    if (driveBtns) driveBtns.style.display = 'none';
-  }
-
   function loadTrack(idx) {
     if (idx < 0 || idx >= allRows.length) return;
+    clearStatus();
+    clearTimeout(stallRetryId);
     currentIdx = idx;
     const row    = allRows[idx];
     const src    = row.dataset.src || '';
@@ -1125,19 +817,18 @@
     playerBar.classList.add('visible');
     setPlayingRow(idx);
 
-    if (isDrive(src)) {
-      /* ── Mode Drive : lecteur Google Drive dans la barre ── */
-      audio.pause(); audio.src = '';
-      playerBar.classList.add('drive-mode');
-      if (driveBtns) driveBtns.style.display = 'flex';
-      driveEmbed.src = 'https://drive.google.com/file/d/' + driveId(src) + '/preview';
-    } else {
-      /* ── Mode HTML5 : MP3 direct ──────────────────────── */
-      closeDriveMode();
-      audio.src = src;
-      audio.load();
-      audio.play().catch(() => {});
-    }
+    audio.src = src;
+    audio.load();
+    setStatus('loading', 'Chargement…');
+    audio.play()
+      .then(clearStatus)
+      .catch(err => {
+        if (err.name === 'NotAllowedError') {
+          clearStatus();
+        } else {
+          showAudioError();
+        }
+      });
   }
 
   function togglePlay() {
@@ -1174,6 +865,7 @@
   });
 
   audio.addEventListener('play',  () => {
+    clearStatus();
     ppIcon.setAttribute('href', '#icon-pause');
     setPlayingRow(currentIdx);
     const btn = allRows[currentIdx]?.querySelector('.ar-play-btn use');
@@ -1184,7 +876,23 @@
     const btn = allRows[currentIdx]?.querySelector('.ar-play-btn use');
     if (btn) btn.setAttribute('href', '#icon-play');
   });
-  audio.addEventListener('ended', () => loadTrack((currentIdx + 1) % allRows.length));
+  audio.addEventListener('ended', () => {
+    clearStatus();
+    loadTrack((currentIdx + 1) % allRows.length);
+  });
+  audio.addEventListener('error',   () => showAudioError());
+  audio.addEventListener('canplay', clearStatus);
+  audio.addEventListener('waiting', () => setStatus('loading', 'Chargement…'));
+  audio.addEventListener('stalled', () => {
+    setStatus('loading', 'Connexion lente…');
+    if (stallRetryId) clearTimeout(stallRetryId);
+    stallRetryId = setTimeout(() => {
+      if (audio.readyState < 3) {
+        audio.load();
+        audio.play().catch(() => showAudioError());
+      }
+    }, 8000);
+  });
   audio.addEventListener('timeupdate', () => {
     if (!audio.duration) return;
     pbBarFill.style.width  = (audio.currentTime / audio.duration * 100) + '%';
@@ -1209,18 +917,11 @@
     volSlider.value = audio.muted ? 0 : audio.volume;
   });
 
-  /* Drive prev / next */
-  document.getElementById('btnDrivePrev')?.addEventListener('click', () => {
-    loadTrack((currentIdx - 1 + allRows.length) % allRows.length);
-  });
-  document.getElementById('btnDriveNext')?.addEventListener('click', () => {
-    loadTrack((currentIdx + 1) % allRows.length);
-  });
-
   /* Close player bar */
   btnClose.addEventListener('click', () => {
+    clearTimeout(stallRetryId);
+    clearStatus();
     audio.pause(); audio.src = '';
-    closeDriveMode();
     playerBar.classList.remove('visible');
     allRows.forEach(r => {
       r.classList.remove('playing');
