@@ -1615,3 +1615,16 @@ h1, h2, h3, h4 {
   transition: background .25s, border-color .25s;
 }
 .nav-live-badge:hover { background: rgba(76,175,80,.18); border-color: rgba(76,175,80,.4); }
+
+/* ── Accessibilité : réduction des animations (T32) ────────────
+   Couvre toutes les animations du site en un seul bloc global.
+   Les utilisateurs souffrant de vertiges ou d'inconfort voient
+   une interface sans mouvement continu. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

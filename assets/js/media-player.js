@@ -72,7 +72,7 @@
             '<div class="ar-title">' + esc(t.title)  + '</div>' +
             '<span class="ar-series">' + esc(t.series) + '</span>' +
           '</div>' +
-          '<span class="ar-dur">—</span>' +
+          '<span class="ar-dur">' + (t.duration ? esc(t.duration) : '—') + '</span>' +
           '<a href="' + esc(t.src) + '" target="_blank" rel="noopener noreferrer"' +
             ' class="ar-dl" aria-label="Télécharger">' +
             '<svg width="15" height="15"><use href="#icon-download"/></svg>' +
@@ -95,40 +95,13 @@
     document.getElementById(opts.containerId).innerHTML = html;
   }
 
-  /* ── Durées ───────────────────────────────────────────── */
+  /* ── Durée — mise à jour depuis la piste active ──────── */
+  /* Appelée quand loadedmetadata se déclenche sur la piste en cours.
+     Les durées initiales viennent du JSON (plus de new Audio() au chargement). */
   function setRowDuration(row, seconds) {
     if (!row || !seconds || isNaN(seconds)) return;
     var durEl = row.querySelector('.ar-dur');
     if (durEl) durEl.textContent = fmt(seconds);
-  }
-
-  function probeDuration(row) {
-    return new Promise(function(resolve) {
-      var src = (row && row.dataset && row.dataset.src) || '';
-      if (!src) return resolve();
-      var durEl = row.querySelector('.ar-dur');
-      if (durEl && durEl.textContent !== '—') return resolve();
-      var probe    = new Audio();
-      var settled  = false;
-      var cleanup  = function() { probe.removeAttribute('src'); probe.load(); };
-      var finish   = function(seconds) {
-        if (settled) return;
-        settled = true;
-        if (seconds && !isNaN(seconds)) setRowDuration(row, seconds);
-        cleanup();
-        resolve();
-      };
-      probe.preload = 'metadata';
-      probe.addEventListener('loadedmetadata', function() { finish(probe.duration); }, { once: true });
-      probe.addEventListener('error',          function() { finish(null);           }, { once: true });
-      probe.src = src;
-    });
-  }
-
-  async function preloadDurations() {
-    for (var i = 0; i < allRows.length; i++) {
-      await probeDuration(allRows[i]);
-    }
   }
 
   /* ── État de lecture ──────────────────────────────────── */
@@ -336,7 +309,6 @@
       .then(function(tracks) {
         renderAudioSections(tracks, opts);
         initRows();
-        preloadDurations();
         if (typeof opts.onLoaded === 'function') opts.onLoaded(tracks);
       })
       .catch(function(e) {
