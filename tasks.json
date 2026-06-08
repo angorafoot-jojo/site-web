@@ -256,7 +256,9 @@
         {
           "id": "T16",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "validate-data.mjs créé (~260 lignes). Contrôles : syntaxe JSON, champs requis par schéma, IDs uniques, fichiers EPUB locaux présents, HEAD requests sur URLs distantes (optionnel --quick), cohérence icons SVG sprite vs HTML. 5 bugs réels corrigés à la première exécution : IDs dupliqués dans audios.json (renumérotés 1-42), icônes icon-film/icon-target/icon-users ajoutées au sprite, icon-arrow-r remplacé par icon-arrow-right, partenaire id:1 URL http → https.",
           "audit_refs": ["G-007", "A-014"],
           "title": "Créer scripts/validate-data.mjs — validation automatique des JSON et médias",
           "description": "Aucun script ne vérifie que les fichiers JSON sont valides, que les EPUB/PDF/MP3 existent, que les IDs YouTube et Drive répondent. Un lien cassé peut rester en production longtemps.",
@@ -1046,7 +1048,7 @@
 
   "summary": {
     "total_tasks": 68,
-    "by_status": { "done": 23, "todo": 44, "cancelled": 1, "in_progress": 0 },
+    "by_status": { "done": 24, "todo": 43, "cancelled": 1, "in_progress": 0 },
     "by_priority": { "P1": 22, "P2": 35, "P3": 11 },
     "audit_issues_covered": 176,
     "categories_by_impact": [

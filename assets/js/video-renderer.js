@@ -39,7 +39,7 @@
 
       var link = isIndividual ? '' :
         '<a href="' + YT_CHANNEL + '" target="_blank" rel="noopener noreferrer" class="series-hd-link">' +
-        'YouTube <svg width="11" height="11"><use href="#icon-arrow-r"/></svg></a>';
+        'YouTube <svg width="11" height="11"><use href="#icon-arrow-right"/></svg></a>';
 
       var cards = items.map(function(v) {
         var ytId  = esc(v.youtube_id);
