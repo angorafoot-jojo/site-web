@@ -560,12 +560,11 @@
 <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
 <script src="assets/js/main.js" defer></script>
 
-<script src="assets/js/articles-data.js"></script>
 <script>
-
 /* ═══════════════════════════════════════════════════
-   CATALOGUE — render, search, sort & filter
+   CATALOGUE — données chargées depuis assets/data/articles.json
 ═══════════════════════════════════════════════════ */
+let ARTICLES = [];
 const grid         = document.getElementById('art-grid');
 const searchInput  = document.getElementById('lib-search');
 const selectCat    = document.getElementById('select-cat');
@@ -662,7 +661,20 @@ searchInput.addEventListener('input', () => {
 selectCat.addEventListener('change',   renderGrid);
 selectSort.addEventListener('change',  renderGrid);
 selectDispo.addEventListener('change', renderGrid);
-renderGrid();
+
+/* ── Init : chargement depuis JSON ──────────────── */
+(async function init() {
+  try {
+    const res = await fetch('assets/data/articles.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    ARTICLES = await res.json();
+    resultsCount.textContent = ARTICLES.length + ' articles';
+    renderGrid();
+  } catch (e) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Impossible de charger les articles. Veuillez réessayer.</p>';
+    console.error('articles.json load error:', e);
+  }
+})();
 
 /* ═══════════════════════════════════════════════════
    EPUB READER — epub.js

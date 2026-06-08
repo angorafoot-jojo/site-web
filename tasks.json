@@ -1,7 +1,8 @@
 {
   "project": "L'Évangile du Royaume — Amélioration du site web",
-  "last_updated": "2026-06-07",
+  "last_updated": "2026-06-08",
   "session_2_completed": ["T03 (audios.html + podcasts.html fallbacks)", "T04 (radio.html robustification)", "T05 (scripts/validate-media.mjs)"],
+  "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)"],
   "total_audit_issues": 176,
   "legend": {
     "status": { "done": "Terminé ✅", "in_progress": "En cours 🔄", "todo": "À faire ⬜" },
@@ -111,7 +112,9 @@
         {
           "id": "T07",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "57 livres extraits vers assets/data/books.json. livres.html chargé dynamiquement via fetch. BOOKS hardcodé supprimé.",
           "audit_refs": ["G-006", "L-001", "L-002", "L-003", "L-020"],
           "title": "Migrer les 57 livres vers assets/data/books.json",
           "description": "Les livres sont dans un tableau JS const BOOKS = [...] à l'intérieur du HTML. Chaque livre nécessite un champ year explicite (actuellement inféré de l'id, souvent faux).",
@@ -130,7 +133,9 @@
         {
           "id": "T08",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "42 pistes extraites vers assets/data/audios.json. audios.html chargé dynamiquement via fetch + renderAudioSections(). Durées toujours chargées au runtime (preloadDurations) — dette connue.",
           "audit_refs": ["G-006", "A-001", "A-003", "A-004", "A-013"],
           "title": "Migrer les audios vers assets/data/audios.json (durées incluses)",
           "description": "Pistes hardcodées en attributs data-src/data-title/data-series. La page crée un new Audio() par piste au chargement pour lire les durées → N requêtes réseau inutiles.",
@@ -149,7 +154,9 @@
         {
           "id": "T09",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "23 épisodes extraits vers assets/data/podcasts.json. podcasts.html chargé dynamiquement via fetch + renderAudioSections(). podcast_021 supprimé (fichier introuvable).",
           "audit_refs": ["G-006", "P-001", "P-002", "P-003", "P-010", "P-011"],
           "title": "Migrer les podcasts vers assets/data/podcasts.json",
           "description": "Épisodes hardcodés. Pas de tri automatique, pas de validation de cohérence. Le compteur d'épisodes par série peut être faux.",
@@ -175,7 +182,9 @@
         {
           "id": "T11",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "16 articles extraits vers assets/data/articles.json. articles.html chargé dynamiquement via fetch. articles-data.js n'est plus référencé.",
           "audit_refs": ["G-006", "AR-001", "AR-003", "AR-011"],
           "title": "Migrer les articles vers assets/data/articles.json",
           "description": "Articles hardcodés. Pas de métadonnées auteur/date/thème complètes. Ces données sont nécessaires pour le SEO et le rendu dynamique.",
