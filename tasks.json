@@ -2,7 +2,7 @@
   "project": "L'Évangile du Royaume — Amélioration du site web",
   "last_updated": "2026-06-08",
   "session_2_completed": ["T03 (audios.html + podcasts.html fallbacks)", "T04 (radio.html robustification)", "T05 (scripts/validate-media.mjs)"],
-  "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)"],
+  "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)", "T10 (videos.json)"],
   "total_audit_issues": 176,
   "legend": {
     "status": { "done": "Terminé ✅", "in_progress": "En cours 🔄", "todo": "À faire ⬜" },
@@ -169,7 +169,8 @@
         {
           "id": "T10",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
           "audit_refs": ["G-006", "V-001", "V-005", "V-006", "V-010"],
           "title": "Migrer les vidéos vers assets/data/videos.json",
           "description": "Liens YouTube, titres et thumbnails écrits manuellement. Pas de durée, pas de date, compteurs de séries potentiellement faux.",

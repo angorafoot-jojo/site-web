@@ -1,0 +1,952 @@
+[
+  {
+    "id": 1,
+    "title": "Les sept types de revêtement — Partie 1",
+    "slug": "les-sept-types-de-rev-tement-partie-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "HptmYXy5Ock",
+    "series": "Les 7 types de revêtement",
+    "meta": "Série · Revêtement"
+  },
+  {
+    "id": 2,
+    "title": "Les sept types de revêtement — Partie 2",
+    "slug": "les-sept-types-de-rev-tement-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "7dnC3Kr5wvY",
+    "series": "Les 7 types de revêtement",
+    "meta": "Série · Revêtement"
+  },
+  {
+    "id": 3,
+    "title": "Les sept types de revêtement spirituel — Partie 3",
+    "slug": "les-sept-types-de-rev-tement-spirituel-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "frvlgOBWSsw",
+    "series": "Les 7 types de revêtement",
+    "meta": "Série · Revêtement"
+  },
+  {
+    "id": 4,
+    "title": "Les 7 types de revêtement — Part 4",
+    "slug": "les-7-types-de-rev-tement-part-4",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "DmTJZ0WJ0SY",
+    "series": "Les 7 types de revêtement",
+    "meta": "Série · Revêtement"
+  },
+  {
+    "id": 5,
+    "title": "Les sept types de revêtement — Partie 5",
+    "slug": "les-sept-types-de-rev-tement-partie-5",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "C8xbrufraY0",
+    "series": "Les 7 types de revêtement",
+    "meta": "Série · Revêtement"
+  },
+  {
+    "id": 6,
+    "title": "Le revêtement spirituel — Message 3",
+    "slug": "le-rev-tement-spirituel-message-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "C7FwqBwZogc",
+    "series": "Les 7 types de revêtement",
+    "meta": "Série · Revêtement"
+  },
+  {
+    "id": 7,
+    "title": "L'expiation par le sang — Partie 1",
+    "slug": "l-expiation-par-le-sang-partie-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "VBPItvWfa0M",
+    "series": "L'expiation par le sang",
+    "meta": "Série · Expiation"
+  },
+  {
+    "id": 8,
+    "title": "L'expiation par le sang — Partie 2",
+    "slug": "l-expiation-par-le-sang-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "7phPKsyQelQ",
+    "series": "L'expiation par le sang",
+    "meta": "Série · Expiation"
+  },
+  {
+    "id": 9,
+    "title": "Expiation par le sang — Partie 3",
+    "slug": "expiation-par-le-sang-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "CGfk7c06bhc",
+    "series": "L'expiation par le sang",
+    "meta": "Série · Expiation"
+  },
+  {
+    "id": 10,
+    "title": "L'expiation par le sang — Partie 4",
+    "slug": "l-expiation-par-le-sang-partie-4",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "B1gy1_dRx8c",
+    "series": "L'expiation par le sang",
+    "meta": "Série · Expiation"
+  },
+  {
+    "id": 11,
+    "title": "La vraie vigne — 1ère partie",
+    "slug": "la-vraie-vigne-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "3EtmckU-rWg",
+    "series": "La vraie vigne",
+    "meta": "Série · Vigne"
+  },
+  {
+    "id": 12,
+    "title": "La vraie vigne — Partie 2",
+    "slug": "la-vraie-vigne-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "FO9ecI4nqwk",
+    "series": "La vraie vigne",
+    "meta": "Série · Vigne"
+  },
+  {
+    "id": 13,
+    "title": "La vraie vigne — Partie 3",
+    "slug": "la-vraie-vigne-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "U-vkmK2dEsQ",
+    "series": "La vraie vigne",
+    "meta": "Série · Vigne"
+  },
+  {
+    "id": 14,
+    "title": "La vraie vigne — Partie 4",
+    "slug": "la-vraie-vigne-partie-4",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "uEYrHu3oTKY",
+    "series": "La vraie vigne",
+    "meta": "Série · Vigne"
+  },
+  {
+    "id": 15,
+    "title": "Vous êtes mes témoins — Part 1",
+    "slug": "vous-tes-mes-t-moins-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "r-zgGen9hDw",
+    "series": "Vous êtes mes témoins (Ésaïe 43:10)",
+    "meta": "Série · Témoins"
+  },
+  {
+    "id": 16,
+    "title": "Vous êtes mes témoins — Part 2",
+    "slug": "vous-tes-mes-t-moins-part-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "GvBhINRSFJ0",
+    "series": "Vous êtes mes témoins (Ésaïe 43:10)",
+    "meta": "Série · Témoins"
+  },
+  {
+    "id": 17,
+    "title": "Vous êtes mes témoins — Part 3",
+    "slug": "vous-tes-mes-t-moins-part-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "2W1L95TWyug",
+    "series": "Vous êtes mes témoins (Ésaïe 43:10)",
+    "meta": "Série · Témoins"
+  },
+  {
+    "id": 18,
+    "title": "Vous êtes mes témoins — Part 4",
+    "slug": "vous-tes-mes-t-moins-part-4",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "xoktQ7uk7Bs",
+    "series": "Vous êtes mes témoins (Ésaïe 43:10)",
+    "meta": "Série · Témoins"
+  },
+  {
+    "id": 19,
+    "title": "Vous êtes mes témoins — Part 5",
+    "slug": "vous-tes-mes-t-moins-part-5",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "oGGUtKnaZk0",
+    "series": "Vous êtes mes témoins (Ésaïe 43:10)",
+    "meta": "Série · Témoins"
+  },
+  {
+    "id": 20,
+    "title": "Vous êtes mes témoins — Part 6",
+    "slug": "vous-tes-mes-t-moins-part-6",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "_CWOTnELKVc",
+    "series": "Vous êtes mes témoins (Ésaïe 43:10)",
+    "meta": "Série · Témoins"
+  },
+  {
+    "id": 21,
+    "title": "Vous êtes mes témoins — Part 7",
+    "slug": "vous-tes-mes-t-moins-part-7",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "2fXQs4IFKI4",
+    "series": "Vous êtes mes témoins (Ésaïe 43:10)",
+    "meta": "Série · Témoins"
+  },
+  {
+    "id": 22,
+    "title": "Comment éduquer une génération selon Dieu — Part 1",
+    "slug": "comment-duquer-une-g-n-ration-selon-dieu-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "aHo4Gi6ZsLE",
+    "series": "Comment éduquer une génération selon Dieu",
+    "meta": "Série · Éducation"
+  },
+  {
+    "id": 23,
+    "title": "Comment éduquer une génération selon Dieu — Partie 2",
+    "slug": "comment-duquer-une-g-n-ration-selon-dieu-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "TaSPrpTIauw",
+    "series": "Comment éduquer une génération selon Dieu",
+    "meta": "Série · Éducation"
+  },
+  {
+    "id": 24,
+    "title": "Comment éduquer une génération selon Dieu — Partie 3",
+    "slug": "comment-duquer-une-g-n-ration-selon-dieu-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "CReyAvzF2P8",
+    "series": "Comment éduquer une génération selon Dieu",
+    "meta": "Série · Éducation"
+  },
+  {
+    "id": 25,
+    "title": "Quiconque vit et croit en moi ne mourra jamais — Partie 1",
+    "slug": "quiconque-vit-et-croit-en-moi-ne-mourra-jamais-partie-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "0IgfvZinftk",
+    "series": "Quiconque vit et croit en moi ne mourra jamais",
+    "meta": "Série · Jean 11:26"
+  },
+  {
+    "id": 26,
+    "title": "Quiconque vit et croit en moi ne mourra jamais — Partie 2",
+    "slug": "quiconque-vit-et-croit-en-moi-ne-mourra-jamais-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Trv12nJ3xl8",
+    "series": "Quiconque vit et croit en moi ne mourra jamais",
+    "meta": "Série · Jean 11:26"
+  },
+  {
+    "id": 27,
+    "title": "Quiconque vit et croit en moi ne mourra jamais — Partie 3",
+    "slug": "quiconque-vit-et-croit-en-moi-ne-mourra-jamais-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "RRr0z9xaodk",
+    "series": "Quiconque vit et croit en moi ne mourra jamais",
+    "meta": "Série · Jean 11:26"
+  },
+  {
+    "id": 28,
+    "title": "Comment gérer son mariage dans l'économie du Royaume — Partie 1",
+    "slug": "comment-g-rer-son-mariage-dans-l-conomie-du-royaume-partie-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "3jpsdpW_F24",
+    "series": "Comment gérer son mariage dans l'économie du Royaume",
+    "meta": "Série · Mariage"
+  },
+  {
+    "id": 29,
+    "title": "Comment gérer son mariage dans l'économie du Royaume — Partie 2",
+    "slug": "comment-g-rer-son-mariage-dans-l-conomie-du-royaume-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Hbg88DxhPs0",
+    "series": "Comment gérer son mariage dans l'économie du Royaume",
+    "meta": "Série · Mariage"
+  },
+  {
+    "id": 30,
+    "title": "Comment gérer son mariage selon l'économie du Royaume — Partie 3",
+    "slug": "comment-g-rer-son-mariage-selon-l-conomie-du-royaume-partie-",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "ZCDKZJgQT98",
+    "series": "Comment gérer son mariage dans l'économie du Royaume",
+    "meta": "Série · Mariage"
+  },
+  {
+    "id": 31,
+    "title": "Les doctrines fondamentales de la foi chrétienne — 1ère partie",
+    "slug": "les-doctrines-fondamentales-de-la-foi-chr-tienne-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "xqV45Nv5OjU",
+    "series": "Les doctrines fondamentales de la foi chrétienne",
+    "meta": "Série · Doctrines"
+  },
+  {
+    "id": 32,
+    "title": "Les doctrines fondamentales de la foi chrétienne — 2ème partie",
+    "slug": "les-doctrines-fondamentales-de-la-foi-chr-tienne-2-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "vrCQkrIVWfU",
+    "series": "Les doctrines fondamentales de la foi chrétienne",
+    "meta": "Série · Doctrines"
+  },
+  {
+    "id": 33,
+    "title": "Les doctrines fondamentales de la foi chrétienne — Partie 3",
+    "slug": "les-doctrines-fondamentales-de-la-foi-chr-tienne-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Dz93cTAMOJE",
+    "series": "Les doctrines fondamentales de la foi chrétienne",
+    "meta": "Série · Doctrines"
+  },
+  {
+    "id": 34,
+    "title": "Les doctrines fondamentales de la foi chrétienne — Partie 4",
+    "slug": "les-doctrines-fondamentales-de-la-foi-chr-tienne-partie-4",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "cHcXIj2SKM4",
+    "series": "Les doctrines fondamentales de la foi chrétienne",
+    "meta": "Série · Doctrines"
+  },
+  {
+    "id": 35,
+    "title": "Les doctrines fondamentales de la foi chrétienne — Partie 5",
+    "slug": "les-doctrines-fondamentales-de-la-foi-chr-tienne-partie-5",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "IrWwUKfywoE",
+    "series": "Les doctrines fondamentales de la foi chrétienne",
+    "meta": "Série · Doctrines"
+  },
+  {
+    "id": 36,
+    "title": "En attendant la bienheureuse espérance — 1ère partie",
+    "slug": "en-attendant-la-bienheureuse-esp-rance-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "ZHx93E7Sikc",
+    "series": "En attendant la bienheureuse espérance",
+    "meta": "Série · Espérance"
+  },
+  {
+    "id": 37,
+    "title": "En attendant la bienheureuse espérance — 2ème partie",
+    "slug": "en-attendant-la-bienheureuse-esp-rance-2-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "OFjlTS9xbQg",
+    "series": "En attendant la bienheureuse espérance",
+    "meta": "Série · Espérance"
+  },
+  {
+    "id": 38,
+    "title": "Puits d'eau vive — Partie 1",
+    "slug": "puits-d-eau-vive-partie-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "6dovGrwB0k4",
+    "series": "Puits d'eau vive",
+    "meta": "Série · Eau vive"
+  },
+  {
+    "id": 39,
+    "title": "Puits d'eau vive — Partie 2",
+    "slug": "puits-d-eau-vive-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "2mKk9O7Afwg",
+    "series": "Puits d'eau vive",
+    "meta": "Série · Eau vive"
+  },
+  {
+    "id": 40,
+    "title": "Puits d'eau vive — Partie 3",
+    "slug": "puits-d-eau-vive-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "UMV0e98Di-Y",
+    "series": "Puits d'eau vive",
+    "meta": "Série · Eau vive"
+  },
+  {
+    "id": 41,
+    "title": "Puits d'eau vive — Partie 4",
+    "slug": "puits-d-eau-vive-partie-4",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "pXxBkLPgM0c",
+    "series": "Puits d'eau vive",
+    "meta": "Série · Eau vive"
+  },
+  {
+    "id": 42,
+    "title": "Puits d'eau vive — Parties 5 et 6",
+    "slug": "puits-d-eau-vive-parties-5-et-6",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "XMqG9cr-Ejg",
+    "series": "Puits d'eau vive",
+    "meta": "Série · Eau vive"
+  },
+  {
+    "id": 43,
+    "title": "Le Repos de YAHWEH — Première partie",
+    "slug": "le-repos-de-yahweh-premi-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "UXPs0vsAtN8",
+    "series": "Le Repos de YAHWEH",
+    "meta": "Série · Repos"
+  },
+  {
+    "id": 44,
+    "title": "Le Repos de YAHWEH — Deuxième partie",
+    "slug": "le-repos-de-yahweh-deuxi-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "uNZc4CmTKYo",
+    "series": "Le Repos de YAHWEH",
+    "meta": "Série · Repos"
+  },
+  {
+    "id": 45,
+    "title": "Le Repos de YAHWEH — Partie 3",
+    "slug": "le-repos-de-yahweh-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "uBCLyuP5uao",
+    "series": "Le Repos de YAHWEH",
+    "meta": "Série · Repos"
+  },
+  {
+    "id": 46,
+    "title": "Entrer dans son repos — Introduction générale, Part 1",
+    "slug": "entrer-dans-son-repos-introduction-g-n-rale-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "t0X7SZWtwAo",
+    "series": "Entrer dans son repos",
+    "meta": "Série · Repos"
+  },
+  {
+    "id": 47,
+    "title": "Entrer dans son repos — Introduction générale, Part 2",
+    "slug": "entrer-dans-son-repos-introduction-g-n-rale-part-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "ssFZLvfdDCk",
+    "series": "Entrer dans son repos",
+    "meta": "Série · Repos"
+  },
+  {
+    "id": 48,
+    "title": "Entrer dans son repos — Introduction générale, Part 3",
+    "slug": "entrer-dans-son-repos-introduction-g-n-rale-part-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "gC72IazyjbY",
+    "series": "Entrer dans son repos",
+    "meta": "Série · Repos"
+  },
+  {
+    "id": 49,
+    "title": "Entrer dans son repos — La nécessité du repos",
+    "slug": "entrer-dans-son-repos-la-n-cessit-du-repos",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Zkn0TmLDdz4",
+    "series": "Entrer dans son repos",
+    "meta": "Série · Repos"
+  },
+  {
+    "id": 50,
+    "title": "L'Église locale et les dons de ministères — 1ère partie",
+    "slug": "l-glise-locale-et-les-dons-de-minist-res-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "eh4m0YWm3Wk",
+    "series": "L'Église locale et les dons de ministères",
+    "meta": "Série · Église"
+  },
+  {
+    "id": 51,
+    "title": "L'Église locale et les dons de ministères — 2ème partie",
+    "slug": "l-glise-locale-et-les-dons-de-minist-res-2-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "VoTkadYa_98",
+    "series": "L'Église locale et les dons de ministères",
+    "meta": "Série · Église"
+  },
+  {
+    "id": 52,
+    "title": "L'Église locale et les dons de ministères — 3ème partie",
+    "slug": "l-glise-locale-et-les-dons-de-minist-res-3-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "IqRQ5Zkhj2o",
+    "series": "L'Église locale et les dons de ministères",
+    "meta": "Série · Église"
+  },
+  {
+    "id": 53,
+    "title": "Comprendre les temps et les saisons de l'Église — 1ère partie",
+    "slug": "comprendre-les-temps-et-les-saisons-de-l-glise-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "ApMbO8QHOYA",
+    "series": "Comprendre les temps et les saisons de l'Église",
+    "meta": "Série · Temps &amp; Saisons"
+  },
+  {
+    "id": 54,
+    "title": "Comprendre les temps et les saisons de l'Église — 2ème partie",
+    "slug": "comprendre-les-temps-et-les-saisons-de-l-glise-2-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "zOEGYLrFZIo",
+    "series": "Comprendre les temps et les saisons de l'Église",
+    "meta": "Série · Temps &amp; Saisons"
+  },
+  {
+    "id": 55,
+    "title": "Comprendre les temps et les saisons de l'Église — 3ème partie",
+    "slug": "comprendre-les-temps-et-les-saisons-de-l-glise-3-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "efqaT3TMK-s",
+    "series": "Comprendre les temps et les saisons de l'Église",
+    "meta": "Série · Temps &amp; Saisons"
+  },
+  {
+    "id": 56,
+    "title": "Comprendre les temps et les saisons de l'Église — 4ème partie",
+    "slug": "comprendre-les-temps-et-les-saisons-de-l-glise-4-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Rd5PfETaw6w",
+    "series": "Comprendre les temps et les saisons de l'Église",
+    "meta": "Série · Temps &amp; Saisons"
+  },
+  {
+    "id": 57,
+    "title": "La délivrance de l'influence... — 1ère partie",
+    "slug": "la-d-livrance-de-l-influence-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "EvLEwhMBd8g",
+    "series": "La délivrance de l'influence de la femme prostituée et de la marque de la bête",
+    "meta": "Série · Délivrance"
+  },
+  {
+    "id": 58,
+    "title": "La délivrance de l'influence... — 2ème partie",
+    "slug": "la-d-livrance-de-l-influence-2-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "whNP3rRKjh0",
+    "series": "La délivrance de l'influence de la femme prostituée et de la marque de la bête",
+    "meta": "Série · Délivrance"
+  },
+  {
+    "id": 59,
+    "title": "La délivrance de l'influence... — 3ème partie",
+    "slug": "la-d-livrance-de-l-influence-3-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "FM_I9JJgFIc",
+    "series": "La délivrance de l'influence de la femme prostituée et de la marque de la bête",
+    "meta": "Série · Délivrance"
+  },
+  {
+    "id": 60,
+    "title": "La délivrance de l'influence... — 4ème partie",
+    "slug": "la-d-livrance-de-l-influence-4-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "kg1Hbpb8OBg",
+    "series": "La délivrance de l'influence de la femme prostituée et de la marque de la bête",
+    "meta": "Série · Délivrance"
+  },
+  {
+    "id": 61,
+    "title": "Les bienfaits de la présence de DIEU — 1ère partie",
+    "slug": "les-bienfaits-de-la-pr-sence-de-dieu-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "-KtQqgRMxOk",
+    "series": "Les bienfaits de la présence de DIEU",
+    "meta": "Série · Présence de Dieu"
+  },
+  {
+    "id": 62,
+    "title": "Les bienfaits de la présence de DIEU — 2ème partie",
+    "slug": "les-bienfaits-de-la-pr-sence-de-dieu-2-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "XKV2_UYeeBE",
+    "series": "Les bienfaits de la présence de DIEU",
+    "meta": "Série · Présence de Dieu"
+  },
+  {
+    "id": 63,
+    "title": "Les bienfaits de la présence de DIEU — 3ème partie",
+    "slug": "les-bienfaits-de-la-pr-sence-de-dieu-3-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "0To0GyWC_2A",
+    "series": "Les bienfaits de la présence de DIEU",
+    "meta": "Série · Présence de Dieu"
+  },
+  {
+    "id": 64,
+    "title": "Les bienfaits de la présence de DIEU — 4ème partie",
+    "slug": "les-bienfaits-de-la-pr-sence-de-dieu-4-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "EtU9jh060DA",
+    "series": "Les bienfaits de la présence de DIEU",
+    "meta": "Série · Présence de Dieu"
+  },
+  {
+    "id": 65,
+    "title": "Notre héritage en Christ — 1ère partie",
+    "slug": "notre-h-ritage-en-christ-1-re-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "sZUyf-NL8ho",
+    "series": "Notre héritage en Christ",
+    "meta": "Série · Héritage"
+  },
+  {
+    "id": 66,
+    "title": "Notre héritage en CHRIST — 2ème partie",
+    "slug": "notre-h-ritage-en-christ-2-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "GBj9S0fMXzU",
+    "series": "Notre héritage en Christ",
+    "meta": "Série · Héritage"
+  },
+  {
+    "id": 67,
+    "title": "Notre héritage en CHRIST — 3ème partie",
+    "slug": "notre-h-ritage-en-christ-3-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "LObgV0CoG5Y",
+    "series": "Notre héritage en Christ",
+    "meta": "Série · Héritage"
+  },
+  {
+    "id": 68,
+    "title": "Notre héritage en Christ — 4ème partie",
+    "slug": "notre-h-ritage-en-christ-4-me-partie",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "0BRfEHzGkUA",
+    "series": "Notre héritage en Christ",
+    "meta": "Série · Héritage"
+  },
+  {
+    "id": 69,
+    "title": "Le mystère du Tabernacle — Part 1",
+    "slug": "le-myst-re-du-tabernacle-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "-QBd4tWt4fc",
+    "series": "Le mystère du Tabernacle",
+    "meta": "Série · Tabernacle"
+  },
+  {
+    "id": 70,
+    "title": "Le mystère du Tabernacle — Partie 2",
+    "slug": "le-myst-re-du-tabernacle-partie-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "xu5AwQgFQBk",
+    "series": "Le mystère du Tabernacle",
+    "meta": "Série · Tabernacle"
+  },
+  {
+    "id": 71,
+    "title": "Babylone la grande — Part 1",
+    "slug": "babylone-la-grande-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "XInpzjplalY",
+    "series": "Babylone la grande : un ennemi du Royaume de Dieu",
+    "meta": "Série · Eschatologie"
+  },
+  {
+    "id": 72,
+    "title": "Babylone la grande — Part 2",
+    "slug": "babylone-la-grande-part-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "b7yIqIW9Txs",
+    "series": "Babylone la grande : un ennemi du Royaume de Dieu",
+    "meta": "Série · Eschatologie"
+  },
+  {
+    "id": 73,
+    "title": "Le témoignage du combattant — Part 1",
+    "slug": "le-t-moignage-du-combattant-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "vfzl3MqiI48",
+    "series": "Le témoignage du combattant",
+    "meta": "Série · Combat spirituel"
+  },
+  {
+    "id": 74,
+    "title": "Le témoignage du combattant — Part 2",
+    "slug": "le-t-moignage-du-combattant-part-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Y25HStA79L0",
+    "series": "Le témoignage du combattant",
+    "meta": "Série · Combat spirituel"
+  },
+  {
+    "id": 75,
+    "title": "Le témoignage du combattant — Part 3",
+    "slug": "le-t-moignage-du-combattant-part-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "6vKilzW-RZo",
+    "series": "Le témoignage du combattant",
+    "meta": "Série · Combat spirituel"
+  },
+  {
+    "id": 76,
+    "title": "Le principe de la guérison divine — Part 1",
+    "slug": "le-principe-de-la-gu-rison-divine-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "81RgsyxZqrQ",
+    "series": "Le principe de la guérison divine",
+    "meta": "Série · Guérison"
+  },
+  {
+    "id": 77,
+    "title": "Le principe de la guérison divine — Part 2",
+    "slug": "le-principe-de-la-gu-rison-divine-part-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Pkwz27siGiQ",
+    "series": "Le principe de la guérison divine",
+    "meta": "Série · Guérison"
+  },
+  {
+    "id": 78,
+    "title": "Comment la justice de Dieu produit la vie — Part 1",
+    "slug": "comment-la-justice-de-dieu-produit-la-vie-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "WoRe9BCBprQ",
+    "series": "Comment la justice de Dieu produit la vie",
+    "meta": "Série · Vie chrétienne"
+  },
+  {
+    "id": 79,
+    "title": "Comment la justice de Dieu produit la vie — Part 2",
+    "slug": "comment-la-justice-de-dieu-produit-la-vie-part-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "yrXQxOAFrkM",
+    "series": "Comment la justice de Dieu produit la vie",
+    "meta": "Série · Vie chrétienne"
+  },
+  {
+    "id": 80,
+    "title": "Connaître son identité en Christ — Part 1",
+    "slug": "conna-tre-son-identit-en-christ-part-1",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "C-49kV_Q3hg",
+    "series": "Connaître son identité en Christ",
+    "meta": "Série · Identité chrétienne"
+  },
+  {
+    "id": 81,
+    "title": "Connaître son identité en Christ — Part 2",
+    "slug": "conna-tre-son-identit-en-christ-part-2",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "iUlP5PbTIpI",
+    "series": "Connaître son identité en Christ",
+    "meta": "Série · Identité chrétienne"
+  },
+  {
+    "id": 82,
+    "title": "Connaître son identité en Christ — Part 3",
+    "slug": "conna-tre-son-identit-en-christ-part-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "mvseo7f1BGU",
+    "series": "Connaître son identité en Christ",
+    "meta": "Série · Identité chrétienne"
+  },
+  {
+    "id": 83,
+    "title": "Connaître son identité en Christ — Part 4",
+    "slug": "conna-tre-son-identit-en-christ-part-4",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "qpKYLgnwIlc",
+    "series": "Connaître son identité en Christ",
+    "meta": "Série · Identité chrétienne"
+  },
+  {
+    "id": 84,
+    "title": "La parole qui éclaire — La justice, Partie 3",
+    "slug": "la-parole-qui-claire-la-justice-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Rh-DOykHxB0",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 85,
+    "title": "Garder la parole de l'espérance",
+    "slug": "garder-la-parole-de-l-esp-rance",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "TvfMu4u8yRo",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 86,
+    "title": "Comment développer une relation vibrante avec le Seigneur",
+    "slug": "comment-d-velopper-une-relation-vibrante-avec-le-seigneur",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "rMNYAmt8vsw",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 87,
+    "title": "La parole de puissance",
+    "slug": "la-parole-de-puissance",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "yBHtvurkFw8",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 88,
+    "title": "Le rocher des âges",
+    "slug": "le-rocher-des-ges",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "0e--DbWQ6J0",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 89,
+    "title": "Le sentier du Repos",
+    "slug": "le-sentier-du-repos",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "nYLL7HRekt4",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 90,
+    "title": "La parole qui éclaire — La justice, Partie 3",
+    "slug": "la-parole-qui-claire-la-justice-partie-3",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "Rh-DOykHxB0",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 91,
+    "title": "Garder la parole de l'espérance",
+    "slug": "garder-la-parole-de-l-esp-rance",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "TvfMu4u8yRo",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 92,
+    "title": "Comment développer une relation vibrante avec le Seigneur",
+    "slug": "comment-d-velopper-une-relation-vibrante-avec-le-seigneur",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "rMNYAmt8vsw",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 93,
+    "title": "La parole de puissance",
+    "slug": "la-parole-de-puissance",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "yBHtvurkFw8",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 94,
+    "title": "Le rocher des âges",
+    "slug": "le-rocher-des-ges",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "0e--DbWQ6J0",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  },
+  {
+    "id": 95,
+    "title": "Le sentier du Repos",
+    "slug": "le-sentier-du-repos",
+    "type": "video",
+    "source": "youtube",
+    "youtube_id": "nYLL7HRekt4",
+    "series": "Messages individuels",
+    "meta": "Enseignement"
+  }
+]
