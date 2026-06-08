@@ -9,6 +9,11 @@
        data-type  : "yt" | "drive"
        data-id    : ID YouTube ou Drive
        data-title : titre affiché dans la modale
+
+   Sécurité :
+     - Les IDs sont validés par regex avant utilisation
+     - L'iframe est créé via createElement (pas innerHTML)
+     - Tout ID invalide est rejeté silencieusement
    ============================================================ */
 
 (function () {
@@ -21,25 +26,52 @@
 
   if (!modal) return; /* sécurité : page sans modale */
 
-  /* ── Ouvrir ─────────────────────────────────────────────────── */
-  function openModal(type, id, title) {
-    modalTitle.textContent = title;
+  /* ── Validation des IDs ─────────────────────────────────────── */
+  var RE_YT    = /^[a-zA-Z0-9_-]{11}$/;
+  var RE_DRIVE = /^[a-zA-Z0-9_-]{28,}$/;
+
+  function isValidId(type, id) {
+    if (typeof id !== 'string') return false;
+    return type === 'yt' ? RE_YT.test(id) : RE_DRIVE.test(id);
+  }
+
+  /* ── Construire l'iframe via createElement ─────────────────── */
+  function buildIframe(type, id) {
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.setAttribute('allowfullscreen', '');
 
     if (type === 'yt') {
-      modalContent.innerHTML =
-        '<div class="media-modal-yt">' +
-          '<iframe src="https://www.youtube.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0" ' +
-          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
-          'allowfullscreen loading="lazy"></iframe>' +
-        '</div>';
+      iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     } else {
-      /* Google Drive video — même conteneur 16:9 que YouTube */
-      modalContent.innerHTML =
-        '<div class="media-modal-yt">' +
-          '<iframe src="https://drive.google.com/file/d/' + encodeURIComponent(id) + '/preview" ' +
-          'allow="autoplay" allowfullscreen loading="lazy"></iframe>' +
-        '</div>';
+      iframe.src = 'https://drive.google.com/file/d/' + id + '/preview';
+      iframe.allow = 'autoplay';
     }
+
+    return iframe;
+  }
+
+  /* ── Ouvrir ─────────────────────────────────────────────────── */
+  function openModal(type, id, title) {
+    /* Rejet silencieux si l'ID ne correspond pas au pattern attendu */
+    if (!isValidId(type, id)) {
+      console.warn('modal-player: ID rejeté (pattern invalide) :', type, id);
+      return;
+    }
+
+    modalTitle.textContent = title || '';
+
+    /* Vider le contenu précédent */
+    while (modalContent.firstChild) {
+      modalContent.removeChild(modalContent.firstChild);
+    }
+
+    /* Wrapper 16:9 */
+    var wrapper = document.createElement('div');
+    wrapper.className = 'media-modal-yt';
+    wrapper.appendChild(buildIframe(type, id));
+    modalContent.appendChild(wrapper);
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -51,7 +83,10 @@
   /* ── Fermer ─────────────────────────────────────────────────── */
   function closeModal() {
     modal.classList.remove('open');
-    modalContent.innerHTML = ''; /* arrête la lecture */
+    /* Vider via DOM pour arrêter la lecture */
+    while (modalContent.firstChild) {
+      modalContent.removeChild(modalContent.firstChild);
+    }
     document.body.style.overflow = '';
   }
 

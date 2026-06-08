@@ -187,8 +187,32 @@
   /* ── Injection ───────────────────────────────────────────── */
   var page = document.body.getAttribute('data-page') || '';
 
+  /* CSP via <meta> — actif sur GitHub Pages (le fichier _headers ne l'est pas).
+     'unsafe-inline' requis tant que des blocs <script> inline subsistent.
+     À durcir (nonces ou hash) quand tous les scripts seront externalisés. */
+  var CSP_META = '<meta http-equiv="Content-Security-Policy" content="'
+    + "default-src 'self';"
+    + " script-src 'self' 'unsafe-inline' cdn.jsdelivr.net;"
+    + " style-src 'self' 'unsafe-inline' fonts.googleapis.com;"
+    + " font-src 'self' fonts.gstatic.com;"
+    + " img-src 'self' data: images.unsplash.com img.youtube.com;"
+    + " frame-src www.youtube.com drive.google.com;"
+    + " media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com;"
+    + " connect-src 'self' parole-prophetique-fm.levangileduroyaume.com;"
+    + " object-src 'none';"
+    + " base-uri 'self';"
+    + " form-action 'none';"
+    + " upgrade-insecure-requests"
+    + '">';
+
+  /* Injecter la CSP dans <head> */
+  document.head.insertAdjacentHTML('afterbegin', CSP_META);
+
+  /* Skip link — CSS-only, visible uniquement au focus clavier (classe dans style.css) */
+  var SKIP_LINK = '<a class="skip-link" href="#main-content">Aller au contenu</a>';
+
   /* Synchrone : header avant tout rendu → évite le FOUC */
-  document.body.insertAdjacentHTML('afterbegin', SVG_SPRITE + HEADER_HTML + MOBILE_HTML);
+  document.body.insertAdjacentHTML('afterbegin', SKIP_LINK + SVG_SPRITE + HEADER_HTML + MOBILE_HTML);
 
   /* Lien actif (le header vient d'être injecté, les liens existent déjà) */
   var navKey = ACTIVE_MAP[page];

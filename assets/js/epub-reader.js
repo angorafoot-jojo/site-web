@@ -11,16 +11,28 @@
 (function (global) {
   'use strict';
 
-  /* ── CDN (SRI non requis : les URLs incluent la version fixée) ── */
-  var JSZIP_URL  = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
-  var EPUBJS_URL = 'https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js';
+  /* ── CDN avec SRI (Subresource Integrity) ───────────────────── */
+  var CDN_SCRIPTS = [
+    {
+      url: 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js',
+      integrity: 'sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG'
+    },
+    {
+      url: 'https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js',
+      integrity: 'sha384-ZqmkDa/1AGF4SKdSmXgEG+3G+Gsb6yNqUSq2Mqp0jDf1GWk+UY5eNbEd7hgwiywI'
+    }
+  ];
 
-  /* ── Chargement dynamique de script ────────────────────── */
-  function loadScript(url) {
+  /* ── Chargement dynamique de script avec SRI ────────────────── */
+  function loadScript(url, integrity) {
     return new Promise(function(resolve, reject) {
       if (document.querySelector('script[src="' + url + '"]')) return resolve();
       var s = document.createElement('script');
       s.src = url;
+      if (integrity) {
+        s.integrity   = integrity;
+        s.crossOrigin = 'anonymous';
+      }
       s.onload  = resolve;
       s.onerror = function() { reject(new Error('Failed to load ' + url)); };
       document.head.appendChild(s);
@@ -31,8 +43,9 @@
 
   async function ensureEpubJs() {
     if (epubJsLoaded || global.ePub) { epubJsLoaded = true; return; }
-    await loadScript(JSZIP_URL);
-    await loadScript(EPUBJS_URL);
+    for (var i = 0; i < CDN_SCRIPTS.length; i++) {
+      await loadScript(CDN_SCRIPTS[i].url, CDN_SCRIPTS[i].integrity);
+    }
     epubJsLoaded = true;
   }
 

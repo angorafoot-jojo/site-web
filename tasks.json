@@ -412,7 +412,8 @@
         {
           "id": "T24",
           "priority": "P1",
-          "status": "todo",
+          "status": "cancelled",
+          "notes": "Annulé — contact.html supprimé (T01 annulé). Le formulaire n'existe plus.",
           "audit_refs": ["C-003"],
           "title": "Ajouter anti-spam sur le formulaire contact",
           "description": "Le formulaire n'a ni honeypot, ni captcha, ni rate limiting. Spam possible dès que le formulaire sera fonctionnel.",
@@ -426,7 +427,9 @@
         {
           "id": "T25",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "CSP injectée via <meta> dans nav.js (actif GitHub Pages) + fichier _headers préparé pour Cloudflare Pages/Netlify. SRI ajouté sur JSZip et epub.js dans epub-reader.js (loadScript avec integrity + crossOrigin=anonymous). 'unsafe-inline' requis tant que des <script> inline subsistent.",
           "audit_refs": ["G-011", "G-012", "L-006"],
           "title": "Ajouter CSP (Content Security Policy) et SRI sur les CDN",
           "description": "Aucune CSP. Les scripts EPUB.js et JSZip sont chargés depuis JSDelivr sans intégrité vérifiable. Si le CDN est compromis, le site charge du JS non vérifié.",
@@ -441,7 +444,9 @@
         {
           "id": "T26",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "modal-player.js : iframe créée via createElement (plus d'innerHTML). Validation regex : /^[a-zA-Z0-9_-]{11}$/ pour YouTube, /^[a-zA-Z0-9_-]{28,}$/ pour Drive. Rejet silencieux + console.warn si ID invalide.",
           "audit_refs": ["LO-002", "LO-003"],
           "title": "Sécuriser la modale louange — createElement + validation ID",
           "description": "La modale YouTube/Drive est injectée via innerHTML avec l'ID du cantique sans validation. Un ID malformé pourrait injecter du HTML arbitraire.",
@@ -456,7 +461,9 @@
         {
           "id": "T27",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "11 liens target=_blank avec rel='noopener' (sans noreferrer) corrigés dans videos.html, articles.html, audios.html, index.html, radio.html, livres.html. 0 occurrence manquante après correction.",
           "audit_refs": ["NP-007"],
           "title": "Vérifier rel='noopener noreferrer' sur tous les liens target='_blank'",
           "description": "Un lien target='_blank' sans rel='noopener noreferrer' permet à la page cible d'accéder à window.opener. Risque de phishing/tabnapping.",
@@ -470,7 +477,9 @@
         {
           "id": "T28",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "Skip link déplacé dans nav.js (injection sur toutes les pages). Classe .skip-link ajoutée dans style.css avec :focus CSS-only (pas de JS). Supprimé style=/onfocus=/onblur= inline dans index.html.",
           "audit_refs": ["I-002"],
           "title": "Déplacer les styles et événements inline du skip link vers CSS/JS",
           "description": "Le lien 'Aller au contenu' utilise style='', onfocus='', onblur='' inline. Bloque l'application d'une CSP stricte.",
@@ -1048,7 +1057,7 @@
 
   "summary": {
     "total_tasks": 68,
-    "by_status": { "done": 24, "todo": 43, "cancelled": 1, "in_progress": 0 },
+    "by_status": { "done": 28, "todo": 38, "cancelled": 2, "in_progress": 0 },
     "by_priority": { "P1": 22, "P2": 35, "P3": 11 },
     "audit_issues_covered": 176,
     "categories_by_impact": [

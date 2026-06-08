@@ -1,0 +1,35 @@
+/*
+  # ═══════════════════════════════════════════════════════════════
+  # _headers — Headers HTTP pour Cloudflare Pages / Netlify
+  #
+  # ⚠️  Ce fichier N'EST PAS lu par GitHub Pages.
+  #     Sur GitHub Pages, les headers sont appliqués via la balise
+  #     <meta http-equiv="Content-Security-Policy"> injectée par nav.js.
+  #
+  #     Ce fichier prépare la migration future vers Cloudflare Pages
+  #     ou Netlify, où il sera lu automatiquement.
+  # ═══════════════════════════════════════════════════════════════
+
+  # ── Sécurité de base ──────────────────────────────────────────
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+  # ── Content Security Policy ───────────────────────────────────
+  # Sources autorisées :
+  #   - self         : assets locaux (HTML, CSS, JS)
+  #   - googleapis   : Google Fonts CSS
+  #   - gstatic      : Google Fonts fichiers woff2
+  #   - jsdelivr     : JSZip + epub.js (SRI vérifié)
+  #   - youtube.com  : iframes vidéo
+  #   - drive.google : iframes cantiques
+  #   - AzuraCast    : stream radio MP3
+  #   - backblaze    : fichiers audio/PDF/EPUB CDN
+  #   - unsplash     : images hero (temporaire → T43)
+  #   - img.youtube  : thumbnails vidéo
+  #
+  # 'unsafe-inline' pour les scripts est requis tant que des blocs
+  # <script> inline existent dans les pages. Supprimer dès que tous
+  # les scripts inline sont extraits dans des fichiers .js.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: images.unsplash.com img.youtube.com; frame-src www.youtube.com drive.google.com; media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com; connect-src 'self' parole-prophetique-fm.levangileduroyaume.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
