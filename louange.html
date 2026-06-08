@@ -273,56 +273,6 @@
 
 <script src="assets/js/main.js" defer></script>
 
-<script>
-(function () {
-  const modal       = document.getElementById('mediaModal');
-  const modalTitle  = document.getElementById('modalTitle');
-  const modalContent= document.getElementById('modalContent');
-  const modalClose  = document.getElementById('modalClose');
-
-  function openModal(type, id, title) {
-    modalTitle.textContent = title;
-
-    if (type === 'yt') {
-      modalContent.innerHTML =
-        '<div class="media-modal-yt">' +
-          '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" ' +
-          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
-          'allowfullscreen loading="lazy"></iframe>' +
-        '</div>';
-    } else {
-      // Google Drive video — same 16:9 container as YouTube
-      modalContent.innerHTML =
-        '<div class="media-modal-yt">' +
-          '<iframe src="https://drive.google.com/file/d/' + id + '/preview" ' +
-          'allow="autoplay" allowfullscreen loading="lazy"></iframe>' +
-        '</div>';
-    }
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    modalContent.innerHTML = '';  // stops playback
-    document.body.style.overflow = '';
-  }
-
-  // Wire up all cantique cards
-  document.querySelectorAll('.cantique-card').forEach(card => {
-    function activate() {
-      openModal(card.dataset.type, card.dataset.id, card.dataset.title);
-    }
-    card.addEventListener('click', activate);
-    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
-  });
-
-  modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-
-  // Close on Escape
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
-})();
-</script>
+<script src="assets/js/modal-player.js"></script>
 </body>
 </html>
