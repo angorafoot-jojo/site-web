@@ -32,117 +32,51 @@
       <p>Ces ministères partagent notre vision de proclamer l'Évangile du Royaume de Dieu. Nous vous encourageons à explorer leurs ressources bibliques et à les soutenir dans leur mission.</p>
     </div>
 
-    <div class="partners-grid">
-
-      <!-- La Parole vivifiante -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #1a3060, #2e5090)">L</div>
-        <div>
-          <div class="partner-type">Site web</div>
-          <h2 class="partner-name">La Parole vivifiante</h2>
-        </div>
-        <a href="http://laparolevivifiante.net/" target="_blank" rel="noopener" class="partner-link">
-          Visiter le site
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
-      <!-- Kingdom Word -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #7B3FB0, #5B2D8E)">K</div>
-        <div>
-          <div class="partner-type">Site web</div>
-          <h2 class="partner-name">Kingdom Word</h2>
-        </div>
-        <a href="https://kingdomword.net/" target="_blank" rel="noopener" class="partner-link">
-          Visiter le site
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
-      <!-- Le Bon Fruit -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #2e7d32, #43a047)">B</div>
-        <div>
-          <div class="partner-type">Chaîne YouTube</div>
-          <h2 class="partner-name">Le Bon Fruit</h2>
-        </div>
-        <a href="https://www.youtube.com/channel/UCAgDYMgo_f92ryTBWcBr05A" target="_blank" rel="noopener" class="partner-link">
-          Voir la chaîne
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
-      <!-- Houston House Fellowship -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #b71c1c, #e53935)">H</div>
-        <div>
-          <div class="partner-type">Chaîne YouTube</div>
-          <h2 class="partner-name">Houston House Fellowship</h2>
-        </div>
-        <a href="https://m.youtube.com/channel/UCjMir5fCR-fghXooRy5GQaw" target="_blank" rel="noopener" class="partner-link">
-          Voir la chaîne
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
-      <!-- Toronto House Fellowship -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #0d47a1, #1565c0)">T</div>
-        <div>
-          <div class="partner-type">Chaîne YouTube</div>
-          <h2 class="partner-name">Toronto House Fellowship</h2>
-        </div>
-        <a href="https://www.youtube.com/user/THFellowship" target="_blank" rel="noopener" class="partner-link">
-          Voir la chaîne
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
-      <!-- Light In The Evening Time -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #e65100, #f57c00)">L</div>
-        <div>
-          <div class="partner-type">Chaîne YouTube</div>
-          <h2 class="partner-name">Light In The Evening Time</h2>
-        </div>
-        <a href="https://www.youtube.com/channel/UCDgnA3TPkxEoqnSiff3rOWA" target="_blank" rel="noopener" class="partner-link">
-          Voir la chaîne
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
-      <!-- Standard Word Broadcasting Network -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #4a148c, #6a1b9a)">S</div>
-        <div>
-          <div class="partner-type">Chaîne YouTube</div>
-          <h2 class="partner-name">Standard Word Broadcasting Network</h2>
-        </div>
-        <a href="https://www.youtube.com/c/StandardWordBroadcastingNetwork" target="_blank" rel="noopener" class="partner-link">
-          Voir la chaîne
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
-      <!-- KingdomWordOnline -->
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #1b5e20, #2e7d32)">K</div>
-        <div>
-          <div class="partner-type">Chaîne YouTube</div>
-          <h2 class="partner-name">KingdomWordOnline</h2>
-        </div>
-        <a href="https://www.youtube.com/user/KingdomWordOnline" target="_blank" rel="noopener" class="partner-link">
-          Voir la chaîne
-          <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>
-        </a>
-      </div>
-
+    <div class="partners-grid" id="partners-grid" aria-live="polite">
+      <!-- Chargé dynamiquement depuis assets/data/partners.json -->
     </div>
   </div>
 </main>
 
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/utils.js"></script>
+<script>
+(function() {
+  var esc = window.EduRoyaume && window.EduRoyaume.escapeHtml
+    ? window.EduRoyaume.escapeHtml
+    : function(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  fetch('assets/data/partners.json')
+    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(data) {
+      var grid = document.getElementById('partners-grid');
+      if (!grid) return;
+      grid.innerHTML = data.map(function(p) {
+        var nameSafe  = esc(p.name);
+        var typeSafe  = esc(p.type);
+        var urlSafe   = esc(p.url);
+        var labelSafe = esc(p.label);
+        var initSafe  = esc(p.initial);
+        return '<div class="partner-card">' +
+          '<div class="partner-icon" style="background:linear-gradient(135deg,' + esc(p.color_start) + ',' + esc(p.color_end) + ')">' + initSafe + '</div>' +
+          '<div>' +
+            '<div class="partner-type">' + typeSafe + '</div>' +
+            '<h2 class="partner-name">' + nameSafe + '</h2>' +
+          '</div>' +
+          '<a href="' + urlSafe + '" target="_blank" rel="noopener noreferrer" class="partner-link">' +
+            labelSafe +
+            ' <svg width="14" height="14" aria-hidden="true"><use href="#icon-external"/></svg>' +
+          '</a>' +
+        '</div>';
+      }).join('');
+    })
+    .catch(function(e) {
+      var grid = document.getElementById('partners-grid');
+      if (grid) grid.innerHTML = '<p style="padding:2rem;text-align:center;color:rgba(28,28,40,.45)">Impossible de charger les partenaires.</p>';
+      console.error('partners.json load error:', e);
+    });
+})();
+</script>
 
 </body>
 </html>

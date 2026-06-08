@@ -126,37 +126,8 @@
     <section class="radio-programs">
       <div class="radio-programs-inner">
         <h2>Programme du jour</h2>
-        <div class="program-grid">
-          <div class="program-card">
-            <div class="program-time">06h00 – 09h00</div>
-            <div class="program-name">Réveil avec la Parole</div>
-            <div class="program-desc">Commencez votre journée avec des versets et prières matinales.</div>
-          </div>
-          <div class="program-card">
-            <div class="program-time">09h00 – 12h00</div>
-            <div class="program-name">Enseignements Bibliques</div>
-            <div class="program-desc">Séries thématiques approfondies sur les Écritures.</div>
-          </div>
-          <div class="program-card">
-            <div class="program-time">12h00 – 14h00</div>
-            <div class="program-name">Louange & Adoration</div>
-            <div class="program-desc">Cantiques et chants de louange pour le milieu de journée.</div>
-          </div>
-          <div class="program-card">
-            <div class="program-time">14h00 – 17h00</div>
-            <div class="program-name">Le Royaume en Marche</div>
-            <div class="program-desc">Messages prophétiques et témoignages d'évangélisation.</div>
-          </div>
-          <div class="program-card">
-            <div class="program-time">17h00 – 20h00</div>
-            <div class="program-name">Heure de la Famille</div>
-            <div class="program-desc">Enseignements pour la vie de famille et l'éducation chrétienne.</div>
-          </div>
-          <div class="program-card">
-            <div class="program-time">20h00 – 22h00</div>
-            <div class="program-name">Veillée de Prière</div>
-            <div class="program-desc">Intercession et prières collectives pour la soirée.</div>
-          </div>
+        <div class="program-grid" id="program-grid" aria-live="polite">
+          <!-- Chargé dynamiquement depuis assets/data/radio-schedule.json -->
         </div>
       </div>
     </section>
@@ -164,7 +135,34 @@
 
 </div><!-- /.radio-page -->
 
+<script src="assets/js/utils.js"></script>
 <script src="assets/js/radio-player.js"></script>
+<script>
+(function() {
+  var esc = window.EduRoyaume && window.EduRoyaume.escapeHtml
+    ? window.EduRoyaume.escapeHtml
+    : function(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  fetch('assets/data/radio-schedule.json')
+    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(data) {
+      var grid = document.getElementById('program-grid');
+      if (!grid) return;
+      grid.innerHTML = data.map(function(p) {
+        return '<div class="program-card">' +
+          '<div class="program-time">' + esc(p.time) + '</div>' +
+          '<div class="program-name">' + esc(p.name) + '</div>' +
+          '<div class="program-desc">' + esc(p.desc) + '</div>' +
+        '</div>';
+      }).join('');
+    })
+    .catch(function(e) {
+      var grid = document.getElementById('program-grid');
+      if (grid) grid.innerHTML = '<p style="padding:1rem;color:rgba(255,255,255,.5)">Programme temporairement indisponible.</p>';
+      console.error('radio-schedule.json load error:', e);
+    });
+})();
+</script>
 
 </body>
 </html>

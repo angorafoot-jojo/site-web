@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "time": "06h00 – 09h00",
+    "name": "Réveil avec la Parole",
+    "desc": "Commencez votre journée avec des versets et prières matinales."
+  },
+  {
+    "id": 2,
+    "time": "09h00 – 12h00",
+    "name": "Enseignements Bibliques",
+    "desc": "Séries thématiques approfondies sur les Écritures."
+  },
+  {
+    "id": 3,
+    "time": "12h00 – 14h00",
+    "name": "Louange & Adoration",
+    "desc": "Cantiques et chants de louange pour le milieu de journée."
+  },
+  {
+    "id": 4,
+    "time": "14h00 – 17h00",
+    "name": "Le Royaume en Marche",
+    "desc": "Messages prophétiques et témoignages d'évangélisation."
+  },
+  {
+    "id": 5,
+    "time": "17h00 – 20h00",
+    "name": "Heure de la Famille",
+    "desc": "Enseignements pour la vie de famille et l'éducation chrétienne."
+  },
+  {
+    "id": 6,
+    "time": "20h00 – 22h00",
+    "name": "Veillée de Prière",
+    "desc": "Intercession et prières collectives pour la soirée."
+  }
+]

@@ -4,6 +4,7 @@
   "session_2_completed": ["T03 (audios.html + podcasts.html fallbacks)", "T04 (radio.html robustification)", "T05 (scripts/validate-media.mjs)"],
   "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)", "T10 (videos.json)"],
   "session_4_completed": ["T17 (CSS inline → assets/css/pages/)", "T19 (media-player.js partagé)", "T20 (lazy-load EPUB.js)", "T21 (epub-reader.js partagé)", "T22 (utils.js)"],
+  "session_5_completed": ["T12 (louange.json)", "T13 (partners.json)", "T14 (radio-schedule.json)", "T15 (index.html dynamique)", "T18 (radio-player.js, modal-player.js, video-renderer.js)", "T23 (book-catalogue.js)"],
   "total_audit_issues": 176,
   "legend": {
     "status": { "done": "Terminé ✅", "in_progress": "En cours 🔄", "todo": "À faire ⬜" },
@@ -199,7 +200,9 @@
         {
           "id": "T12",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "14 cantiques extraits vers assets/data/louange.json. louange.html chargé dynamiquement via fetch + cardHtml(). modal-player.js migré vers event delegation pour supporter les cartes injectées dynamiquement.",
           "audit_refs": ["G-006", "LO-001", "LO-007", "LO-009"],
           "title": "Migrer louange vers assets/data/louange.json",
           "description": "Cantiques hardcodés. Badge 'Vidéo' affiché sur des contenus Drive audio (type incorrect). Pas de durée stockée.",
@@ -212,7 +215,9 @@
         {
           "id": "T13",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "8 partenaires extraits vers assets/data/partners.json. nospartenaires.html chargé dynamiquement via fetch. rel='noopener noreferrer' sur tous les liens. esc() sur toutes les valeurs.",
           "audit_refs": ["G-006", "NP-001", "NP-002", "NP-003", "NP-004"],
           "title": "Migrer les partenaires vers assets/data/partners.json",
           "description": "Partenaires hardcodés. Pas de validation automatique des liens. Pas de statut actif/inactif. Pas de date de vérification.",
@@ -225,7 +230,9 @@
         {
           "id": "T14",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "6 créneaux extraits vers assets/data/radio-schedule.json. radio.html chargé dynamiquement via fetch. Script inline radio extrait dans radio-player.js (T18).",
           "audit_refs": ["G-006", "R-005", "R-006"],
           "title": "Migrer le programme radio vers assets/data/radio-schedule.json",
           "description": "Les horaires de diffusion sont écrits en dur dans radio.html. Ils peuvent devenir faux. Pas de timezone explicite.",
@@ -238,7 +245,9 @@
         {
           "id": "T15",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "index.html charge les 3 articles récents depuis articles.json via fetch. articles-data.js (fichier JS hardcodé) supprimé. aria-live='polite' sur #home-articles-grid. esc() sur toutes les insertions innerHTML.",
           "audit_refs": ["G-006", "I-005"],
           "title": "Charger les contenus récents sur index.html depuis les JSON",
           "description": "La page d'accueil présente des derniers contenus écrits manuellement. Ils doivent être rendus dynamiquement depuis les fichiers JSON (books.json, audios.json, articles.json).",
@@ -1037,7 +1046,7 @@
 
   "summary": {
     "total_tasks": 68,
-    "by_status": { "done": 1, "todo": 67, "in_progress": 0 },
+    "by_status": { "done": 23, "todo": 44, "cancelled": 1, "in_progress": 0 },
     "by_priority": { "P1": 22, "P2": 35, "P3": 11 },
     "audit_issues_covered": 176,
     "categories_by_impact": [

@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "La Parole vivifiante",
+    "type": "Site web",
+    "url": "http://laparolevivifiante.net/",
+    "label": "Visiter le site",
+    "color_start": "#1a3060",
+    "color_end": "#2e5090",
+    "initial": "L"
+  },
+  {
+    "id": 2,
+    "name": "Kingdom Word",
+    "type": "Site web",
+    "url": "https://kingdomword.net/",
+    "label": "Visiter le site",
+    "color_start": "#7B3FB0",
+    "color_end": "#5B2D8E",
+    "initial": "K"
+  },
+  {
+    "id": 3,
+    "name": "Le Bon Fruit",
+    "type": "Chaîne YouTube",
+    "url": "https://www.youtube.com/channel/UCAgDYMgo_f92ryTBWcBr05A",
+    "label": "Voir la chaîne",
+    "color_start": "#2e7d32",
+    "color_end": "#43a047",
+    "initial": "B"
+  },
+  {
+    "id": 4,
+    "name": "Houston House Fellowship",
+    "type": "Chaîne YouTube",
+    "url": "https://m.youtube.com/channel/UCjMir5fCR-fghXooRy5GQaw",
+    "label": "Voir la chaîne",
+    "color_start": "#b71c1c",
+    "color_end": "#e53935",
+    "initial": "H"
+  },
+  {
+    "id": 5,
+    "name": "Toronto House Fellowship",
+    "type": "Chaîne YouTube",
+    "url": "https://www.youtube.com/user/THFellowship",
+    "label": "Voir la chaîne",
+    "color_start": "#0d47a1",
+    "color_end": "#1565c0",
+    "initial": "T"
+  },
+  {
+    "id": 6,
+    "name": "Light In The Evening Time",
+    "type": "Chaîne YouTube",
+    "url": "https://www.youtube.com/channel/UCDgnA3TPkxEoqnSiff3rOWA",
+    "label": "Voir la chaîne",
+    "color_start": "#e65100",
+    "color_end": "#f57c00",
+    "initial": "L"
+  },
+  {
+    "id": 7,
+    "name": "Standard Word Broadcasting Network",
+    "type": "Chaîne YouTube",
+    "url": "https://www.youtube.com/c/StandardWordBroadcastingNetwork",
+    "label": "Voir la chaîne",
+    "color_start": "#4a148c",
+    "color_end": "#6a1b9a",
+    "initial": "S"
+  },
+  {
+    "id": 8,
+    "name": "KingdomWordOnline",
+    "type": "Chaîne YouTube",
+    "url": "https://www.youtube.com/user/KingdomWordOnline",
+    "label": "Voir la chaîne",
+    "color_start": "#1b5e20",
+    "color_end": "#2e7d32",
+    "initial": "K"
+  }
+]

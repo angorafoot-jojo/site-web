@@ -517,45 +517,54 @@
       <a href="articles.html" class="btn btn-outline">Tous les articles</a>
     </header>
 
-    <div class="articles-editorial" id="home-articles-grid" role="list"></div>
+    <div class="articles-editorial" id="home-articles-grid" role="list" aria-live="polite"></div>
 
-    <script src="assets/js/articles-data.js"></script>
     <script>
+    /* ── Articles récents — chargés depuis assets/data/articles.json ── */
     (function () {
-      const CAT_LABELS = { vie:'Vie chrétienne', meditation:'Méditation', royaume:'Royaume', eschatologie:'Eschatologie' };
-      const CAT_TAGS   = { vie:'tag-navy', meditation:'tag-gold', royaume:'tag-wine', eschatologie:'tag-wine' };
+      var CAT_LABELS = { vie:'Vie chrétienne', meditation:'Méditation', royaume:'Royaume', eschatologie:'Eschatologie' };
+      var CAT_TAGS   = { vie:'tag-navy', meditation:'tag-gold', royaume:'tag-wine', eschatologie:'tag-wine' };
+      var esc = window.EduRoyaume && window.EduRoyaume.escapeHtml
+        ? window.EduRoyaume.escapeHtml
+        : function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
 
-      const recent = ARTICLES
-        .filter(a => !a.en)
-        .sort((a, b) => b.year - a.year || b.id - a.id)
-        .slice(0, 3);
+      fetch('assets/data/articles.json')
+        .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+        .then(function(articles){
+          var recent = articles
+            .filter(function(a){ return !a.en; })
+            .sort(function(a,b){ return b.year - a.year || b.id - a.id; })
+            .slice(0, 3);
 
-      const grid = document.getElementById('home-articles-grid');
-      grid.innerHTML = recent.map((a, i) => {
-        const label   = CAT_LABELS[a.cat] || a.cat;
-        const tagCls  = CAT_TAGS[a.cat]   || 'tag-navy';
-        const featured = i === 0 ? 'article-featured' : '';
-        const delay   = i + 1;
-        return `
-        <article class="article-card ${featured}" data-animate data-delay="${delay}" role="listitem">
-          <div class="article-thumb">
-            <div class="article-thumb-cover gc-${a.color}">
-              <span class="article-thumb-cover-title">${a.title}</span>
-            </div>
-          </div>
-          <div class="article-body">
-            <span class="tag ${tagCls}">${label}</span>
-            <h3>${a.title}</h3>
-            <div class="article-footer">
-              <span>${a.year}</span>
-              <a href="articles.html" class="read-more">
-                Lire
-                <svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
-              </a>
-            </div>
-          </div>
-        </article>`;
-      }).join('');
+          var grid = document.getElementById('home-articles-grid');
+          if(!grid) return;
+          grid.innerHTML = recent.map(function(a, i){
+            var label    = CAT_LABELS[a.cat] || esc(a.cat);
+            var tagCls   = CAT_TAGS[a.cat]   || 'tag-navy';
+            var featured = i === 0 ? 'article-featured' : '';
+            return '<article class="article-card ' + featured + '" data-animate data-delay="' + (i+1) + '" role="listitem">' +
+              '<div class="article-thumb">' +
+                '<div class="article-thumb-cover gc-' + esc(String(a.color)) + '">' +
+                  '<span class="article-thumb-cover-title">' + esc(a.title) + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="article-body">' +
+                '<span class="tag ' + tagCls + '">' + label + '</span>' +
+                '<h3>' + esc(a.title) + '</h3>' +
+                '<div class="article-footer">' +
+                  '<span>' + esc(String(a.year)) + '</span>' +
+                  '<a href="articles.html" class="read-more">' +
+                    'Lire' +
+                    '<svg width="14" height="14" aria-hidden="true"><use href="#icon-arrow-right"/></svg>' +
+                  '</a>' +
+                '</div>' +
+              '</div>' +
+            '</article>';
+          }).join('');
+        })
+        .catch(function(e){
+          console.error('articles.json load error:', e);
+        });
     })();
     </script>
   </div>
@@ -566,6 +575,7 @@
 <style>
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 </style>
+<script src="assets/js/utils.js"></script>
 <script src="assets/js/main.js" defer></script>
 <script>
 /* ── Thèmes rotatifs du hero ─────────────────────── */

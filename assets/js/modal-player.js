@@ -55,15 +55,19 @@
     document.body.style.overflow = '';
   }
 
-  /* ── Cartes ─────────────────────────────────────────────────── */
-  document.querySelectorAll('.cantique-card').forEach(function(card) {
-    function activate() {
-      openModal(card.dataset.type, card.dataset.id, card.dataset.title);
-    }
-    card.addEventListener('click', activate);
-    card.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
-    });
+  /* ── Délégation d'événements sur le conteneur ──────────────────
+     Fonctionne avec les cartes injectées dynamiquement (louange.json).  */
+  document.addEventListener('click', function(e) {
+    var card = e.target.closest('.cantique-card');
+    if (!card) return;
+    openModal(card.dataset.type, card.dataset.id, card.dataset.title);
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var card = e.target.closest('.cantique-card');
+    if (!card) return;
+    e.preventDefault();
+    openModal(card.dataset.type, card.dataset.id, card.dataset.title);
   });
 
   /* ── Contrôles modale ───────────────────────────────────────── */
