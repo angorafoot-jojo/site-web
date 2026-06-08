@@ -3,6 +3,7 @@
   "last_updated": "2026-06-08",
   "session_2_completed": ["T03 (audios.html + podcasts.html fallbacks)", "T04 (radio.html robustification)", "T05 (scripts/validate-media.mjs)"],
   "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)", "T10 (videos.json)"],
+  "session_4_completed": ["T17 (CSS inline → assets/css/pages/)", "T19 (media-player.js partagé)", "T20 (lazy-load EPUB.js)", "T21 (epub-reader.js partagé)", "T22 (utils.js)"],
   "total_audit_issues": 176,
   "legend": {
     "status": { "done": "Terminé ✅", "in_progress": "En cours 🔄", "todo": "À faire ⬜" },
@@ -271,7 +272,9 @@
         {
           "id": "T17",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "10 fichiers CSS extraits (audios, podcasts, videos, articles, livres, louange, qui-sommes-nous, nospartenaires, confidentialite, radio). .sr-only ajouté dans style.css global.",
           "audit_refs": ["G-004", "A-001", "C-007", "AR-002", "NP-005", "Q-001", "LO-014"],
           "title": "Extraire les CSS inline vers assets/css/pages/",
           "description": "Presque toutes les pages ont un gros bloc <style> local. Ces styles dupliquent des patterns (media-hero, type-tabs, cartes) et empêchent une CSP stricte.",
@@ -318,7 +321,9 @@
         {
           "id": "T19",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "media-player.js créé (~357 lignes). API : EduRoyaume.MediaPlayer.init(opts). audios.html et podcasts.html migrent vers ce module. Dupplication supprimée.",
           "audit_refs": ["G-005", "A-002", "P-001"],
           "title": "Créer assets/js/media-player.js — lecteur audio partagé",
           "description": "Le lecteur audio sticky est dupliqué entre audios.html et podcasts.html. Chaque correction doit être faite deux fois.",
@@ -333,7 +338,9 @@
         {
           "id": "T20",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "JSZip + epub.js CDN retirés des <head>. loadScript() + ensureEpubJs() dans epub-reader.js chargent dynamiquement au premier clic 'Lire'. Confirmé typeof ePub === 'undefined' au chargement page.",
           "audit_refs": ["G-005", "L-004", "L-005", "AR-001"],
           "title": "Lazy-load EPUB.js et JSZip — uniquement au clic 'Lire'",
           "description": "epub.js (~500 KB) et JSZip (~100 KB) sont chargés au démarrage même si l'utilisateur n'ouvre aucun livre. Impact direct sur le score Lighthouse.",
@@ -348,7 +355,9 @@
         {
           "id": "T21",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "epub-reader.js créé (~324 lignes). API : EduRoyaume.EpubReader.open(item). livres.html et articles.html utilisent ce module via openBook(id). Lazy-load inclus (T20).",
           "audit_refs": ["G-005", "AR-001", "L-001"],
           "title": "Créer assets/js/epub-reader.js — lecteur EPUB partagé",
           "description": "Le lecteur EPUB (mode pages/défilement, zoom, position localStorage) est dupliqué entre livres.html et articles.html.",
@@ -358,7 +367,9 @@
         {
           "id": "T22",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "utils.js créé. Expose EduRoyaume.escapeHtml et EduRoyaume.formatDuration. Chargé avant media-player.js et epub-reader.js sur toutes les pages concernées.",
           "audit_refs": ["G-019", "L-010"],
           "title": "Créer assets/js/utils.js — fonctions communes (escapeHtml, formatDuration)",
           "description": "escapeHtml() et formatDuration() sont dupliqués ou réinventés dans plusieurs fichiers. La version canonique d'escapeHtml est critique pour la sécurité XSS.",
