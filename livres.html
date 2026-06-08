@@ -195,149 +195,28 @@
 </div>
 
 <script src="assets/js/main.js" defer></script>
-
-<script>
-/* ═══════════════════════════════════════════════════
-   BOOKS DATA — chargé depuis assets/data/books.json
-═══════════════════════════════════════════════════ */
-let BOOKS = [];
-
-
-/* ═══════════════════════════════════════════════════
-   CATALOGUE — render, search, sort & filter
-═══════════════════════════════════════════════════ */
-const grid         = document.getElementById('book-grid');
-const searchInput  = document.getElementById('lib-search');
-const selectSort   = document.getElementById('select-sort');
-const selectDispo  = document.getElementById('select-dispo');
-const selectLang   = document.getElementById('select-lang');
-const resultsCount = document.getElementById('lib-results-count');
-
-/* Échappement HTML pour éviter les injections XSS (OTHER-02) */
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-/* Année de publication — utilise l'URL PDF ou estime via l'id (BUG-08) */
-function bookYear(b) {
-  if (b.year) return b.year;
-  if (b.pdf && b.pdf.startsWith('http')) {
-    const m = b.pdf.match(/\/(\d{4})\//);
-    if (m) return parseInt(m[1]);
-  }
-  // Estimation basée sur l'id pour les livres sans URL datée
-  if (b.id >= 1700) return 2022;
-  if (b.id >= 1500) return 2021;
-  if (b.id >= 1000) return 2020;
-  return 2019;
-}
-
-let searchDebounce;
-function renderGrid() {
-  const query = searchInput.value.trim().toLowerCase();
-  const sort  = selectSort.value;
-  const dispo = selectDispo.value;
-  const lang  = selectLang.value;
-
-  let list = BOOKS.filter(b => {
-    if (query && !b.title.toLowerCase().includes(query)) return false;
-    if (dispo === 'pdf'  && !(b.epub || b.pdf))  return false;
-    if (dispo === 'soon' &&  (b.epub || b.pdf))  return false;
-    if (lang  === 'en'  && !b.tags.includes('en')) return false;
-    if (lang  === 'fr'  &&  b.tags.includes('en')) return false;
-    return true;
-  });
-
-  list = [...list].sort((a, b) => {
-    switch (sort) {
-      case 'date-desc':  return bookYear(b) - bookYear(a) || b.id - a.id;
-      case 'date-asc':   return bookYear(a) - bookYear(b) || a.id - b.id;
-      case 'title-asc':  return a.title.localeCompare(b.title, 'fr');
-      case 'title-desc': return b.title.localeCompare(a.title, 'fr');
-      default: return 0;
-    }
-  });
-
-  resultsCount.textContent = list.length === 1 ? '1 livre' : `${list.length} livres`;
-
-  if (list.length === 0) {
-    /* XSS fix : escapeHtml sur la valeur utilisateur (OTHER-02) */
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Aucun résultat pour « ${escapeHtml(searchInput.value)} »</p>`;
-    return;
-  }
-
-  grid.innerHTML = list.map(b => {
-    const avail = !!(b.epub || b.pdf);
-    const titleSafe = escapeHtml(b.title);
-    return `
-    <div class="book-card ${avail ? '' : 'unavailable'}"
-         role="listitem"
-         ${avail ? `onclick="openBook(${b.id})"` : ''}
-         tabindex="${avail ? '0' : '-1'}"
-         ${avail ? `onkeydown="if(event.key==='Enter')openBook(${b.id})"` : ''}
-         aria-label="${titleSafe}${avail ? ' — Lire' : ' — Bientôt disponible'}">
-      <div class="book-cover gc-${b.color}">
-        <div class="book-cover-deco" aria-hidden="true"></div>
-        ${b.tags.includes('en') ? '<span class="book-cover-badge badge-en">EN</span>' : ''}
-        ${!avail ? '<span class="book-cover-badge badge-soon">Bientôt</span>' : '<span class="book-cover-badge badge-pdf">EPUB</span>'}
-        <span class="book-cover-title">${titleSafe}</span>
-      </div>
-      <div class="book-meta">
-        <p class="book-title">${titleSafe}</p>
-        <button class="book-read-btn ${avail ? 'available' : 'unavailable-btn'}"
-                ${avail ? `onclick="event.stopPropagation();openBook(${b.id})"` : 'disabled'}
-                tabindex="${avail ? '0' : '-1'}">
-          ${avail
-            ? '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Lire maintenant'
-            : '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Bientôt disponible'}
-        </button>
-        ${b.pdf ? `
-        <a class="book-dl-btn" href="${escapeHtml(b.pdf)}" target="_blank" rel="noopener"
-           onclick="event.stopPropagation()"
-           title="Télécharger le PDF — ${titleSafe}">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          Télécharger PDF
-        </a>` : ''}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-/* Debounce sur la recherche (PERF-01) */
-searchInput.addEventListener('input', () => {
-  clearTimeout(searchDebounce);
-  searchDebounce = setTimeout(renderGrid, 180);
-});
-selectSort.addEventListener('change',  renderGrid);
-selectDispo.addEventListener('change', renderGrid);
-selectLang.addEventListener('change',  renderGrid);
-
-/* ── Init : chargement depuis JSON ──────────────── */
-(async function init() {
-  try {
-    const res = await fetch('assets/data/books.json');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    BOOKS = await res.json();
-    resultsCount.textContent = BOOKS.length + ' livres';
-    renderGrid();
-  } catch (e) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Impossible de charger la bibliothèque. Veuillez réessayer.</p>';
-    console.error('books.json load error:', e);
-  }
-})();
-
-</script>
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/book-catalogue.js"></script>
 <script src="assets/js/epub-reader.js"></script>
 <script>
+EduRoyaume.BookCatalogue.init({
+  dataUrl    : 'assets/data/books.json',
+  gridId     : 'book-grid',
+  countId    : 'lib-results-count',
+  searchId   : 'lib-search',
+  sortId     : 'select-sort',
+  dispoId    : 'select-dispo',
+  langId     : 'select-lang',
+  singular   : 'livre',
+  plural     : 'livres',
+  openFnName : 'openBook',
+  availFn    : function(b) { return !!(b.epub || b.pdf); },
+  isEnFn     : function(b) { return b.tags && b.tags.includes('en'); },
+  errorMsg   : 'Impossible de charger la bibliothèque.',
+});
+
 function openBook(id) {
-  var item = BOOKS.find(function(b) { return b.id === id; });
+  var item = EduRoyaume.BookCatalogue.find('book-grid', id);
   if (item) EduRoyaume.EpubReader.open(item);
 }
 </script>

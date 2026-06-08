@@ -186,129 +186,28 @@
 </div>
 
 <script src="assets/js/main.js" defer></script>
-
-<script>
-/* ═══════════════════════════════════════════════════
-   CATALOGUE — données chargées depuis assets/data/articles.json
-═══════════════════════════════════════════════════ */
-let ARTICLES = [];
-const grid         = document.getElementById('art-grid');
-const searchInput  = document.getElementById('lib-search');
-const selectCat    = document.getElementById('select-cat');
-const selectSort   = document.getElementById('select-sort');
-const selectDispo  = document.getElementById('select-dispo');
-const resultsCount = document.getElementById('lib-results-count');
-
-/* Échappement HTML anti-XSS (OTHER-02) */
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-let searchDebounce;
-function renderGrid() {
-  const query = searchInput.value.trim().toLowerCase();
-  const cat   = selectCat.value;
-  const sort  = selectSort.value;
-  const dispo = selectDispo.value;
-
-  let list = ARTICLES.filter(a => {
-    if (query && !a.title.toLowerCase().includes(query)) return false;
-    if (cat  !== 'all' && a.cat !== cat) return false;
-    /* Fix INC-02 : cohérence avec livres.html — accepte epub OU pdf comme "disponible" */
-    if (dispo === 'epub' && !a.epub && !a.pdf) return false;
-    if (dispo === 'soon' &&  (a.epub || a.pdf)) return false;
-    return true;
-  });
-
-  list = [...list].sort((a, b) => {
-    switch (sort) {
-      case 'date-desc':  return b.year - a.year || b.id - a.id;
-      case 'date-asc':   return a.year - b.year || a.id - b.id;
-      case 'title-asc':  return a.title.localeCompare(b.title, 'fr');
-      case 'title-desc': return b.title.localeCompare(a.title, 'fr');
-      default: return 0;
-    }
-  });
-
-  resultsCount.textContent = list.length === 1 ? '1 article' : `${list.length} articles`;
-
-  if (list.length === 0) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Aucun résultat pour « ${escapeHtml(searchInput.value)} »</p>`;
-    return;
-  }
-
-  grid.innerHTML = list.map(a => {
-    const avail = !!a.epub;
-    const titleSafe = escapeHtml(a.title);
-    return `
-    <div class="book-card ${avail ? '' : 'unavailable'}"
-         role="listitem"
-         ${avail ? `onclick="openArticle(${a.id})"` : ''}
-         tabindex="${avail ? '0' : '-1'}"
-         ${avail ? `onkeydown="if(event.key==='Enter')openArticle(${a.id})"` : ''}
-         aria-label="${titleSafe}${avail ? ' — Lire' : ' — Bientôt disponible'}">
-      <div class="book-cover gc-${a.color}">
-        <div class="book-cover-deco" aria-hidden="true"></div>
-        ${a.en ? '<span class="book-cover-badge badge-en">EN</span>' : ''}
-        ${!avail ? '<span class="book-cover-badge badge-soon">Bientôt</span>' : '<span class="book-cover-badge badge-pdf">EPUB</span>'}
-        <span class="book-cover-title">${titleSafe}</span>
-      </div>
-      <div class="book-meta">
-        <p class="book-title">${titleSafe}</p>
-        <button class="book-read-btn ${avail ? 'available' : 'unavailable-btn'}"
-                ${avail ? `onclick="event.stopPropagation();openArticle(${a.id})"` : 'disabled'}
-                tabindex="${avail ? '0' : '-1'}">
-          ${avail
-            ? '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Lire maintenant'
-            : '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Bientôt disponible'}
-        </button>
-        ${a.pdf ? `
-        <a class="book-dl-btn" href="${escapeHtml(a.pdf)}" target="_blank" rel="noopener"
-           onclick="event.stopPropagation()"
-           title="Télécharger le PDF — ${titleSafe}">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          Télécharger PDF
-        </a>` : ''}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-/* Debounce sur la recherche (PERF-01) */
-searchInput.addEventListener('input', () => {
-  clearTimeout(searchDebounce);
-  searchDebounce = setTimeout(renderGrid, 180);
-});
-selectCat.addEventListener('change',   renderGrid);
-selectSort.addEventListener('change',  renderGrid);
-selectDispo.addEventListener('change', renderGrid);
-
-/* ── Init : chargement depuis JSON ──────────────── */
-(async function init() {
-  try {
-    const res = await fetch('assets/data/articles.json');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    ARTICLES = await res.json();
-    resultsCount.textContent = ARTICLES.length + ' articles';
-    renderGrid();
-  } catch (e) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">Impossible de charger les articles. Veuillez réessayer.</p>';
-    console.error('articles.json load error:', e);
-  }
-})();
-
-</script>
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/book-catalogue.js"></script>
 <script src="assets/js/epub-reader.js"></script>
 <script>
-function openBook(id) {
-  var item = ARTICLES.find(function(b) { return b.id === id; });
+EduRoyaume.BookCatalogue.init({
+  dataUrl    : 'assets/data/articles.json',
+  gridId     : 'art-grid',
+  countId    : 'lib-results-count',
+  searchId   : 'lib-search',
+  sortId     : 'select-sort',
+  dispoId    : 'select-dispo',
+  catId      : 'select-cat',
+  singular   : 'article',
+  plural     : 'articles',
+  openFnName : 'openArticle',
+  availFn    : function(a) { return !!(a.epub || a.pdf); },
+  isEnFn     : function(a) { return !!a.en; },
+  errorMsg   : 'Impossible de charger les articles.',
+});
+
+function openArticle(id) {
+  var item = EduRoyaume.BookCatalogue.find('art-grid', id);
   if (item) EduRoyaume.EpubReader.open(item);
 }
 </script>

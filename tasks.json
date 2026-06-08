@@ -301,7 +301,9 @@
         {
           "id": "T18",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "radio-player.js (radio.html), modal-player.js (louange.html), video-renderer.js (videos.html) créés. encodeURIComponent sur IDs iframe, focus accessibilité sur modale. video-renderer.js utilise EduRoyaume.escapeHtml.",
           "audit_refs": ["G-005", "C-008", "L-009"],
           "title": "Extraire les JavaScript inline vers assets/js/",
           "description": "Des centaines de lignes de JS vivent dans des <script> sans src dans les pages HTML. Incompatible avec CSP, impossible à tester unitairement.",
@@ -378,11 +380,13 @@
         {
           "id": "T23",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "Implémenté sous le nom book-catalogue.js (plus descriptif que data-loader). API : EduRoyaume.BookCatalogue.init(opts) + find(gridId,id). livres.html et articles.html migrent vers ce module. ~135 lignes inline supprimées de chaque page. Registre interne pour lookup par ID.",
           "audit_refs": ["G-005"],
           "title": "Créer assets/js/data-loader.js — module de rendu JSON → HTML",
           "description": "Module commun qui charge les JSON et génère le HTML des cartes (livres, audios, articles, vidéos). Remplace les boucles inline dans chaque page.",
-          "files": ["assets/js/data-loader.js"],
+          "files": ["assets/js/book-catalogue.js"],
           "depends_on": ["T07", "T08", "T09", "T10", "T11", "T12", "T13", "T22"]
         }
       ]
