@@ -1,0 +1,86 @@
+name: CI — Validation & Déploiement
+
+# ──────────────────────────────────────────────────────────────
+# Se déclenche sur chaque push vers main ET sur les pull requests.
+# Le déploiement GitHub Pages n'a lieu que si la validation passe.
+#
+# ⚠️  PRÉREQUIS — à faire une seule fois dans GitHub Settings :
+#     Settings → Pages → Source → "GitHub Actions"
+#     Sans ce changement, GitHub Pages déploie depuis la branche main
+#     indépendamment de ce workflow.
+# ──────────────────────────────────────────────────────────────
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:      # Lancement manuel depuis l'onglet Actions
+
+# Permissions minimales nécessaires
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Empêcher deux déploiements simultanés
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+
+  # ────────────────────────────────────────────────────────────
+  # JOB 1 : Validation (bloque le déploiement si elle échoue)
+  # ────────────────────────────────────────────────────────────
+  validate:
+    name: Validation du site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ── Étape 1 : Validation des JSON + EPUB locaux ─────────
+      - name: Validation JSON et fichiers locaux
+        run: node scripts/validate-data.mjs --quick
+        # --quick : vérifie JSON, champs requis, IDs uniques, EPUB locaux
+        # Sans --quick : ajoute des HEAD requests sur tous les MP3/PDF distants
+        # (trop lent pour la CI — environ 65 requêtes Backblaze)
+
+      # ── Étape 2 : Validation des liens internes HTML ────────
+      - name: Validation des liens internes
+        run: node scripts/validate-links.mjs
+
+  # ────────────────────────────────────────────────────────────
+  # JOB 2 : Déploiement (uniquement sur push vers main, après validation)
+  # ────────────────────────────────────────────────────────────
+  deploy:
+    name: Déploiement GitHub Pages
+    needs: validate                  # bloqué si validate échoue
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Configurer GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Uploader le site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'          # racine du repo = racine du site statique
+
+      - name: Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

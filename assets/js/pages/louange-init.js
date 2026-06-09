@@ -18,24 +18,26 @@
     var badge    = isYt ? 'YouTube' : 'Vidéo';
     var dataType = isYt ? 'yt' : 'drive';
 
-    return '<div class="cantique-card"'
+    /* <button> = élément sémantique nativement cliquable + focusable au clavier
+       (CLAUDE.md §4 : interdit les <div role="button">) */
+    return '<button class="cantique-card"'
+      + ' type="button"'
       + ' data-type="' + dataType + '"'
       + ' data-id="'   + sourceS  + '"'
       + ' data-title="' + titleS  + '"'
-      + ' role="button" tabindex="0"'
       + ' aria-label="Lire — ' + titleS + '">'
       + '<div class="cantique-thumb">'
         + thumb
         + '<span class="cantique-type-badge badge-yt">' + badge + '</span>'
-        + '<div class="cantique-play-overlay"><div class="cantique-play-btn">'
+        + '<div class="cantique-play-overlay"><div class="cantique-play-btn" aria-hidden="true">'
           + '<svg width="20" height="20"><use href="#icon-play"/></svg>'
         + '</div></div>'
       + '</div>'
       + '<div class="cantique-body">'
         + '<div class="cantique-title">' + titleS + '</div>'
-        + '<div class="cantique-meta"><svg width="12" height="12"><use href="#icon-cantique"/></svg> Cantique</div>'
+        + '<div class="cantique-meta"><svg width="12" height="12" aria-hidden="true"><use href="#icon-cantique"/></svg> Cantique</div>'
       + '</div>'
-    + '</div>';
+    + '</button>';
   }
 
   fetch('assets/data/louange.json')

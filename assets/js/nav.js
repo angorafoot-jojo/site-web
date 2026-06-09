@@ -3,6 +3,22 @@
    Placé en premier dans <body> sans defer → injection synchrone,
    aucun flash de contenu non stylé.
    ============================================================ */
+
+/* ── Configuration globale du site ────────────────────────────
+   Modifier ces valeurs pour activer des fonctionnalités optionnelles.
+
+   SENTRY_DSN :
+     Laisser vide ('') pour désactiver Sentry (mode console uniquement).
+     Pour activer :
+       1. Créer un compte sur https://sentry.io (gratuit — 5 000 erreurs/mois)
+       2. Créer un projet "Browser JavaScript"
+       3. Coller votre DSN ici (ex: 'https://abc123@o12345.ingest.sentry.io/67890')
+   ──────────────────────────────────────────────────────────── */
+window.EduRoyaume        = window.EduRoyaume        || {};
+window.EduRoyaume.config = window.EduRoyaume.config || {};
+window.EduRoyaume.config.sentryDsn = 'https://347440c27571d6e2282451dd6738b3a9@o4511532792872960.ingest.us.sentry.io/4511532814041088';
+window.EduRoyaume.config.version   = '1.0.0';
+
 (function () {
   'use strict';
 
@@ -194,13 +210,13 @@
        Supprimer après migration vers classes CSS ou initialisation JS (CAT-05). */
   var CSP_META = '<meta http-equiv="Content-Security-Policy" content="'
     + "default-src 'self';"
-    + " script-src 'self' cdn.jsdelivr.net;"
+    + " script-src 'self' cdn.jsdelivr.net browser.sentry-cdn.com;"
     + " style-src 'self' 'unsafe-inline' fonts.googleapis.com;"
     + " font-src 'self' fonts.gstatic.com;"
     + " img-src 'self' data: images.unsplash.com img.youtube.com;"
     + " frame-src www.youtube.com drive.google.com;"
     + " media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com;"
-    + " connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com;"
+    + " connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com *.ingest.sentry.io;"
     + " object-src 'none';"
     + " base-uri 'self';"
     + " form-action 'none';"
@@ -209,6 +225,16 @@
 
   /* Injecter la CSP dans <head> */
   document.head.insertAdjacentHTML('afterbegin', CSP_META);
+
+  /* Charger le module de surveillance des erreurs JS (error-monitor.js).
+     Chargé tôt pour capturer les erreurs de tous les autres scripts.
+     async : ne bloque pas le rendu, s'exécute dès que disponible. */
+  (function() {
+    var em = document.createElement('script');
+    em.src   = 'assets/js/error-monitor.js';
+    em.async = true;
+    document.head.appendChild(em);
+  })();
 
   /* Skip link — CSS-only, visible uniquement au focus clavier (classe dans style.css) */
   var SKIP_LINK = '<a class="skip-link" href="#main-content">Aller au contenu</a>';

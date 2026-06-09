@@ -1,0 +1,98 @@
+name: Healthcheck Radio
+
+# ──────────────────────────────────────────────────────────────
+# Vérifie toutes les 15 minutes que le flux radio AzuraCast répond.
+# En cas d'échec : crée automatiquement une Issue GitHub.
+#
+# Variables à configurer (Settings → Secrets and variables → Variables) :
+#   RADIO_STREAM_URL  — ex: https://parole-prophetique-fm.levangileduroyaume.com/radio.mp3
+#
+# Si la variable n'est pas définie, le workflow affiche un avertissement et se termine sans erreur.
+# ──────────────────────────────────────────────────────────────
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # toutes les 15 minutes
+  workflow_dispatch:           # lancement manuel pour tester
+
+permissions:
+  contents: read
+  issues: write                # nécessaire pour créer une Issue en cas d'alerte
+
+jobs:
+  healthcheck:
+    name: Vérification flux radio
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Vérifier la variable RADIO_STREAM_URL
+        id: check_var
+        run: |
+          if [ -z "${{ vars.RADIO_STREAM_URL }}" ]; then
+            echo "⚠️  Variable RADIO_STREAM_URL non définie — healthcheck ignoré."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "url=${{ vars.RADIO_STREAM_URL }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Tester le flux radio (HEAD request)
+        id: probe
+        if: steps.check_var.outputs.skip == 'false'
+        run: |
+          URL="${{ vars.RADIO_STREAM_URL }}"
+          echo "Test du flux : $URL"
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 --head "$URL")
+          echo "Code HTTP : $HTTP_CODE"
+          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 400 ]; then
+            echo "✅ Le flux radio répond correctement (HTTP $HTTP_CODE)"
+            echo "ok=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Le flux radio ne répond pas (HTTP $HTTP_CODE)"
+            echo "ok=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Créer une alerte si la radio est hors ligne
+        if: steps.check_var.outputs.skip == 'false' && steps.probe.outputs.ok == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url   = '${{ vars.RADIO_STREAM_URL }}';
+            const code  = '${{ steps.probe.outputs.http_code }}';
+            const now   = new Date().toISOString().slice(0, 16).replace('T', ' ');
+
+            // Vérifier si une issue ouverte pour ce problème existe déjà
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              state: 'open',
+              labels: 'radio,alerte',
+            });
+
+            if (existing.data.length > 0) {
+              console.log('Issue déjà ouverte — pas de doublon créé.');
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title: `🚨 Radio hors ligne — ${now} UTC`,
+              body: [
+                `## Le flux radio ne répond plus`,
+                ``,
+                `**URL testée :** \`${url}\``,
+                `**Code HTTP reçu :** \`${code}\``,
+                `**Détecté à :** ${now} UTC`,
+                ``,
+                `### Actions possibles`,
+                `- Vérifier l'état d'AzuraCast : tableau de bord admin`,
+                `- Vérifier les logs du serveur`,
+                `- Redémarrer le service si nécessaire`,
+                ``,
+                `> Issue créée automatiquement par le workflow \`radio-healthcheck.yml\``,
+                `> [Voir le log complet](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+              ].join('\n'),
+              labels: ['radio', 'alerte'],
+            });
+            console.log('Issue d\'alerte créée avec succès.');

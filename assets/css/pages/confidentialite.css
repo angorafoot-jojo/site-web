@@ -152,7 +152,33 @@
     /* ══ Responsive ════════════════════════════════════════ */
     @media (max-width: 860px) {
       .legal-layout { grid-template-columns: 1fr; }
-      .legal-toc { position: static; }
+
+      /* Sur mobile le TOC devient un bandeau de liens défilables horizontalement,
+         évitant de pousser le contenu trop bas. */
+      .legal-toc {
+        position: static;
+        padding: 1rem 1.25rem;
+      }
+      .legal-toc ul {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: .4rem;
+        /* Masquer la scrollbar tout en la laissant fonctionnelle */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-bottom: .25rem;
+      }
+      .legal-toc ul::-webkit-scrollbar { display: none; }
+      .legal-toc li { flex-shrink: 0; }
+      .legal-toc a {
+        white-space: nowrap;
+        padding: .3rem .7rem;
+        background: rgba(0,0,0,.04);
+        border-radius: 999px;
+        font-size: .75rem;
+      }
+      .legal-toc a:hover { background: rgba(196,137,46,.12); }
     }
     @media (max-width: 560px) {
       .legal-content { padding: 1.75rem 1.25rem; }

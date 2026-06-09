@@ -26,6 +26,9 @@
 
   if (!modal) return; /* sécurité : page sans modale */
 
+  /* ── Focus restoration ──────────────────────────────────────── */
+  var _focusBeforeOpen = null; /* mémorise l'élément actif avant l'ouverture */
+
   /* ── Validation des IDs ─────────────────────────────────────── */
   var RE_YT    = /^[a-zA-Z0-9_-]{11}$/;
   var RE_DRIVE = /^[a-zA-Z0-9_-]{28,}$/;
@@ -73,10 +76,13 @@
     wrapper.appendChild(buildIframe(type, id));
     modalContent.appendChild(wrapper);
 
+    /* Mémoriser le focus avant ouverture pour le restaurer à la fermeture */
+    _focusBeforeOpen = document.activeElement;
+
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
 
-    /* Focus sur le bouton fermer pour accessibilité */
+    /* Focus sur le bouton fermer (premier élément focusable) */
     setTimeout(function() { if (modalClose) modalClose.focus(); }, 80);
   }
 
@@ -88,6 +94,11 @@
       modalContent.removeChild(modalContent.firstChild);
     }
     document.body.style.overflow = '';
+    /* Restaurer le focus sur l'élément qui avait le focus avant l'ouverture */
+    if (_focusBeforeOpen && typeof _focusBeforeOpen.focus === 'function') {
+      _focusBeforeOpen.focus();
+      _focusBeforeOpen = null;
+    }
   }
 
   /* ── Délégation d'événements sur le conteneur ──────────────────
@@ -97,21 +108,20 @@
     if (!card) return;
     openModal(card.dataset.type, card.dataset.id, card.dataset.title);
   });
-  document.addEventListener('keydown', function(e) {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    var card = e.target.closest('.cantique-card');
-    if (!card) return;
-    e.preventDefault();
-    openModal(card.dataset.type, card.dataset.id, card.dataset.title);
-  });
+  /* Note : pas de keydown sur .cantique-card — c'est désormais un <button>,
+     le navigateur déclenche nativement un clic sur Enter et Space. */
 
   /* ── Contrôles modale ───────────────────────────────────────── */
   modalClose.addEventListener('click', closeModal);
   modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
 
-  /* Fermer sur Escape */
+  /* Clavier : Escape ferme la modale, Tab reste emprisonné dans la modale */
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key === 'Tab' && window.EduRoyaume && window.EduRoyaume.trapFocus) {
+      window.EduRoyaume.trapFocus(modal, e);
+    }
   });
 
 })();

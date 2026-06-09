@@ -55,12 +55,12 @@
     var titleSafe = esc(item.title);
     var id        = item.id;
 
+    /* Pas d'inline events (onclick/onkeydown interdit CLAUDE.md §4).
+       La délégation d'événements est attachée une fois sur le grid dans init(). */
     return '<div class="book-card ' + (avail ? '' : 'unavailable') + '"' +
       ' role="listitem"' +
-      (avail ? ' onclick="' + opts.openFnName + '(' + id + ')"' : '') +
-      ' tabindex="' + (avail ? '0' : '-1') + '"' +
-      (avail ? ' onkeydown="if(event.key===\'Enter\')' + opts.openFnName + '(' + id + ')"' : '') +
-      ' aria-label="' + titleSafe + (avail ? ' — Lire' : ' — Bientôt disponible') + '">' +
+      (avail ? ' tabindex="0"' : '') +
+      ' data-id="' + id + '">' +
 
       '<div class="book-cover gc-' + (item.color || 'blue') + '">' +
         '<div class="book-cover-deco" aria-hidden="true"></div>' +
@@ -74,15 +74,14 @@
       '<div class="book-meta">' +
         '<p class="book-title">' + titleSafe + '</p>' +
         '<button class="book-read-btn ' + (avail ? 'available' : 'unavailable-btn') + '"' +
-          (avail ? ' onclick="event.stopPropagation();' + opts.openFnName + '(' + id + ')"' : ' disabled') +
-          ' tabindex="' + (avail ? '0' : '-1') + '">' +
+          (avail ? '' : ' disabled') +
+          ' aria-label="' + titleSafe + (avail ? ' — Lire maintenant' : ' — Bientôt disponible') + '">' +
           (avail
             ? '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Lire maintenant'
             : '<svg width="14" height="14"><use href="#icon-book-open"/></svg> Bientôt disponible') +
         '</button>' +
         (item.pdf
           ? '<a class="book-dl-btn" href="' + esc(item.pdf) + '" target="_blank" rel="noopener noreferrer"' +
-            ' onclick="event.stopPropagation()"' +
             ' title="Télécharger le PDF — ' + titleSafe + '">' +
             '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">' +
               '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>' +
@@ -196,6 +195,30 @@
     if (selDispo) selDispo.addEventListener('change', renderGrid);
     if (selLang)  selLang.addEventListener('change',  renderGrid);
     if (selCat)   selCat.addEventListener('change',   renderGrid);
+
+    /* Délégation d'événements sur le grid — ouvre le lecteur au clic sur une carte.
+       Attachée une seule fois ici ; les cartes sont recréées à chaque renderGrid(). */
+    grid.addEventListener('click', function(e) {
+      /* Laisser passer les clics sur le lien de téléchargement PDF */
+      if (e.target.closest('.book-dl-btn')) return;
+      var card = e.target.closest('.book-card[data-id]');
+      if (!card || card.classList.contains('unavailable')) return;
+      var id = parseInt(card.dataset.id, 10);
+      if (isNaN(id)) return;
+      if (typeof opts.openFn === 'function') {
+        opts.openFn(id);
+      } else if (opts.openFnName && typeof window[opts.openFnName] === 'function') {
+        window[opts.openFnName](id);
+      }
+    });
+    /* Navigation clavier : Enter/Space sur une carte disponible = clic */
+    grid.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var card = e.target.closest('.book-card[data-id]');
+      if (!card || card.classList.contains('unavailable')) return;
+      e.preventDefault();
+      card.click();
+    });
 
     /* Chargement JSON */
     fetch(opts.dataUrl)

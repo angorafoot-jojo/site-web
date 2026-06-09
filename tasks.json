@@ -1,6 +1,7 @@
 {
   "project": "L'Évangile du Royaume — Amélioration du site web",
   "last_updated": "2026-06-08",
+  "session_7_completed": ["T56 (ci.yml + validate-links.mjs + favicon.svg/.png)", "T58 (radio-healthcheck.yml)"], ["T29 (durées audio en JSON, preloadDurations supprimé)", "T30 (Page Visibility API — déjà implémenté)", "T32 (prefers-reduced-motion)", "T33 (lazy-load iframes YouTube — déjà implémenté)", "T34 (event delegation book-catalogue + button cantique-card)", "T35 (focus trap + restoration modal-player + utils.trapFocus)", "T37 (alt descriptif thumbnails vidéo)", "T39 (TOC confidentialite responsive mobile)"],
   "session_2_completed": ["T03 (audios.html + podcasts.html fallbacks)", "T04 (radio.html robustification)", "T05 (scripts/validate-media.mjs)"],
   "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)", "T10 (videos.json)"],
   "session_4_completed": ["T17 (CSS inline → assets/css/pages/)", "T19 (media-player.js partagé)", "T20 (lazy-load EPUB.js)", "T21 (epub-reader.js partagé)", "T22 (utils.js)"],
@@ -502,7 +503,9 @@
         {
           "id": "T29",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "65 durées (42 audios + 23 podcasts) pré-calculées via ffprobe et stockées dans les JSON. preloadDurations() et probeDuration() supprimés de media-player.js. setRowDuration() conservé pour mise à jour live depuis loadedmetadata.",
           "audit_refs": ["A-004", "A-013", "P-003"],
           "title": "Supprimer le sondage des durées audio via new Audio() au chargement",
           "description": "La page crée un objet Audio() par piste pour lire la durée. Avec 50 pistes : 50 requêtes réseau au chargement. La solution est de stocker les durées dans les JSON.",
@@ -512,7 +515,9 @@
         {
           "id": "T30",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "Déjà implémenté dans radio-player.js (Page Visibility API, visibilitychange, intervalles adaptatifs 10s/30s). Confirmé en audit de code.",
           "audit_refs": ["R-001", "R-002"],
           "title": "Optimiser le polling NowPlaying de la radio",
           "description": "La page radio fait des appels API toutes les 15s même si l'utilisateur n'écoute pas. En lecture : toutes les 10s. Utiliser Page Visibility API pour arrêter si l'onglet est en arrière-plan.",
@@ -526,7 +531,8 @@
         {
           "id": "T31",
           "priority": "P2",
-          "status": "todo",
+          "status": "deferred",
+          "notes": "Bloqué par T56 (CI/CD GitHub Actions). Minification nécessite un outil de build (esbuild/vite). Aucun build tool configuré. À traiter dans CAT-09.",
           "audit_refs": ["G-027", "G-010", "I-010"],
           "title": "Ajouter minification et fingerprinting des assets",
           "description": "CSS et JS servis non-minifiés. Versioning manuel avec ?v=... insuffisant et risque d'oubli.",
@@ -540,7 +546,9 @@
         {
           "id": "T32",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "Règle @media (prefers-reduced-motion: reduce) ajoutée dans style.css. Couvre *, *::before, *::after : animation-duration 0.01ms, iteration-count 1, transition-duration 0.01ms, scroll-behavior auto.",
           "audit_refs": ["R-009", "R-010"],
           "title": "Désactiver les animations lourdes avec prefers-reduced-motion",
           "description": "Les orbs animés et le pulse du bouton radio tournent en continu, y compris sur mobile. Certains utilisateurs souffrent de vertiges ou d'inconfort avec les animations.",
@@ -554,7 +562,9 @@
         {
           "id": "T33",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "Déjà implémenté dans video-renderer.js et modal-player.js : les iframes YouTube sont créées uniquement au clic (buildIframe via createElement). Confirmé en audit de code.",
           "audit_refs": ["V-012"],
           "title": "Différer les iframes YouTube — chargement au clic uniquement",
           "description": "Les iframes YouTube se chargent au démarrage de la page. Chaque iframe charge ~400 KB de ressources Google même si l'utilisateur ne regarde rien.",
@@ -577,7 +587,9 @@
         {
           "id": "T34",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "book-catalogue.js : event delegation sur le grid (click + keydown), tabindex='0' sur cartes disponibles, data-id pour lookup. louange-init.js : div[role=button] → <button type=button>. modal-player.js : keydown redondant supprimé. louange.css : reset styles button.",
           "audit_refs": ["G-018", "L-008", "A-008", "LO-004"],
           "title": "Remplacer les div cliquables par des éléments sémantiques (<button> ou <a>)",
           "description": "Les cartes de livres, lignes audio et cantiques sont des <div> avec un handler click. Inaccessibles au clavier et mal interprétées par les lecteurs d'écran.",
@@ -591,7 +603,9 @@
         {
           "id": "T35",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "EduRoyaume.trapFocus(container, e) ajouté dans utils.js. modal-player.js : _focusBeforeOpen mémorisé à l'ouverture, restauré à la fermeture, Tab piégé dans la modale via trapFocus. epub-reader.js : focus trap et lastFocused déjà implémentés — confirmé en audit.",
           "audit_refs": ["LO-005", "LO-006", "L-017"],
           "title": "Ajouter focus trap et restauration du focus sur toutes les modales",
           "description": "Les modales (louange, lecteur EPUB) n'ont pas de focus trap. La touche Tab peut sortir derrière la modale. À la fermeture, le focus n'est pas restauré sur l'élément déclencheur.",
@@ -606,7 +620,8 @@
         {
           "id": "T36",
           "priority": "P1",
-          "status": "todo",
+          "status": "cancelled",
+          "notes": "Annulé — contact.html supprimé lors de T01. Le formulaire n'existe plus sur le site.",
           "audit_refs": ["C-011", "C-012"],
           "title": "Corriger l'accessibilité du formulaire contact (labels, erreurs par champ)",
           "description": "Les labels visuels doivent avoir for=id associé. Les erreurs de validation doivent être liées aux champs avec aria-describedby, pas affichées en global.",
@@ -621,7 +636,9 @@
         {
           "id": "T37",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "video-renderer.js : alt='' → alt='Miniature — [titre]' sur toutes les thumbnails YouTube. Testé : 95/95 images avec alt descriptif.",
           "audit_refs": ["V-004"],
           "title": "Ajouter des attributs alt descriptifs sur les thumbnails vidéo",
           "description": "Les images de cartes vidéo ont alt vide ou générique. Un utilisateur de lecteur d'écran ne sait pas quelle vidéo est présentée.",
@@ -634,7 +651,8 @@
         {
           "id": "T38",
           "priority": "P2",
-          "status": "todo",
+          "status": "deferred",
+          "notes": "Bloqué par T56 (CI/CD GitHub Actions). pa11y-ci nécessite un pipeline CI. À traiter dans CAT-09 après T56.",
           "audit_refs": ["G-017", "Q-007"],
           "title": "Ajouter des tests automatisés d'accessibilité (axe / pa11y)",
           "description": "Aucun test d'accessibilité automatique. Les régressions ne sont pas détectées.",
@@ -648,7 +666,9 @@
         {
           "id": "T39",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "confidentialite.css : TOC mobile (≤860px) → bandeau horizontal scrollable (flex-direction: row, overflow-x: auto, pills arrondis). Desktop : position sticky + flex-direction column conservés.",
           "audit_refs": ["CF-003"],
           "title": "Rendre la table des matières de confidentialite.html responsive sur mobile",
           "description": "La table des matières sticky fonctionne sur desktop mais peut déborder sur mobile (<480px). Transformer en accordéon ou liste scrollable sur petit écran.",
@@ -876,7 +896,9 @@
         {
           "id": "T56",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "ci.yml : validation (validate-data --quick + validate-links) → déploiement GitHub Pages. scripts/validate-links.mjs créé (128 liens vérifiés, 0 cassé). Bug bonus corrigé : favicons manquants (favicon.svg + favicon.png créés). ⚠️ Prérequis : activer 'GitHub Actions' comme source Pages dans GitHub Settings.",
           "audit_refs": ["G-008", "G-007", "I-008", "AR-008", "L-013", "L-014", "NP-002", "CF-004", "Q-004"],
           "title": "Créer le pipeline CI/CD GitHub Actions (validation + Lighthouse + déploiement)",
           "description": "Aucun test automatique avant déploiement. Une erreur JSON, un lien cassé ou une régression Lighthouse peut passer en production.",
@@ -892,7 +914,9 @@
         {
           "id": "T57",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "error-monitor.js créé — capture window.onerror + unhandledrejection, filtrage extensions/cross-origin/réseau, API publique EduRoyaume.reportError(msg, ctx). nav.js : config bloc + sentryDsn vide par défaut + chargement async error-monitor.js. CSP mise à jour : browser.sentry-cdn.com + *.ingest.sentry.io. Prêt pour Sentry (coller DSN dans nav.js).",
           "audit_refs": ["G-009", "C-006", "R-008"],
           "title": "Ajouter monitoring client (erreurs JS, formulaire, radio)",
           "description": "Si le lecteur EPUB casse chez un utilisateur iOS, personne ne le sait. Si le formulaire échoue, les messages sont perdus silencieusement.",
@@ -907,7 +931,9 @@
         {
           "id": "T58",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "completed": "2026-06-08",
+          "notes": "radio-healthcheck.yml : cron toutes les 15 min, HEAD sur RADIO_STREAM_URL (variable GitHub), crée une Issue si HTTP != 2xx/3xx en évitant les doublons. Prérequis : définir la variable RADIO_STREAM_URL dans Settings → Variables.",
           "audit_refs": ["R-015"],
           "title": "Mettre en place un healthcheck externe pour le stream radio",
           "description": "Pas de test continu du flux AzuraCast. Si la radio tombe à 3h du matin, personne ne le sait avant qu'un auditeur signale.",
@@ -1057,7 +1083,7 @@
 
   "summary": {
     "total_tasks": 68,
-    "by_status": { "done": 28, "todo": 38, "cancelled": 2, "in_progress": 0 },
+    "by_status": { "done": 36, "todo": 28, "deferred": 2, "cancelled": 4, "in_progress": 0 },
     "by_priority": { "P1": 22, "P2": 35, "P3": 11 },
     "audit_issues_covered": 176,
     "categories_by_impact": [

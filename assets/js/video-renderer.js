@@ -49,7 +49,7 @@
         var href  = 'https://youtu.be/' + ytId;
         return '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="vc">' +
           '<div class="vc-img">' +
-            '<img src="' + esc(thumb) + '" alt="" loading="lazy">' +
+            '<img src="' + esc(thumb) + '" alt="Miniature — ' + title + '" loading="lazy">' +
             '<div class="vc-overlay"><div class="vc-play">' +
               '<svg width="18" height="18"><use href="#icon-play"/></svg>' +
             '</div></div>' +

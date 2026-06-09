@@ -20,6 +20,14 @@
     }
 
     .cantique-card {
+      /* Reset button styles (l'élément est maintenant un <button>) */
+      appearance: none;
+      padding: 0;
+      font: inherit;
+      text-align: left;
+      /* Styles carte */
+      display: block;
+      width: 100%;
       background: #fff;
       border-radius: var(--radius-lg);
       overflow: hidden;
