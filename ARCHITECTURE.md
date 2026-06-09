@@ -216,6 +216,23 @@ EPUB.js et JSZip sont **lazy-loadés** : ils ne sont téléchargés que lorsque 
 
 ## Limitations connues
 
-- **EPUB sur Safari iOS** : certaines polices et animations peuvent se comporter différemment.
+### Lecteur EPUB — Compatibilité navigateurs (T66)
+
+| Navigateur | Statut | Notes |
+|------------|--------|-------|
+| Chrome desktop | ✅ Fonctionnel | Référence de développement |
+| Firefox desktop | ✅ Fonctionnel | Mineurs différences de rendu de polices |
+| Safari macOS | ✅ Fonctionnel | Testé sur macOS 14+ |
+| Safari iOS | ⚠️ Partiel | epub.js utilise un `<iframe>` sandboxé ; sur iOS 15 et inférieur certains EPUB avec polices embarquées peuvent ne pas se charger. La navigation par pages fonctionne ; le mode défilement peut sembler saccadé sur anciens appareils. |
+| Chrome Android | ✅ Fonctionnel | |
+
+**Mitigation sur Safari iOS** :
+- epub.js 0.3.93 est la version la plus stable disponible sur CDN jsDelivr.
+- L'auto-recovery (T47) efface la position sauvegardée si l'ouverture échoue, évitant les boucles d'erreur.
+- Le lien PDF de secours (`btn-reader-dl`) reste toujours accessible en cas d'échec EPUB.
+
+### Autres limitations
+
 - **Google Drive** : utilisé pour quelques audios anciens (instable, à migrer vers Backblaze B2).
 - **Header/footer** : injectés via `nav.js` (composant JS) — dépendance à ce fichier sur toutes les pages.
+- **Miniatures YouTube** : `img.youtube.com/vi/[id]/mqdefault.jpg` peut retourner une image noire pour les vidéos privées/supprimées plutôt qu'une erreur 404. Un `onerror` dans `video-renderer.js` affiche un placeholder SVG dans ce cas.
