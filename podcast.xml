@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ════════════════════════════════════════════════════════════
+     podcast.xml — Flux RSS L'Évangile du Royaume
+     Généré automatiquement par scripts/generate-rss.mjs
+     NE PAS MODIFIER MANUELLEMENT — relancer le script à la place
+     ════════════════════════════════════════════════════════════ -->
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:atom="http://www.w3.org/2005/Atom">
+
+  <channel>
+    <title>L&apos;Évangile du Royaume</title>
+    <link>https://levangileduroyaume.com/podcasts.html</link>
+    <description>Enseignements bibliques de L&apos;Évangile du Royaume — prophétie, eschatologie, vie chrétienne et ministère.</description>
+    <language>fr</language>
+    <lastBuildDate>Tue, 09 Jun 2026 01:51:16 GMT</lastBuildDate>
+    <atom:link href="https://levangileduroyaume.com/podcast.xml" rel="self" type="application/rss+xml"/>
+
+    <itunes:author>L&apos;Évangile du Royaume</itunes:author>
+    <itunes:owner>
+      <itunes:name>L&apos;Évangile du Royaume</itunes:name>
+      <itunes:email>nousecrire@levangileduroyaume.com</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://levangileduroyaume.com/assets/images/og-default.png"/>
+    <image>
+      <url>https://levangileduroyaume.com/assets/images/og-default.png</url>
+      <title>L&apos;Évangile du Royaume</title>
+      <link>https://levangileduroyaume.com/podcasts.html</link>
+    </image>
+    <itunes:category text="Religion &amp; Spirituality">
+      <itunes:category text="Christianity"/>
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <copyright>© 2026 L&apos;Évangile du Royaume</copyright>
+
+    <item>
+      <title>Etre fondé et être enraciné dans l&apos;amour</title>
+      <itunes:title>Etre fondé et être enraciné dans l&apos;amour</itunes:title>
+      <description>Etre fondé et être enraciné dans l&apos;amour — Série : Fondements. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Etre fondé et être enraciné dans l&apos;amour — Série : Fondements.</itunes:summary>
+      <itunes:subtitle>Fondements</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_001_fonde-et-enracine-dans-l-amour.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_001_fonde-et-enracine-dans-l-amour.html</guid>
+      <pubDate>Mon, 31 Jul 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_001_fonde-et-enracine-dans-l-amour.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:03:22</itunes:duration>
+      <itunes:duration>3802</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>L&apos;œuvre de la foi et l&apos;épreuve de la foi</title>
+      <itunes:title>L&apos;œuvre de la foi et l&apos;épreuve de la foi</itunes:title>
+      <description>L&apos;œuvre de la foi et l&apos;épreuve de la foi — Série : Fondements. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>L&apos;œuvre de la foi et l&apos;épreuve de la foi — Série : Fondements.</itunes:summary>
+      <itunes:subtitle>Fondements</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_002_oeuvre-de-la-foi-et-epreuve.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_002_oeuvre-de-la-foi-et-epreuve.html</guid>
+      <pubDate>Mon, 07 Aug 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_002_oeuvre-de-la-foi-et-epreuve.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>18:19</itunes:duration>
+      <itunes:duration>1099</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Qu&apos;est-ce qu&apos;une doctrine et la doctrine de la résurrection des morts</title>
+      <itunes:title>Qu&apos;est-ce qu&apos;une doctrine et la doctrine de la résurrection des morts</itunes:title>
+      <description>Qu&apos;est-ce qu&apos;une doctrine et la doctrine de la résurrection des morts — Série : Fondements. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Qu&apos;est-ce qu&apos;une doctrine et la doctrine de la résurrection des morts — Série : Fondements.</itunes:summary>
+      <itunes:subtitle>Fondements</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_003_doctrine-de-la-resurrection.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_003_doctrine-de-la-resurrection.html</guid>
+      <pubDate>Mon, 14 Aug 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_003_doctrine-de-la-resurrection.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:12:55</itunes:duration>
+      <itunes:duration>4375</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Qu&apos;est-ce que la repentance, la confession et la restitution</title>
+      <itunes:title>Qu&apos;est-ce que la repentance, la confession et la restitution</itunes:title>
+      <description>Qu&apos;est-ce que la repentance, la confession et la restitution — Série : Fondements. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Qu&apos;est-ce que la repentance, la confession et la restitution — Série : Fondements.</itunes:summary>
+      <itunes:subtitle>Fondements</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_004_repentance-confession-restitution.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_004_repentance-confession-restitution.html</guid>
+      <pubDate>Mon, 21 Aug 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_004_repentance-confession-restitution.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:41:40</itunes:duration>
+      <itunes:duration>6100</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Qu&apos;est-ce que l&apos;action de grâces</title>
+      <itunes:title>Qu&apos;est-ce que l&apos;action de grâces</itunes:title>
+      <description>Qu&apos;est-ce que l&apos;action de grâces — Série : Fondements. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Qu&apos;est-ce que l&apos;action de grâces — Série : Fondements.</itunes:summary>
+      <itunes:subtitle>Fondements</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_005_action-de-graces.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_005_action-de-graces.html</guid>
+      <pubDate>Mon, 28 Aug 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_005_action-de-graces.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>55:42</itunes:duration>
+      <itunes:duration>3342</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Du stade d&apos;invités à appelés, choisis et fidèles</title>
+      <itunes:title>Du stade d&apos;invités à appelés, choisis et fidèles</itunes:title>
+      <description>Du stade d&apos;invités à appelés, choisis et fidèles — Série : Église · Royaume. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Du stade d&apos;invités à appelés, choisis et fidèles — Série : Église · Royaume.</itunes:summary>
+      <itunes:subtitle>Église · Royaume</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_006_du-stade-d-invites-a-appeles.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_006_du-stade-d-invites-a-appeles.html</guid>
+      <pubDate>Mon, 04 Sep 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_006_du-stade-d-invites-a-appeles.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:50:28</itunes:duration>
+      <itunes:duration>6628</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>L&apos;exercice des dons du Seigneur face aux réalités du monde</title>
+      <itunes:title>L&apos;exercice des dons du Seigneur face aux réalités du monde</itunes:title>
+      <description>L&apos;exercice des dons du Seigneur face aux réalités du monde — Série : Église · Royaume. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>L&apos;exercice des dons du Seigneur face aux réalités du monde — Série : Église · Royaume.</itunes:summary>
+      <itunes:subtitle>Église · Royaume</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_007_exercice-des-dons-face-au-monde.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_007_exercice-des-dons-face-au-monde.html</guid>
+      <pubDate>Mon, 11 Sep 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_007_exercice-des-dons-face-au-monde.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>33:39</itunes:duration>
+      <itunes:duration>2019</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>La dîme du testament de la loi au testament de la grâce</title>
+      <itunes:title>La dîme du testament de la loi au testament de la grâce</itunes:title>
+      <description>La dîme du testament de la loi au testament de la grâce — Série : Église · Royaume. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>La dîme du testament de la loi au testament de la grâce — Série : Église · Royaume.</itunes:summary>
+      <itunes:subtitle>Église · Royaume</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_008_dime-de-la-loi-a-la-grace.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_008_dime-de-la-loi-a-la-grace.html</guid>
+      <pubDate>Mon, 18 Sep 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_008_dime-de-la-loi-a-la-grace.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:05:21</itunes:duration>
+      <itunes:duration>3921</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>La capacité donnée par DIEU de ramener les morts à la vie</title>
+      <itunes:title>La capacité donnée par DIEU de ramener les morts à la vie</itunes:title>
+      <description>La capacité donnée par DIEU de ramener les morts à la vie — Série : Église · Royaume. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>La capacité donnée par DIEU de ramener les morts à la vie — Série : Église · Royaume.</itunes:summary>
+      <itunes:subtitle>Église · Royaume</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_009_capacite-de-ramener-les-morts.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_009_capacite-de-ramener-les-morts.html</guid>
+      <pubDate>Mon, 25 Sep 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_009_capacite-de-ramener-les-morts.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:21:47</itunes:duration>
+      <itunes:duration>4907</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>L&apos;eau de vie</title>
+      <itunes:title>L&apos;eau de vie</itunes:title>
+      <description>L&apos;eau de vie — Série : Vie spirituelle. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>L&apos;eau de vie — Série : Vie spirituelle.</itunes:summary>
+      <itunes:subtitle>Vie spirituelle</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_010_l-eau-de-vie.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_010_l-eau-de-vie.html</guid>
+      <pubDate>Mon, 02 Oct 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_010_l-eau-de-vie.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>34:01</itunes:duration>
+      <itunes:duration>2041</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Comment mène-t-on un combat spirituel</title>
+      <itunes:title>Comment mène-t-on un combat spirituel</itunes:title>
+      <description>Comment mène-t-on un combat spirituel — Série : Vie spirituelle. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Comment mène-t-on un combat spirituel — Série : Vie spirituelle.</itunes:summary>
+      <itunes:subtitle>Vie spirituelle</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_011_comment-mener-un-combat-spirituel.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_011_comment-mener-un-combat-spirituel.html</guid>
+      <pubDate>Mon, 09 Oct 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_011_comment-mener-un-combat-spirituel.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:26:41</itunes:duration>
+      <itunes:duration>5201</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>L&apos;église de Christ et le mariage</title>
+      <itunes:title>L&apos;église de Christ et le mariage</itunes:title>
+      <description>L&apos;église de Christ et le mariage — Série : Mariage · Famille. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>L&apos;église de Christ et le mariage — Série : Mariage · Famille.</itunes:summary>
+      <itunes:subtitle>Mariage · Famille</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_012_l-eglise-de-christ-et-le-mariage.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_012_l-eglise-de-christ-et-le-mariage.html</guid>
+      <pubDate>Mon, 16 Oct 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_012_l-eglise-de-christ-et-le-mariage.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:31:32</itunes:duration>
+      <itunes:duration>5492</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Le mariage selon le modèle de Christ et de l&apos;église</title>
+      <itunes:title>Le mariage selon le modèle de Christ et de l&apos;église</itunes:title>
+      <description>Le mariage selon le modèle de Christ et de l&apos;église — Série : Mariage · Famille. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Le mariage selon le modèle de Christ et de l&apos;église — Série : Mariage · Famille.</itunes:summary>
+      <itunes:subtitle>Mariage · Famille</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_013_mariage-selon-le-modele-de-christ.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_013_mariage-selon-le-modele-de-christ.html</guid>
+      <pubDate>Mon, 23 Oct 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_013_mariage-selon-le-modele-de-christ.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:43:09</itunes:duration>
+      <itunes:duration>6189</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Que doit-on comprendre par la femme est la gloire de l&apos;homme</title>
+      <itunes:title>Que doit-on comprendre par la femme est la gloire de l&apos;homme</itunes:title>
+      <description>Que doit-on comprendre par la femme est la gloire de l&apos;homme — Série : Mariage · Famille. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Que doit-on comprendre par la femme est la gloire de l&apos;homme — Série : Mariage · Famille.</itunes:summary>
+      <itunes:subtitle>Mariage · Famille</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_014_la-femme-est-la-gloire-de-l-homme.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_014_la-femme-est-la-gloire-de-l-homme.html</guid>
+      <pubDate>Mon, 30 Oct 2023 09:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_014_la-femme-est-la-gloire-de-l-homme.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:22:21</itunes:duration>
+      <itunes:duration>4941</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Les sept esprits de DIEU</title>
+      <itunes:title>Les sept esprits de DIEU</itunes:title>
+      <description>Les sept esprits de DIEU — Série : Saint-Esprit. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Les sept esprits de DIEU — Série : Saint-Esprit.</itunes:summary>
+      <itunes:subtitle>Saint-Esprit</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_015_les-sept-esprits-de-dieu.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_015_les-sept-esprits-de-dieu.html</guid>
+      <pubDate>Mon, 06 Nov 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_015_les-sept-esprits-de-dieu.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>49:33</itunes:duration>
+      <itunes:duration>2973</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Que signifie le blasphème contre le Saint-Esprit</title>
+      <itunes:title>Que signifie le blasphème contre le Saint-Esprit</itunes:title>
+      <description>Que signifie le blasphème contre le Saint-Esprit — Série : Saint-Esprit. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Que signifie le blasphème contre le Saint-Esprit — Série : Saint-Esprit.</itunes:summary>
+      <itunes:subtitle>Saint-Esprit</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_016_blaspheme-contre-le-saint-esprit.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_016_blaspheme-contre-le-saint-esprit.html</guid>
+      <pubDate>Mon, 13 Nov 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_016_blaspheme-contre-le-saint-esprit.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:16:00</itunes:duration>
+      <itunes:duration>4560</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Que signifient les expressions Révélation, Connaissance, Prophétie et Doctrine</title>
+      <itunes:title>Que signifient les expressions Révélation, Connaissance, Prophétie et Doctrine</itunes:title>
+      <description>Que signifient les expressions Révélation, Connaissance, Prophétie et Doctrine — Série : Saint-Esprit. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Que signifient les expressions Révélation, Connaissance, Prophétie et Doctrine — Série : Saint-Esprit.</itunes:summary>
+      <itunes:subtitle>Saint-Esprit</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_017_revelation-connaissance-prophetie-doctrine.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_017_revelation-connaissance-prophetie-doctrine.html</guid>
+      <pubDate>Mon, 20 Nov 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_017_revelation-connaissance-prophetie-doctrine.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>52:56</itunes:duration>
+      <itunes:duration>3176</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Je ferai trembler non seulement la terre mais aussi le ciel</title>
+      <itunes:title>Je ferai trembler non seulement la terre mais aussi le ciel</itunes:title>
+      <description>Je ferai trembler non seulement la terre mais aussi le ciel — Série : Eschatologie. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Je ferai trembler non seulement la terre mais aussi le ciel — Série : Eschatologie.</itunes:summary>
+      <itunes:subtitle>Eschatologie</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_018_je-ferai-trembler-la-terre-et-le-ciel.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_018_je-ferai-trembler-la-terre-et-le-ciel.html</guid>
+      <pubDate>Mon, 27 Nov 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_018_je-ferai-trembler-la-terre-et-le-ciel.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>54:29</itunes:duration>
+      <itunes:duration>3269</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>La parabole des dix vierges</title>
+      <itunes:title>La parabole des dix vierges</itunes:title>
+      <description>La parabole des dix vierges — Série : Eschatologie. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>La parabole des dix vierges — Série : Eschatologie.</itunes:summary>
+      <itunes:subtitle>Eschatologie</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_019_parabole-des-dix-vierges.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_019_parabole-des-dix-vierges.html</guid>
+      <pubDate>Mon, 04 Dec 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_019_parabole-des-dix-vierges.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:41:37</itunes:duration>
+      <itunes:duration>6097</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Les esprits des justes parvenus à la perfection</title>
+      <itunes:title>Les esprits des justes parvenus à la perfection</itunes:title>
+      <description>Les esprits des justes parvenus à la perfection — Série : Eschatologie. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Les esprits des justes parvenus à la perfection — Série : Eschatologie.</itunes:summary>
+      <itunes:subtitle>Eschatologie</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_020_esprits-des-justes-a-la-perfection.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_020_esprits-des-justes-a-la-perfection.html</guid>
+      <pubDate>Mon, 11 Dec 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_020_esprits-des-justes-a-la-perfection.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:08:00</itunes:duration>
+      <itunes:duration>4080</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Jésus Christ, l&apos;étoile brillante du matin</title>
+      <itunes:title>Jésus Christ, l&apos;étoile brillante du matin</itunes:title>
+      <description>Jésus Christ, l&apos;étoile brillante du matin — Série : Christ · Êtres célestes. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Jésus Christ, l&apos;étoile brillante du matin — Série : Christ · Êtres célestes.</itunes:summary>
+      <itunes:subtitle>Christ · Êtres célestes</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_022_jesus-christ-etoile-brillante-du-matin.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_022_jesus-christ-etoile-brillante-du-matin.html</guid>
+      <pubDate>Mon, 18 Dec 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_022_jesus-christ-etoile-brillante-du-matin.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:32:04</itunes:duration>
+      <itunes:duration>5524</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Différence entre DIEU le père et le Seigneur Jésus Christ</title>
+      <itunes:title>Différence entre DIEU le père et le Seigneur Jésus Christ</itunes:title>
+      <description>Différence entre DIEU le père et le Seigneur Jésus Christ — Série : Christ · Êtres célestes. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Différence entre DIEU le père et le Seigneur Jésus Christ — Série : Christ · Êtres célestes.</itunes:summary>
+      <itunes:subtitle>Christ · Êtres célestes</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_023_difference-dieu-pere-et-jesus-christ.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_023_difference-dieu-pere-et-jesus-christ.html</guid>
+      <pubDate>Mon, 25 Dec 2023 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_023_difference-dieu-pere-et-jesus-christ.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:35:04</itunes:duration>
+      <itunes:duration>5704</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+    <item>
+      <title>Qui est l&apos;Ange de l&apos;Eternel dans les saintes écritures</title>
+      <itunes:title>Qui est l&apos;Ange de l&apos;Eternel dans les saintes écritures</itunes:title>
+      <description>Qui est l&apos;Ange de l&apos;Eternel dans les saintes écritures — Série : Christ · Êtres célestes. Enseignement biblique de L&apos;Évangile du Royaume.</description>
+      <itunes:summary>Qui est l&apos;Ange de l&apos;Eternel dans les saintes écritures — Série : Christ · Êtres célestes.</itunes:summary>
+      <itunes:subtitle>Christ · Êtres célestes</itunes:subtitle>
+      <link>https://levangileduroyaume.com/podcasts/podcasts_024_qui-est-l-ange-de-l-eternel.html</link>
+      <guid isPermaLink="true">https://levangileduroyaume.com/podcasts/podcasts_024_qui-est-l-ange-de-l-eternel.html</guid>
+      <pubDate>Mon, 01 Jan 2024 10:00:00 GMT</pubDate>
+      <enclosure url="https://f005.backblazeb2.com/file/audio-site-web/podcasts_024_qui-est-l-ange-de-l-eternel.mp3" type="audio/mpeg" length="0"/>
+      <itunes:duration>1:35:02</itunes:duration>
+      <itunes:duration>5702</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>
+
+  </channel>
+</rss>

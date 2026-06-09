@@ -1,7 +1,7 @@
 {
   "project": "L'Évangile du Royaume — Amélioration du site web",
   "last_updated": "2026-06-08",
-  "session_7_completed": ["T56 (ci.yml + validate-links.mjs + favicon.svg/.png)", "T58 (radio-healthcheck.yml)"], ["T29 (durées audio en JSON, preloadDurations supprimé)", "T30 (Page Visibility API — déjà implémenté)", "T32 (prefers-reduced-motion)", "T33 (lazy-load iframes YouTube — déjà implémenté)", "T34 (event delegation book-catalogue + button cantique-card)", "T35 (focus trap + restoration modal-player + utils.trapFocus)", "T37 (alt descriptif thumbnails vidéo)", "T39 (TOC confidentialite responsive mobile)"],
+  "session_7_completed": ["T56 (ci.yml + validate-links.mjs + favicon.svg/.png)", "T58 (radio-healthcheck.yml)", "T29 (durées audio en JSON, preloadDurations supprimé)", "T30 (Page Visibility API — déjà implémenté)", "T32 (prefers-reduced-motion)", "T33 (lazy-load iframes YouTube — déjà implémenté)", "T34 (event delegation book-catalogue + button cantique-card)", "T35 (focus trap + restoration modal-player + utils.trapFocus)", "T37 (alt descriptif thumbnails vidéo)", "T39 (TOC confidentialite responsive mobile)", "T57 (error-monitor.js + Sentry DSN)"],
   "session_2_completed": ["T03 (audios.html + podcasts.html fallbacks)", "T04 (radio.html robustification)", "T05 (scripts/validate-media.mjs)"],
   "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)", "T10 (videos.json)"],
   "session_4_completed": ["T17 (CSS inline → assets/css/pages/)", "T19 (media-player.js partagé)", "T20 (lazy-load EPUB.js)", "T21 (epub-reader.js partagé)", "T22 (utils.js)"],
@@ -686,7 +686,7 @@
         {
           "id": "T40",
           "priority": "P1",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["G-014", "I-006", "A-009", "R-011", "P-006", "V-009", "AR-007", "L-012", "LO-011", "Q-002", "NP-006"],
           "title": "Ajouter schema.org JSON-LD sur toutes les pages",
           "description": "Aucune page n'a de balisage structuré. Google ne comprend pas que le site propose des livres, des audios, de la radio, des articles.",
@@ -708,7 +708,7 @@
         {
           "id": "T41",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["G-013", "A-010", "P-007", "V-007", "AR-004", "AR-006", "L-011", "LO-012"],
           "title": "Générer des pages individuelles pour livres, audios, articles, vidéos, podcasts",
           "description": "Sans URL individuelle, un livre ou un audio ne peut pas se positionner sur Google ni être partagé proprement.",
@@ -723,7 +723,7 @@
         {
           "id": "T42",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["G-024", "I-003"],
           "title": "Uniformiser le domaine canonique sur toutes les pages",
           "description": "Certaines pages utilisent levangileduroyaume.com comme canonical, d'autres l'URL GitHub Pages. Les balises og:url, canonical et sitemap doivent toutes pointer vers le même domaine.",
@@ -738,7 +738,7 @@
         {
           "id": "T43",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["G-023", "I-004"],
           "title": "Remplacer les images OG Unsplash par des fichiers locaux",
           "description": "og:image pointe vers Unsplash. Dépendance externe, image pas alignée à la marque, risque d'indisponibilité.",
@@ -747,7 +747,7 @@
         {
           "id": "T44",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["P-005"],
           "title": "Générer un flux RSS pour les podcasts",
           "description": "La page est nommée 'podcasts' mais il n'y a pas de fichier RSS. Sans RSS, le contenu n'est pas distribuable sur Spotify, Apple Podcasts, Deezer.",
@@ -757,7 +757,7 @@
         {
           "id": "T45",
           "priority": "P3",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["Q-008"],
           "title": "Ajouter des breadcrumbs (BreadcrumbList schema.org) sur les pages internes",
           "description": "Les pages secondaires n'ont pas de breadcrumbs, ce qui limite le contexte SEO et la navigation utilisateur.",

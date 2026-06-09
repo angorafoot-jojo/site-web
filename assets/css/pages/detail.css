@@ -1,0 +1,189 @@
+/* ============================================================
+   assets/css/pages/detail.css — Styles communs aux pages détail
+   Utilisé par : livres/[slug].html, audios/[slug].html,
+                 articles/[slug].html, videos/[slug].html,
+                 podcasts/[slug].html
+   ============================================================ */
+
+/* ── Conteneur principal ────────────────────────────────────── */
+.detail-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* ── Fil d'ariane ───────────────────────────────────────────── */
+.detail-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted, #888);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.detail-breadcrumb a {
+  color: var(--color-accent, #C4892E);
+  text-decoration: none;
+}
+
+.detail-breadcrumb a:hover,
+.detail-breadcrumb a:focus {
+  text-decoration: underline;
+}
+
+.detail-breadcrumb__sep {
+  color: var(--color-text-muted, #888);
+  user-select: none;
+}
+
+/* ── En-tête ────────────────────────────────────────────────── */
+.detail-header {
+  margin-bottom: var(--space-xl);
+}
+
+.detail-header__type {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent, #C4892E);
+  margin-bottom: var(--space-sm);
+}
+
+.detail-header__title {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text, #eee);
+  margin: 0 0 var(--space-sm);
+}
+
+.detail-header__meta {
+  font-size: 0.9rem;
+  color: var(--color-text-muted, #888);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.detail-header__meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── Tags ───────────────────────────────────────────────────── */
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: var(--space-lg);
+}
+
+.detail-tag {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-surface-2, #2a2a3a);
+  color: var(--color-text-muted, #aaa);
+  border: 1px solid var(--color-border, #333);
+}
+
+/* ── Actions ────────────────────────────────────────────────── */
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.detail-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  cursor: pointer;
+  border: none;
+}
+
+.detail-btn:hover,
+.detail-btn:focus {
+  opacity: 0.85;
+  text-decoration: none;
+}
+
+.detail-btn--primary {
+  background: var(--color-accent, #C4892E);
+  color: #fff;
+}
+
+.detail-btn--secondary {
+  background: var(--color-surface-2, #2a2a3a);
+  color: var(--color-text, #eee);
+  border: 1px solid var(--color-border, #444);
+}
+
+/* ── Lecteur vidéo intégré ──────────────────────────────────── */
+.detail-video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  background: #000;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: var(--space-xl);
+}
+
+.detail-video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ── Bloc description ───────────────────────────────────────── */
+.detail-description {
+  color: var(--color-text-muted, #aaa);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+}
+
+/* ── Lien retour ────────────────────────────────────────────── */
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-accent, #C4892E);
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-top: var(--space-xl);
+}
+
+.detail-back:hover,
+.detail-back:focus {
+  text-decoration: underline;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .detail-page {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .detail-actions {
+    flex-direction: column;
+  }
+
+  .detail-btn {
+    justify-content: center;
+  }
+}
