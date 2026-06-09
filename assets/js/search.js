@@ -9,7 +9,7 @@
        inputId    : 'video-search',  // ID de l'input
        countId    : 'video-count',   // ID du compteur (optionnel)
        getData    : function() { return allItems; },
-       renderFn   : function(items, query) { /* met à jour le DOM */ },
+       renderFn   : function(items, query) { },  // met à jour le DOM
        getTerms   : function(item) { return item.title + ' ' + item.series; },
        debounceMs : 180,             // délai debounce (défaut)
      });

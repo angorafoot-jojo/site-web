@@ -200,7 +200,7 @@
     pageLoading.style.display = 'flex';
     readerError.classList.remove('visible');
     if (errorLink) errorLink.href = item.pdf || '#';
-    if (zoomLevel) zoomLevel.textContent = '100%';
+    if (zoomLevel) zoomLevel.textContent = fontSizePct + '%';
 
     if (item.pdf) { btnReaderDl.href = item.pdf; btnReaderDl.classList.remove('hidden'); }
     else          { btnReaderDl.classList.add('hidden'); }
