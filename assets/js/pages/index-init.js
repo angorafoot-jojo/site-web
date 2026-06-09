@@ -115,10 +115,14 @@
     fetch('assets/data/articles.json')
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (articles) {
-        var recent = articles
-          .filter(function (a) { return !a.en; })
-          .sort(function (a, b) { return b.year - a.year || b.id - a.id; })
-          .slice(0, 3);
+        /* Priorité aux articles marqués featured:true, sinon les 3 plus récents */
+        var featured = articles.filter(function (a) { return a.featured && !a.en; });
+        var recent = featured.length >= 3
+          ? featured.slice(0, 3)
+          : articles
+              .filter(function (a) { return !a.en; })
+              .sort(function (a, b) { return b.year - a.year || b.id - a.id; })
+              .slice(0, 3);
 
         var grid = document.getElementById('home-articles-grid');
         if (!grid) return;
