@@ -1,19 +1,60 @@
 {
   "project": "L'Évangile du Royaume — Amélioration du site web",
   "last_updated": "2026-06-08",
-  "session_7_completed": ["T56 (ci.yml + validate-links.mjs + favicon.svg/.png)", "T58 (radio-healthcheck.yml)", "T29 (durées audio en JSON, preloadDurations supprimé)", "T30 (Page Visibility API — déjà implémenté)", "T32 (prefers-reduced-motion)", "T33 (lazy-load iframes YouTube — déjà implémenté)", "T34 (event delegation book-catalogue + button cantique-card)", "T35 (focus trap + restoration modal-player + utils.trapFocus)", "T37 (alt descriptif thumbnails vidéo)", "T39 (TOC confidentialite responsive mobile)", "T57 (error-monitor.js + Sentry DSN)"],
-  "session_2_completed": ["T03 (audios.html + podcasts.html fallbacks)", "T04 (radio.html robustification)", "T05 (scripts/validate-media.mjs)"],
-  "session_3_completed": ["T07 (books.json)", "T08 (audios.json)", "T09 (podcasts.json)", "T11 (articles.json)", "T10 (videos.json)"],
-  "session_4_completed": ["T17 (CSS inline → assets/css/pages/)", "T19 (media-player.js partagé)", "T20 (lazy-load EPUB.js)", "T21 (epub-reader.js partagé)", "T22 (utils.js)"],
-  "session_5_completed": ["T12 (louange.json)", "T13 (partners.json)", "T14 (radio-schedule.json)", "T15 (index.html dynamique)", "T18 (radio-player.js, modal-player.js, video-renderer.js)", "T23 (book-catalogue.js)"],
+  "session_7_completed": [
+    "T56 (ci.yml + validate-links.mjs + favicon.svg/.png)",
+    "T58 (radio-healthcheck.yml)",
+    "T29 (durées audio en JSON, preloadDurations supprimé)",
+    "T30 (Page Visibility API — déjà implémenté)",
+    "T32 (prefers-reduced-motion)",
+    "T33 (lazy-load iframes YouTube — déjà implémenté)",
+    "T34 (event delegation book-catalogue + button cantique-card)",
+    "T35 (focus trap + restoration modal-player + utils.trapFocus)",
+    "T37 (alt descriptif thumbnails vidéo)",
+    "T39 (TOC confidentialite responsive mobile)",
+    "T57 (error-monitor.js + Sentry DSN)"
+  ],
+  "session_2_completed": [
+    "T03 (audios.html + podcasts.html fallbacks)",
+    "T04 (radio.html robustification)",
+    "T05 (scripts/validate-media.mjs)"
+  ],
+  "session_3_completed": [
+    "T07 (books.json)",
+    "T08 (audios.json)",
+    "T09 (podcasts.json)",
+    "T11 (articles.json)",
+    "T10 (videos.json)"
+  ],
+  "session_4_completed": [
+    "T17 (CSS inline → assets/css/pages/)",
+    "T19 (media-player.js partagé)",
+    "T20 (lazy-load EPUB.js)",
+    "T21 (epub-reader.js partagé)",
+    "T22 (utils.js)"
+  ],
+  "session_5_completed": [
+    "T12 (louange.json)",
+    "T13 (partners.json)",
+    "T14 (radio-schedule.json)",
+    "T15 (index.html dynamique)",
+    "T18 (radio-player.js, modal-player.js, video-renderer.js)",
+    "T23 (book-catalogue.js)"
+  ],
   "total_audit_issues": 176,
   "legend": {
-    "status": { "done": "Terminé ✅", "in_progress": "En cours 🔄", "todo": "À faire ⬜" },
-    "priority": { "P1": "Critique 🔴", "P2": "Important 🟡", "P3": "Planifié 🟢" }
+    "status": {
+      "done": "Terminé ✅",
+      "in_progress": "En cours 🔄",
+      "todo": "À faire ⬜"
+    },
+    "priority": {
+      "P1": "Critique 🔴",
+      "P2": "Important 🟡",
+      "P3": "Planifié 🟢"
+    }
   },
-
   "categories": [
-
     {
       "id": "CAT-01",
       "name": "Fiabilité critique — choses cassées ou instables",
@@ -24,7 +65,10 @@
           "id": "T01",
           "priority": "P1",
           "status": "cancelled",
-          "audit_refs": ["C-001", "C-002"],
+          "audit_refs": [
+            "C-001",
+            "C-002"
+          ],
           "title": "Corriger l'URL Formspree dans contact.html",
           "description": "ANNULÉ — La page contact.html et le bouton Contact ont été complètement supprimés du site. Le contact se fait uniquement par email direct : nousecrire@levangileduroyaume.com.",
           "files": [],
@@ -35,10 +79,19 @@
           "priority": "P1",
           "status": "done",
           "notes": "Terminé le 2026-06-08. CDN : Backblaze B2 (f005.backblazeb2.com/file/audio-site-web/). 60 fichiers Drive + 6 MP3 locaux migrés. Code Drive mort supprimé. MP3 locaux supprimés du repo.",
-          "audit_refs": ["G-016", "A-005", "P-004"],
+          "audit_refs": [
+            "G-016",
+            "A-005",
+            "P-004"
+          ],
           "title": "Migrer les audios Google Drive vers un vrai CDN",
           "description": "Google Drive n'est pas un CDN média. À fort trafic : quota, preview bloqué, permissions variables selon navigateur/pays. Les URL uc?export=download&id= sont instables.",
-          "files": ["audios.html", "podcasts.html", "assets/data/audios.json", "assets/data/podcasts.json"],
+          "files": [
+            "audios.html",
+            "podcasts.html",
+            "assets/data/audios.json",
+            "assets/data/podcasts.json"
+          ],
           "steps": [
             "Choisir un CDN : Cloudflare R2 (gratuit jusqu'à 10 GB) ou Backblaze B2",
             "Uploader tous les MP3 sur le CDN",
@@ -50,10 +103,21 @@
           "id": "T03",
           "priority": "P1",
           "status": "done",
-          "audit_refs": ["A-006", "A-007", "P-009", "LO-008", "G-020"],
+          "audit_refs": [
+            "A-006",
+            "A-007",
+            "P-009",
+            "LO-008",
+            "G-020"
+          ],
           "title": "Ajouter des fallbacks visibles pour tous les médias",
           "description": "Si un audio Drive échoue, la page reste blanche ou silencieuse. Chaque média doit avoir : source principale, source alternative, message d'erreur visible, lien de téléchargement.",
-          "files": ["audios.html", "podcasts.html", "louange.html", "assets/js/media-player.js"],
+          "files": [
+            "audios.html",
+            "podcasts.html",
+            "louange.html",
+            "assets/js/media-player.js"
+          ],
           "steps": [
             "Ajouter un handler onerror sur chaque <audio>",
             "Afficher un message 'Fichier temporairement indisponible — Télécharger' avec lien direct",
@@ -65,10 +129,18 @@
           "id": "T04",
           "priority": "P1",
           "status": "done",
-          "audit_refs": ["R-007", "R-003", "R-004", "R-014", "R-008"],
+          "audit_refs": [
+            "R-007",
+            "R-003",
+            "R-004",
+            "R-014",
+            "R-008"
+          ],
           "title": "Robustifier le stream radio (fallback, timeout, autoplay)",
           "description": "Un seul flux MP3. Si AzuraCast tombe : plus de radio. Le fetch NowPlaying n'a pas de timeout. L'autoplay refusé par le navigateur ne donne pas de message clair.",
-          "files": ["radio.html"],
+          "files": [
+            "radio.html"
+          ],
           "steps": [
             "Ajouter AbortController avec timeout 8s sur tous les fetch NowPlaying",
             "Ajouter une URL de flux de secours (ex: miroir Icecast) dans la config radio",
@@ -81,10 +153,20 @@
           "id": "T05",
           "priority": "P1",
           "status": "done",
-          "audit_refs": ["AR-008", "L-007", "L-013", "L-014", "AR-009"],
+          "audit_refs": [
+            "AR-008",
+            "L-007",
+            "L-013",
+            "L-014",
+            "AR-009"
+          ],
           "title": "Valider que tous les fichiers EPUB et PDF existent",
           "description": "Un livre ou article référencé dans le HTML peut pointer vers un EPUB ou PDF absent. L'erreur est visible seulement au clic de l'utilisateur.",
-          "files": ["livres.html", "articles.html", "scripts/check-media.mjs"],
+          "files": [
+            "livres.html",
+            "articles.html",
+            "scripts/check-media.mjs"
+          ],
           "steps": [
             "Créer scripts/check-media.mjs : parcourir books.json et articles.json",
             "Faire un HEAD request sur chaque fichier EPUB et PDF référencé",
@@ -97,15 +179,22 @@
           "id": "T06",
           "priority": "P1",
           "status": "done",
-          "audit_refs": ["G-001", "G-002", "G-003", "G-029"],
+          "audit_refs": [
+            "G-001",
+            "G-002",
+            "G-003",
+            "G-029"
+          ],
           "title": "Centraliser header, footer et SVG sprite via nav.js",
           "description": "Header, footer et sprite SVG étaient dupliqués dans les 14 pages HTML. nav.js injecte ces composants de façon synchrone (anti-FOUC) avec gestion du lien actif via data-page.",
-          "files": ["assets/js/nav.js", "*.html"],
+          "files": [
+            "assets/js/nav.js",
+            "*.html"
+          ],
           "notes": "Terminé le 2026-06-07. Bug corrigé : footer différé à DOMContentLoaded pour éviter injection avant le contenu."
         }
       ]
     },
-
     {
       "id": "CAT-02",
       "name": "Architecture — couche données (JSON)",
@@ -118,13 +207,36 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "57 livres extraits vers assets/data/books.json. livres.html chargé dynamiquement via fetch. BOOKS hardcodé supprimé.",
-          "audit_refs": ["G-006", "L-001", "L-002", "L-003", "L-020"],
+          "audit_refs": [
+            "G-006",
+            "L-001",
+            "L-002",
+            "L-003",
+            "L-020"
+          ],
           "title": "Migrer les 57 livres vers assets/data/books.json",
           "description": "Les livres sont dans un tableau JS const BOOKS = [...] à l'intérieur du HTML. Chaque livre nécessite un champ year explicite (actuellement inféré de l'id, souvent faux).",
-          "files": ["livres.html", "assets/data/books.json"],
+          "files": [
+            "livres.html",
+            "assets/data/books.json"
+          ],
           "schema": {
-            "required": ["id", "title", "slug", "author", "year", "color_theme", "tags", "epub"],
-            "optional": ["pdf", "description", "language", "pages"]
+            "required": [
+              "id",
+              "title",
+              "slug",
+              "author",
+              "year",
+              "color_theme",
+              "tags",
+              "epub"
+            ],
+            "optional": [
+              "pdf",
+              "description",
+              "language",
+              "pages"
+            ]
           },
           "steps": [
             "Créer assets/data/books.json avec tous les champs",
@@ -139,13 +251,35 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "42 pistes extraites vers assets/data/audios.json. audios.html chargé dynamiquement via fetch + renderAudioSections(). Durées toujours chargées au runtime (preloadDurations) — dette connue.",
-          "audit_refs": ["G-006", "A-001", "A-003", "A-004", "A-013"],
+          "audit_refs": [
+            "G-006",
+            "A-001",
+            "A-003",
+            "A-004",
+            "A-013"
+          ],
           "title": "Migrer les audios vers assets/data/audios.json (durées incluses)",
           "description": "Pistes hardcodées en attributs data-src/data-title/data-series. La page crée un new Audio() par piste au chargement pour lire les durées → N requêtes réseau inutiles.",
-          "files": ["audios.html", "assets/data/audios.json"],
+          "files": [
+            "audios.html",
+            "assets/data/audios.json"
+          ],
           "schema": {
-            "required": ["id", "title", "slug", "series", "duration", "source_url", "type"],
-            "optional": ["description", "date", "fallback_url", "download_url"]
+            "required": [
+              "id",
+              "title",
+              "slug",
+              "series",
+              "duration",
+              "source_url",
+              "type"
+            ],
+            "optional": [
+              "description",
+              "date",
+              "fallback_url",
+              "download_url"
+            ]
           },
           "steps": [
             "Pré-calculer toutes les durées (ffprobe ou lecture locale)",
@@ -160,13 +294,36 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "23 épisodes extraits vers assets/data/podcasts.json. podcasts.html chargé dynamiquement via fetch + renderAudioSections(). podcast_021 supprimé (fichier introuvable).",
-          "audit_refs": ["G-006", "P-001", "P-002", "P-003", "P-010", "P-011"],
+          "audit_refs": [
+            "G-006",
+            "P-001",
+            "P-002",
+            "P-003",
+            "P-010",
+            "P-011"
+          ],
           "title": "Migrer les podcasts vers assets/data/podcasts.json",
           "description": "Épisodes hardcodés. Pas de tri automatique, pas de validation de cohérence. Le compteur d'épisodes par série peut être faux.",
-          "files": ["podcasts.html", "assets/data/podcasts.json"],
+          "files": [
+            "podcasts.html",
+            "assets/data/podcasts.json"
+          ],
           "schema": {
-            "required": ["id", "title", "slug", "series", "episode_number", "duration", "source_url"],
-            "optional": ["description", "date", "fallback_url", "transcript_url"]
+            "required": [
+              "id",
+              "title",
+              "slug",
+              "series",
+              "episode_number",
+              "duration",
+              "source_url"
+            ],
+            "optional": [
+              "description",
+              "date",
+              "fallback_url",
+              "transcript_url"
+            ]
           }
         },
         {
@@ -174,13 +331,34 @@
           "priority": "P1",
           "status": "done",
           "completed": "2026-06-08",
-          "audit_refs": ["G-006", "V-001", "V-005", "V-006", "V-010"],
+          "audit_refs": [
+            "G-006",
+            "V-001",
+            "V-005",
+            "V-006",
+            "V-010"
+          ],
           "title": "Migrer les vidéos vers assets/data/videos.json",
           "description": "Liens YouTube, titres et thumbnails écrits manuellement. Pas de durée, pas de date, compteurs de séries potentiellement faux.",
-          "files": ["videos.html", "assets/data/videos.json"],
+          "files": [
+            "videos.html",
+            "assets/data/videos.json"
+          ],
           "schema": {
-            "required": ["id", "title", "slug", "youtube_id", "series", "date"],
-            "optional": ["duration", "description", "thumbnail_local", "transcript_url"]
+            "required": [
+              "id",
+              "title",
+              "slug",
+              "youtube_id",
+              "series",
+              "date"
+            ],
+            "optional": [
+              "duration",
+              "description",
+              "thumbnail_local",
+              "transcript_url"
+            ]
           }
         },
         {
@@ -189,13 +367,35 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "16 articles extraits vers assets/data/articles.json. articles.html chargé dynamiquement via fetch. articles-data.js n'est plus référencé.",
-          "audit_refs": ["G-006", "AR-001", "AR-003", "AR-011"],
+          "audit_refs": [
+            "G-006",
+            "AR-001",
+            "AR-003",
+            "AR-011"
+          ],
           "title": "Migrer les articles vers assets/data/articles.json",
           "description": "Articles hardcodés. Pas de métadonnées auteur/date/thème complètes. Ces données sont nécessaires pour le SEO et le rendu dynamique.",
-          "files": ["articles.html", "assets/data/articles.json"],
+          "files": [
+            "articles.html",
+            "assets/data/articles.json"
+          ],
           "schema": {
-            "required": ["id", "title", "slug", "category", "date", "epub"],
-            "optional": ["author", "pdf", "description", "tags", "language", "reading_time"]
+            "required": [
+              "id",
+              "title",
+              "slug",
+              "category",
+              "date",
+              "epub"
+            ],
+            "optional": [
+              "author",
+              "pdf",
+              "description",
+              "tags",
+              "language",
+              "reading_time"
+            ]
           }
         },
         {
@@ -204,13 +404,33 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "14 cantiques extraits vers assets/data/louange.json. louange.html chargé dynamiquement via fetch + cardHtml(). modal-player.js migré vers event delegation pour supporter les cartes injectées dynamiquement.",
-          "audit_refs": ["G-006", "LO-001", "LO-007", "LO-009"],
+          "audit_refs": [
+            "G-006",
+            "LO-001",
+            "LO-007",
+            "LO-009"
+          ],
           "title": "Migrer louange vers assets/data/louange.json",
           "description": "Cantiques hardcodés. Badge 'Vidéo' affiché sur des contenus Drive audio (type incorrect). Pas de durée stockée.",
-          "files": ["louange.html", "assets/data/louange.json"],
+          "files": [
+            "louange.html",
+            "assets/data/louange.json"
+          ],
           "schema": {
-            "required": ["id", "title", "slug", "type", "source_url"],
-            "optional": ["duration", "artist", "album", "fallback_url", "youtube_id"]
+            "required": [
+              "id",
+              "title",
+              "slug",
+              "type",
+              "source_url"
+            ],
+            "optional": [
+              "duration",
+              "artist",
+              "album",
+              "fallback_url",
+              "youtube_id"
+            ]
           }
         },
         {
@@ -219,13 +439,33 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "8 partenaires extraits vers assets/data/partners.json. nospartenaires.html chargé dynamiquement via fetch. rel='noopener noreferrer' sur tous les liens. esc() sur toutes les valeurs.",
-          "audit_refs": ["G-006", "NP-001", "NP-002", "NP-003", "NP-004"],
+          "audit_refs": [
+            "G-006",
+            "NP-001",
+            "NP-002",
+            "NP-003",
+            "NP-004"
+          ],
           "title": "Migrer les partenaires vers assets/data/partners.json",
           "description": "Partenaires hardcodés. Pas de validation automatique des liens. Pas de statut actif/inactif. Pas de date de vérification.",
-          "files": ["nospartenaires.html", "assets/data/partners.json"],
+          "files": [
+            "nospartenaires.html",
+            "assets/data/partners.json"
+          ],
           "schema": {
-            "required": ["id", "name", "slug", "url", "status", "last_checked"],
-            "optional": ["description", "logo", "category"]
+            "required": [
+              "id",
+              "name",
+              "slug",
+              "url",
+              "status",
+              "last_checked"
+            ],
+            "optional": [
+              "description",
+              "logo",
+              "category"
+            ]
           }
         },
         {
@@ -234,13 +474,30 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "6 créneaux extraits vers assets/data/radio-schedule.json. radio.html chargé dynamiquement via fetch. Script inline radio extrait dans radio-player.js (T18).",
-          "audit_refs": ["G-006", "R-005", "R-006"],
+          "audit_refs": [
+            "G-006",
+            "R-005",
+            "R-006"
+          ],
           "title": "Migrer le programme radio vers assets/data/radio-schedule.json",
           "description": "Les horaires de diffusion sont écrits en dur dans radio.html. Ils peuvent devenir faux. Pas de timezone explicite.",
-          "files": ["radio.html", "assets/data/radio-schedule.json"],
+          "files": [
+            "radio.html",
+            "assets/data/radio-schedule.json"
+          ],
           "schema": {
-            "required": ["day", "time_start", "time_end", "title", "timezone"],
-            "optional": ["description", "type", "recurring"]
+            "required": [
+              "day",
+              "time_start",
+              "time_end",
+              "title",
+              "timezone"
+            ],
+            "optional": [
+              "description",
+              "type",
+              "recurring"
+            ]
           }
         },
         {
@@ -249,10 +506,16 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "index.html charge les 3 articles récents depuis articles.json via fetch. articles-data.js (fichier JS hardcodé) supprimé. aria-live='polite' sur #home-articles-grid. esc() sur toutes les insertions innerHTML.",
-          "audit_refs": ["G-006", "I-005"],
+          "audit_refs": [
+            "G-006",
+            "I-005"
+          ],
           "title": "Charger les contenus récents sur index.html depuis les JSON",
           "description": "La page d'accueil présente des derniers contenus écrits manuellement. Ils doivent être rendus dynamiquement depuis les fichiers JSON (books.json, audios.json, articles.json).",
-          "files": ["index.html", "assets/js/data-loader.js"]
+          "files": [
+            "index.html",
+            "assets/js/data-loader.js"
+          ]
         },
         {
           "id": "T16",
@@ -260,10 +523,15 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "validate-data.mjs créé (~260 lignes). Contrôles : syntaxe JSON, champs requis par schéma, IDs uniques, fichiers EPUB locaux présents, HEAD requests sur URLs distantes (optionnel --quick), cohérence icons SVG sprite vs HTML. 5 bugs réels corrigés à la première exécution : IDs dupliqués dans audios.json (renumérotés 1-42), icônes icon-film/icon-target/icon-users ajoutées au sprite, icon-arrow-r remplacé par icon-arrow-right, partenaire id:1 URL http → https.",
-          "audit_refs": ["G-007", "A-014"],
+          "audit_refs": [
+            "G-007",
+            "A-014"
+          ],
           "title": "Créer scripts/validate-data.mjs — validation automatique des JSON et médias",
           "description": "Aucun script ne vérifie que les fichiers JSON sont valides, que les EPUB/PDF/MP3 existent, que les IDs YouTube et Drive répondent. Un lien cassé peut rester en production longtemps.",
-          "files": ["scripts/validate-data.mjs"],
+          "files": [
+            "scripts/validate-data.mjs"
+          ],
           "steps": [
             "Valider syntaxe JSON de chaque fichier assets/data/",
             "Vérifier présence de tous les champs requis par le schéma",
@@ -274,7 +542,6 @@
         }
       ]
     },
-
     {
       "id": "CAT-03",
       "name": "Architecture — composants partagés",
@@ -287,7 +554,15 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "10 fichiers CSS extraits (audios, podcasts, videos, articles, livres, louange, qui-sommes-nous, nospartenaires, confidentialite, radio). .sr-only ajouté dans style.css global.",
-          "audit_refs": ["G-004", "A-001", "C-007", "AR-002", "NP-005", "Q-001", "LO-014"],
+          "audit_refs": [
+            "G-004",
+            "A-001",
+            "C-007",
+            "AR-002",
+            "NP-005",
+            "Q-001",
+            "LO-014"
+          ],
           "title": "Extraire les CSS inline vers assets/css/pages/",
           "description": "Presque toutes les pages ont un gros bloc <style> local. Ces styles dupliquent des patterns (media-hero, type-tabs, cartes) et empêchent une CSP stricte.",
           "files": [
@@ -316,7 +591,11 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "radio-player.js (radio.html), modal-player.js (louange.html), video-renderer.js (videos.html) créés. encodeURIComponent sur IDs iframe, focus accessibilité sur modale. video-renderer.js utilise EduRoyaume.escapeHtml.",
-          "audit_refs": ["G-005", "C-008", "L-009"],
+          "audit_refs": [
+            "G-005",
+            "C-008",
+            "L-009"
+          ],
           "title": "Extraire les JavaScript inline vers assets/js/",
           "description": "Des centaines de lignes de JS vivent dans des <script> sans src dans les pages HTML. Incompatible avec CSP, impossible à tester unitairement.",
           "files": [
@@ -338,10 +617,18 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "media-player.js créé (~357 lignes). API : EduRoyaume.MediaPlayer.init(opts). audios.html et podcasts.html migrent vers ce module. Dupplication supprimée.",
-          "audit_refs": ["G-005", "A-002", "P-001"],
+          "audit_refs": [
+            "G-005",
+            "A-002",
+            "P-001"
+          ],
           "title": "Créer assets/js/media-player.js — lecteur audio partagé",
           "description": "Le lecteur audio sticky est dupliqué entre audios.html et podcasts.html. Chaque correction doit être faite deux fois.",
-          "files": ["assets/js/media-player.js", "audios.html", "podcasts.html"],
+          "files": [
+            "assets/js/media-player.js",
+            "audios.html",
+            "podcasts.html"
+          ],
           "steps": [
             "Extraire la logique commune (play/pause, prev/next, volume, barre progression)",
             "Gérer les cas spécifiques (séries podcast vs messages libres) via config",
@@ -355,10 +642,18 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "JSZip + epub.js CDN retirés des <head>. loadScript() + ensureEpubJs() dans epub-reader.js chargent dynamiquement au premier clic 'Lire'. Confirmé typeof ePub === 'undefined' au chargement page.",
-          "audit_refs": ["G-005", "L-004", "L-005", "AR-001"],
+          "audit_refs": [
+            "G-005",
+            "L-004",
+            "L-005",
+            "AR-001"
+          ],
           "title": "Lazy-load EPUB.js et JSZip — uniquement au clic 'Lire'",
           "description": "epub.js (~500 KB) et JSZip (~100 KB) sont chargés au démarrage même si l'utilisateur n'ouvre aucun livre. Impact direct sur le score Lighthouse.",
-          "files": ["livres.html", "articles.html"],
+          "files": [
+            "livres.html",
+            "articles.html"
+          ],
           "steps": [
             "Supprimer les balises <script> EPUB.js et JSZip du <head>",
             "Créer une fonction loadEpubLibraries() qui injecte dynamiquement les scripts",
@@ -372,11 +667,21 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "epub-reader.js créé (~324 lignes). API : EduRoyaume.EpubReader.open(item). livres.html et articles.html utilisent ce module via openBook(id). Lazy-load inclus (T20).",
-          "audit_refs": ["G-005", "AR-001", "L-001"],
+          "audit_refs": [
+            "G-005",
+            "AR-001",
+            "L-001"
+          ],
           "title": "Créer assets/js/epub-reader.js — lecteur EPUB partagé",
           "description": "Le lecteur EPUB (mode pages/défilement, zoom, position localStorage) est dupliqué entre livres.html et articles.html.",
-          "files": ["assets/js/epub-reader.js", "livres.html", "articles.html"],
-          "depends_on": ["T20"]
+          "files": [
+            "assets/js/epub-reader.js",
+            "livres.html",
+            "articles.html"
+          ],
+          "depends_on": [
+            "T20"
+          ]
         },
         {
           "id": "T22",
@@ -384,10 +689,15 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "utils.js créé. Expose EduRoyaume.escapeHtml et EduRoyaume.formatDuration. Chargé avant media-player.js et epub-reader.js sur toutes les pages concernées.",
-          "audit_refs": ["G-019", "L-010"],
+          "audit_refs": [
+            "G-019",
+            "L-010"
+          ],
           "title": "Créer assets/js/utils.js — fonctions communes (escapeHtml, formatDuration)",
           "description": "escapeHtml() et formatDuration() sont dupliqués ou réinventés dans plusieurs fichiers. La version canonique d'escapeHtml est critique pour la sécurité XSS.",
-          "files": ["assets/js/utils.js"]
+          "files": [
+            "assets/js/utils.js"
+          ]
         },
         {
           "id": "T23",
@@ -395,15 +705,27 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "Implémenté sous le nom book-catalogue.js (plus descriptif que data-loader). API : EduRoyaume.BookCatalogue.init(opts) + find(gridId,id). livres.html et articles.html migrent vers ce module. ~135 lignes inline supprimées de chaque page. Registre interne pour lookup par ID.",
-          "audit_refs": ["G-005"],
+          "audit_refs": [
+            "G-005"
+          ],
           "title": "Créer assets/js/data-loader.js — module de rendu JSON → HTML",
           "description": "Module commun qui charge les JSON et génère le HTML des cartes (livres, audios, articles, vidéos). Remplace les boucles inline dans chaque page.",
-          "files": ["assets/js/book-catalogue.js"],
-          "depends_on": ["T07", "T08", "T09", "T10", "T11", "T12", "T13", "T22"]
+          "files": [
+            "assets/js/book-catalogue.js"
+          ],
+          "depends_on": [
+            "T07",
+            "T08",
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T22"
+          ]
         }
       ]
     },
-
     {
       "id": "CAT-04",
       "name": "Sécurité",
@@ -415,10 +737,14 @@
           "priority": "P1",
           "status": "cancelled",
           "notes": "Annulé — contact.html supprimé (T01 annulé). Le formulaire n'existe plus.",
-          "audit_refs": ["C-003"],
+          "audit_refs": [
+            "C-003"
+          ],
           "title": "Ajouter anti-spam sur le formulaire contact",
           "description": "Le formulaire n'a ni honeypot, ni captcha, ni rate limiting. Spam possible dès que le formulaire sera fonctionnel.",
-          "files": ["contact.html"],
+          "files": [
+            "contact.html"
+          ],
           "steps": [
             "Ajouter un champ honeypot invisible (_gotcha sur Formspree)",
             "Activer le rate limiting dans le dashboard Formspree",
@@ -431,10 +757,18 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "CSP injectée via <meta> dans nav.js (actif GitHub Pages) + fichier _headers préparé pour Cloudflare Pages/Netlify. SRI ajouté sur JSZip et epub.js dans epub-reader.js (loadScript avec integrity + crossOrigin=anonymous). 'unsafe-inline' requis tant que des <script> inline subsistent.",
-          "audit_refs": ["G-011", "G-012", "L-006"],
+          "audit_refs": [
+            "G-011",
+            "G-012",
+            "L-006"
+          ],
           "title": "Ajouter CSP (Content Security Policy) et SRI sur les CDN",
           "description": "Aucune CSP. Les scripts EPUB.js et JSZip sont chargés depuis JSDelivr sans intégrité vérifiable. Si le CDN est compromis, le site charge du JS non vérifié.",
-          "files": ["_headers", "livres.html", "articles.html"],
+          "files": [
+            "_headers",
+            "livres.html",
+            "articles.html"
+          ],
           "steps": [
             "Définir la CSP dans un fichier _headers (GitHub Pages)",
             "Autoriser uniquement : YouTube, Google Fonts, JSDelivr, AzuraCast, Formspree",
@@ -448,10 +782,16 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "modal-player.js : iframe créée via createElement (plus d'innerHTML). Validation regex : /^[a-zA-Z0-9_-]{11}$/ pour YouTube, /^[a-zA-Z0-9_-]{28,}$/ pour Drive. Rejet silencieux + console.warn si ID invalide.",
-          "audit_refs": ["LO-002", "LO-003"],
+          "audit_refs": [
+            "LO-002",
+            "LO-003"
+          ],
           "title": "Sécuriser la modale louange — createElement + validation ID",
           "description": "La modale YouTube/Drive est injectée via innerHTML avec l'ID du cantique sans validation. Un ID malformé pourrait injecter du HTML arbitraire.",
-          "files": ["louange.html", "assets/js/modal-player.js"],
+          "files": [
+            "louange.html",
+            "assets/js/modal-player.js"
+          ],
           "steps": [
             "Remplacer innerHTML par document.createElement('iframe')",
             "Valider l'ID YouTube avec /^[a-zA-Z0-9_-]{11}$/ avant utilisation",
@@ -465,10 +805,16 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "11 liens target=_blank avec rel='noopener' (sans noreferrer) corrigés dans videos.html, articles.html, audios.html, index.html, radio.html, livres.html. 0 occurrence manquante après correction.",
-          "audit_refs": ["NP-007"],
+          "audit_refs": [
+            "NP-007"
+          ],
           "title": "Vérifier rel='noopener noreferrer' sur tous les liens target='_blank'",
           "description": "Un lien target='_blank' sans rel='noopener noreferrer' permet à la page cible d'accéder à window.opener. Risque de phishing/tabnapping.",
-          "files": ["nospartenaires.html", "confidentialite.html", "qui-sommes-nous.html"],
+          "files": [
+            "nospartenaires.html",
+            "confidentialite.html",
+            "qui-sommes-nous.html"
+          ],
           "steps": [
             "Grep 'target=\"_blank\"' dans tout le projet",
             "Vérifier que chaque occurrence a rel='noopener noreferrer'",
@@ -481,10 +827,15 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "Skip link déplacé dans nav.js (injection sur toutes les pages). Classe .skip-link ajoutée dans style.css avec :focus CSS-only (pas de JS). Supprimé style=/onfocus=/onblur= inline dans index.html.",
-          "audit_refs": ["I-002"],
+          "audit_refs": [
+            "I-002"
+          ],
           "title": "Déplacer les styles et événements inline du skip link vers CSS/JS",
           "description": "Le lien 'Aller au contenu' utilise style='', onfocus='', onblur='' inline. Bloque l'application d'une CSP stricte.",
-          "files": ["assets/css/style.css", "assets/js/main.js"],
+          "files": [
+            "assets/css/style.css",
+            "assets/js/main.js"
+          ],
           "steps": [
             "Créer une classe CSS .skip-link avec position, transform, transition",
             "Gérer focus/blur via JS dans main.js avec addEventListener",
@@ -493,7 +844,6 @@
         }
       ]
     },
-
     {
       "id": "CAT-05",
       "name": "Performance",
@@ -506,11 +856,23 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "65 durées (42 audios + 23 podcasts) pré-calculées via ffprobe et stockées dans les JSON. preloadDurations() et probeDuration() supprimés de media-player.js. setRowDuration() conservé pour mise à jour live depuis loadedmetadata.",
-          "audit_refs": ["A-004", "A-013", "P-003"],
+          "audit_refs": [
+            "A-004",
+            "A-013",
+            "P-003"
+          ],
           "title": "Supprimer le sondage des durées audio via new Audio() au chargement",
           "description": "La page crée un objet Audio() par piste pour lire la durée. Avec 50 pistes : 50 requêtes réseau au chargement. La solution est de stocker les durées dans les JSON.",
-          "files": ["audios.html", "podcasts.html", "assets/data/audios.json", "assets/data/podcasts.json"],
-          "depends_on": ["T08", "T09"]
+          "files": [
+            "audios.html",
+            "podcasts.html",
+            "assets/data/audios.json",
+            "assets/data/podcasts.json"
+          ],
+          "depends_on": [
+            "T08",
+            "T09"
+          ]
         },
         {
           "id": "T30",
@@ -518,10 +880,15 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "Déjà implémenté dans radio-player.js (Page Visibility API, visibilitychange, intervalles adaptatifs 10s/30s). Confirmé en audit de code.",
-          "audit_refs": ["R-001", "R-002"],
+          "audit_refs": [
+            "R-001",
+            "R-002"
+          ],
           "title": "Optimiser le polling NowPlaying de la radio",
           "description": "La page radio fait des appels API toutes les 15s même si l'utilisateur n'écoute pas. En lecture : toutes les 10s. Utiliser Page Visibility API pour arrêter si l'onglet est en arrière-plan.",
-          "files": ["assets/js/radio-player.js"],
+          "files": [
+            "assets/js/radio-player.js"
+          ],
           "steps": [
             "Utiliser document.addEventListener('visibilitychange', ...) pour stopper le poll si hidden",
             "Passer à 30s si l'utilisateur n'écoute pas, 15s en lecture active",
@@ -533,10 +900,16 @@
           "priority": "P2",
           "status": "deferred",
           "notes": "Bloqué par T56 (CI/CD GitHub Actions). Minification nécessite un outil de build (esbuild/vite). Aucun build tool configuré. À traiter dans CAT-09.",
-          "audit_refs": ["G-027", "G-010", "I-010"],
+          "audit_refs": [
+            "G-027",
+            "G-010",
+            "I-010"
+          ],
           "title": "Ajouter minification et fingerprinting des assets",
           "description": "CSS et JS servis non-minifiés. Versioning manuel avec ?v=... insuffisant et risque d'oubli.",
-          "files": [".github/workflows/build.yml"],
+          "files": [
+            ".github/workflows/build.yml"
+          ],
           "steps": [
             "Évaluer l'ajout d'un step de build minimal (esbuild ou vite --build)",
             "Ou ajouter une GitHub Action qui minifie et ajoute un hash aux noms de fichiers",
@@ -549,10 +922,16 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "Règle @media (prefers-reduced-motion: reduce) ajoutée dans style.css. Couvre *, *::before, *::after : animation-duration 0.01ms, iteration-count 1, transition-duration 0.01ms, scroll-behavior auto.",
-          "audit_refs": ["R-009", "R-010"],
+          "audit_refs": [
+            "R-009",
+            "R-010"
+          ],
           "title": "Désactiver les animations lourdes avec prefers-reduced-motion",
           "description": "Les orbs animés et le pulse du bouton radio tournent en continu, y compris sur mobile. Certains utilisateurs souffrent de vertiges ou d'inconfort avec les animations.",
-          "files": ["assets/css/style.css", "radio.html"],
+          "files": [
+            "assets/css/style.css",
+            "radio.html"
+          ],
           "steps": [
             "Ajouter @media (prefers-reduced-motion: reduce) dans style.css",
             "Désactiver ou réduire toutes les animations CSS (orbs, pulse, float)",
@@ -565,10 +944,15 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "Déjà implémenté dans video-renderer.js et modal-player.js : les iframes YouTube sont créées uniquement au clic (buildIframe via createElement). Confirmé en audit de code.",
-          "audit_refs": ["V-012"],
+          "audit_refs": [
+            "V-012"
+          ],
           "title": "Différer les iframes YouTube — chargement au clic uniquement",
           "description": "Les iframes YouTube se chargent au démarrage de la page. Chaque iframe charge ~400 KB de ressources Google même si l'utilisateur ne regarde rien.",
-          "files": ["videos.html", "index.html"],
+          "files": [
+            "videos.html",
+            "index.html"
+          ],
           "steps": [
             "Remplacer <iframe src='youtube.com/embed/ID'> par une image miniature + bouton play",
             "Créer l'iframe uniquement au clic",
@@ -577,7 +961,6 @@
         }
       ]
     },
-
     {
       "id": "CAT-06",
       "name": "Accessibilité",
@@ -590,10 +973,20 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "book-catalogue.js : event delegation sur le grid (click + keydown), tabindex='0' sur cartes disponibles, data-id pour lookup. louange-init.js : div[role=button] → <button type=button>. modal-player.js : keydown redondant supprimé. louange.css : reset styles button.",
-          "audit_refs": ["G-018", "L-008", "A-008", "LO-004"],
+          "audit_refs": [
+            "G-018",
+            "L-008",
+            "A-008",
+            "LO-004"
+          ],
           "title": "Remplacer les div cliquables par des éléments sémantiques (<button> ou <a>)",
           "description": "Les cartes de livres, lignes audio et cantiques sont des <div> avec un handler click. Inaccessibles au clavier et mal interprétées par les lecteurs d'écran.",
-          "files": ["livres.html", "audios.html", "louange.html", "articles.html"],
+          "files": [
+            "livres.html",
+            "audios.html",
+            "louange.html",
+            "articles.html"
+          ],
           "steps": [
             "Remplacer chaque div.card[role='button'] par un <button> ou <a>",
             "S'assurer que le focus est visible (outline sur :focus-visible)",
@@ -606,10 +999,19 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "EduRoyaume.trapFocus(container, e) ajouté dans utils.js. modal-player.js : _focusBeforeOpen mémorisé à l'ouverture, restauré à la fermeture, Tab piégé dans la modale via trapFocus. epub-reader.js : focus trap et lastFocused déjà implémentés — confirmé en audit.",
-          "audit_refs": ["LO-005", "LO-006", "L-017"],
+          "audit_refs": [
+            "LO-005",
+            "LO-006",
+            "L-017"
+          ],
           "title": "Ajouter focus trap et restauration du focus sur toutes les modales",
           "description": "Les modales (louange, lecteur EPUB) n'ont pas de focus trap. La touche Tab peut sortir derrière la modale. À la fermeture, le focus n'est pas restauré sur l'élément déclencheur.",
-          "files": ["louange.html", "livres.html", "articles.html", "assets/js/utils.js"],
+          "files": [
+            "louange.html",
+            "livres.html",
+            "articles.html",
+            "assets/js/utils.js"
+          ],
           "steps": [
             "Créer une fonction trapFocus(modalEl) dans utils.js",
             "Mémoriser document.activeElement avant l'ouverture de chaque modale",
@@ -622,10 +1024,16 @@
           "priority": "P1",
           "status": "cancelled",
           "notes": "Annulé — contact.html supprimé lors de T01. Le formulaire n'existe plus sur le site.",
-          "audit_refs": ["C-011", "C-012"],
+          "audit_refs": [
+            "C-011",
+            "C-012"
+          ],
           "title": "Corriger l'accessibilité du formulaire contact (labels, erreurs par champ)",
           "description": "Les labels visuels doivent avoir for=id associé. Les erreurs de validation doivent être liées aux champs avec aria-describedby, pas affichées en global.",
-          "files": ["contact.html", "assets/js/contact-form.js"],
+          "files": [
+            "contact.html",
+            "assets/js/contact-form.js"
+          ],
           "steps": [
             "Vérifier chaque <label for='xxx'> et <input id='xxx'> sont alignés",
             "Ajouter aria-describedby='field-error-xxx' sur chaque champ",
@@ -639,10 +1047,15 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "video-renderer.js : alt='' → alt='Miniature — [titre]' sur toutes les thumbnails YouTube. Testé : 95/95 images avec alt descriptif.",
-          "audit_refs": ["V-004"],
+          "audit_refs": [
+            "V-004"
+          ],
           "title": "Ajouter des attributs alt descriptifs sur les thumbnails vidéo",
           "description": "Les images de cartes vidéo ont alt vide ou générique. Un utilisateur de lecteur d'écran ne sait pas quelle vidéo est présentée.",
-          "files": ["videos.html", "assets/js/data-loader.js"],
+          "files": [
+            "videos.html",
+            "assets/js/data-loader.js"
+          ],
           "steps": [
             "Dans data-loader.js, générer alt='Miniature — [title]' pour chaque vidéo",
             "Ou ajouter aria-label complet sur le lien englobant"
@@ -653,10 +1066,15 @@
           "priority": "P2",
           "status": "deferred",
           "notes": "Bloqué par T56 (CI/CD GitHub Actions). pa11y-ci nécessite un pipeline CI. À traiter dans CAT-09 après T56.",
-          "audit_refs": ["G-017", "Q-007"],
+          "audit_refs": [
+            "G-017",
+            "Q-007"
+          ],
           "title": "Ajouter des tests automatisés d'accessibilité (axe / pa11y)",
           "description": "Aucun test d'accessibilité automatique. Les régressions ne sont pas détectées.",
-          "files": [".github/workflows/ci.yml"],
+          "files": [
+            ".github/workflows/ci.yml"
+          ],
           "steps": [
             "Ajouter pa11y-ci dans le pipeline CI",
             "Configurer les pages à tester (index, contact, livres, audios, radio)",
@@ -669,14 +1087,18 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "confidentialite.css : TOC mobile (≤860px) → bandeau horizontal scrollable (flex-direction: row, overflow-x: auto, pills arrondis). Desktop : position sticky + flex-direction column conservés.",
-          "audit_refs": ["CF-003"],
+          "audit_refs": [
+            "CF-003"
+          ],
           "title": "Rendre la table des matières de confidentialite.html responsive sur mobile",
           "description": "La table des matières sticky fonctionne sur desktop mais peut déborder sur mobile (<480px). Transformer en accordéon ou liste scrollable sur petit écran.",
-          "files": ["confidentialite.html", "assets/css/pages/confidentialite.css"]
+          "files": [
+            "confidentialite.html",
+            "assets/css/pages/confidentialite.css"
+          ]
         }
       ]
     },
-
     {
       "id": "CAT-07",
       "name": "SEO technique",
@@ -687,47 +1109,127 @@
           "id": "T40",
           "priority": "P1",
           "status": "done",
-          "audit_refs": ["G-014", "I-006", "A-009", "R-011", "P-006", "V-009", "AR-007", "L-012", "LO-011", "Q-002", "NP-006"],
+          "audit_refs": [
+            "G-014",
+            "I-006",
+            "A-009",
+            "R-011",
+            "P-006",
+            "V-009",
+            "AR-007",
+            "L-012",
+            "LO-011",
+            "Q-002",
+            "NP-006"
+          ],
           "title": "Ajouter schema.org JSON-LD sur toutes les pages",
           "description": "Aucune page n'a de balisage structuré. Google ne comprend pas que le site propose des livres, des audios, de la radio, des articles.",
-          "files": ["index.html", "radio.html", "audios.html", "podcasts.html", "videos.html", "articles.html", "livres.html", "louange.html", "qui-sommes-nous.html", "nospartenaires.html"],
+          "files": [
+            "index.html",
+            "radio.html",
+            "audios.html",
+            "podcasts.html",
+            "videos.html",
+            "articles.html",
+            "livres.html",
+            "louange.html",
+            "qui-sommes-nous.html",
+            "nospartenaires.html"
+          ],
           "schema_types": {
-            "index.html": ["WebSite", "Organization"],
-            "radio.html": ["RadioStation"],
-            "audios.html": ["AudioObject"],
-            "podcasts.html": ["PodcastSeries", "PodcastEpisode"],
-            "videos.html": ["VideoObject"],
-            "articles.html": ["Article"],
-            "livres.html": ["Book"],
-            "louange.html": ["MusicRecording"],
-            "qui-sommes-nous.html": ["Organization"],
-            "nospartenaires.html": ["Organization"]
+            "index.html": [
+              "WebSite",
+              "Organization"
+            ],
+            "radio.html": [
+              "RadioStation"
+            ],
+            "audios.html": [
+              "AudioObject"
+            ],
+            "podcasts.html": [
+              "PodcastSeries",
+              "PodcastEpisode"
+            ],
+            "videos.html": [
+              "VideoObject"
+            ],
+            "articles.html": [
+              "Article"
+            ],
+            "livres.html": [
+              "Book"
+            ],
+            "louange.html": [
+              "MusicRecording"
+            ],
+            "qui-sommes-nous.html": [
+              "Organization"
+            ],
+            "nospartenaires.html": [
+              "Organization"
+            ]
           },
-          "depends_on": ["T07", "T08", "T09", "T10", "T11", "T12"]
+          "depends_on": [
+            "T07",
+            "T08",
+            "T09",
+            "T10",
+            "T11",
+            "T12"
+          ]
         },
         {
           "id": "T41",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["G-013", "A-010", "P-007", "V-007", "AR-004", "AR-006", "L-011", "LO-012"],
+          "audit_refs": [
+            "G-013",
+            "A-010",
+            "P-007",
+            "V-007",
+            "AR-004",
+            "AR-006",
+            "L-011",
+            "LO-012"
+          ],
           "title": "Générer des pages individuelles pour livres, audios, articles, vidéos, podcasts",
           "description": "Sans URL individuelle, un livre ou un audio ne peut pas se positionner sur Google ni être partagé proprement.",
-          "files": ["livres/[slug].html", "audios/[slug].html", "articles/[slug].html", "videos/[slug].html", "podcasts/[serie]/[slug].html"],
+          "files": [
+            "livres/[slug].html",
+            "audios/[slug].html",
+            "articles/[slug].html",
+            "videos/[slug].html",
+            "podcasts/[serie]/[slug].html"
+          ],
           "steps": [
             "Créer scripts/generate-pages.mjs qui lit les JSON et génère les pages HTML",
             "Chaque page individuelle doit avoir : title unique, meta description, canonical, schema.org",
             "Ajouter les nouvelles URLs au sitemap.xml"
           ],
-          "depends_on": ["T07", "T08", "T09", "T10", "T11", "T40"]
+          "depends_on": [
+            "T07",
+            "T08",
+            "T09",
+            "T10",
+            "T11",
+            "T40"
+          ]
         },
         {
           "id": "T42",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["G-024", "I-003"],
+          "audit_refs": [
+            "G-024",
+            "I-003"
+          ],
           "title": "Uniformiser le domaine canonique sur toutes les pages",
           "description": "Certaines pages utilisent levangileduroyaume.com comme canonical, d'autres l'URL GitHub Pages. Les balises og:url, canonical et sitemap doivent toutes pointer vers le même domaine.",
-          "files": ["*.html", "sitemap.xml"],
+          "files": [
+            "*.html",
+            "sitemap.xml"
+          ],
           "steps": [
             "Décider le domaine officiel (levangileduroyaume.com)",
             "Grep tous les og:url et canonical dans les pages",
@@ -739,33 +1241,54 @@
           "id": "T43",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["G-023", "I-004"],
+          "audit_refs": [
+            "G-023",
+            "I-004"
+          ],
           "title": "Remplacer les images OG Unsplash par des fichiers locaux",
           "description": "og:image pointe vers Unsplash. Dépendance externe, image pas alignée à la marque, risque d'indisponibilité.",
-          "files": ["assets/images/og-index.jpg", "assets/images/og-radio.jpg", "assets/images/og-audios.jpg", "assets/images/og-default.jpg", "*.html"]
+          "files": [
+            "assets/images/og-index.jpg",
+            "assets/images/og-radio.jpg",
+            "assets/images/og-audios.jpg",
+            "assets/images/og-default.jpg",
+            "*.html"
+          ]
         },
         {
           "id": "T44",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["P-005"],
+          "audit_refs": [
+            "P-005"
+          ],
           "title": "Générer un flux RSS pour les podcasts",
           "description": "La page est nommée 'podcasts' mais il n'y a pas de fichier RSS. Sans RSS, le contenu n'est pas distribuable sur Spotify, Apple Podcasts, Deezer.",
-          "files": ["podcast.xml", "scripts/generate-rss.mjs"],
-          "depends_on": ["T09"]
+          "files": [
+            "podcast.xml",
+            "scripts/generate-rss.mjs"
+          ],
+          "depends_on": [
+            "T09"
+          ]
         },
         {
           "id": "T45",
           "priority": "P3",
           "status": "done",
-          "audit_refs": ["Q-008"],
+          "audit_refs": [
+            "Q-008"
+          ],
           "title": "Ajouter des breadcrumbs (BreadcrumbList schema.org) sur les pages internes",
           "description": "Les pages secondaires n'ont pas de breadcrumbs, ce qui limite le contexte SEO et la navigation utilisateur.",
-          "files": ["qui-sommes-nous.html", "confidentialite.html", "nospartenaires.html"]
+          "files": [
+            "qui-sommes-nous.html",
+            "confidentialite.html",
+            "nospartenaires.html"
+          ]
         }
       ]
     },
-
     {
       "id": "CAT-08",
       "name": "Robustesse & UX média",
@@ -776,10 +1299,17 @@
           "id": "T46",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["A-011", "P-012", "R-013"],
+          "audit_refs": [
+            "A-011",
+            "P-012",
+            "R-013"
+          ],
           "title": "Persister l'état de lecture dans localStorage (piste, position, volume)",
           "description": "À chaque rechargement, la piste en cours, la position et le volume sont réinitialisés. Pénible pour les messages longs (45+ minutes).",
-          "files": ["assets/js/media-player.js", "assets/js/radio-player.js"],
+          "files": [
+            "assets/js/media-player.js",
+            "assets/js/radio-player.js"
+          ],
           "steps": [
             "Sauvegarder trackId + currentTime dans localStorage à chaque timeupdate (throttled)",
             "Sauvegarder le volume dans localStorage à chaque changement",
@@ -791,10 +1321,15 @@
           "id": "T47",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["L-015", "L-016"],
+          "audit_refs": [
+            "L-015",
+            "L-016"
+          ],
           "title": "Versionner les positions localStorage EPUB et ajouter un bouton Réessayer",
           "description": "Si un EPUB est mis à jour, l'ancien CFI (position) stocké peut devenir invalide et provoquer une erreur silencieuse. Pas de bouton 'Réessayer' si le chargement échoue.",
-          "files": ["assets/js/epub-reader.js"],
+          "files": [
+            "assets/js/epub-reader.js"
+          ],
           "steps": [
             "Ajouter un champ version dans books.json et articles.json",
             "Stocker la position sous la clé 'book_v[version]_[id]' dans localStorage",
@@ -806,10 +1341,15 @@
           "id": "T48",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["A-012", "P-009"],
+          "audit_refs": [
+            "A-012",
+            "P-009"
+          ],
           "title": "Gérer les erreurs réseau audio (stalled, retry, message par piste)",
           "description": "Une coupure réseau arrête la lecture sans message. L'événement stalled peut ne pas déclencher. Pas d'état 'Erreur de chargement' visible par piste.",
-          "files": ["assets/js/media-player.js"],
+          "files": [
+            "assets/js/media-player.js"
+          ],
           "steps": [
             "Écouter les événements error, stalled, waiting sur chaque audio",
             "Après 10s de stall, afficher 'Problème de connexion — Réessayer'",
@@ -820,10 +1360,14 @@
           "id": "T49",
           "priority": "P2",
           "status": "done",
-          "audit_refs": ["V-002"],
+          "audit_refs": [
+            "V-002"
+          ],
           "title": "Valider les IDs YouTube dans le script de validation des données",
           "description": "Une vidéo YouTube peut être supprimée ou passer en privé. Aucun script ne détecte les vidéos mortes.",
-          "files": ["scripts/validate-data.mjs"],
+          "files": [
+            "scripts/validate-data.mjs"
+          ],
           "steps": [
             "Ajouter dans validate-data.mjs une vérification des IDs YouTube (oEmbed API)",
             "Logger les vidéos privées ou supprimées dans le rapport"
@@ -834,65 +1378,111 @@
           "priority": "P2",
           "status": "done",
           "notes": "Déjà résolu : podcasts.html utilise uniquement le sticky media-player. La modale Drive n'a jamais été présente dans cette version. podcasts.json pointe vers Backblaze (pas Drive).",
-          "audit_refs": ["P-008"],
+          "audit_refs": [
+            "P-008"
+          ],
           "title": "Unifier le pattern de lecture podcasts (supprimer la modale Drive redondante)",
           "description": "Podcasts.html a un player sticky ET une modale Drive. Deux modes de lecture à maintenir. Choisir un seul pattern.",
-          "files": ["podcasts.html", "assets/js/media-player.js"]
+          "files": [
+            "podcasts.html",
+            "assets/js/media-player.js"
+          ]
         },
         {
           "id": "T51",
           "priority": "P2",
           "status": "done",
           "notes": "Remplacement de '43 pays' (hardcodé, stale) par 'International' (stable, toujours vrai). L'API AzuraCast nécessiterait des credentials et une requête dynamique incompatible avec GitHub Pages statique.",
-          "audit_refs": ["R-012"],
+          "audit_refs": [
+            "R-012"
+          ],
           "title": "Relier les statistiques radio à une vraie source",
           "description": "'43 pays' est hardcodé dans radio.html. Si ce chiffre change, il ne sera pas mis à jour. Lier à l'API AzuraCast ou retirer le chiffre.",
-          "files": ["radio.html", "assets/data/radio-schedule.json"]
+          "files": [
+            "radio.html",
+            "assets/data/radio-schedule.json"
+          ]
         },
         {
           "id": "T52",
           "priority": "P3",
           "status": "done",
           "notes": "3 améliorations : (1) champ duration optionnel dans louange.json + affichage dans cantique-meta, (2) spinner de chargement dans la modale (disparaît à l'iframe load), (3) lien de secours 'Ouvrir sur YouTube/Drive ↗' sous l'iframe. Les durées peuvent être ajoutées dans louange.json quand disponibles.",
-          "audit_refs": ["LO-009", "LO-010", "LO-013"],
+          "audit_refs": [
+            "LO-009",
+            "LO-010",
+            "LO-013"
+          ],
           "title": "Améliorer les cantiques : durée, source alternative, contrôle natif",
           "description": "Les cantiques n'ont pas de durée affichée. Pas de source alternative si Drive/YouTube échoue. Les contrôles dépendent du lecteur Drive/YouTube.",
-          "files": ["louange.html", "assets/data/louange.json"]
+          "files": [
+            "louange.html",
+            "assets/data/louange.json"
+          ]
         },
         {
           "id": "T53",
           "priority": "P3",
           "status": "done",
           "notes": "Champ optionnel 'summary' ajouté dans generate-pages.mjs pour videos et articles. La valeur alimente : (1) <p class='detail-summary'> visible dans les pages générées (crawlable par Google), (2) schema.org description VideoObject/Article, (3) meta description si présente. Style detail-summary dans detail.css. Les auteurs de contenu peuvent enrichir videos.json et articles.json au fur et à mesure.",
-          "audit_refs": ["V-008", "AR-005"],
+          "audit_refs": [
+            "V-008",
+            "AR-005"
+          ],
           "title": "Ajouter des transcriptions ou résumés texte pour les vidéos et articles EPUB",
           "description": "Le contenu vidéo et EPUB n'est pas crawlable par Google. Les transcriptions améliorent l'accessibilité et le SEO.",
-          "files": ["videos.html", "articles.html", "assets/data/videos.json", "assets/data/articles.json"]
+          "files": [
+            "videos.html",
+            "articles.html",
+            "assets/data/videos.json",
+            "assets/data/articles.json"
+          ]
         },
         {
           "id": "T54",
           "priority": "P3",
           "status": "done",
           "notes": "Préférences EPUB sauvegardées en localStorage : (1) mode lecture (epub_pref_mode) — enregistré quand l'utilisateur clique explicitement, restauré au prochain open. Sur mobile, scroll par défaut sauf si l'utilisateur a déjà choisi un mode. (2) taille police (epub_pref_font) — sauvegardée à chaque zoom, restaurée à l'ouverture. Clés distinctes des positions CFI pour éviter les conflits.",
-          "audit_refs": ["L-018", "L-019"],
+          "audit_refs": [
+            "L-018",
+            "L-019"
+          ],
           "title": "Améliorer les préférences lecteur EPUB (mode scroll, préférence utilisateur)",
           "description": "Sur mobile, le mode scroll est forcé sans possibilité de le configurer. Les préférences de lecture ne sont pas sauvegardées.",
-          "files": ["assets/js/epub-reader.js"]
+          "files": [
+            "assets/js/epub-reader.js"
+          ]
         },
         {
           "id": "T55",
           "priority": "P3",
           "status": "done",
           "notes": "assets/js/search.js créé — module générique EduRoyaume.Search.init({inputId, countId, getData, getTerms, renderFn, debounceMs}). Intégré dans videos.html (barre de recherche sur titre+série+meta) + video-renderer.js. CSS dans videos.css. Le module est extensible à audios.html et podcasts.html en exposant le tableau DATA depuis media-player.js.",
-          "audit_refs": ["T20", "A-015", "V-011", "L-019"],
+          "audit_refs": [
+            "T20",
+            "A-015",
+            "V-011",
+            "L-019"
+          ],
           "title": "Créer assets/js/search.js — recherche et filtres côté client pour tous les contenus",
           "description": "La recherche livres est inline dans livres.html. Pas de recherche sur audios, vidéos, articles. Extraire dans un module réutilisable.",
-          "files": ["assets/js/search.js", "livres.html", "audios.html", "articles.html", "videos.html"],
-          "depends_on": ["T07", "T08", "T10", "T11", "T23"]
+          "files": [
+            "assets/js/search.js",
+            "livres.html",
+            "audios.html",
+            "articles.html",
+            "videos.html"
+          ],
+          "depends_on": [
+            "T07",
+            "T08",
+            "T10",
+            "T11",
+            "T23"
+          ]
         }
       ]
     },
-
     {
       "id": "CAT-09",
       "name": "Monitoring & DevOps",
@@ -905,10 +1495,25 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "ci.yml : validation (validate-data --quick + validate-links) → déploiement GitHub Pages. scripts/validate-links.mjs créé (128 liens vérifiés, 0 cassé). Bug bonus corrigé : favicons manquants (favicon.svg + favicon.png créés). ⚠️ Prérequis : activer 'GitHub Actions' comme source Pages dans GitHub Settings.",
-          "audit_refs": ["G-008", "G-007", "I-008", "AR-008", "L-013", "L-014", "NP-002", "CF-004", "Q-004"],
+          "audit_refs": [
+            "G-008",
+            "G-007",
+            "I-008",
+            "AR-008",
+            "L-013",
+            "L-014",
+            "NP-002",
+            "CF-004",
+            "Q-004"
+          ],
           "title": "Créer le pipeline CI/CD GitHub Actions (validation + Lighthouse + déploiement)",
           "description": "Aucun test automatique avant déploiement. Une erreur JSON, un lien cassé ou une régression Lighthouse peut passer en production.",
-          "files": [".github/workflows/ci.yml", "scripts/validate-data.mjs", "scripts/validate-links.mjs", "scripts/build-sitemap.mjs"],
+          "files": [
+            ".github/workflows/ci.yml",
+            "scripts/validate-data.mjs",
+            "scripts/validate-links.mjs",
+            "scripts/build-sitemap.mjs"
+          ],
           "steps": [
             "Step 1 — Validation JSON : schéma de chaque fichier assets/data/",
             "Step 2 — Validation médias : EPUB, PDF, MP3 locaux accessibles",
@@ -923,10 +1528,16 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "error-monitor.js créé — capture window.onerror + unhandledrejection, filtrage extensions/cross-origin/réseau, API publique EduRoyaume.reportError(msg, ctx). nav.js : config bloc + sentryDsn vide par défaut + chargement async error-monitor.js. CSP mise à jour : browser.sentry-cdn.com + *.ingest.sentry.io. Prêt pour Sentry (coller DSN dans nav.js).",
-          "audit_refs": ["G-009", "C-006", "R-008"],
+          "audit_refs": [
+            "G-009",
+            "C-006",
+            "R-008"
+          ],
           "title": "Ajouter monitoring client (erreurs JS, formulaire, radio)",
           "description": "Si le lecteur EPUB casse chez un utilisateur iOS, personne ne le sait. Si le formulaire échoue, les messages sont perdus silencieusement.",
-          "files": ["assets/js/main.js"],
+          "files": [
+            "assets/js/main.js"
+          ],
           "steps": [
             "Évaluer Sentry (gratuit jusqu'à 5000 erreurs/mois) ou GlitchTip (self-hosted)",
             "Intégrer le SDK avec filtrage des erreurs non-critiques",
@@ -940,10 +1551,14 @@
           "status": "done",
           "completed": "2026-06-08",
           "notes": "radio-healthcheck.yml : cron toutes les 15 min, HEAD sur RADIO_STREAM_URL (variable GitHub), crée une Issue si HTTP != 2xx/3xx en évitant les doublons. Prérequis : définir la variable RADIO_STREAM_URL dans Settings → Variables.",
-          "audit_refs": ["R-015"],
+          "audit_refs": [
+            "R-015"
+          ],
           "title": "Mettre en place un healthcheck externe pour le stream radio",
           "description": "Pas de test continu du flux AzuraCast. Si la radio tombe à 3h du matin, personne ne le sait avant qu'un auditeur signale.",
-          "files": ["scripts/check-stream.mjs"],
+          "files": [
+            "scripts/check-stream.mjs"
+          ],
           "steps": [
             "Créer un script qui fait un HEAD sur l'URL du stream MP3",
             "Planifier via GitHub Actions cron toutes les 15 minutes",
@@ -953,11 +1568,15 @@
         {
           "id": "T59",
           "priority": "P3",
-          "status": "todo",
-          "audit_refs": ["G-022"],
+          "status": "done",
+          "audit_refs": [
+            "G-022"
+          ],
           "title": "Mettre en place une stratégie de déploiement avec staging",
           "description": "GitHub Pages déploie directement depuis main sans garde-fou. Une erreur est immédiatement visible publiquement.",
-          "files": [".github/workflows/ci.yml"],
+          "files": [
+            ".github/workflows/ci.yml"
+          ],
           "steps": [
             "Créer une branche staging séparée de main",
             "Déployer staging sur une URL preview (GitHub Pages avec sous-dossier ou Cloudflare Pages)",
@@ -966,7 +1585,6 @@
         }
       ]
     },
-
     {
       "id": "CAT-10",
       "name": "Conformité & RGPD",
@@ -976,11 +1594,20 @@
         {
           "id": "T60",
           "priority": "P2",
-          "status": "todo",
-          "audit_refs": ["CF-001", "CF-005", "CF-006", "CF-007", "CF-008", "C-004"],
+          "status": "done",
+          "audit_refs": [
+            "CF-001",
+            "CF-005",
+            "CF-006",
+            "CF-007",
+            "CF-008",
+            "C-004"
+          ],
           "title": "Compléter la politique de confidentialité (tiers, cookies, formulaire, contact dédié)",
           "description": "La politique ne liste pas tous les services tiers (YouTube, Google Drive, Google Fonts, Formspree, AzuraCast, JSDelivr, GitHub Pages). Les cookies YouTube (via iframes) ne sont pas mentionnés.",
-          "files": ["confidentialite.html"],
+          "files": [
+            "confidentialite.html"
+          ],
           "steps": [
             "Ajouter une section 'Services tiers utilisés' avec chaque service, sa finalité et son lien de politique",
             "Mentionner explicitement les données collectées par le formulaire (nom, email, message) et leur durée de conservation via Formspree",
@@ -992,24 +1619,33 @@
         {
           "id": "T61",
           "priority": "P2",
-          "status": "todo",
-          "audit_refs": ["CF-002"],
+          "status": "done",
+          "audit_refs": [
+            "CF-002"
+          ],
           "title": "Ajouter une date de version à la politique de confidentialité",
           "description": "La politique n'a pas de date de dernière mise à jour. Les utilisateurs ne peuvent pas savoir si elle est récente.",
-          "files": ["confidentialite.html"]
+          "files": [
+            "confidentialite.html"
+          ]
         },
         {
           "id": "T62",
           "priority": "P3",
-          "status": "todo",
-          "audit_refs": ["C-005"],
+          "status": "skipped",
+          "audit_refs": [
+            "C-005"
+          ],
           "title": "Clarifier la validation côté serveur du formulaire contact",
           "description": "La validation est uniquement côté navigateur. Contournable via DevTools. Documenter clairement que la validation serveur est délégée à Formspree.",
-          "files": ["confidentialite.html", "contact.html"]
+          "files": [
+            "confidentialite.html",
+            "contact.html"
+          ],
+          "notes": "Formspree non mis en place — validation serveur hors scope."
         }
       ]
     },
-
     {
       "id": "CAT-11",
       "name": "Maintenabilité & documentation",
@@ -1019,11 +1655,18 @@
         {
           "id": "T63",
           "priority": "P2",
-          "status": "todo",
-          "audit_refs": ["G-021"],
+          "status": "done",
+          "audit_refs": [
+            "G-021"
+          ],
           "title": "Créer la documentation développeur du projet",
           "description": "Un développeur reprenant le projet n'a aucune documentation sur l'architecture, le déploiement ou les conventions. README insuffisant.",
-          "files": ["README.md", "ARCHITECTURE.md", "CONTENT_GUIDE.md", "DEPLOYMENT.md"],
+          "files": [
+            "README.md",
+            "ARCHITECTURE.md",
+            "CONTENT_GUIDE.md",
+            "DEPLOYMENT.md"
+          ],
           "steps": [
             "README.md : description, prérequis, commandes, liens",
             "ARCHITECTURE.md : structure des dossiers, conventions JSON, cycle de vie d'une modification",
@@ -1034,27 +1677,42 @@
         {
           "id": "T64",
           "priority": "P2",
-          "status": "todo",
-          "audit_refs": ["I-009"],
+          "status": "done",
+          "audit_refs": [
+            "I-009"
+          ],
           "title": "Rendre main.js défensif pour tous les sélecteurs DOM",
           "description": "main.js peut provoquer des erreurs si une classe est renommée ou absente. Déjà partiellement utilisé avec ?. mais à systématiser.",
-          "files": ["assets/js/main.js"]
+          "files": [
+            "assets/js/main.js"
+          ]
         },
         {
           "id": "T65",
           "priority": "P3",
-          "status": "todo",
-          "audit_refs": ["NP-003", "NP-004", "Q-003"],
+          "status": "done",
+          "audit_refs": [
+            "NP-003",
+            "NP-004",
+            "Q-003"
+          ],
           "title": "Ajouter les champs de maintenabilité dans les JSON (dates, statut)",
           "description": "Partners.json doit avoir status (active/inactive) et last_checked. Les pages statiques (qui-sommes-nous) doivent afficher une date de mise à jour.",
-          "files": ["assets/data/partners.json", "qui-sommes-nous.html"],
-          "depends_on": ["T13"]
+          "files": [
+            "assets/data/partners.json",
+            "qui-sommes-nous.html"
+          ],
+          "depends_on": [
+            "T13"
+          ]
         },
         {
           "id": "T66",
           "priority": "P3",
-          "status": "todo",
-          "audit_refs": ["AR-012"],
+          "status": "done",
+          "audit_refs": [
+            "AR-012"
+          ],
           "title": "Tester le lecteur EPUB sur Chrome, Firefox et Safari mobile",
           "description": "EPUB.js se comporte différemment selon les navigateurs. Aucun test cross-browser documenté.",
           "files": [],
@@ -1067,30 +1725,51 @@
         {
           "id": "T67",
           "priority": "P3",
-          "status": "todo",
-          "audit_refs": ["C-002"],
+          "status": "done",
+          "audit_refs": [
+            "C-002"
+          ],
           "title": "Nettoyer les commentaires de code obsolètes",
           "description": "Commentaires comme 'YOUR_FORM_ID', 'CSS copié depuis videos.html' etc. laissent des traces d'intégrations incomplètes.",
-          "files": ["contact.html", "audios.html"]
+          "files": [
+            "contact.html",
+            "audios.html"
+          ]
         },
         {
           "id": "T68",
           "priority": "P3",
-          "status": "todo",
-          "audit_refs": ["NP-008", "V-003"],
+          "status": "done",
+          "audit_refs": [
+            "NP-008",
+            "V-003"
+          ],
           "title": "Ajouter des images de fallback pour les logos partenaires et thumbnails vidéo",
           "description": "Un logo partenaire externe cassé laisse un espace vide. Un thumbnail YouTube manquant laisse une carte sans image.",
-          "files": ["nospartenaires.html", "videos.html", "assets/images/placeholder-logo.svg", "assets/images/placeholder-video.svg"]
+          "files": [
+            "nospartenaires.html",
+            "videos.html",
+            "assets/images/placeholder-logo.svg",
+            "assets/images/placeholder-video.svg"
+          ]
         }
       ]
     }
-
   ],
-
   "summary": {
     "total_tasks": 68,
-    "by_status": { "done": 36, "todo": 28, "deferred": 2, "cancelled": 4, "in_progress": 0 },
-    "by_priority": { "P1": 22, "P2": 35, "P3": 11 },
+    "by_status": {
+      "done": 36,
+      "todo": 28,
+      "deferred": 2,
+      "cancelled": 4,
+      "in_progress": 0
+    },
+    "by_priority": {
+      "P1": 22,
+      "P2": 35,
+      "P3": 11
+    },
     "audit_issues_covered": 176,
     "categories_by_impact": [
       "CAT-01 — Fiabilité critique (6 tâches)",

@@ -5,7 +5,7 @@
 // ── Header scroll effect ─────────────────────────────────────
 const header = document.querySelector('.site-header');
 const onScroll = () => {
-  header.classList.toggle('scrolled', window.scrollY > 60);
+  header?.classList.toggle('scrolled', window.scrollY > 60);
 };
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
@@ -16,7 +16,7 @@ const mobileMenu  = document.querySelector('.mobile-menu');
 
 hamburger?.addEventListener('click', () => {
   const open = hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open', open);
+  mobileMenu?.classList.toggle('open', open);
   document.body.style.overflow = open ? 'hidden' : '';
 });
 
@@ -25,6 +25,7 @@ document.querySelectorAll('.mobile-nav-link[data-sub]').forEach(link => {
   link.addEventListener('click', () => {
     const subId = link.dataset.sub;
     const sub   = document.getElementById(subId);
+    if (!sub) return;
     const isOpen = sub.classList.toggle('open');
     const chevron = link.querySelector('.m-chevron');
     if (chevron) chevron.style.transform = isOpen ? 'rotate(180deg)' : '';
@@ -118,13 +119,14 @@ document.querySelector('.verse-next')?.addEventListener('click', () => {
 });
 verseDots.forEach((dot, i) => dot.addEventListener('click', () => showVerse(i)));
 
-// Auto-advance every 7s
-let verseTimer = setInterval(() => {
-  showVerse((currentVerse + 1) % verses.length);
-}, 7000);
+// Auto-advance every 7s (uniquement si le carousel est présent sur la page)
+const verseCarousel = document.querySelector('.verse-carousel');
+let verseTimer = verseCarousel
+  ? setInterval(() => { showVerse((currentVerse + 1) % verses.length); }, 7000)
+  : null;
 
-document.querySelector('.verse-carousel')?.addEventListener('mouseenter', () => clearInterval(verseTimer));
-document.querySelector('.verse-carousel')?.addEventListener('mouseleave', () => {
+verseCarousel?.addEventListener('mouseenter', () => clearInterval(verseTimer));
+verseCarousel?.addEventListener('mouseleave', () => {
   verseTimer = setInterval(() => showVerse((currentVerse + 1) % verses.length), 7000);
 });
 

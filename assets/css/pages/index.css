@@ -1,7 +1,5 @@
 /* assets/css/pages/index.css
-   Styles spécifiques à la page d'accueil (index.html).
-   Extraction des 3 blocs <style> inline pour supprimer
-   'unsafe-inline' de la Content-Security-Policy. */
+   Styles spécifiques à la page d'accueil (index.html). */
 
 /* ─── Utilitaire accessibilité ───────────────────────────── */
 .sr-only {

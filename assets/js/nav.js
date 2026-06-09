@@ -191,7 +191,7 @@ window.EduRoyaume.config.version   = '1.0.0';
     + '</address>'
     + '</div>'
     + '<div class="footer-bottom">'
-    + '<span>© 2025 L\'Évangile du Royaume. Tous droits réservés.</span>'
+    + '<span>© 2026 L\'Évangile du Royaume. Tous droits réservés.</span>'
     + '<nav class="footer-bottom-links">'
     + '<a href="qui-sommes-nous.html">Qui sommes-nous</a>'
     + '<a href="confidentialite.html">Confidentialité</a>'

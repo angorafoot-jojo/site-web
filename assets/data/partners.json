@@ -7,7 +7,9 @@
     "label": "Visiter le site",
     "color_start": "#1a3060",
     "color_end": "#2e5090",
-    "initial": "L"
+    "initial": "L",
+    "status": "active",
+    "last_checked": "2026-06-08"
   },
   {
     "id": 2,
@@ -17,7 +19,9 @@
     "label": "Visiter le site",
     "color_start": "#7B3FB0",
     "color_end": "#5B2D8E",
-    "initial": "K"
+    "initial": "K",
+    "status": "active",
+    "last_checked": "2026-06-08"
   },
   {
     "id": 3,
@@ -27,7 +31,9 @@
     "label": "Voir la chaîne",
     "color_start": "#2e7d32",
     "color_end": "#43a047",
-    "initial": "B"
+    "initial": "B",
+    "status": "active",
+    "last_checked": "2026-06-08"
   },
   {
     "id": 4,
@@ -37,7 +43,9 @@
     "label": "Voir la chaîne",
     "color_start": "#b71c1c",
     "color_end": "#e53935",
-    "initial": "H"
+    "initial": "H",
+    "status": "active",
+    "last_checked": "2026-06-08"
   },
   {
     "id": 5,
@@ -47,7 +55,9 @@
     "label": "Voir la chaîne",
     "color_start": "#0d47a1",
     "color_end": "#1565c0",
-    "initial": "T"
+    "initial": "T",
+    "status": "active",
+    "last_checked": "2026-06-08"
   },
   {
     "id": 6,
@@ -57,7 +67,9 @@
     "label": "Voir la chaîne",
     "color_start": "#e65100",
     "color_end": "#f57c00",
-    "initial": "L"
+    "initial": "L",
+    "status": "active",
+    "last_checked": "2026-06-08"
   },
   {
     "id": 7,
@@ -67,7 +79,9 @@
     "label": "Voir la chaîne",
     "color_start": "#4a148c",
     "color_end": "#6a1b9a",
-    "initial": "S"
+    "initial": "S",
+    "status": "active",
+    "last_checked": "2026-06-08"
   },
   {
     "id": 8,
@@ -77,6 +91,8 @@
     "label": "Voir la chaîne",
     "color_start": "#1b5e20",
     "color_end": "#2e7d32",
-    "initial": "K"
+    "initial": "K",
+    "status": "active",
+    "last_checked": "2026-06-08"
   }
 ]

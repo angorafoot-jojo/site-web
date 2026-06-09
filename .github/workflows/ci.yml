@@ -11,10 +11,10 @@ name: CI — Validation & Déploiement
 # ──────────────────────────────────────────────────────────────
 on:
   push:
-    branches: [main]
+    branches: [main, dev]     # CI s'exécute sur main ET dev
   pull_request:
-    branches: [main]
-  workflow_dispatch:      # Lancement manuel depuis l'onglet Actions
+    branches: [main]          # Valide chaque PR avant merge dans main
+  workflow_dispatch:          # Lancement manuel depuis l'onglet Actions
 
 # Permissions minimales nécessaires
 permissions:

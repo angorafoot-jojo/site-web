@@ -45,7 +45,7 @@
     iframe.setAttribute('allowfullscreen', '');
 
     if (type === 'yt') {
-      iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     } else {
       iframe.src = 'https://drive.google.com/file/d/' + id + '/preview';
