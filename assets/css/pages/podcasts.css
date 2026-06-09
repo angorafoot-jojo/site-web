@@ -297,3 +297,39 @@
       .pb-btn.pb-skip { display: none; }
       .media-hero-inner { flex-direction: column; align-items: flex-start; }
     }
+
+    /* ── Ligne audio en erreur ───────────────────────────────── */
+    .audio-row.is-error .ar-title { color: #ff8a80; }
+    .audio-row.is-error .ar-play-btn { background: #ff8a80; }
+
+    /* ── Bannière "Reprendre depuis..." ─────────────────────── */
+    .mp-resume-banner {
+      display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+      background: var(--color-surface-2, #1e1e2e);
+      border: 1px solid var(--gold, #C4892E);
+      border-radius: .5rem;
+      padding: .75rem 1rem;
+      margin-bottom: 1rem;
+      font-size: .875rem;
+      color: var(--color-text, #eee);
+    }
+    .mp-resume-banner span { flex: 1; min-width: 180px; }
+    .mp-resume-banner strong { color: var(--gold, #C4892E); }
+    .mp-resume-yes, .mp-resume-no {
+      background: none; border: 1px solid var(--gold, #C4892E);
+      color: var(--gold, #C4892E); border-radius: .4rem;
+      padding: .35rem .8rem; font-size: .8rem; font-weight: 600;
+      cursor: pointer; transition: background .15s, color .15s;
+    }
+    .mp-resume-yes { background: var(--gold, #C4892E); color: #fff; }
+    .mp-resume-yes:hover { opacity: .85; }
+    .mp-resume-no:hover { background: var(--gold, #C4892E); color: #fff; }
+
+    /* ── Bouton retry dans la barre de statut ────────────────── */
+    .pb-retry-btn {
+      background: none; border: 1px solid rgba(255,255,255,.4);
+      color: rgba(255,255,255,.8); border-radius: .3rem;
+      padding: .15rem .5rem; font-size: .65rem; cursor: pointer;
+      margin-left: .4rem; vertical-align: middle;
+    }
+    .pb-retry-btn:hover { background: rgba(255,255,255,.1); }

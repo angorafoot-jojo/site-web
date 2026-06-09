@@ -70,11 +70,35 @@
       modalContent.removeChild(modalContent.firstChild);
     }
 
-    /* Wrapper 16:9 */
+    /* Wrapper 16:9 avec spinner + iframe */
     var wrapper = document.createElement('div');
     wrapper.className = 'media-modal-yt';
-    wrapper.appendChild(buildIframe(type, id));
+
+    /* Spinner — retiré automatiquement quand l'iframe répond */
+    var spinner = document.createElement('div');
+    spinner.className = 'modal-loading';
+    spinner.setAttribute('aria-hidden', 'true');
+    wrapper.appendChild(spinner);
+
+    var iframe = buildIframe(type, id);
+    iframe.addEventListener('load', function () {
+      var loading = wrapper.querySelector('.modal-loading');
+      if (loading) loading.parentNode.removeChild(loading);
+    });
+    wrapper.appendChild(iframe);
     modalContent.appendChild(wrapper);
+
+    /* Lien de secours pour les bloqueurs / restrictions régionales */
+    var fallbackUrl = type === 'yt'
+      ? 'https://youtu.be/' + id
+      : 'https://drive.google.com/file/d/' + id + '/view';
+    var fallback = document.createElement('a');
+    fallback.className    = 'modal-fallback-link';
+    fallback.href         = fallbackUrl;
+    fallback.target       = '_blank';
+    fallback.rel          = 'noopener noreferrer';
+    fallback.textContent  = type === 'yt' ? 'Ouvrir sur YouTube ↗' : 'Ouvrir sur Drive ↗';
+    modalContent.appendChild(fallback);
 
     /* Mémoriser le focus avant ouverture pour le restaurer à la fermeture */
     _focusBeforeOpen = document.activeElement;

@@ -35,7 +35,10 @@
       + '</div>'
       + '<div class="cantique-body">'
         + '<div class="cantique-title">' + titleS + '</div>'
-        + '<div class="cantique-meta"><svg width="12" height="12" aria-hidden="true"><use href="#icon-cantique"/></svg> Cantique</div>'
+        + '<div class="cantique-meta">'
+          + '<svg width="12" height="12" aria-hidden="true"><use href="#icon-cantique"/></svg> Cantique'
+          + (c.duration ? '<span class="cantique-duration"> · ' + esc(c.duration) + '</span>' : '')
+        + '</div>'
       + '</div>'
     + '</button>';
   }

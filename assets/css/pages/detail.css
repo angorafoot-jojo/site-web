@@ -157,6 +157,18 @@
   margin-bottom: var(--space-xl);
 }
 
+/* ── Résumé / transcription (SEO + accessibilité) ──────────── */
+.detail-summary {
+  color: var(--color-text-muted, #aaa);
+  line-height: 1.75;
+  font-size: 0.95rem;
+  margin: var(--space-lg) 0 var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+  border-left: 3px solid var(--color-accent, #C4892E);
+  background: var(--color-surface-2, rgba(196,137,46,.06));
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
 /* ── Lien retour ────────────────────────────────────────────── */
 .detail-back {
   display: inline-flex;

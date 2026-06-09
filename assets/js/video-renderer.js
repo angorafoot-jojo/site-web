@@ -76,14 +76,42 @@
     if (container) container.innerHTML = html;
   }
 
-  /* ── Chargement depuis JSON ───────────────────────────── */
+  /* ── Message "aucun résultat" ─────────────────────────── */
+  function renderEmpty(query) {
+    var container = document.getElementById('video-sections-container');
+    if (!container) return;
+    container.innerHTML =
+      '<p style="padding:2rem;text-align:center;color:var(--warm-grey)">' +
+      'Aucun résultat pour « ' + esc(query) + ' »</p>';
+  }
+
+  /* ── Chargement depuis JSON + init recherche ──────────── */
+  var _allVideos = [];
+
   fetch('assets/data/videos.json')
     .then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     })
     .then(function(videos) {
+      _allVideos = videos;
       renderVideoSections(videos);
+
+      /* Activer la recherche si le module EduRoyaume.Search est chargé */
+      if (global.EduRoyaume && global.EduRoyaume.Search) {
+        global.EduRoyaume.Search.init({
+          inputId  : 'video-search',
+          countId  : 'video-count',
+          getData  : function () { return _allVideos; },
+          getTerms : function (v) {
+            return (v.title || '') + ' ' + (v.series || '') + ' ' + (v.meta || '');
+          },
+          renderFn : function (items, query) {
+            if (items.length === 0 && query) { renderEmpty(query); }
+            else { renderVideoSections(items); }
+          },
+        });
+      }
     })
     .catch(function(e) {
       var container = document.getElementById('video-sections-container');

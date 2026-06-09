@@ -775,7 +775,7 @@
         {
           "id": "T46",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["A-011", "P-012", "R-013"],
           "title": "Persister l'état de lecture dans localStorage (piste, position, volume)",
           "description": "À chaque rechargement, la piste en cours, la position et le volume sont réinitialisés. Pénible pour les messages longs (45+ minutes).",
@@ -790,7 +790,7 @@
         {
           "id": "T47",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["L-015", "L-016"],
           "title": "Versionner les positions localStorage EPUB et ajouter un bouton Réessayer",
           "description": "Si un EPUB est mis à jour, l'ancien CFI (position) stocké peut devenir invalide et provoquer une erreur silencieuse. Pas de bouton 'Réessayer' si le chargement échoue.",
@@ -805,7 +805,7 @@
         {
           "id": "T48",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["A-012", "P-009"],
           "title": "Gérer les erreurs réseau audio (stalled, retry, message par piste)",
           "description": "Une coupure réseau arrête la lecture sans message. L'événement stalled peut ne pas déclencher. Pas d'état 'Erreur de chargement' visible par piste.",
@@ -819,7 +819,7 @@
         {
           "id": "T49",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
           "audit_refs": ["V-002"],
           "title": "Valider les IDs YouTube dans le script de validation des données",
           "description": "Une vidéo YouTube peut être supprimée ou passer en privé. Aucun script ne détecte les vidéos mortes.",
@@ -832,7 +832,8 @@
         {
           "id": "T50",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "notes": "Déjà résolu : podcasts.html utilise uniquement le sticky media-player. La modale Drive n'a jamais été présente dans cette version. podcasts.json pointe vers Backblaze (pas Drive).",
           "audit_refs": ["P-008"],
           "title": "Unifier le pattern de lecture podcasts (supprimer la modale Drive redondante)",
           "description": "Podcasts.html a un player sticky ET une modale Drive. Deux modes de lecture à maintenir. Choisir un seul pattern.",
@@ -841,7 +842,8 @@
         {
           "id": "T51",
           "priority": "P2",
-          "status": "todo",
+          "status": "done",
+          "notes": "Remplacement de '43 pays' (hardcodé, stale) par 'International' (stable, toujours vrai). L'API AzuraCast nécessiterait des credentials et une requête dynamique incompatible avec GitHub Pages statique.",
           "audit_refs": ["R-012"],
           "title": "Relier les statistiques radio à une vraie source",
           "description": "'43 pays' est hardcodé dans radio.html. Si ce chiffre change, il ne sera pas mis à jour. Lier à l'API AzuraCast ou retirer le chiffre.",
@@ -850,7 +852,8 @@
         {
           "id": "T52",
           "priority": "P3",
-          "status": "todo",
+          "status": "done",
+          "notes": "3 améliorations : (1) champ duration optionnel dans louange.json + affichage dans cantique-meta, (2) spinner de chargement dans la modale (disparaît à l'iframe load), (3) lien de secours 'Ouvrir sur YouTube/Drive ↗' sous l'iframe. Les durées peuvent être ajoutées dans louange.json quand disponibles.",
           "audit_refs": ["LO-009", "LO-010", "LO-013"],
           "title": "Améliorer les cantiques : durée, source alternative, contrôle natif",
           "description": "Les cantiques n'ont pas de durée affichée. Pas de source alternative si Drive/YouTube échoue. Les contrôles dépendent du lecteur Drive/YouTube.",
@@ -859,7 +862,8 @@
         {
           "id": "T53",
           "priority": "P3",
-          "status": "todo",
+          "status": "done",
+          "notes": "Champ optionnel 'summary' ajouté dans generate-pages.mjs pour videos et articles. La valeur alimente : (1) <p class='detail-summary'> visible dans les pages générées (crawlable par Google), (2) schema.org description VideoObject/Article, (3) meta description si présente. Style detail-summary dans detail.css. Les auteurs de contenu peuvent enrichir videos.json et articles.json au fur et à mesure.",
           "audit_refs": ["V-008", "AR-005"],
           "title": "Ajouter des transcriptions ou résumés texte pour les vidéos et articles EPUB",
           "description": "Le contenu vidéo et EPUB n'est pas crawlable par Google. Les transcriptions améliorent l'accessibilité et le SEO.",
@@ -868,7 +872,8 @@
         {
           "id": "T54",
           "priority": "P3",
-          "status": "todo",
+          "status": "done",
+          "notes": "Préférences EPUB sauvegardées en localStorage : (1) mode lecture (epub_pref_mode) — enregistré quand l'utilisateur clique explicitement, restauré au prochain open. Sur mobile, scroll par défaut sauf si l'utilisateur a déjà choisi un mode. (2) taille police (epub_pref_font) — sauvegardée à chaque zoom, restaurée à l'ouverture. Clés distinctes des positions CFI pour éviter les conflits.",
           "audit_refs": ["L-018", "L-019"],
           "title": "Améliorer les préférences lecteur EPUB (mode scroll, préférence utilisateur)",
           "description": "Sur mobile, le mode scroll est forcé sans possibilité de le configurer. Les préférences de lecture ne sont pas sauvegardées.",
@@ -877,7 +882,8 @@
         {
           "id": "T55",
           "priority": "P3",
-          "status": "todo",
+          "status": "done",
+          "notes": "assets/js/search.js créé — module générique EduRoyaume.Search.init({inputId, countId, getData, getTerms, renderFn, debounceMs}). Intégré dans videos.html (barre de recherche sur titre+série+meta) + video-renderer.js. CSS dans videos.css. Le module est extensible à audios.html et podcasts.html en exposant le tableau DATA depuis media-player.js.",
           "audit_refs": ["T20", "A-015", "V-011", "L-019"],
           "title": "Créer assets/js/search.js — recherche et filtres côté client pour tous les contenus",
           "description": "La recherche livres est inline dans livres.html. Pas de recherche sur audios, vidéos, articles. Extraire dans un module réutilisable.",

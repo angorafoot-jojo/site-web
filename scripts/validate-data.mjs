@@ -97,7 +97,10 @@ const SCHEMAS = {
     rules: [
       { name: 'youtube_id doit être 11 caractères', fn: item => /^[a-zA-Z0-9_-]{11}$/.test(item.youtube_id) },
     ],
-    mediaFields: [],
+    /* kind 'youtube' → vérification via oEmbed (hors --quick) */
+    mediaFields: [
+      { field: 'youtube_id', kind: 'youtube' },
+    ],
   },
   'articles.json': {
     required: ['id', 'title', 'slug', 'type', 'source', 'color', 'cat', 'year'],
@@ -155,6 +158,35 @@ function headRequest(url, timeout = 8000) {
         } else {
           resolve({ ok: false, status: statusCode });
         }
+      }
+    );
+    req.setTimeout(timeout, () => { req.destroy(); resolve({ ok: false, error: `timeout ${timeout}ms` }); });
+    req.on('error', err => resolve({ ok: false, error: err.message }));
+    req.end();
+  });
+}
+
+/**
+ * Vérifie qu'un ID YouTube est accessible via l'API oEmbed.
+ * Retourne { ok: true } ou { ok: false, error }
+ * Codes : 200 = public, 401 = privée, 404 = supprimée/introuvable
+ */
+function checkYouTubeId(ytId, timeout = 8000) {
+  const url = 'https://www.youtube.com/oembed?url=' +
+              encodeURIComponent('https://www.youtube.com/watch?v=' + ytId) +
+              '&format=json';
+  return new Promise(resolve => {
+    let parsed;
+    try { parsed = new URL(url); } catch { resolve({ ok: false, error: 'URL invalide' }); return; }
+    const req = https.request(
+      { method: 'GET', hostname: parsed.hostname, path: parsed.pathname + parsed.search },
+      res => {
+        res.resume(); /* drainer immédiatement */
+        const s = res.statusCode;
+        if (s === 200)      resolve({ ok: true,  status: s });
+        else if (s === 401) resolve({ ok: false, error: 'vidéo privée ou non listée' });
+        else if (s === 404) resolve({ ok: false, error: 'vidéo supprimée ou introuvable' });
+        else                resolve({ ok: false, error: `HTTP ${s}` });
       }
     );
     req.setTimeout(timeout, () => { req.destroy(); resolve({ ok: false, error: `timeout ${timeout}ms` }); });
@@ -269,24 +301,35 @@ async function validateFile(filename) {
     logOk(`Fichiers locaux présents : ${localOkCount}/${localItems.length}`);
   }
 
-  /* 3e-ii. URLs distantes (PDF, MP3) — ignorées si --quick ────── */
-  const remoteItems = mediaItems.filter(m => m.kind === 'remote');
+  /* 3e-ii. URLs distantes (PDF, MP3) + IDs YouTube — ignorés si --quick */
+  const remoteItems = mediaItems.filter(m => m.kind === 'remote' || m.kind === 'youtube');
   if (remoteItems.length === 0) return;
 
   if (QUICK) {
-    logInfo(`--quick : ${remoteItems.length} URL(s) distante(s) ignorées`);
+    const ytCount   = remoteItems.filter(m => m.kind === 'youtube').length;
+    const restCount = remoteItems.length - ytCount;
+    const labels = [
+      restCount > 0 ? `${restCount} URL(s) distante(s)` : '',
+      ytCount   > 0 ? `${ytCount} ID(s) YouTube`       : '',
+    ].filter(Boolean).join(', ');
+    logInfo(`--quick : ${labels} ignoré(s)`);
     counts.skipped += remoteItems.length;
     return;
   }
 
-  logInfo(`Vérification de ${remoteItems.length} URL(s) distante(s)…`);
+  const ytItems   = remoteItems.filter(m => m.kind === 'youtube');
+  const restItems = remoteItems.filter(m => m.kind !== 'youtube');
+  if (restItems.length > 0) logInfo(`Vérification de ${restItems.length} URL(s) distante(s)…`);
+  if (ytItems.length  > 0) logInfo(`Vérification de ${ytItems.length} ID(s) YouTube via oEmbed…`);
 
-  /* HEAD en parallèle par lots de 5 pour ne pas saturer le réseau */
+  /* Requêtes en parallèle par lots de 5 */
   const BATCH = 5;
   let remoteOk = 0, remoteFail = 0;
   for (let i = 0; i < remoteItems.length; i += BATCH) {
     const batch = remoteItems.slice(i, i + BATCH);
-    const results = await Promise.all(batch.map(m => headRequest(m.val)));
+    const results = await Promise.all(batch.map(m =>
+      m.kind === 'youtube' ? checkYouTubeId(m.val) : headRequest(m.val)
+    ));
     results.forEach((res, j) => {
       const m = batch[j];
       if (res.ok) {
@@ -295,12 +338,13 @@ async function validateFile(filename) {
       } else {
         remoteFail++;
         const detail = res.error || `HTTP ${res.status}`;
-        logWarn(`[id:${m.id}] ${m.field} inaccessible (${detail}) : ${m.val}`);
+        const ref = m.kind === 'youtube' ? `https://youtu.be/${m.val}` : m.val;
+        logWarn(`[id:${m.id}] ${m.field} inaccessible (${detail}) : ${ref}`);
       }
     });
   }
   if (remoteFail === 0) {
-    logOk(`URLs distantes accessibles : ${remoteOk}/${remoteItems.length}`);
+    logOk(`URLs distantes / IDs YouTube accessibles : ${remoteOk}/${remoteItems.length}`);
   }
 }
 

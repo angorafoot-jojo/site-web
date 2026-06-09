@@ -61,16 +61,36 @@
   var currentMode   = 'page';
   var fontSizePct   = 100;
   var currentBookId = null;
+  var currentItem   = null;   /* item courant pour le bouton Réessayer */
   var isLoading     = false;
   var lastFocused   = null;
   var bound         = false;
 
+  /* ── Préférences de lecture ─────────────────────────────── */
+  var PREF_MODE = 'epub_pref_mode';   /* 'page' | 'scroll' */
+  var PREF_FONT = 'epub_pref_font';   /* taille police en % */
+
+  function savePref(key, val) { try { localStorage.setItem(key, String(val)); } catch(e) {} }
+  function getPref(key)       { try { return localStorage.getItem(key); }       catch(e) { return null; } }
+
   /* ── Sauvegarde / restauration de position ─────────────── */
+  /* Clé versionnée v1 — migration automatique depuis l'ancien format */
+  function posKey(id) { return 'epub_pos_v1_' + id; }
   function savePos(id, cfi) {
-    try { localStorage.setItem('epub_pos_' + id, cfi); } catch(e) {}
+    try { localStorage.setItem(posKey(id), cfi); } catch(e) {}
   }
   function getPos(id) {
-    try { return localStorage.getItem('epub_pos_' + id); } catch(e) { return null; }
+    try {
+      var v = localStorage.getItem(posKey(id));
+      if (v) return v;
+      /* Migration depuis l'ancienne clé sans version */
+      var legacy = localStorage.getItem('epub_pos_' + id);
+      if (legacy) {
+        try { localStorage.setItem(posKey(id), legacy); localStorage.removeItem('epub_pos_' + id); } catch(e) {}
+        return legacy;
+      }
+      return null;
+    } catch(e) { return null; }
   }
 
   /* ── Thème lisible ──────────────────────────────────────── */
@@ -119,6 +139,7 @@
   /* ── Changement de mode lecture ─────────────────────────── */
   async function switchMode(newMode) {
     if (currentMode === newMode || !currentBookId || isLoading) return;
+    savePref(PREF_MODE, newMode);    /* mémoriser le choix explicite de l'utilisateur */
     var cfi = null;
     if (rendition) {
       try {
@@ -161,8 +182,11 @@
 
     isLoading     = true;
     currentBookId = item.id;
+    currentItem   = item;
     lastFocused   = document.activeElement;
-    fontSizePct   = 100;
+    /* Restaurer la taille de police depuis la préférence sauvegardée */
+    var savedFont = parseInt(getPref(PREF_FONT), 10);
+    fontSizePct   = (!isNaN(savedFont) && savedFont >= 70 && savedFont <= 200) ? savedFont : 100;
 
     destroyReader();
 
@@ -181,8 +205,8 @@
     if (item.pdf) { btnReaderDl.href = item.pdf; btnReaderDl.classList.remove('hidden'); }
     else          { btnReaderDl.classList.add('hidden'); }
 
-    /* Mode scroll automatique sur mobile */
-    if (window.innerWidth < 900) currentMode = 'scroll';
+    /* Mode scroll sur mobile — sauf si l'utilisateur a explicitement choisi un mode */
+    if (window.innerWidth < 900 && !getPref(PREF_MODE)) currentMode = 'scroll';
 
     btnPageMode.classList.toggle('active',   currentMode === 'page');
     btnScrollMode.classList.toggle('active', currentMode === 'scroll');
@@ -216,6 +240,8 @@
       rendition.on('relocated', handleRelocated);
 
       var cfi = restoreCfi || getPos(item.id) || undefined;
+      /* On note si le CFI vient du localStorage (pas d'un _resume) */
+      var cfiFromStorage = !restoreCfi && !!cfi;
 
       await Promise.race([
         rendition.display(cfi),
@@ -228,6 +254,13 @@
     } catch(err) {
       console.warn('EPUB load error:', err.message || err);
       pageLoading.style.display = 'none';
+      /* Auto-recovery : CFI localStorage invalide → on efface et réessaie depuis le début */
+      if (!item._retrying && cfiFromStorage) {
+        try { localStorage.removeItem(posKey(item.id)); } catch(e) {}
+        isLoading = false;
+        openItem({ id: item.id, title: item.title, epub: item.epub, pdf: item.pdf, _retrying: true });
+        return;
+      }
       readerError.classList.add('visible');
     } finally {
       isLoading = false;
@@ -257,13 +290,30 @@
     zoomLevel    = document.getElementById('reader-zoom-level');
     btnReaderDl  = document.getElementById('btn-reader-dl');
 
-    /* Mode initial */
-    currentMode = window.innerWidth < 900 ? 'scroll' : 'page';
+    /* Mode initial — restaurer la préférence sauvegardée ou calculer selon l'appareil */
+    var savedMode = getPref(PREF_MODE);
+    currentMode = savedMode || (window.innerWidth < 900 ? 'scroll' : 'page');
+
+    /* Taille police — restaurer la préférence sauvegardée */
+    var savedFont = parseInt(getPref(PREF_FONT), 10);
+    if (!isNaN(savedFont) && savedFont >= 70 && savedFont <= 200) {
+      fontSizePct = savedFont;
+    }
 
     /* Fermer */
     btnClose.addEventListener('click',    closeReader);
     btnBack.addEventListener('click',     closeReader);
     btnErrClose.addEventListener('click', closeReader);
+
+    /* Réessayer depuis le début */
+    var btnErrRetry = document.getElementById('btn-error-retry');
+    if (btnErrRetry) {
+      btnErrRetry.addEventListener('click', function() {
+        if (!currentItem) return;
+        readerError.classList.remove('visible');
+        openItem({ id: currentItem.id, title: currentItem.title, epub: currentItem.epub, pdf: currentItem.pdf });
+      });
+    }
 
     /* Navigation */
     arrowPrev.addEventListener('click', function() { if (rendition) rendition.prev().catch(function(){}); });
@@ -276,11 +326,11 @@
     /* Zoom */
     btnZoomIn.addEventListener('click', function() {
       if (fontSizePct >= 200) return;
-      fontSizePct += 15; applyZoom();
+      fontSizePct += 15; applyZoom(); savePref(PREF_FONT, fontSizePct);
     });
     btnZoomOut.addEventListener('click', function() {
       if (fontSizePct <= 70) return;
-      fontSizePct -= 15; applyZoom();
+      fontSizePct -= 15; applyZoom(); savePref(PREF_FONT, fontSizePct);
     });
 
     /* Clavier */

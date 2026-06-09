@@ -237,6 +237,7 @@ function generateArticle(item) {
   const title     = item.title || 'Article';
   const cat       = item.cat   || '';
   const year      = item.year  || '';
+  const summary   = item.summary || '';
   const canonical = `${BASE_URL}/articles/${slug}.html`;
 
   const schema = {
@@ -246,8 +247,9 @@ function generateArticle(item) {
     'headline': title,
     'url': canonical,
     'inLanguage': item.en ? 'en' : 'fr',
-    ...(year ? { 'datePublished': String(year) } : {}),
-    ...(cat  ? { 'keywords': cat } : {}),
+    ...(year    ? { 'datePublished': String(year) } : {}),
+    ...(cat     ? { 'keywords': cat }               : {}),
+    ...(summary ? { 'description': summary }        : {}),
     'publisher': { '@type': 'Organization', 'name': SITE_NAME, 'url': BASE_URL },
   };
 
@@ -267,12 +269,16 @@ function generateArticle(item) {
       </a>` : '',
   ].filter(Boolean).join('\n      ');
 
+  const summaryBlock = summary
+    ? `<p class="detail-summary">${esc(summary)}</p>` : '';
+
   const body = `${breadcrumb('articles.html', 'Articles & Méditations', title)}
     <div class="detail-header">
       <span class="detail-header__type">Article</span>
       <h1 class="detail-header__title">${esc(title)}</h1>
       ${meta ? `<div class="detail-header__meta">${meta}</div>` : ''}
     </div>
+    ${summaryBlock}
     <div class="detail-actions">
       ${actions || `<a class="detail-btn detail-btn--secondary" href="articles.html">Retour aux articles</a>`}
     </div>
@@ -280,7 +286,7 @@ function generateArticle(item) {
 
   return buildPage({
     slug, dir: 'articles', title, canonical,
-    description: `Lire "${title}"${cat ? ` — ${cat}` : ''}${year ? ` (${year})` : ''} sur ${SITE_NAME}.`,
+    description: summary || `Lire "${title}"${cat ? ` — ${cat}` : ''}${year ? ` (${year})` : ''} sur ${SITE_NAME}.`,
     pageKey: 'articles',
     schemaJson: schema,
     breadcrumbSchemaJson: breadcrumbSchema('Articles & Méditations', `${BASE_URL}/articles.html`, title, canonical),
@@ -294,6 +300,7 @@ function generateVideo(item) {
   const title     = item.title    || 'Vidéo';
   const series    = item.series   || '';
   const ytId      = item.youtube_id || '';
+  const summary   = item.summary  || '';
   const canonical = `${BASE_URL}/videos/${slug}.html`;
 
   const schema = {
@@ -306,7 +313,8 @@ function generateVideo(item) {
       'embedUrl': `https://www.youtube.com/embed/${ytId}`,
       'thumbnailUrl': `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
     } : {}),
-    ...(series ? { 'partOfSeries': { '@type': 'VideoSeries', 'name': series } } : {}),
+    ...(summary ? { 'description': summary }                                             : {}),
+    ...(series  ? { 'partOfSeries': { '@type': 'VideoSeries', 'name': series } }        : {}),
     'publisher': { '@type': 'Organization', 'name': SITE_NAME, 'url': BASE_URL },
   };
 
@@ -323,6 +331,9 @@ function generateVideo(item) {
 
   const meta = series ? `<div class="detail-header__meta"><span>🎞 ${esc(series)}</span></div>` : '';
 
+  const summaryBlock = summary
+    ? `<p class="detail-summary">${esc(summary)}</p>` : '';
+
   const body = `${breadcrumb('videos.html', 'Vidéos', title)}
     <div class="detail-header">
       <span class="detail-header__type">Vidéo</span>
@@ -330,6 +341,7 @@ function generateVideo(item) {
       ${meta}
     </div>
     ${videoBlock}
+    ${summaryBlock}
     <a class="detail-back" href="videos.html">← Toutes les vidéos</a>`;
 
   const ogImage = ytId
@@ -338,7 +350,7 @@ function generateVideo(item) {
 
   return buildPage({
     slug, dir: 'videos', title, canonical, ogImage,
-    description: `Regarder "${title}"${series ? ` — ${series}` : ''} sur ${SITE_NAME}.`,
+    description: summary || `Regarder "${title}"${series ? ` — ${series}` : ''} sur ${SITE_NAME}.`,
     pageKey: 'videos',
     schemaJson: schema,
     breadcrumbSchemaJson: breadcrumbSchema('Vidéos', `${BASE_URL}/videos.html`, title, canonical),

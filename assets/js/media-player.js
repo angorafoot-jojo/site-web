@@ -38,7 +38,77 @@
   /* ── État ─────────────────────────────────────────────── */
   var allRows    = [];
   var currentIdx = -1;
-  var stallRetryId = null;
+  var stallRetryId    = null;
+  var saveThrottleId  = null;
+  var pendingResumeTime = 0;
+  var dataKey = '';   /* clé localStorage dérivée de opts.dataUrl */
+
+  /* ── Persistance localStorage ─────────────────────────── */
+  function lsKey(suffix) { return 'er_mp_' + dataKey + '_' + suffix; }
+
+  function saveState() {
+    try {
+      localStorage.setItem(lsKey('idx'),  String(currentIdx));
+      localStorage.setItem(lsKey('time'), String(Math.floor(audio.currentTime)));
+    } catch(e) { /* quota dépassé ou mode privé — silencieux */ }
+  }
+
+  function saveVolume() {
+    try { localStorage.setItem('er_mp_volume', String(audio.volume)); } catch(e) {}
+  }
+
+  function clearSavedState() {
+    try {
+      localStorage.removeItem(lsKey('idx'));
+      localStorage.removeItem(lsKey('time'));
+    } catch(e) {}
+  }
+
+  function restoreVolume() {
+    try {
+      var v = parseFloat(localStorage.getItem('er_mp_volume'));
+      if (!isNaN(v) && v >= 0 && v <= 1) {
+        audio.volume      = v;
+        volSlider.value   = v;
+      }
+    } catch(e) {}
+  }
+
+  /* Afficher la bannière "Reprendre depuis X:XX" si état sauvegardé */
+  function showResumeBanner(container) {
+    try {
+      var idx  = parseInt(localStorage.getItem(lsKey('idx')),  10);
+      var time = parseInt(localStorage.getItem(lsKey('time')), 10);
+      if (isNaN(idx) || idx < 0 || isNaN(time) || time <= 10) return;
+      if (idx >= allRows.length) { clearSavedState(); return; }
+
+      var row   = allRows[idx];
+      var title = row.dataset.title || (row.querySelector('.ar-title') || {}).textContent || '—';
+      var mins  = Math.floor(time / 60);
+      var secs  = String(time % 60).padStart(2, '0');
+      var label = mins + ':' + secs;
+
+      var banner = document.createElement('div');
+      banner.className = 'mp-resume-banner';
+      banner.setAttribute('role', 'alert');
+      banner.innerHTML =
+        '<span>▶ Reprendre <strong>' + esc(title) + '</strong> depuis ' + esc(label) + '</span>' +
+        '<button class="mp-resume-yes" aria-label="Reprendre la lecture">Reprendre</button>' +
+        '<button class="mp-resume-no"  aria-label="Ignorer">✕</button>';
+
+      banner.querySelector('.mp-resume-yes').addEventListener('click', function() {
+        pendingResumeTime = time;
+        loadTrack(idx);
+        banner.remove();
+      });
+      banner.querySelector('.mp-resume-no').addEventListener('click', function() {
+        clearSavedState();
+        banner.remove();
+      });
+
+      container.insertBefore(banner, container.firstChild);
+    } catch(e) {}
+  }
 
   /* ── Rendu des sections depuis les données JSON ───────── */
   function renderAudioSections(tracks, opts) {
@@ -135,6 +205,10 @@
     if (idx < 0 || idx >= allRows.length) return;
     clearStatus();
     clearTimeout(stallRetryId);
+    clearTimeout(saveThrottleId);
+    saveThrottleId = null;
+    /* Effacer le flag d'erreur sur toutes les lignes */
+    allRows.forEach(function(r) { r.classList.remove('is-error'); });
     currentIdx = idx;
     var row    = allRows[idx];
     var src    = row.dataset.src || '';
@@ -212,20 +286,50 @@
       clearStatus();
       loadTrack((currentIdx + 1) % allRows.length);
     });
-    audio.addEventListener('error', function() { showAudioError(); });
+    audio.addEventListener('error', function() {
+      /* Marquer la ligne en erreur pour feedback visuel par piste */
+      if (currentIdx >= 0 && allRows[currentIdx]) {
+        allRows[currentIdx].classList.add('is-error');
+      }
+      showAudioError();
+    });
     audio.addEventListener('stalled', function() {
-      setStatus('loading', '⚠️ Connexion instable — nouvelle tentative dans 8s…');
       clearTimeout(stallRetryId);
+      /* Afficher message avec bouton "Réessayer" manuel */
+      var retryHtml = '⚠️ Connexion instable — ' +
+        '<button class="pb-retry-btn" aria-label="Réessayer la lecture">Réessayer</button>';
+      setStatus('loading', retryHtml);
+      if (pbStatus) {
+        var retryBtn = pbStatus.querySelector('.pb-retry-btn');
+        if (retryBtn) retryBtn.addEventListener('click', function() {
+          clearTimeout(stallRetryId);
+          var src = audio.src; var t = audio.currentTime;
+          audio.src = src; audio.load();
+          audio.currentTime = t;
+          audio.play().catch(function() { showAudioError(); });
+        });
+      }
+      /* Auto-retry après 10s si toujours en stall */
       stallRetryId = setTimeout(function() {
         if (!audio.paused) {
-          var src = audio.src;
-          audio.load(); audio.src = src;
+          var src = audio.src; var t = audio.currentTime;
+          audio.src = src; audio.load();
+          audio.currentTime = t;
           audio.play().catch(function() { showAudioError(); });
         }
-      }, 8000);
+      }, 10000);
     });
     audio.addEventListener('canplay',  function() { clearTimeout(stallRetryId); clearStatus(); });
     audio.addEventListener('waiting',  function() { setStatus('loading', 'Mise en mémoire tampon…'); });
+    audio.addEventListener('loadedmetadata', function() {
+      pbDuration.textContent = fmt(audio.duration);
+      setRowDuration(allRows[currentIdx], audio.duration);
+      /* Reprendre depuis la position sauvegardée si demandé */
+      if (pendingResumeTime > 0) {
+        audio.currentTime = pendingResumeTime;
+        pendingResumeTime = 0;
+      }
+    });
     audio.addEventListener('timeupdate', function() {
       if (!audio.duration) return;
       var pct = (audio.currentTime / audio.duration) * 100;
@@ -233,6 +337,10 @@
       pbCurrent.textContent    = fmt(audio.currentTime);
       pbDuration.textContent   = fmt(audio.duration);
       setRowDuration(allRows[currentIdx], audio.duration);
+      /* Sauvegarder position en localStorage (throttlé, toutes les 10s) */
+      if (!saveThrottleId) {
+        saveThrottleId = setTimeout(function() { saveThrottleId = null; saveState(); }, 10000);
+      }
     });
     audio.addEventListener('loadedmetadata', function() {
       pbDuration.textContent = fmt(audio.duration);
@@ -245,7 +353,10 @@
       audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
     });
 
-    volSlider.addEventListener('input', function() { audio.volume = volSlider.value; });
+    volSlider.addEventListener('input', function() {
+      audio.volume = volSlider.value;
+      saveVolume();
+    });
     btnMute.addEventListener('click', function() {
       audio.muted = !audio.muted;
       volSlider.value = audio.muted ? 0 : audio.volume;
@@ -253,11 +364,14 @@
 
     btnClose.addEventListener('click', function() {
       clearTimeout(stallRetryId);
+      clearTimeout(saveThrottleId);
+      saveThrottleId = null;
+      clearSavedState();
       clearStatus();
       audio.pause(); audio.src = '';
       playerBar.classList.remove('visible');
       allRows.forEach(function(r) {
-        r.classList.remove('playing');
+        r.classList.remove('playing', 'is-error');
         var btn = r.querySelector('.ar-play-btn use');
         if (btn) btn.setAttribute('href', '#icon-play');
       });
@@ -301,14 +415,21 @@
     btnClose   = document.getElementById('btnClose');
     pbStatus   = document.getElementById('pbStatus');
 
+    /* Clé localStorage dérivée de l'URL du fichier de données */
+    dataKey = opts.dataUrl.replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_').slice(-30);
+
     bindPlayerControls();
+    restoreVolume();
 
     /* Charger les données */
     fetch(opts.dataUrl)
       .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function(tracks) {
+        var container = document.getElementById(opts.containerId);
         renderAudioSections(tracks, opts);
         initRows();
+        /* Proposer de reprendre depuis l'état sauvegardé */
+        if (container) showResumeBanner(container);
         if (typeof opts.onLoaded === 'function') opts.onLoaded(tracks);
       })
       .catch(function(e) {

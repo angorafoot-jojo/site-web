@@ -393,6 +393,36 @@
     }
     .btn-yt:hover { background: #cc0000; transform: scale(1.04); }
 
+    /* ── Barre de recherche ──────────────────────────── */
+    .vr-search-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .vr-search-input {
+      flex: 1;
+      min-width: 0;
+      padding: .6rem 1rem;
+      border-radius: .5rem;
+      border: 1px solid rgba(28,28,40,.18);
+      background: rgba(28,28,40,.04);
+      font-size: .95rem;
+      color: var(--text-dark, #1c1c28);
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .vr-search-input:focus {
+      outline: none;
+      border-color: var(--brand-gold, #C4892E);
+      box-shadow: 0 0 0 3px rgba(196,137,46,.18);
+    }
+    .vr-search-input::placeholder { color: rgba(28,28,40,.35); }
+    .vr-count {
+      font-size: .8rem;
+      color: var(--warm-grey, #888);
+      white-space: nowrap;
+    }
+
     /* ── Responsive ──────────────────────────────────── */
     @media (max-width: 1200px) {
       .vgrid { grid-template-columns: repeat(3, 1fr); }

@@ -67,6 +67,15 @@
 <main class="media-body" id="main-content">
   <div class="container">
 
+    <!-- Barre de recherche vidéos -->
+    <div class="vr-search-bar">
+      <label for="video-search" class="sr-only">Rechercher une vidéo</label>
+      <input type="search" id="video-search" class="vr-search-input"
+             placeholder="Rechercher une vidéo ou une série…"
+             autocomplete="off" spellcheck="false">
+      <span id="video-count" class="vr-count" aria-live="polite" style="display:none"></span>
+    </div>
+
     <div id="video-sections-container" aria-live="polite" aria-label="Séries vidéo">
       <!-- Chargé dynamiquement depuis assets/data/videos.json -->
     </div>
@@ -90,6 +99,7 @@
 </main>
 
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/search.js"></script>
 <script src="assets/js/video-renderer.js"></script>
 <script src="assets/js/main.js" defer></script>
 </body>
