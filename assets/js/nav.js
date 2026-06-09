@@ -214,7 +214,7 @@ window.EduRoyaume.config.version   = '1.0.0';
     + " style-src 'self' 'unsafe-inline' fonts.googleapis.com;"
     + " font-src 'self' fonts.gstatic.com;"
     + " img-src 'self' data: images.unsplash.com img.youtube.com;"
-    + " frame-src www.youtube.com drive.google.com;"
+    + " frame-src www.youtube.com www.youtube-nocookie.com drive.google.com;"
     + " media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com;"
     + " connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com *.ingest.sentry.io;"
     + " object-src 'none';"

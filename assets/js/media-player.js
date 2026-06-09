@@ -342,10 +342,6 @@
         saveThrottleId = setTimeout(function() { saveThrottleId = null; saveState(); }, 10000);
       }
     });
-    audio.addEventListener('loadedmetadata', function() {
-      pbDuration.textContent = fmt(audio.duration);
-      setRowDuration(allRows[currentIdx], audio.duration);
-    });
 
     pbBarWrap.addEventListener('click', function(e) {
       if (!audio.duration) return;
