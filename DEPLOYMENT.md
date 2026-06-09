@@ -1,87 +1,142 @@
 # Guide de déploiement
 
-Ce document décrit les étapes pour déployer le site en production, vérifier un déploiement et effectuer un rollback si nécessaire.
+Ce document décrit les étapes pour mettre le site en production, configurer le DNS, vérifier un déploiement et effectuer un rollback.
 
 ---
 
-## Déploiement normal (via PR)
+## 1. Configuration DNS (à faire une seule fois)
 
-Le déploiement est **automatique** après un merge vers `main`. Il n'y a pas de commande manuelle à lancer.
+Le fichier `CNAME` est déjà présent dans le repo (`levangileduroyaume.com`). Il faut maintenant configurer le DNS chez le registrar du domaine.
+
+### Enregistrements à ajouter
+
+| Type | Nom | Valeur | Description |
+|------|-----|--------|-------------|
+| `A` | `@` | `185.199.108.153` | GitHub Pages IP |
+| `A` | `@` | `185.199.109.153` | GitHub Pages IP |
+| `A` | `@` | `185.199.110.153` | GitHub Pages IP |
+| `A` | `@` | `185.199.111.153` | GitHub Pages IP |
+| `CNAME` | `www` | `angorafoot-jojo.github.io` | Alias www |
+
+### Vérifier que ça fonctionne
+
+```bash
+# Vérifier que le DNS se propage (attendre 5-30 min après modification)
+dig levangileduroyaume.com A +short
+# Doit retourner une des 4 IPs de GitHub Pages
+
+curl -sI https://levangileduroyaume.com | grep HTTP
+# Doit retourner HTTP/2 200
+```
+
+### Activer HTTPS dans GitHub Settings
 
 ```
-1. Ouvrir une PR : dev → main sur GitHub
-2. Attendre que le CI passe (job "Validation")
-3. Merger la PR
-4. Le job "Déploiement" se déclenche automatiquement
-5. Le site est en ligne en ~2 minutes
+GitHub → Settings → Pages → Custom domain → levangileduroyaume.com
+☑ Enforce HTTPS  (cocher après que le certificat SSL soit émis — ~10 min)
 ```
 
-Voir la progression dans **GitHub → onglet Actions**.
+> ⚠️ Si l'ancien site est encore sur `levangileduroyaume.com`, la migration DNS va le remplacer immédiatement. S'assurer que le nouveau site est prêt avant de changer le DNS.
 
 ---
 
-## Prérequis GitHub Settings (à faire une seule fois)
+## 2. Prérequis GitHub Settings (à vérifier une seule fois)
 
-Ces réglages activent le déploiement via GitHub Actions et bloquent les pushs directs vers `main`.
-
-### 1. Activer GitHub Pages via Actions
+### Activer GitHub Pages via Actions
 
 ```
 GitHub → Settings → Pages
 → Source : "GitHub Actions"
 ```
 
-Sans ce réglage, GitHub Pages déploie la branche `main` directement, sans passer par le CI.
-
-### 2. Protéger la branche `main` (recommandé)
+### Protéger la branche `main` (recommandé)
 
 ```
 GitHub → Settings → Branches → Add rule → "main"
   ☑ Require a pull request before merging
   ☑ Require status checks to pass before merging
     → Sélectionner le job "validate"
-  ☑ Require branches to be up to date before merging
 ```
 
 ---
 
-## Checklist avant un déploiement critique
+## 3. Déploiement normal (via PR)
 
-Avant de merger une PR importante :
+Le déploiement est **automatique** après chaque merge vers `main`. Aucune commande manuelle.
+
+```
+1. Travailler sur la branche dev
+2. Ouvrir une PR : dev → main sur GitHub
+3. Attendre que le CI passe (job "Validation JSON + liens")
+4. Merger la PR
+5. Le job "Déploiement" se déclenche automatiquement
+6. Le site est en ligne en ~2 minutes sur levangileduroyaume.com
+```
+
+Suivre la progression dans **GitHub → onglet Actions**.
+
+---
+
+## 4. Corriger le formulaire de contact (Formspree)
+
+Le formulaire de contact utilise Formspree mais l'ID est invalide.
+
+**Étapes :**
+1. Créer un compte sur [formspree.io](https://formspree.io)
+2. Créer un nouveau formulaire → copier l'ID (format `xyzabcde`)
+3. Ouvrir `assets/js/contact-form.js`
+4. Remplacer `YOUR_FORM_ID` par le vrai ID
+
+```javascript
+// assets/js/contact-form.js — ligne à modifier
+fetch('https://formspree.io/f/YOUR_FORM_ID',  // ← remplacer YOUR_FORM_ID
+```
+
+5. Tester depuis un navigateur en navigation privée (soumettre le formulaire)
+6. Vérifier la réception dans le tableau de bord Formspree
+
+---
+
+## 5. Checklist avant un déploiement critique
 
 ### Contenu
-- [ ] Tous les fichiers JSON sont valides : `node scripts/validate-data.mjs --quick`
-- [ ] Tous les liens internes sont corrects : `node scripts/validate-links.mjs`
-- [ ] Les fichiers EPUB référencés existent dans `assets/books/`
-- [ ] Les liens Backblaze répondent (tester un lien audio en navigation privée)
+- [ ] JSON valides : `node scripts/validate-data.mjs --quick`
+- [ ] Liens internes : `node scripts/validate-links.mjs`
+- [ ] Fichiers EPUB présents dans `assets/books/` et `assets/articles/`
+- [ ] Liens audio Backblaze testés en navigation privée
 
 ### Pages
 - [ ] Chaque page modifiée a un `<title>` et un `<meta description>` uniques
 - [ ] `sitemap.xml` contient les nouvelles pages (si applicable)
-- [ ] Aucune erreur JS dans la console navigateur
+- [ ] Console navigateur sans erreur sur les pages modifiées
 
 ### Responsive
-- [ ] Testé sur mobile (< 480 px) via les outils développeur
-- [ ] Testé sur desktop (Chrome ou Firefox)
-- [ ] Lecteur audio fonctionnel sur iOS Safari (si modifié)
+- [ ] Testé mobile (< 480 px) via DevTools
+- [ ] Testé desktop (Chrome + Firefox)
+- [ ] Lecteur audio testé sur iOS Safari (si modifié)
+
+### Production
+- [ ] DNS configuré et HTTPS actif
+- [ ] Formulaire de contact testé (navigation privée)
+- [ ] Radio joue correctement
+- [ ] Un EPUB s'ouvre dans le lecteur
 
 ---
 
-## Vérifier un déploiement
+## 6. Vérifier un déploiement
 
-Après le déploiement, vérifier les points critiques :
+Après mise en ligne, tester dans cet ordre :
 
-1. **Page d'accueil** : [levangileduroyaume.com](https://levangileduroyaume.com)
-2. **Vidéos** : la recherche filtre correctement
-3. **Livres** : ouvrir un EPUB, vérifier la position sauvegardée
-4. **Radio** : le player affiche "En direct" et joue le flux
-5. **Console navigateur** : aucune erreur
+1. **Accueil** : [levangileduroyaume.com](https://levangileduroyaume.com) — articles, vidéo YouTube
+2. **Livres** : ouvrir un EPUB, vérifier la position sauvegardée
+3. **Audios** : lancer une piste, vérifier prev/next
+4. **Cantiques** : cliquer sur une vignette YouTube → vidéo joue dans la modale
+5. **Radio** : bouton "Écouter en direct" → flux joue
+6. **Console navigateur** : F12 → aucune erreur rouge
 
 ---
 
-## Rollback
-
-Si un déploiement casse le site :
+## 7. Rollback
 
 ### Option 1 — Reverter la PR (recommandé)
 
@@ -92,33 +147,16 @@ GitHub → Pull Requests → Closed → [la PR problématique]
 
 Le CI redéploie automatiquement la version précédente.
 
-### Option 2 — Rollback Git manuel
+### Option 2 — Revert Git manuel
 
 ```bash
-# Trouver le commit de la bonne version
-git log --oneline -10
-
-# Créer une PR de revert depuis dev
 git checkout dev
 git revert [hash-du-commit-problématique]
 git push
 # Ouvrir une PR dev → main
 ```
 
-### Option 3 — Force push sur main (dernier recours)
-
-```bash
-# ATTENTION : destructif, ne fait que si Options 1 et 2 échouent
-git checkout main
-git reset --hard [hash-du-bon-commit]
-git push --force-with-lease
-```
-
----
-
-## Déploiement manuel (workflow_dispatch)
-
-Pour redéployer sans modifier le code :
+### Option 3 — Redéploiement sans modification
 
 ```
 GitHub → Actions → "CI — Validation & Déploiement"
@@ -127,27 +165,26 @@ GitHub → Actions → "CI — Validation & Déploiement"
 
 ---
 
-## Variables de configuration
+## 8. Note sur le déploiement en sous-dossier (staging)
 
-Le site ne contient aucune variable d'environnement secrète. Tous les URLs sont publics.
+Le site est conçu pour tourner à la **racine d'un domaine** (`levangileduroyaume.com/`).
 
-Si une URL de service change (Backblaze, AzuraCast…) :
-- Mettre à jour directement dans les fichiers JSON (`assets/data/`)
-- Mettre à jour les références dans le code si nécessaire
-- Passer par le workflow normal (PR dev → main)
+Les pages dans `livres/`, `articles/`, `audios/`, `podcasts/`, `videos/` utilisent `<base href="/">` pour que les chemins relatifs résolvent depuis la racine.
+
+**Conséquence :** sur l'URL de staging `angorafoot-jojo.github.io/site-web/`, les sous-pages sont cassées (les assets résolvent vers `angorafoot-jojo.github.io/assets/...` au lieu de `.../site-web/assets/...`).
+
+**Ce n'est pas un bug** — c'est le comportement attendu. Pour tester les sous-pages, utiliser le serveur local (`npx serve .` → `localhost:3000`) ou la production avec le domaine custom configuré.
 
 ---
 
-## Régénération des pages individuelles
+## 9. Variables de configuration
 
-Les pages individuelles (ex : `livres/[slug]/index.html`) sont générées **automatiquement** à chaque déploiement par `scripts/generate-pages.mjs`.
+Le site ne contient aucune variable d'environnement secrète. Toutes les URLs sont publiques.
 
-Il ne faut **pas** committer ces fichiers générés dans le repo.
-
-Pour les tester en local :
-
-```bash
-node scripts/generate-pages.mjs
-npx serve .
-# Tester http://localhost:3000/livres/[slug]/
-```
+| Ce qui peut changer | Où modifier |
+|---------------------|-------------|
+| URL audio Backblaze | `assets/data/audios.json` et `assets/data/podcasts.json` |
+| URL stream radio | `assets/data/radio-schedule.json` et `assets/js/nav.js` |
+| URL AzuraCast | `assets/js/pages/radio-schedule-init.js` |
+| ID Formspree | `assets/js/contact-form.js` |
+| Contenu (livres, articles…) | `assets/data/*.json` |
