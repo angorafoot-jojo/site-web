@@ -2,7 +2,11 @@ name: Rotation Radio Quotidienne
 
 on:
   schedule:
-    - cron: '0 23 * * *'  # 23h UTC = avant minuit, les blocs sont prêts avant le changement de cycle
+    # 00h05 UTC : juste après le basculement vers le bloc A. La rotation
+    # (réécriture des playlists + redémarrage AutoDJ) ne perturbe ainsi que
+    # les premières minutes du bloc A, qui repart proprement du début
+    # (jingle → message), au lieu de couper la dernière heure du bloc D.
+    - cron: '5 0 * * *'
   workflow_dispatch:        # Permet un lancement manuel depuis GitHub
 
 jobs:

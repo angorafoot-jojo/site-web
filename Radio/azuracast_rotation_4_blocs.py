@@ -41,6 +41,12 @@ BLOCK_PLAYLISTS = [
     "BLOC_D_SERIE_DU_JOUR",
 ]
 
+# Durée d'un créneau de bloc (grille de 4 blocs de 6h).
+SLOT_SECONDS = 6 * 3600
+
+# Les cibles bible/louange ci-dessous totalisent 6h SANS le message du jour.
+# Elles sont réduites à chaque run au prorata de la durée réelle du message
+# pour que message + bible + louange ≈ 6h. Voir scale_cycle_plan().
 CYCLE_PLAN = [
     ("jingle", "avant_message"),
     ("message", None),
@@ -423,6 +429,48 @@ def pick_until_duration(
     return selected, total, repeated_count
 
 
+def get_media_length(base_url: str, station_id: int, api_key: str, path: str) -> int:
+    """Durée en secondes d'un fichier de la médiathèque, 0 si introuvable."""
+    url = f"{base_url.rstrip('/')}/api/station/{station_id}/files"
+    response = request_api("GET", url, api_key, timeout=300)
+    if not response.ok:
+        return 0
+    for f in parse_json_or_explain(response):
+        if f.get("path") == path:
+            return int(f.get("length") or 0)
+    return 0
+
+
+def scale_cycle_plan(message_seconds: int) -> list[tuple[str, Any]]:
+    """Réduit les cibles bible/louange au prorata pour que le bloc complet
+    (message inclus) totalise ~SLOT_SECONDS. Sans durée connue du message,
+    le plan original est conservé (comportement historique)."""
+    if message_seconds <= 0:
+        print("AVERTISSEMENT: durée du message inconnue — cibles non ajustées (bloc > 6h).")
+        return CYCLE_PLAN
+
+    base_total = sum(p for t, p in CYCLE_PLAN if t in ("bible", "music"))
+    available = SLOT_SECONDS - message_seconds
+    if available < 30 * 60:
+        raise RuntimeError(
+            f"Message trop long ({seconds_to_hms(message_seconds)}) pour un créneau "
+            f"de {seconds_to_hms(SLOT_SECONDS)} : moins de 30 min restantes."
+        )
+
+    factor = available / base_total
+    scaled = [
+        (t, int(p * factor)) if t in ("bible", "music") else (t, p)
+        for t, p in CYCLE_PLAN
+    ]
+    scaled_total = sum(p for t, p in scaled if t in ("bible", "music"))
+    print(
+        f"Cibles ajustées au message ({seconds_to_hms(message_seconds)}) : "
+        f"facteur {factor:.2f}, bible+louange {seconds_to_hms(scaled_total)}, "
+        f"total visé {seconds_to_hms(message_seconds + scaled_total)} / créneau {seconds_to_hms(SLOT_SECONDS)}"
+    )
+    return scaled
+
+
 def build_full_cycle(
     block_name: str,
     message: Episode,
@@ -431,6 +479,7 @@ def build_full_cycle(
     jingle_categories: dict[str, list[MediaItem]],
     used_music_global: set[str],
     bible_progress: dict[str, int],
+    cycle_plan: list[tuple[str, Any]] = CYCLE_PLAN,
 ):
     playlist_paths = []
     debug_blocks = []
@@ -440,7 +489,7 @@ def build_full_cycle(
     previous_jingle = None
     total_duration_without_message = 0
 
-    for block_type, param in CYCLE_PLAN:
+    for block_type, param in cycle_plan:
         if block_type == "message":
             playlist_paths.append(message.path)
             debug_blocks.append({
@@ -741,6 +790,10 @@ def main() -> None:
     bible_progress: dict[str, int] = state.get("bible_progress", {})
     print(f"Progression Bible chargée: {len(bible_progress)} livre(s) en cours")
 
+    print("Durée du message du jour...")
+    message_seconds = get_media_length(base_url, station_id, api_key, ep.path)
+    cycle_plan = scale_cycle_plan(message_seconds)
+
     for block_name, playlist_id in block_playlists:
         print(f"\n===== Construction {block_name} =====")
         cycle_paths, debug = build_full_cycle(
@@ -751,6 +804,7 @@ def main() -> None:
             jingle_categories=jingle_categories,
             used_music_global=used_music_global,
             bible_progress=bible_progress,
+            cycle_plan=cycle_plan,
         )
         print_debug_summary(debug)
         all_debug["blocks"].append(debug)
