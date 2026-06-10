@@ -17,3 +17,6 @@ __pycache__/
 
 # Fichiers système
 .DS_Store
+
+# Clés API locales
+.env
