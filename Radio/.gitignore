@@ -20,3 +20,6 @@ __pycache__/
 
 # Clés API locales
 .env
+
+# … sauf les rapports de diffusion quotidiens, versionnés volontairement
+!logs/diffusion_*.log

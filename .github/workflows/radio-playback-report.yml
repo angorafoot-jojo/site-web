@@ -1,0 +1,51 @@
+name: Rapport Diffusion Radio
+
+# ──────────────────────────────────────────────────────────────
+# Chaque nuit à 00h15 UTC, génère le rapport de diffusion de la
+# veille : pour chaque titre joué, durée réelle vs durée du
+# fichier. Les titres coupés et les trous d'antenne sont signalés.
+# Le rapport est committé dans Radio/logs/ pour consultation.
+# ──────────────────────────────────────────────────────────────
+on:
+  schedule:
+    - cron: '15 0 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Jour à analyser (YYYY-MM-DD), vide = hier'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    name: Générer le rapport de diffusion
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Générer le rapport
+        env:
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          if [ -n "${{ inputs.date }}" ]; then
+            python Radio/playback_report.py --date "${{ inputs.date }}"
+          else
+            python Radio/playback_report.py
+          fi
+
+      - name: Committer le rapport
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add Radio/logs/
+          git diff --staged --quiet || git commit -m "chore: rapport diffusion radio [skip ci]"
+          git push
