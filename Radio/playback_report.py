@@ -27,6 +27,9 @@ from pathlib import Path
 # le titre est signalé (coupé ou suivi d'un trou d'antenne).
 TOLERANCE_SECONDS = 10
 
+# Les rapports plus vieux que ça sont supprimés à chaque exécution.
+RETENTION_DAYS = 90
+
 BASE_URL = "https://parole-prophetique-fm.levangileduroyaume.com"
 STATION_ID = 1
 
@@ -97,6 +100,18 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
     return "\n".join(lines) + "\n", problems
 
 
+def purge_old_reports(output_dir: Path, today: date) -> None:
+    cutoff = today - timedelta(days=RETENTION_DAYS)
+    for log_file in sorted(output_dir.glob("diffusion_*.log")):
+        try:
+            file_day = date.fromisoformat(log_file.stem.removeprefix("diffusion_"))
+        except ValueError:
+            continue
+        if file_day < cutoff:
+            log_file.unlink()
+            print(f"Rapport supprimé (plus de {RETENTION_DAYS} jours) : {log_file}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", help="Jour à analyser (YYYY-MM-DD), défaut : hier en UTC")
@@ -126,6 +141,8 @@ def main() -> int:
 
     print(report)
     print(f"Rapport écrit : {output_path}")
+
+    purge_old_reports(output_dir, datetime.now(timezone.utc).date())
     return 0
 
 
