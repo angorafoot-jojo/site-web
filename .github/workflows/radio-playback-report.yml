@@ -8,7 +8,10 @@ name: Rapport Diffusion Radio
 # ──────────────────────────────────────────────────────────────
 on:
   schedule:
-    - cron: '15 0 * * *'
+    # 01h00 UTC, volontairement loin de la rotation de 00h05 : les deux
+    # workflows committent sur main et GitHub exécute parfois les crons
+    # retardés en même temps (collision de push le 2026-06-11).
+    - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
       date:
@@ -48,4 +51,5 @@ jobs:
           git config user.email "actions@github.com"
           git add -A Radio/logs/
           git diff --staged --quiet || git commit -m "chore: rapport diffusion radio [skip ci]"
-          git push
+          # Un autre workflow peut avoir poussé entre le checkout et ce push
+          git push || (git pull --rebase origin main && git push)
