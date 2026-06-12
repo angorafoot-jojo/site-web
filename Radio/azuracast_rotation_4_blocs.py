@@ -656,8 +656,9 @@ def reorder_playlist(base_url: str, station_id: int, playlist_id: int, api_key: 
     if missing:
         print(f"  AVERTISSEMENT reorder: {missing} chemin(s) M3U introuvable(s) dans la playlist.")
 
-    # 6. Envoie le nouvel ordre à AzuraCast
-    order_payload = [{"id": spm_id, "weight": i + 1} for i, spm_id in enumerate(ordered_ids)]
+    # 6. Envoie le nouvel ordre à AzuraCast.
+    # Format attendu par PutOrderAction (0.17.2) : {"order": {spm_id: poids}}
+    order_payload = {"order": {str(spm_id): i + 1 for i, spm_id in enumerate(ordered_ids)}}
     r3 = request_api("PUT", order_url, api_key, json=order_payload, timeout=60)
     if r3.ok:
         print(f"  Reorder OK — {len(ordered_ids)} fichiers réordonnés.")
