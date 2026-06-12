@@ -15,6 +15,7 @@ import json
 import os
 import sys
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -66,6 +67,22 @@ def validate_block_schedules(base_url: str, station_id: int, api_key: str) -> li
     return problems
 
 
+def validate_rotation_freshness(state_path: Path) -> list[str]:
+    """La rotation tourne vers 00h05 UTC (parfois avec des heures de retard) ;
+    à midi son state doit dater d'aujourd'hui, sinon les blocs rejouent la veille."""
+    if not state_path.exists():
+        return [f"fichier state introuvable : {state_path}"]
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    last_run = state.get("last_run_date")
+    today = datetime.now(timezone.utc).date().isoformat()
+    if last_run != today:
+        return [
+            f"la rotation n'a pas tourné aujourd'hui (state du {last_run}, attendu {today}) "
+            "— la radio rejoue les blocs de la veille"
+        ]
+    return []
+
+
 def fetch_server_paths(base_url: str, station_id: int, api_key: str) -> set[str]:
     url = f"{base_url.rstrip('/')}/api/station/{station_id}/files"
     request = urllib.request.Request(url, headers={"X-API-Key": api_key})
@@ -77,6 +94,7 @@ def fetch_server_paths(base_url: str, station_id: int, api_key: str) -> set[str]
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="Radio/azuracast_rotation_config_option_a.example.json")
+    parser.add_argument("--state", default="Radio/azuracast_rotation_state.json")
     args = parser.parse_args()
 
     config = json.loads(Path(args.config).read_text(encoding="utf-8"))
@@ -96,6 +114,7 @@ def main() -> int:
     print(f"Fichiers sur le serveur : {len(server_paths)}")
 
     schedule_problems = validate_block_schedules(base_url, station_id, api_key)
+    freshness_problems = validate_rotation_freshness(Path(args.state))
 
     if missing:
         print(f"\n❌ {len(missing)} chemin(s) introuvable(s) sur AzuraCast :")
@@ -109,10 +128,15 @@ def main() -> int:
             print(f"  - {problem}")
         print("\nSans planification correcte, les blocs jouent tous en même temps.")
 
-    if missing or schedule_problems:
+    if freshness_problems:
+        print("\n❌ Fraîcheur de la rotation :")
+        for problem in freshness_problems:
+            print(f"  - {problem}")
+
+    if missing or schedule_problems or freshness_problems:
         return 1
 
-    print("✅ Tous les chemins existent et les 4 blocs sont correctement planifiés.")
+    print("✅ Chemins valides, 4 blocs planifiés, rotation du jour effectuée.")
     return 0
 
 

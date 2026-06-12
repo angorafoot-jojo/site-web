@@ -7,7 +7,7 @@ import os
 import random
 import re
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -43,6 +43,15 @@ BLOCK_PLAYLISTS = [
 
 # Durée d'un créneau de bloc (grille de 4 blocs de 6h).
 SLOT_SECONDS = 6 * 3600
+
+# Le redémarrage AutoDJ relance le bloc à l'antenne depuis son début.
+# Utile dans les premières minutes d'un créneau (le bloc repart proprement
+# sur le nouveau contenu), destructeur en plein milieu (coupe le message en
+# cours). Les crons GitHub Actions pouvant tourner avec des heures de
+# retard, on ne redémarre que si on est au début d'un créneau ; sinon le
+# changement de bloc suivant applique le nouveau contenu naturellement.
+# NB: dépend du fuseau de la station = UTC (vérifié, et validé chaque midi).
+RESTART_GRACE_MINUTES = 30
 
 # Les cibles bible/louange ci-dessous totalisent 6h SANS le message du jour.
 # Elles sont réduites à chaque run au prorata de la durée réelle du message
@@ -709,6 +718,8 @@ def main() -> None:
     parser.add_argument("--debug-output", default="azuracast_4_blocs_debug.json")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--force-advance", action="store_true")
+    parser.add_argument("--force-restart", action="store_true",
+                        help="redémarre l'AutoDJ même en plein milieu d'un créneau")
     args = parser.parse_args()
 
     config = load_json(Path(args.config))
@@ -818,13 +829,30 @@ def main() -> None:
     print(f"Résumé debug sauvegardé: {args.debug_output}")
 
     if not args.dry_run:
-        print("Redémarrage de l'AutoDJ pour remettre les blocs à zéro...")
-        restart_url = f"{base_url.rstrip('/')}/api/station/{station_id}/backend/restart"
-        restart_resp = request_api("POST", restart_url, api_key)
-        if restart_resp.ok:
-            print("AutoDJ redémarré. Les blocs repartent de la position 1.")
+        now = datetime.now(timezone.utc)
+        minutes_into_slot = (now.hour * 60 + now.minute) % (SLOT_SECONDS // 60)
+        if args.force_restart or minutes_into_slot <= RESTART_GRACE_MINUTES:
+            print("Redémarrage de l'AutoDJ pour remettre les blocs à zéro...")
+            restart_url = f"{base_url.rstrip('/')}/api/station/{station_id}/backend/restart"
+            restart_resp = request_api("POST", restart_url, api_key)
+            if restart_resp.ok:
+                print("AutoDJ redémarré. Les blocs repartent de la position 1.")
+            else:
+                print(f"AVERTISSEMENT: Redémarrage AutoDJ échoué (status {restart_resp.status_code}). Les blocs peuvent reprendre en cours de route.")
+            # Les titres déjà transmis à Liquidsoap survivent au redémarrage :
+            # on vide la file pour qu'elle se reconstruise sur le nouveau contenu.
+            clear_resp = request_api("POST", f"{base_url.rstrip('/')}/api/station/{station_id}/queue/clear", api_key)
+            if clear_resp.ok:
+                print("File d'attente vidée — reconstruction sur les nouveaux blocs.")
+            else:
+                print(f"AVERTISSEMENT: Vidage de la file échoué (status {clear_resp.status_code}).")
         else:
-            print(f"AVERTISSEMENT: Redémarrage AutoDJ échoué (status {restart_resp.status_code}). Les blocs peuvent reprendre en cours de route.")
+            print(
+                f"Redémarrage AutoDJ ignoré ({minutes_into_slot} min après le début du créneau, "
+                f"> {RESTART_GRACE_MINUTES} min) : le bloc à l'antenne finit son contenu actuel, "
+                "les nouveaux blocs prennent effet au prochain changement de créneau. "
+                "(--force-restart pour outrepasser)"
+            )
 
         # Nettoyer la progression : supprimer les livres remis à 0 pour alléger le fichier
         bible_progress_clean = {k: v for k, v in bible_progress.items() if v > 0}
