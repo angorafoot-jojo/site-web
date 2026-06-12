@@ -30,6 +30,42 @@ def iter_config_paths(node: Any, key: str | None = None) -> Iterator[str]:
         yield node
 
 
+# Créneaux attendus des 4 blocs (heures de la station, format HHMM).
+# Toute dérive (planification vidée, option interrupt réactivée) fait
+# échouer la validation → Issue GitHub avant la prochaine rotation.
+EXPECTED_SLOTS = {
+    "BLOC_A_SERIE_DU_JOUR": (0, 559),
+    "BLOC_B_SERIE_DU_JOUR": (600, 1159),
+    "BLOC_C_SERIE_DU_JOUR": (1200, 1759),
+    "BLOC_D_SERIE_DU_JOUR": (1800, 2359),
+}
+
+
+def validate_block_schedules(base_url: str, station_id: int, api_key: str) -> list[str]:
+    url = f"{base_url.rstrip('/')}/api/station/{station_id}/playlists"
+    request = urllib.request.Request(url, headers={"X-API-Key": api_key})
+    with urllib.request.urlopen(request, timeout=120) as response:
+        playlists = json.load(response)
+
+    problems = []
+    found = set()
+    for p in playlists:
+        name = p.get("name")
+        if name not in EXPECTED_SLOTS:
+            continue
+        found.add(name)
+        if not p.get("is_enabled"):
+            problems.append(f"{name} : playlist désactivée")
+        if "interrupt" in (p.get("backend_options") or []):
+            problems.append(f"{name} : option 'interrupt' réactivée (bug AzuraCast #3254)")
+        slots = [(s.get("start_time"), s.get("end_time")) for s in p.get("schedule_items", [])]
+        if slots != [EXPECTED_SLOTS[name]]:
+            problems.append(f"{name} : planification {slots} au lieu de [{EXPECTED_SLOTS[name]}]")
+    for name in EXPECTED_SLOTS.keys() - found:
+        problems.append(f"{name} : playlist introuvable")
+    return problems
+
+
 def fetch_server_paths(base_url: str, station_id: int, api_key: str) -> set[str]:
     url = f"{base_url.rstrip('/')}/api/station/{station_id}/files"
     request = urllib.request.Request(url, headers={"X-API-Key": api_key})
@@ -59,14 +95,24 @@ def main() -> int:
     print(f"Chemins dans la config : {len(config_paths)}")
     print(f"Fichiers sur le serveur : {len(server_paths)}")
 
+    schedule_problems = validate_block_schedules(base_url, station_id, api_key)
+
     if missing:
         print(f"\n❌ {len(missing)} chemin(s) introuvable(s) sur AzuraCast :")
         for path in missing:
             print(f"  - {path}")
-        print("\nLa rotation de 23h UTC échouera si rien n'est corrigé.")
+        print("\nLa prochaine rotation échouera si rien n'est corrigé.")
+
+    if schedule_problems:
+        print(f"\n❌ {len(schedule_problems)} problème(s) de planification des blocs :")
+        for problem in schedule_problems:
+            print(f"  - {problem}")
+        print("\nSans planification correcte, les blocs jouent tous en même temps.")
+
+    if missing or schedule_problems:
         return 1
 
-    print("✅ Tous les chemins de la config existent sur le serveur.")
+    print("✅ Tous les chemins existent et les 4 blocs sont correctement planifiés.")
     return 0
 
 
