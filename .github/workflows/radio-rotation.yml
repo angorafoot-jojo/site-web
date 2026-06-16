@@ -2,11 +2,14 @@ name: Rotation Radio Quotidienne
 
 on:
   schedule:
-    # 00h05 UTC : juste après le basculement vers le bloc A. La rotation
-    # (réécriture des playlists + redémarrage AutoDJ) ne perturbe ainsi que
-    # les premières minutes du bloc A, qui repart proprement du début
-    # (jingle → message), au lieu de couper la dernière heure du bloc D.
-    - cron: '5 0 * * *'
+    # 23h30 UTC : la rotation réécrit les 4 blocs AVANT l'ouverture du bloc A
+    # à 00h00. Ainsi le bloc A démarre directement sur le message (comme B/C/D),
+    # au lieu de dérouler Bible/musique pendant ~5h (le redémarrage AutoDJ ne
+    # réinitialisait pas le bloc A déjà à l'antenne avec l'ancien cron 00h05).
+    # 23h30 = 330 min dans le créneau D > RESTART_GRACE_MINUTES (30) → pas de
+    # redémarrage AutoDJ → le bloc D en cours n'est PAS coupé. Créneau hors heure
+    # pleine = moins de retard de file d'attente GitHub Actions qu'à 00h0x.
+    - cron: '30 23 * * *'
   workflow_dispatch:        # Permet un lancement manuel depuis GitHub
 
 jobs:
