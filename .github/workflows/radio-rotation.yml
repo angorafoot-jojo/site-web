@@ -1,16 +1,12 @@
 name: Rotation Radio Quotidienne
 
 on:
-  schedule:
-    # 23h30 UTC : la rotation réécrit les 4 blocs AVANT l'ouverture du bloc A
-    # à 00h00. Ainsi le bloc A démarre directement sur le message (comme B/C/D),
-    # au lieu de dérouler Bible/musique pendant ~5h (le redémarrage AutoDJ ne
-    # réinitialisait pas le bloc A déjà à l'antenne avec l'ancien cron 00h05).
-    # 23h30 = 330 min dans le créneau D > RESTART_GRACE_MINUTES (30) → pas de
-    # redémarrage AutoDJ → le bloc D en cours n'est PAS coupé. Créneau hors heure
-    # pleine = moins de retard de file d'attente GitHub Actions qu'à 00h0x.
-    - cron: '30 23 * * *'
-  workflow_dispatch:        # Permet un lancement manuel depuis GitHub
+  # Plus de 'schedule' : le cron GitHub Actions était retardé de 2 à 5 h
+  # (file d'attente partagée), ce qui faisait démarrer le bloc A bien après
+  # 00h00 UTC. Déclenchement désormais EXTERNE à 23h30 UTC pile via cron-job.org,
+  # qui appelle l'API workflow_dispatch (les runs 'dispatch' partent en quelques
+  # secondes, sans le retard des 'schedule'). Voir aussi le lancement manuel.
+  workflow_dispatch:        # Déclenché par cron-job.org (POST .../dispatches) ou à la main
 
 jobs:
   rotation:
