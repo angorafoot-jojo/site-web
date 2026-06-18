@@ -329,7 +329,11 @@ def pick_bible_sequential(
     lit les chapitres dans l'ordre jusqu'à la durée cible, puis enchaîne avec
     un autre livre si nécessaire.
 
-    Met à jour bible_progress en place.
+    `used_books_cycle` est partagé sur toute la journée (les 4 blocs) : on y
+    inscrit TOUS les livres réellement lus (pas seulement le premier du slot),
+    pour ne rejouer un livre qu'une fois la bibliothèque entièrement parcourue.
+
+    Met à jour bible_progress ET used_books_cycle en place.
     Retourne (fichiers_sélectionnés, durée_totale, nom_du_premier_livre).
     """
     preferred = [b for b in bible_books if b not in used_books_cycle]
@@ -357,6 +361,7 @@ def pick_bible_sequential(
                 continue  # Ne jamais inclure le message du jour dans la Bible
             selected.append(item)
             total += item.length
+            used_books_cycle.add(book_name)  # marquer CHAQUE livre lu, pas que le 1er
             if first_book is None:
                 first_book = book_name
 
@@ -488,12 +493,16 @@ def build_full_cycle(
     jingle_categories: dict[str, list[MediaItem]],
     used_music_global: set[str],
     bible_progress: dict[str, int],
+    used_bible_books_global: set[str] | None = None,
     cycle_plan: list[tuple[str, Any]] = CYCLE_PLAN,
 ):
     playlist_paths = []
     debug_blocks = []
     used_music_cycle = set()
-    used_bible_books_cycle: set[str] = set()
+    # Livres Bible déjà lus AUJOURD'HUI (partagé sur les 4 blocs via main).
+    # None → set local (usage en test/un seul bloc).
+    if used_bible_books_global is None:
+        used_bible_books_global = set()
     used_jingles_cycle = set()
     previous_jingle = None
     total_duration_without_message = 0
@@ -530,12 +539,12 @@ def build_full_cycle(
         if block_type == "bible":
             target_seconds = param
             selected, duration, starting_book = pick_bible_sequential(
-                bible_books, target_seconds, used_bible_books_cycle,
+                bible_books, target_seconds, used_bible_books_global,
                 bible_progress, message.path,
             )
             for item in selected:
                 playlist_paths.append(item.path)
-            used_bible_books_cycle.add(starting_book)
+            # (pick_bible_sequential a déjà inscrit tous les livres lus dans le set global)
             total_duration_without_message += duration
             books_in_slot = list(dict.fromkeys(
                 extract_book_chapter(i.title, i.path)[0] for i in selected
@@ -802,6 +811,7 @@ def main() -> None:
     }
 
     used_music_global: set[str] = set()
+    used_bible_books_global: set[str] = set()  # livres Bible déjà lus aujourd'hui (4 blocs)
     bible_progress: dict[str, int] = state.get("bible_progress", {})
     print(f"Progression Bible chargée: {len(bible_progress)} livre(s) en cours")
 
@@ -819,6 +829,7 @@ def main() -> None:
             jingle_categories=jingle_categories,
             used_music_global=used_music_global,
             bible_progress=bible_progress,
+            used_bible_books_global=used_bible_books_global,
             cycle_plan=cycle_plan,
         )
         print_debug_summary(debug)

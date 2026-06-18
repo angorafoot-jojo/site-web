@@ -402,6 +402,54 @@ def test_bible_progress_persists_across_blocs():
     print("✅ test_bible_progress_persists_across_blocs")
 
 
+def test_bible_marks_all_books_read():
+    """Régression : un slot qui enchaîne plusieurs livres doit TOUS les inscrire
+    dans used_books_cycle (avant : seul le premier livre était marqué → les petits
+    livres enchaînés se rejouaient au slot suivant)."""
+    # 3 petits livres de 2 ch (180s) ; cible 1000s → les enchaîne tous les 3
+    books = {
+        "Alpha": make_bible_book("Alpha", 2, length=180),
+        "Beta":  make_bible_book("Beta", 2, length=180),
+        "Gamma": make_bible_book("Gamma", 2, length=180),
+    }
+    used: set[str] = set()
+    progress: dict[str, int] = {}
+    selected, _, _ = pick_bible_sequential(books, 1000, used, progress)
+    books_read = {extract_book_chapter(i.title, i.path)[0] for i in selected}
+    assert books_read <= used, f"Livres lus {books_read} pas tous marqués (used={used})"
+    assert len(used) == 3, \
+        f"3 livres lus mais {len(used)} marqué(s) — bug 'seul le premier livre'"
+    print("✅ test_bible_marks_all_books_read")
+
+
+def test_bible_no_book_repeat_across_blocs_shared_set():
+    """Régression : avec le set Bible global partagé entre les blocs, un livre lu
+    dans un bloc ne réapparaît pas au bloc suivant (avant : set réinitialisé par
+    bloc → petits livres rejoués matin ET soir)."""
+    # 12 gros livres (30 ch ≥ segment max de 60 min) → 8 slots/2 blocs sans épuisement
+    books = {f"Livre{i:02d}": make_bible_book(f"Livre{i:02d}", 30, length=180)
+             for i in range(12)}
+    message = Episode("série_test", "titre_test", "message_test.mp3")
+    cats = build_test_jingle_categories()
+    music = make_media("music", 80)
+
+    for run in range(10):
+        progress: dict[str, int] = {}
+        used_global: set[str] = set()
+        starting_all: list[str] = []
+        for b in range(2):  # 2 blocs partageant le même set global
+            _, debug = build_full_cycle(
+                block_name=f"BLOC_{b}", message=message, music_files=music,
+                bible_books=books, jingle_categories=cats,
+                used_music_global=set(), bible_progress=progress,
+                used_bible_books_global=used_global,
+            )
+            starting_all += [s["starting_book"] for s in debug["blocks"] if s["type"] == "bible"]
+        assert len(starting_all) == len(set(starting_all)), \
+            f"Run {run}: livre de départ répété entre les blocs: {starting_all}"
+    print("✅ test_bible_no_book_repeat_across_blocs_shared_set (10 runs)")
+
+
 # ─── Runner ─────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
@@ -428,6 +476,8 @@ if __name__ == "__main__":
         test_bible_progress_resumes_from_last_chapter,
         test_bible_progress_resets_after_full_book,
         test_bible_progress_persists_across_blocs,
+        test_bible_marks_all_books_read,
+        test_bible_no_book_repeat_across_blocs_shared_set,
     ]
 
     passed = 0
