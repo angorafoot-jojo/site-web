@@ -7,7 +7,7 @@ import os
 import random
 import re
 from dataclasses import dataclass
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -735,7 +735,10 @@ def main() -> None:
         raise RuntimeError("Clé API manquante. Mets AZURACAST_API_KEY ou modifie le fichier config.")
 
     episodes = flatten_episodes(config)
-    today = date.today().isoformat()
+    # Date UTC explicite (et non locale) : la station est en UTC et le cron peut
+    # tourner sur un serveur dans un autre fuseau. date.today() donnerait la date
+    # locale du serveur → décalage possible près de minuit. On force l'UTC.
+    today = datetime.now(timezone.utc).date().isoformat()
 
     if state_path.exists():
         state = load_json(state_path)
