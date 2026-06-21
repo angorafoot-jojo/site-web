@@ -15,7 +15,7 @@ import json
 import os
 import sys
 import urllib.request
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -68,17 +68,26 @@ def validate_block_schedules(base_url: str, station_id: int, api_key: str) -> li
 
 
 def validate_rotation_freshness(state_path: Path) -> list[str]:
-    """La rotation tourne vers 00h05 UTC (parfois avec des heures de retard) ;
-    à midi son state doit dater d'aujourd'hui, sinon les blocs rejouent la veille."""
+    """La rotation tourne à 23h30 UTC et estampille `last_run_date` avec son JOUR
+    d'exécution — c'est-à-dire la veille de la diffusion qu'elle prépare. À l'heure
+    de cette validation (midi UTC), un système sain a donc un state daté d'HIER.
+    On n'alerte que si le state est plus ancien (rotation ratée depuis plus de 24 h),
+    auquel cas la radio rejoue un contenu périmé."""
     if not state_path.exists():
         return [f"fichier state introuvable : {state_path}"]
     state = json.loads(state_path.read_text(encoding="utf-8"))
     last_run = state.get("last_run_date")
-    today = datetime.now(timezone.utc).date().isoformat()
-    if last_run != today:
+    if not last_run:
+        return ["state sans last_run_date — la rotation n'a jamais tourné"]
+    try:
+        last_run_date = date.fromisoformat(last_run)
+    except ValueError:
+        return [f"last_run_date illisible dans le state : {last_run!r}"]
+    oldest_ok = datetime.now(timezone.utc).date() - timedelta(days=1)
+    if last_run_date < oldest_ok:
         return [
-            f"la rotation n'a pas tourné aujourd'hui (state du {last_run}, attendu {today}) "
-            "— la radio rejoue les blocs de la veille"
+            f"la rotation n'a pas tourné depuis plus de 24 h (state du {last_run}, "
+            f"attendu ≥ {oldest_ok.isoformat()}) — la radio rejoue un contenu périmé"
         ]
     return []
 
