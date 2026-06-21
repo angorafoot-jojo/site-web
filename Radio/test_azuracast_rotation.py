@@ -6,12 +6,14 @@ selon sa position dans le CYCLE_PLAN.
 """
 import sys
 import os
+from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(__file__))
 
 from azuracast_rotation_4_blocs import (
     Episode, MediaItem, CYCLE_PLAN,
     categorize_jingles, pick_jingle_from_category, build_full_cycle,
     extract_book_chapter, group_bible_by_book, pick_bible_sequential,
+    compute_broadcast_date, EVENING_PREP_HOUR_UTC,
 )
 
 
@@ -450,6 +452,43 @@ def test_bible_no_book_repeat_across_blocs_shared_set():
     print("✅ test_bible_no_book_repeat_across_blocs_shared_set (10 runs)")
 
 
+# ─── Jour de diffusion (compute_broadcast_date) ──────────────────────────────
+
+def test_broadcast_date_evening_prepares_tomorrow():
+    """À 23h30 UTC (heure du cron), on prépare la diffusion du LENDEMAIN."""
+    now = datetime(2026, 6, 21, 23, 30, tzinfo=timezone.utc)
+    assert compute_broadcast_date(now) == "2026-06-22"
+    print("✅ test_broadcast_date_evening_prepares_tomorrow")
+
+def test_broadcast_date_morning_is_same_day():
+    """Un run du matin (ou juste après minuit) vise le jour courant."""
+    assert compute_broadcast_date(datetime(2026, 6, 21, 2, 7, tzinfo=timezone.utc)) == "2026-06-21"
+    assert compute_broadcast_date(datetime(2026, 6, 21, 0, 30, tzinfo=timezone.utc)) == "2026-06-21"
+    print("✅ test_broadcast_date_morning_is_same_day")
+
+def test_broadcast_date_threshold_boundary():
+    """21h59 → aujourd'hui ; EVENING_PREP_HOUR_UTC pile → demain."""
+    assert compute_broadcast_date(datetime(2026, 6, 21, EVENING_PREP_HOUR_UTC - 1, 59, tzinfo=timezone.utc)) == "2026-06-21"
+    assert compute_broadcast_date(datetime(2026, 6, 21, EVENING_PREP_HOUR_UTC, 0, tzinfo=timezone.utc)) == "2026-06-22"
+    print("✅ test_broadcast_date_threshold_boundary")
+
+def test_broadcast_date_crosses_month_end():
+    """Le passage au lendemain gère le changement de mois."""
+    assert compute_broadcast_date(datetime(2026, 6, 30, 23, 30, tzinfo=timezone.utc)) == "2026-07-01"
+    print("✅ test_broadcast_date_crosses_month_end")
+
+def test_broadcast_date_no_collision_morning_then_evening():
+    """Cœur du fix : un run matin et un run soir le MÊME jour UTC visent des
+    jours de diffusion DIFFÉRENTS → le garde-fou last_run_date==broadcast_date
+    ne saute plus la rotation du soir (cause de la collision du 2026-06-18)."""
+    morning = compute_broadcast_date(datetime(2026, 6, 18, 2, 7, tzinfo=timezone.utc))
+    evening = compute_broadcast_date(datetime(2026, 6, 18, 23, 30, tzinfo=timezone.utc))
+    assert morning == "2026-06-18"
+    assert evening == "2026-06-19"
+    assert morning != evening
+    print("✅ test_broadcast_date_no_collision_morning_then_evening")
+
+
 # ─── Runner ─────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
@@ -478,6 +517,12 @@ if __name__ == "__main__":
         test_bible_progress_persists_across_blocs,
         test_bible_marks_all_books_read,
         test_bible_no_book_repeat_across_blocs_shared_set,
+        # Jour de diffusion
+        test_broadcast_date_evening_prepares_tomorrow,
+        test_broadcast_date_morning_is_same_day,
+        test_broadcast_date_threshold_boundary,
+        test_broadcast_date_crosses_month_end,
+        test_broadcast_date_no_collision_morning_then_evening,
     ]
 
     passed = 0

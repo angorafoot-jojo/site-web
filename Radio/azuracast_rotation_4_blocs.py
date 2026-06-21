@@ -7,7 +7,7 @@ import os
 import random
 import re
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -52,6 +52,12 @@ SLOT_SECONDS = 6 * 3600
 # changement de bloc suivant applique le nouveau contenu naturellement.
 # NB: dépend du fuseau de la station = UTC (vérifié, et validé chaque midi).
 RESTART_GRACE_MINUTES = 30
+
+# La rotation tourne à 23h30 UTC pour que le bloc A démarre sur le message à
+# 00h00. Le contenu construit le soir (≥ cette heure UTC) est donc destiné à la
+# diffusion du LENDEMAIN. On estampille / déduplique le state sur ce JOUR DE
+# DIFFUSION (et non le jour d'exécution) — voir compute_broadcast_date().
+EVENING_PREP_HOUR_UTC = 22
 
 # Les cibles bible/louange ci-dessous totalisent 6h SANS le message du jour.
 # Elles sont réduites à chaque run au prorata de la durée réelle du message
@@ -720,6 +726,25 @@ def import_playlist_paths(base_url: str, station_id: int, playlist_id: int, api_
     return matched
 
 
+def compute_broadcast_date(now: datetime) -> str:
+    """Jour de diffusion (UTC, ISO) que cette exécution prépare.
+
+    La rotation tourne à 23h30 UTC pour que le bloc A démarre sur le message à
+    00h00. Le contenu construit le soir (heure UTC ≥ EVENING_PREP_HOUR_UTC) est
+    donc destiné au LENDEMAIN ; un run du matin (ou juste après minuit) vise le
+    jour courant. On estampille `last_run_date` sur ce jour de diffusion plutôt
+    que sur le jour d'exécution, ce qui :
+      1. supprime la collision de bascule (un run du matin et un run du soir le
+         même jour UTC visent des jours différents → aucun saut de garde-fou) ;
+      2. aligne `last_run_date` sur la date d'antenne réelle, cohérent avec les
+         rapports de diffusion et le contrôle de fraîcheur (validate_paths.py).
+    """
+    day = now.date()
+    if now.hour >= EVENING_PREP_HOUR_UTC:
+        day += timedelta(days=1)
+    return day.isoformat()
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="azuracast_rotation_config_option_a.example.json")
@@ -744,10 +769,10 @@ def main() -> None:
         raise RuntimeError("Clé API manquante. Mets AZURACAST_API_KEY ou modifie le fichier config.")
 
     episodes = flatten_episodes(config)
-    # Date UTC explicite (et non locale) : la station est en UTC et le cron peut
-    # tourner sur un serveur dans un autre fuseau. date.today() donnerait la date
-    # locale du serveur → décalage possible près de minuit. On force l'UTC.
-    today = datetime.now(timezone.utc).date().isoformat()
+    # Jour de DIFFUSION préparé par ce run (UTC explicite : la station est en UTC
+    # et le cron tourne en UTC). Run du soir → diffusion du lendemain. Voir
+    # compute_broadcast_date() pour le pourquoi (anti-collision + cohérence dates).
+    broadcast_date = compute_broadcast_date(datetime.now(timezone.utc))
 
     if state_path.exists():
         state = load_json(state_path)
@@ -756,9 +781,9 @@ def main() -> None:
 
     current_index = int(state.get("episode_index", 0))
 
-    if state.get("last_run_date") == today and not args.force_advance:
+    if state.get("last_run_date") == broadcast_date and not args.force_advance:
         ep = episodes[current_index]
-        print("Déjà exécuté aujourd'hui.")
+        print(f"Déjà préparé pour la diffusion du {broadcast_date}.")
         print(f"Épisode actif: {ep.series_name} — {ep.title}")
         return
 
@@ -803,7 +828,7 @@ def main() -> None:
     jingle_categories = categorize_jingles(all_jingles, config_jingle_cats)
 
     all_debug = {
-        "date": today,
+        "date": broadcast_date,
         "message_series": ep.series_name,
         "message_title": ep.title,
         "message_path": ep.path,
@@ -872,7 +897,7 @@ def main() -> None:
         bible_progress_clean = {k: v for k, v in bible_progress.items() if v > 0}
         save_json(state_path, {
             "episode_index": next_index,
-            "last_run_date": today,
+            "last_run_date": broadcast_date,
             "active_series": ep.series_name,
             "active_title": ep.title,
             "active_path": ep.path,
