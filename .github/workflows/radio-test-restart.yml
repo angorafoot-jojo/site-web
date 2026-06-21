@@ -7,30 +7,47 @@ jobs:
   test-restart:
     runs-on: ubuntu-latest
     steps:
-      - name: Lire ce qui joue AVANT le restart
+      - name: Diagnostique API (réponse brute AVANT restart)
         env:
           AZURACAST_BASE_URL: https://parole-prophetique-fm.levangileduroyaume.com
           AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
         run: |
           echo "=== AVANT RESTART ($(date -u)) ==="
-          curl -s -H "Authorization: Bearer $AZURACAST_API_KEY" \
-            "$AZURACAST_BASE_URL/api/station/1/nowplaying" \
-            | python3 -c "
+          echo "--- Test nowplaying public (sans auth) ---"
+          RAW=$(curl -sv "$AZURACAST_BASE_URL/api/station/1/nowplaying" 2>&1)
+          echo "$RAW" | head -60
+
+          echo "--- Test nowplaying avec auth ---"
+          RAW_AUTH=$(curl -sv \
+            -H "Authorization: Bearer $AZURACAST_API_KEY" \
+            -H "X-API-Key: $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/nowplaying" 2>&1)
+          echo "$RAW_AUTH" | head -60
+
+          echo "--- Parse JSON si valide ---"
+          curl -s "$AZURACAST_BASE_URL/api/station/1/nowplaying" \
+          | python3 -c "
           import json, sys
-          d = json.load(sys.stdin)
+          raw = sys.stdin.read()
+          print('Longueur réponse:', len(raw))
+          if not raw.strip():
+            print('RÉPONSE VIDE')
+            sys.exit(0)
+          try:
+            d = json.loads(raw)
+          except Exception as e:
+            print('Erreur JSON:', e)
+            print('Début réponse:', raw[:300])
+            sys.exit(0)
           playing = d.get('now_playing', {})
-          song    = playing.get('song', {})
-          pl      = playing.get('playlist', 'inconnue')
-          elapsed = playing.get('elapsed', '?')
-          duration= playing.get('duration', '?')
-          title   = song.get('title', '?')
-          print(f'Playlist : {pl}')
-          print(f'Titre    : {title}')
-          print(f'Position : {elapsed}s / {duration}s dans ce titre')
-          next_= d.get('playing_next', {})
-          if next_:
-            print(f'Suivant  : {next_.get(\"song\",{}).get(\"title\",\"?\")}')
-          "
+          song = playing.get('song', {})
+          print('Playlist :', playing.get('playlist', 'inconnue'))
+          print('Titre    :', song.get('title', '?'))
+          print('Elapsed  :', playing.get('elapsed', '?'), '/ Duration:', playing.get('duration', '?'))
+          nxt = d.get('playing_next', {})
+          if nxt:
+            print('Suivant  :', nxt.get('song', {}).get('title', '?'))
+          " || true
 
       - name: Restart AutoDJ + vider la file
         env:
@@ -38,19 +55,23 @@ jobs:
           AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
         run: |
           echo "=== RESTART ($(date -u)) ==="
-          curl -s -X POST \
+          echo "--- Réponse restart ---"
+          curl -sv -X POST \
             -H "Authorization: Bearer $AZURACAST_API_KEY" \
-            "$AZURACAST_BASE_URL/api/station/1/backend/restart"
+            -H "X-API-Key: $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/backend/restart" 2>&1 | tail -20
           echo ""
-          sleep 5
-          curl -s -X POST \
+          sleep 8
+          echo "--- Réponse queue/clear ---"
+          curl -sv -X POST \
             -H "Authorization: Bearer $AZURACAST_API_KEY" \
-            "$AZURACAST_BASE_URL/api/station/1/queue/clear"
+            -H "X-API-Key: $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/queue/clear" 2>&1 | tail -20
           echo ""
-          echo "Restart envoyé. Attente 30s..."
+          echo "Restart envoyé. Attente 35s..."
 
       - name: Attendre que Liquidsoap redémarre
-        run: sleep 30
+        run: sleep 35
 
       - name: Lire ce qui joue APRÈS le restart
         env:
@@ -58,25 +79,29 @@ jobs:
           AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
         run: |
           echo "=== APRÈS RESTART ($(date -u)) ==="
-          curl -s -H "Authorization: Bearer $AZURACAST_API_KEY" \
-            "$AZURACAST_BASE_URL/api/station/1/nowplaying" \
-            | python3 -c "
+          curl -s "$AZURACAST_BASE_URL/api/station/1/nowplaying" \
+          | python3 -c "
           import json, sys
-          d = json.load(sys.stdin)
+          raw = sys.stdin.read()
+          print('Longueur réponse:', len(raw))
+          if not raw.strip():
+            print('RÉPONSE VIDE')
+            sys.exit(0)
+          try:
+            d = json.loads(raw)
+          except Exception as e:
+            print('Erreur JSON:', e)
+            print('Début réponse:', raw[:300])
+            sys.exit(0)
           playing = d.get('now_playing', {})
-          song    = playing.get('song', {})
-          pl      = playing.get('playlist', 'inconnue')
-          elapsed = playing.get('elapsed', '?')
-          duration= playing.get('duration', '?')
-          title   = song.get('title', '?')
-          print(f'Playlist : {pl}')
-          print(f'Titre    : {title}')
-          print(f'Position : {elapsed}s / {duration}s dans ce titre')
-          next_= d.get('playing_next', {})
-          if next_:
-            print(f'Suivant  : {next_.get(\"song\",{}).get(\"title\",\"?\")}')
-          "
-          echo ""
-          echo "--- INTERPRÉTATION ---"
-          echo "Si le titre est un JINGLE -> le pointeur a bien été remis à 1 ✅"
-          echo "Si c est Bible ou Musique -> le pointeur N a PAS été remis à 1 ❌"
+          song = playing.get('song', {})
+          print('Playlist :', playing.get('playlist', 'inconnue'))
+          print('Titre    :', song.get('title', '?'))
+          print('Elapsed  :', playing.get('elapsed', '?'), '/ Duration:', playing.get('duration', '?'))
+          nxt = d.get('playing_next', {})
+          if nxt:
+            print('Suivant  :', nxt.get('song', {}).get('title', '?'))
+          print()
+          print('JINGLE = pointeur remis à 1 ✅')
+          print('Bible/Musique = pointeur NON remis à 1 ❌')
+          " || true
