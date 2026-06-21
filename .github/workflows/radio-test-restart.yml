@@ -1,0 +1,82 @@
+name: TEST — Restart AutoDJ et vérification pointeur
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-restart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lire ce qui joue AVANT le restart
+        env:
+          AZURACAST_BASE_URL: https://parole-prophetique-fm.levangileduroyaume.com
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          echo "=== AVANT RESTART ($(date -u)) ==="
+          curl -s -H "Authorization: Bearer $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/nowplaying" \
+            | python3 -c "
+          import json, sys
+          d = json.load(sys.stdin)
+          playing = d.get('now_playing', {})
+          song    = playing.get('song', {})
+          pl      = playing.get('playlist', 'inconnue')
+          elapsed = playing.get('elapsed', '?')
+          duration= playing.get('duration', '?')
+          title   = song.get('title', '?')
+          print(f'Playlist : {pl}')
+          print(f'Titre    : {title}')
+          print(f'Position : {elapsed}s / {duration}s dans ce titre')
+          next_= d.get('playing_next', {})
+          if next_:
+            print(f'Suivant  : {next_.get(\"song\",{}).get(\"title\",\"?\")}')
+          "
+
+      - name: Restart AutoDJ + vider la file
+        env:
+          AZURACAST_BASE_URL: https://parole-prophetique-fm.levangileduroyaume.com
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          echo "=== RESTART ($(date -u)) ==="
+          curl -s -X POST \
+            -H "Authorization: Bearer $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/backend/restart"
+          echo ""
+          sleep 5
+          curl -s -X POST \
+            -H "Authorization: Bearer $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/queue/clear"
+          echo ""
+          echo "Restart envoyé. Attente 30s..."
+
+      - name: Attendre que Liquidsoap redémarre
+        run: sleep 30
+
+      - name: Lire ce qui joue APRÈS le restart
+        env:
+          AZURACAST_BASE_URL: https://parole-prophetique-fm.levangileduroyaume.com
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          echo "=== APRÈS RESTART ($(date -u)) ==="
+          curl -s -H "Authorization: Bearer $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/nowplaying" \
+            | python3 -c "
+          import json, sys
+          d = json.load(sys.stdin)
+          playing = d.get('now_playing', {})
+          song    = playing.get('song', {})
+          pl      = playing.get('playlist', 'inconnue')
+          elapsed = playing.get('elapsed', '?')
+          duration= playing.get('duration', '?')
+          title   = song.get('title', '?')
+          print(f'Playlist : {pl}')
+          print(f'Titre    : {title}')
+          print(f'Position : {elapsed}s / {duration}s dans ce titre')
+          next_= d.get('playing_next', {})
+          if next_:
+            print(f'Suivant  : {next_.get(\"song\",{}).get(\"title\",\"?\")}')
+          "
+          echo ""
+          echo "--- INTERPRÉTATION ---"
+          echo "Si le titre est un JINGLE -> le pointeur a bien été remis à 1 ✅"
+          echo "Si c est Bible ou Musique -> le pointeur N a PAS été remis à 1 ❌"
