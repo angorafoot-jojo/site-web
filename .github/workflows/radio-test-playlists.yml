@@ -1,0 +1,68 @@
+name: TEST — Vérification playlists AzuraCast
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-playlists:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lister toutes les playlists et détailler 000_TRANSITION
+        env:
+          AZURACAST_BASE_URL: https://parole-prophetique-fm.levangileduroyaume.com
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          curl -s \
+            -H "Authorization: Bearer $AZURACAST_API_KEY" \
+            -H "X-API-Key: $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/playlists" \
+          | python3 -c "
+import json, sys
+
+raw = sys.stdin.read()
+try:
+    playlists = json.loads(raw)
+except Exception as e:
+    print('ERREUR JSON:', e)
+    print('Réponse brute:', raw[:500])
+    sys.exit(1)
+
+print(f'=== {len(playlists)} playlists trouvées ===')
+print()
+
+# Chercher 000_TRANSITION en priorité
+transition = next((p for p in playlists if '000_TRANSITION' in p.get('name', '')), None)
+
+if transition:
+    print('=== PLAYLIST 000_TRANSITION — DÉTAIL COMPLET ===')
+    print(json.dumps(transition, indent=2, ensure_ascii=False))
+    print()
+    # Analyse des risques de diffusion aléatoire
+    ptype = transition.get('type', '?')
+    include_in_automation = transition.get('include_in_automation', None)
+    schedule = transition.get('schedule_items', [])
+    is_enabled = transition.get('is_enabled', '?')
+    print('--- ANALYSE ---')
+    print(f'Type           : {ptype}')
+    print(f'Activée        : {is_enabled}')
+    print(f'Schedules      : {len(schedule)} créneau(x)')
+    for s in schedule:
+        start_time = s.get(\"start_time\", \"?\").replace(\":\", \"h\", 1)[:5]
+        end_time   = s.get(\"end_time\",   \"?\").replace(\":\", \"h\", 1)[:5]
+        days = s.get(\"days\", [])
+        print(f'  {start_time} → {end_time}  jours={days if days else \"tous\"}')
+    if ptype == 'default':
+        print()
+        print('⚠️  TYPE = default (rotation générale) → risque de diffusion HORS créneau ❌')
+    elif ptype in ('scheduled', 'once'):
+        print()
+        print('✅ TYPE = scheduled → joue UNIQUEMENT pendant le créneau défini')
+    else:
+        print(f'\n? Type inconnu : {ptype} — vérifier dans lUI AzuraCast')
+else:
+    print('❌ Playlist 000_TRANSITION NON TROUVÉE')
+    print()
+    print('Playlists existantes :')
+    for p in sorted(playlists, key=lambda x: x.get(\"name\", \"\")):
+        print(f'  [{p.get(\"id\")}] {p.get(\"name\")}  type={p.get(\"type\")}  enabled={p.get(\"is_enabled\")}')
+"
