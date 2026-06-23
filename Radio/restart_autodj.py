@@ -18,7 +18,6 @@ import argparse
 import json
 import os
 import sys
-import time
 import urllib.error
 import urllib.request
 
@@ -54,26 +53,10 @@ def main() -> None:
 
     print(f"=== RESTART AUTODJ (station {sid}) ===")
 
-    restart_url = f"{base}/api/station/{sid}/backend/restart"
-    print(f"POST {restart_url}")
-    try:
-        result = api_post(restart_url, api_key)
-        if result.get("success"):
-            print(f"  OK : {result.get('message', '')}")
-        else:
-            print(f"  ECHEC : {result}", file=sys.stderr)
-            sys.exit(1)
-    except urllib.error.HTTPError as e:
-        print(f"  HTTP {e.code} : {e.read().decode()[:200]}", file=sys.stderr)
-        sys.exit(1)
-    except Exception as e:
-        print(f"  ERREUR : {e}", file=sys.stderr)
-        sys.exit(1)
-
-    # Liquidsoap prend quelques secondes pour redémarrer avant d'accepter
-    # la commande clear sur la file.
-    time.sleep(8)
-
+    # 1. Vider la file EN PREMIER — supprime les morceaux de BLOC_D encore
+    #    en attente, avant que Liquidsoap redémarre et recharge son schedule.
+    #    Si on vidait APRÈS restart, on risquerait d'effacer le jingle de
+    #    transition (000_TRANSITION) que Liquidsoap vient de mettre en file.
     clear_url = f"{base}/api/station/{sid}/queue/clear"
     print(f"POST {clear_url}")
     try:
@@ -90,7 +73,28 @@ def main() -> None:
         print(f"  ERREUR : {e}", file=sys.stderr)
         sys.exit(1)
 
+    # 2. Restart Liquidsoap — remet tous les pointeurs de playlists
+    #    séquentielles à la position 1.
+    #    Quand Liquidsoap revient (~30s), il voit que 000_TRANSITION est
+    #    schedulée pour 00h00→00h02 et la joue immédiatement.
+    restart_url = f"{base}/api/station/{sid}/backend/restart"
+    print(f"POST {restart_url}")
+    try:
+        result = api_post(restart_url, api_key)
+        if result.get("success"):
+            print(f"  OK : {result.get('message', '')}")
+        else:
+            print(f"  ECHEC : {result}", file=sys.stderr)
+            sys.exit(1)
+    except urllib.error.HTTPError as e:
+        print(f"  HTTP {e.code} : {e.read().decode()[:200]}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"  ERREUR : {e}", file=sys.stderr)
+        sys.exit(1)
+
     print("=== RESET TERMINÉ — pointeurs remis à la position 1 ===")
+    print("    Liquidsoap redémarre (~30s) puis joue 000_TRANSITION jusqu'à 00h02.")
 
 
 if __name__ == "__main__":
