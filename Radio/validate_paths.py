@@ -31,11 +31,14 @@ def iter_config_paths(node: Any, key: str | None = None) -> Iterator[str]:
         yield node
 
 
-# Créneaux attendus des 4 blocs (heures de la station, format HHMM).
-# Toute dérive (planification vidée, option interrupt réactivée) fait
-# échouer la validation → Issue GitHub avant la prochaine rotation.
+# Créneaux attendus (heures de la station UTC, format HHMM).
+# 000_TRANSITION joue le jingle d'identification 00:00→00:02 juste après le
+# restart de minuit ; BLOC_A enchaîne à 00:02. Toute dérive (planification
+# vidée, playlist désactivée, option interrupt réactivée) fait échouer la
+# validation → Issue GitHub avant la prochaine rotation.
 EXPECTED_SLOTS = {
-    "BLOC_A_SERIE_DU_JOUR": (0, 559),
+    "000_TRANSITION": (0, 2),
+    "BLOC_A_SERIE_DU_JOUR": (2, 559),
     "BLOC_B_SERIE_DU_JOUR": (600, 1159),
     "BLOC_C_SERIE_DU_JOUR": (1200, 1759),
     "BLOC_D_SERIE_DU_JOUR": (1800, 2359),
@@ -145,7 +148,7 @@ def main() -> int:
     if missing or schedule_problems or freshness_problems:
         return 1
 
-    print("✅ Chemins valides, 4 blocs planifiés, rotation du jour effectuée.")
+    print("✅ Chemins valides, transition + 4 blocs planifiés, rotation du jour effectuée.")
     return 0
 
 
