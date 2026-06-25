@@ -220,4 +220,7 @@ En cas d'erreur, le message indique le fichier et la ligne concernés.
 - **Ne jamais dépasser 100 MB** pour un fichier EPUB
 - **Toujours utiliser des slugs uniques** (minuscules, tirets, pas d'accents)
 - **Le champ `id` est permanent** — ne pas le modifier après publication (utilisé par les URL des pages individuelles)
-- **Les données Google Drive** sont temporaires — tout nouvel audio doit aller sur Backblaze B2
+- **Tout nouvel audio va sur Backblaze B2** (plus de Google Drive)
+- **Texte brut dans les JSON, jamais d'entités HTML.** Écrire `Temps & Saisons`, `l'Église`, `"citation"` — et **non** `Temps &amp; Saisons` ni `&#39;`. L'échappement est fait automatiquement au rendu (`escapeHtml`) ; mettre une entité dans la donnée produit un double-échappement (le visiteur verrait littéralement `&amp;`).
+
+> 💡 Ajouter ou modifier du **contenu** (JSON) ne nécessite aucun cache-busting. En revanche, si tu touches un fichier **CSS ou JS**, voir la règle de versionnage `?v=` dans [DEPLOYMENT.md](DEPLOYMENT.md#4--cache-busting-après-modification-css--js).

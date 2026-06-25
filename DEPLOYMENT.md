@@ -4,9 +4,11 @@ Ce document décrit les étapes pour mettre le site en production, configurer le
 
 ---
 
-## 1. Configuration DNS (à faire une seule fois)
+## 1. Configuration DNS (déjà fait — référence)
 
-Le fichier `CNAME` est déjà présent dans le repo (`levangileduroyaume.com`). Il faut maintenant configurer le DNS chez le registrar du domaine.
+> ✅ Le domaine custom `levangileduroyaume.com` est **déjà configuré et en HTTPS**. Cette section sert de référence en cas de migration de registrar ou de réinstallation.
+
+Le fichier `CNAME` est présent dans le repo (`levangileduroyaume.com`). Les enregistrements DNS chez le registrar :
 
 ### Enregistrements à ajouter
 
@@ -77,23 +79,27 @@ Suivre la progression dans **GitHub → onglet Actions**.
 
 ---
 
-## 4. Corriger le formulaire de contact (Formspree)
+## 4. ⚠️ Cache-busting après modification CSS / JS
 
-Le formulaire de contact utilise Formspree mais l'ID est invalide.
+Les feuilles de style et scripts sont liés avec un numéro de version dans les pages HTML, p. ex. :
 
-**Étapes :**
-1. Créer un compte sur [formspree.io](https://formspree.io)
-2. Créer un nouveau formulaire → copier l'ID (format `xyzabcde`)
-3. Ouvrir `assets/js/contact-form.js`
-4. Remplacer `YOUR_FORM_ID` par le vrai ID
-
-```javascript
-// assets/js/contact-form.js — ligne à modifier
-fetch('https://formspree.io/f/YOUR_FORM_ID',  // ← remplacer YOUR_FORM_ID
+```html
+<link rel="stylesheet" href="assets/css/style.css?v=contrast-aa-2">
+<link rel="stylesheet" href="assets/css/pages/audios.css?v=contrast-aa-2">
 ```
 
-5. Tester depuis un navigateur en navigation privée (soumettre le formulaire)
-6. Vérifier la réception dans le tableau de bord Formspree
+**Règle obligatoire : à chaque modification d'un fichier `.css` ou `.js`, incrémenter ce numéro de version** (`contrast-aa-2` → `contrast-aa-3`, etc.) sur **toutes les pages** qui référencent le fichier modifié.
+
+Pourquoi : GitHub Pages sert les assets avec un cache (~10 min) et le navigateur du visiteur garde l'ancienne version. Sans changement d'URL (`?v=`), une partie des visiteurs voit l'ancien CSS/JS après le déploiement.
+
+Astuce pour tout aligner d'un coup (depuis la racine du repo) :
+
+```bash
+# Remplace l'ancienne version par la nouvelle dans toutes les pages HTML
+grep -rl '?v=contrast-aa-2' *.html | xargs sed -i '' 's/?v=contrast-aa-2/?v=contrast-aa-3/g'
+```
+
+> Le `<base href="/">` des sous-pages (livres/, audios/…) n'est PAS concerné — seuls les `?v=` des `<link>`/`<script>` le sont.
 
 ---
 
@@ -116,8 +122,8 @@ fetch('https://formspree.io/f/YOUR_FORM_ID',  // ← remplacer YOUR_FORM_ID
 - [ ] Lecteur audio testé sur iOS Safari (si modifié)
 
 ### Production
-- [ ] DNS configuré et HTTPS actif
-- [ ] Formulaire de contact testé (navigation privée)
+- [ ] HTTPS actif (domaine custom déjà configuré)
+- [ ] Numéros de version `?v=` incrémentés si CSS/JS modifié (voir section 4)
 - [ ] Radio joue correctement
 - [ ] Un EPUB s'ouvre dans le lecteur
 
@@ -185,6 +191,6 @@ Le site ne contient aucune variable d'environnement secrète. Toutes les URLs so
 |---------------------|-------------|
 | URL audio Backblaze | `assets/data/audios.json` et `assets/data/podcasts.json` |
 | URL stream radio | `assets/data/radio-schedule.json` et `assets/js/nav.js` |
-| URL AzuraCast | `assets/js/pages/radio-schedule-init.js` |
-| ID Formspree | `assets/js/contact-form.js` |
+| Système radio (blocs, scripts, API) | voir [`Radio/README.md`](Radio/README.md) |
+| Version cache des assets (`?v=`) | `<link>`/`<script>` dans les `*.html` (voir section 4) |
 | Contenu (livres, articles…) | `assets/data/*.json` |

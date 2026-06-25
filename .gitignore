@@ -11,6 +11,16 @@ Radio/azuracast_rotation_config.json
 # Logs
 Radio/rotation.log
 
+# Musique radio locale — 2,5 Go, ne JAMAIS committer (héberger dans AzuraCast)
+Radio/ParoleProphetiqueFM-musique/
+
+# Notes de travail locales (liste d'imports musique)
+Radio/musiques_a_importer.md
+
+# Fichiers de debug radio (sorties de scripts ponctuelles)
+azuracast_4_blocs_debug.json
+*_debug.json
+
 # macOS
 .DS_Store
 

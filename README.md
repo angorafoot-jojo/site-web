@@ -7,31 +7,32 @@ Site officiel du ministère **L'Évangile du Royaume** — plateforme de ressour
 
 ---
 
-## État du projet (juin 2026)
+## État du projet (à jour : juin 2026)
 
-Le site est **fonctionnel et déployé**. Toutes les fonctionnalités principales marchent.
+Le site est **fonctionnel, déployé sur son domaine custom et stable**. La migration issue de l'audit technique (couche données JSON, CDN, composants partagés, CI/CD, SEO) est essentiellement terminée.
 
 ### Ce qui fonctionne
 - Navigation (header/footer injectés par `nav.js`)
 - Lecteur audio sticky (prev/next, volume, reprise de position)
 - Lecteur EPUB (pages/défilement, zoom, sauvegarde de position)
 - Recherche + filtres côté client (livres, articles, audios, vidéos)
-- Cantiques YouTube et Google Drive (modale vidéo)
-- Player radio AzuraCast en direct
-- Toutes les données en JSON (`assets/data/`)
-- Protection XSS, CSP, Sentry, SRI sur CDN
+- Cantiques YouTube (modale vidéo)
+- Player radio AzuraCast en direct — voir [`Radio/README.md`](Radio/README.md)
+- Toutes les données en JSON (`assets/data/`) — plus aucune donnée hardcodée
+- CDN audio/PDF sur **Backblaze B2** (plus de Google Drive)
+- Protection XSS (`escapeHtml`), Sentry, SRI sur CDN
+- Accessibilité **WCAG AA** sur les contrastes (lot corrigé juin 2026)
 - SEO (title, meta, OpenGraph, schema.org)
 - Responsive mobile
 - CI/CD GitHub Actions (validation + déploiement automatique)
 
-### Ce qui reste à faire
+### Ce qui reste (optimisations, rien de bloquant)
 
-| Priorité | Problème | Fichier | Action |
-|----------|----------|---------|--------|
-| 🔴 Critique | **Formspree ID invalide** — le formulaire ne fonctionne pas | `assets/js/contact-form.js` | Remplacer `YOUR_FORM_ID` par le vrai ID Formspree du compte |
-| 🟡 Important | **Certains fichiers EPUB manquants** — livres sans fichier local | `assets/books/`, `assets/data/books.json` | Ajouter les `.epub` manquants ou retirer les entrées JSON |
-| 🟡 Important | **Quelques audios sur Google Drive** — instable | `assets/data/audios.json` | Migrer vers Backblaze B2 |
-| 🟢 Planifié | **DNS à configurer** — voir section Déploiement | DNS registrar | Pointer `levangileduroyaume.com` vers GitHub Pages |
+| Priorité | Sujet | Action |
+|----------|-------|--------|
+| 🟡 Important | **Erreurs console Sentry** à confirmer sur le site live | Vérifier dans un vrai navigateur que le monitoring d'erreurs remonte bien |
+| 🟢 Planifié | **Mesure de performance** réelle | Lancer Lighthouse sur le site live (le serveur local fausse les scores) ; envisager minification/fingerprinting des assets |
+| 🟢 Planifié | **Tests a11y automatisés** | Intégrer axe-core / pa11y au pipeline CI |
 
 ---
 
@@ -59,6 +60,15 @@ npx serve .
 Le site est accessible sur **http://localhost:3000**
 
 > ⚠️ Ne pas ouvrir les fichiers `.html` directement dans le navigateur (file://). Les `fetch()` vers les JSON échoueront. Toujours passer par `npx serve .`.
+
+> ℹ️ `npx serve` sert des **URLs propres** : utiliser `http://localhost:3000/audios` (et non `/audios.html`).
+
+### ⚠️ Cache-busting après toute modification CSS/JS
+
+Les feuilles de style sont liées avec un numéro de version, p. ex. `style.css?v=contrast-aa-2`.
+**À chaque fois que tu modifies un fichier `.css` (ou `.js`), incrémente ce numéro** dans les `<link>`/`<script>` des pages HTML concernées.
+
+Sans ça, GitHub Pages (cache ~10 min) sert l'ancien fichier aux visiteurs après le déploiement, et le navigateur garde la version en cache. La version est unifiée sur toutes les pages (`?v=contrast-aa-N`) — passer à `contrast-aa-3`, etc.
 
 ---
 
@@ -130,6 +140,7 @@ dev ──(push)──→ CI Validation (JSON + liens)
 | **[DEPLOYMENT.md](DEPLOYMENT.md)** | Dev / Mainteneur | **Lire en premier** — DNS, mise en ligne, vérification |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Développeurs | Structure des fichiers, conventions, modules JS |
 | [CONTENT_GUIDE.md](CONTENT_GUIDE.md) | Contributeurs | Ajouter livres, audios, vidéos, articles |
+| [Radio/README.md](Radio/README.md) | Mainteneur radio | Système radio AzuraCast : blocs, scripts, workflows, API |
 | [.github/WORKFLOW.md](.github/WORKFLOW.md) | Développeurs | Workflow git, CI, branches |
 | [CLAUDE.md](CLAUDE.md) | Claude AI | Constitution du projet (règles architecture) |
 
@@ -141,12 +152,11 @@ dev ──(push)──→ CI Validation (JSON + liens)
 |-----------|----------|
 | HTML/CSS/JS | Vanilla — aucun framework |
 | Hébergement | GitHub Pages |
-| Domaine | levangileduroyaume.com |
-| DNS | À configurer — voir DEPLOYMENT.md |
-| Radio | AzuraCast (Parole Prophétique FM) |
+| Domaine | levangileduroyaume.com (domaine custom configuré, HTTPS) |
+| Radio | AzuraCast (Parole Prophétique FM) — voir [Radio/README.md](Radio/README.md) |
 | Lecteur EPUB | epub.js 0.3.93 + JSZip 3.10.1 via jsDelivr (SRI) |
-| Audio CDN | Backblaze B2 |
+| Audio / PDF CDN | Backblaze B2 |
 | Vidéo | YouTube embed (youtube-nocookie.com) |
-| Formulaire | Formspree (ID à corriger — voir section "Ce qui reste") |
+| Contact | Email direct (nousecrire@levangileduroyaume.com) — plus de formulaire |
 | Monitoring | Sentry (browser SDK) |
 | CI/CD | GitHub Actions |
