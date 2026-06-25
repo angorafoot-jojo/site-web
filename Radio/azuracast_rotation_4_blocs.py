@@ -6,6 +6,7 @@ import json
 import os
 import random
 import re
+import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -450,13 +451,20 @@ def pick_until_duration(
 
 
 def get_media_length(base_url: str, station_id: int, api_key: str, path: str) -> int:
-    """Durée en secondes d'un fichier de la médiathèque, 0 si introuvable."""
+    """Durée en secondes d'un fichier de la médiathèque, 0 si introuvable.
+
+    La comparaison de chemins est normalisée en NFC : un accent encodé en NFD
+    (macOS) d'un côté et NFC de l'autre représente le même caractère mais des
+    octets différents — sans ça, un message à chemin accentué renvoyait 0
+    (durée « inconnue ») et les blocs n'étaient plus redimensionnés (> 6 h).
+    """
+    target = unicodedata.normalize("NFC", path)
     url = f"{base_url.rstrip('/')}/api/station/{station_id}/files"
     response = request_api("GET", url, api_key, timeout=300)
     if not response.ok:
         return 0
     for f in parse_json_or_explain(response):
-        if f.get("path") == path:
+        if unicodedata.normalize("NFC", f.get("path") or "") == target:
             return int(f.get("length") or 0)
     return 0
 
@@ -504,6 +512,9 @@ def build_full_cycle(
 ):
     playlist_paths = []
     debug_blocks = []
+    # Liste explicite et ordonnée de chaque titre du bloc (pour l'instantané de
+    # plan lu ensuite par playback_report.py : section « réel vs prévu »).
+    plan_items: list[dict[str, Any]] = []
     used_music_cycle = set()
     # Livres Bible déjà lus AUJOURD'HUI (partagé sur les 4 blocs via main).
     # None → set local (usage en test/un seul bloc).
@@ -523,6 +534,7 @@ def build_full_cycle(
                 "duration": "inconnue dans config",
                 "files": 1,
             })
+            plan_items.append({"type": "message", "title": message.title, "duration_seconds": None})
             continue
 
         if block_type == "jingle":
@@ -540,6 +552,8 @@ def build_full_cycle(
                 "duration": seconds_to_hms(item.length),
                 "files": 1,
             })
+            plan_items.append({"type": "jingle", "title": item.title,
+                               "duration_seconds": item.length, "category": jingle_category})
             continue
 
         if block_type == "bible":
@@ -550,6 +564,10 @@ def build_full_cycle(
             )
             for item in selected:
                 playlist_paths.append(item.path)
+                book, chapter = extract_book_chapter(item.title, item.path)
+                plan_items.append({"type": "bible", "title": item.title,
+                                   "duration_seconds": item.length,
+                                   "book": book, "chapter": chapter})
             # (pick_bible_sequential a déjà inscrit tous les livres lus dans le set global)
             total_duration_without_message += duration
             books_in_slot = list(dict.fromkeys(
@@ -574,6 +592,8 @@ def build_full_cycle(
                 playlist_paths.append(item.path)
                 used_music_cycle.add(item.path)
                 used_music_global.add(item.path)
+                plan_items.append({"type": "music", "title": item.title,
+                                   "duration_seconds": item.length})
             total_duration_without_message += duration
             debug_blocks.append({
                 "type": "music",
@@ -597,6 +617,7 @@ def build_full_cycle(
         "known_duration_without_message": seconds_to_hms(total_duration_without_message),
         "total_files": len(playlist_paths),
         "blocks": debug_blocks,
+        "items": plan_items,
     }
     return playlist_paths, debug
 
@@ -745,11 +766,59 @@ def compute_broadcast_date(now: datetime) -> str:
     return day.isoformat()
 
 
+# Fenêtres horaires UTC des 4 blocs (cohérentes avec les schedule_items AzuraCast :
+# A 00:00-06:00, B 06:00-12:00, C 12:00-18:00, D 18:00-24:00).
+BLOCK_WINDOWS = ["00:00-06:00", "06:00-12:00", "12:00-18:00", "18:00-24:00"]
+
+
+def write_daily_plan(plans_dir: Path, broadcast_date: str, message: Episode,
+                     message_seconds: int, all_debug: dict[str, Any]) -> None:
+    """Archive l'ordre explicite complet de la journée dans plan_<date>.json.
+
+    Lu ensuite par playback_report.py pour la section « réel vs prévu ».
+    Échec non bloquant : ne doit jamais interrompre la rotation.
+    """
+    try:
+        blocks = []
+        for idx, block in enumerate(all_debug.get("blocks", [])):
+            items = block.get("items", [])
+            # La durée du message n'est pas connue dans build_full_cycle (l'Episode
+            # n'a pas de champ length) mais l'est dans main() via get_media_length :
+            # on la renseigne ici pour que le plan la porte aussi par item.
+            if message_seconds:
+                for it in items:
+                    if it.get("type") == "message" and not it.get("duration_seconds"):
+                        it["duration_seconds"] = message_seconds
+            blocks.append({
+                "block_name": block.get("block_name"),
+                "window": BLOCK_WINDOWS[idx] if idx < len(BLOCK_WINDOWS) else "",
+                "items": items,
+            })
+        plan = {
+            "date": broadcast_date,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "message": {
+                "series": message.series_name,
+                "title": message.title,
+                "duration_seconds": message_seconds or None,
+            },
+            "blocks": blocks,
+        }
+        plans_dir.mkdir(parents=True, exist_ok=True)
+        out = plans_dir / f"plan_{broadcast_date}.json"
+        out.write_text(json.dumps(plan, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"Plan du jour archivé: {out}")
+    except Exception as exc:  # noqa: BLE001 — best-effort, ne bloque pas la rotation
+        print(f"AVERTISSEMENT: archivage du plan échoué (non bloquant): {exc}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="azuracast_rotation_config_option_a.example.json")
     parser.add_argument("--state", default="azuracast_rotation_state.json")
     parser.add_argument("--debug-output", default="azuracast_4_blocs_debug.json")
+    parser.add_argument("--plans-dir", default="Radio/plans",
+                        help="dossier où archiver le plan ordonné du jour (réel vs prévu)")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--force-advance", action="store_true")
     parser.add_argument("--force-restart", action="store_true",
@@ -866,6 +935,9 @@ def main() -> None:
 
     save_json(Path(args.debug_output), all_debug)
     print(f"Résumé debug sauvegardé: {args.debug_output}")
+
+    if not args.dry_run:
+        write_daily_plan(Path(args.plans_dir), broadcast_date, ep, message_seconds, all_debug)
 
     if not args.dry_run:
         now = datetime.now(timezone.utc)

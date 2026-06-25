@@ -78,6 +78,31 @@ def run_build(jingle_categories=None, bible_books=None, bible_progress=None) -> 
 
 # ─── Tests ──────────────────────────────────────────────────────────────────
 
+def test_plan_items_snapshot():
+    """build_full_cycle expose une liste explicite et ordonnée de chaque titre
+    (debug['items']) destinée à l'instantané de plan « réel vs prévu »."""
+    message = Episode("série_test", "titre_test", "message_test.mp3")
+    paths, debug = build_full_cycle(
+        block_name="BLOC_TEST",
+        message=message,
+        music_files=make_media("music", 30),
+        bible_books=make_bible_library(),
+        jingle_categories=build_test_jingle_categories(),
+        used_music_global=set(),
+        bible_progress={},
+    )
+    items = debug["items"]
+    # Un item par fichier de la playlist, dans le même ordre.
+    assert len(items) == len(paths) == debug["total_files"]
+    assert {it["type"] for it in items} <= {"message", "jingle", "bible", "music"}
+    # Le message du jour figure exactement une fois.
+    assert sum(1 for it in items if it["type"] == "message") == 1
+    assert any(it["title"] == "titre_test" for it in items)
+    # Les chapitres bibliques portent livre + chapitre.
+    bible_items = [it for it in items if it["type"] == "bible"]
+    assert bible_items and all("book" in it and "chapter" in it for it in bible_items)
+
+
 def test_cycle_plan_jingle_count():
     """Le CYCLE_PLAN doit avoir exactement 9 slots jingle."""
     count = sum(1 for btype, _ in CYCLE_PLAN if btype == "jingle")

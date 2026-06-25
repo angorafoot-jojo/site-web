@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add Radio/azuracast_rotation_state.json
+          git add Radio/azuracast_rotation_state.json Radio/plans/
           git diff --staged --quiet || git commit -m "chore: rotation du $(date '+%Y-%m-%d') [skip ci]"
           # Un autre workflow peut avoir poussé entre le checkout et ce push
           git push || (git pull --rebase origin main && git push)
