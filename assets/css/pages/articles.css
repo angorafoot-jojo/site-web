@@ -95,7 +95,7 @@
     }
     #lib-search:focus { border-color: var(--brand-blue, #1E4FA3); background: #fff; }
     #lib-search::placeholder { color: rgba(28,28,40,.38); }
-    .lib-results-count { font-size: .8rem; font-weight: 600; color: rgba(28,28,40,.45); white-space: nowrap; }
+    .lib-results-count { font-size: .8rem; font-weight: 600; color: var(--warm-grey); white-space: nowrap; }
     .lib-select-wrap { position: relative; display: flex; align-items: center; }
     .lib-select-wrap::after {
       content: ''; position: absolute; right: .7rem; top: 50%;
