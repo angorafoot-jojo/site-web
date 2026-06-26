@@ -284,7 +284,8 @@ def extract_book_chapter(title: str, path: str) -> tuple[str, int]:
       - "Bible_fr_01_gen_008"          → ("Gen", 8)
       - "Matthieu" / "1 Corinthiens"  → ("Matthieu", 0)  / ("1 Corinthiens", 0)
     """
-    t = title.strip()
+    # Normaliser en NFC pour éviter les doublons NFD/NFC (titres macOS vs AzuraCast).
+    t = unicodedata.normalize("NFC", title.strip())
 
     # Format 1 : titre se termine par un espace + entier (ex. "Lévitique 21")
     m = re.match(r'^(.+?)\s+(\d+)$', t)

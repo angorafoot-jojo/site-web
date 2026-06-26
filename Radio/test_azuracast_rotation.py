@@ -237,6 +237,20 @@ def test_debug_output_contains_category():
 
 # ─── Tests Bible séquentielle ────────────────────────────────────────────────
 
+def test_extract_book_chapter_nfc_normalization():
+    """extract_book_chapter normalise NFC : un titre NFD et le même en NFC
+    produisent exactement le même nom de livre (aucun doublon dans bible_progress)."""
+    import unicodedata
+    title_nfc = "Ézéchiel 43"
+    title_nfd = unicodedata.normalize("NFD", title_nfc)
+    assert title_nfc != title_nfd, "précondition : NFC != NFD en octets"
+    book_nfc, ch_nfc = extract_book_chapter(title_nfc, "x.mp3")
+    book_nfd, ch_nfd = extract_book_chapter(title_nfd, "x.mp3")
+    assert book_nfc == book_nfd, f"NFD '{book_nfd}' != NFC '{book_nfc}' — doublon bible_progress!"
+    assert ch_nfc == ch_nfd
+    print("✅ test_extract_book_chapter_nfc_normalization")
+
+
 def test_extract_book_chapter_formats():
     """extract_book_chapter reconnaît les 3 formats de nommage."""
     cases = [
@@ -529,6 +543,7 @@ if __name__ == "__main__":
         test_no_consecutive_duplicate_jingle,
         test_debug_output_contains_category,
         # Bible séquentielle
+        test_extract_book_chapter_nfc_normalization,
         test_extract_book_chapter_formats,
         test_group_bible_by_book_sorts_chapters,
         test_bible_slot_stays_in_same_book,
