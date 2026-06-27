@@ -29,10 +29,10 @@ import urllib.error
 import urllib.request
 
 
-def api_post(url: str, api_key: str) -> dict:
+def api_post(url: str, api_key: str, method: str = "POST") -> dict:
     req = urllib.request.Request(
         url,
-        method="POST",
+        method=method,
         data=b"",
         headers={
             "Authorization": f"Bearer {api_key}",
@@ -81,10 +81,12 @@ def reshuffle_blocks(base: str, sid: int, api_key: str, dry_run: bool) -> None:
     for p in blocks:
         url = f"{base}/api/station/{sid}/playlist/{p['id']}/reshuffle"
         if dry_run:
-            print(f"  [DRY-RUN] POST {url}  ({p['name']})")
+            print(f"  [DRY-RUN] PUT {url}  ({p['name']})")
             continue
         try:
-            res = api_post(url, api_key)
+            # L'action AzuraCast ReshuffleAction est exposée en PUT (un POST
+            # renvoie HTTP 405 Method Not Allowed — vérifié sur le reset du 27/06).
+            res = api_post(url, api_key, method="PUT")
             msg = res.get("message", "") if isinstance(res, dict) else res
             print(f"  reshuffle {p['name']} (id {p['id']}) : OK {msg}")
         except urllib.error.HTTPError as e:  # noqa: BLE001 — non bloquant
