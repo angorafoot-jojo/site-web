@@ -914,6 +914,7 @@ def main() -> None:
     message_seconds = get_media_length(base_url, station_id, api_key, ep.path)
     cycle_plan = scale_cycle_plan(message_seconds)
 
+    built_blocks: list[tuple[str, int, list[str]]] = []
     for block_name, playlist_id in block_playlists:
         print(f"\n===== Construction {block_name} =====")
         cycle_paths, debug = build_full_cycle(
@@ -929,8 +930,25 @@ def main() -> None:
         )
         print_debug_summary(debug)
         all_debug["blocks"].append(debug)
+        built_blocks.append((block_name, playlist_id, cycle_paths))
 
+    # Phase 1 — vider les 4 blocs AVANT tout import.
+    # clear_playlist_contents retire chaque fichier via PUT /file/{id}, et cet
+    # endpoint AzuraCast détruit puis RECRÉE les lignes du fichier dans TOUTES
+    # ses autres playlists (ré-append à poids max+1). L'ancien enchaînement
+    # clear→import bloc par bloc faisait donc ré-appender les fichiers partagés
+    # (les 9 jingles, présents dans les 4 blocs) à la FIN des blocs déjà
+    # construits : jingles « sautés » à ~85 % puis joués en rafale en fin de
+    # bloc, seul le dernier bloc traité (D) restant intact — cause racine du
+    # défaut n°1 de l'audit 06-25→07-01. En vidant les 4 blocs d'abord, les
+    # clears ne touchent que le contenu de la veille, jamais celui du jour.
+    for block_name, playlist_id, _ in built_blocks:
+        print(f"\n===== Nettoyage {block_name} =====")
         clear_playlist_contents(base_url, station_id, playlist_id, api_key, args.dry_run)
+
+    # Phase 2 — importer et ordonner les 4 blocs, sans plus jamais les vider.
+    for block_name, playlist_id, cycle_paths in built_blocks:
+        print(f"\n===== Import {block_name} =====")
         import_playlist_paths(base_url, station_id, playlist_id, api_key, cycle_paths, args.dry_run)
         reorder_playlist(base_url, station_id, playlist_id, api_key, cycle_paths, args.dry_run)
 

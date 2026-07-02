@@ -22,7 +22,21 @@ def hist(*titres_heures):
 def test_norm_title_insensible_accents_casse_ponctuation():
     assert norm_title("Galates 1") == norm_title("galates  1")
     assert norm_title("Éphésiens 2") == norm_title("ephesiens 2")
-    assert norm_title("My God — Is Good!") == "my god is good"
+    assert norm_title("My God — Is Good!") == "mygodisgood"
+
+
+def test_norm_title_espaces_supprimes_pas_reduits():
+    # Régression fin juin 2026 : plan « PQE J 1 » vs historique « pqe j1 » —
+    # le message était compté sauté + hors plan dans chaque bloc.
+    assert norm_title("PQE J 1") == norm_title("pqe j1")
+
+
+def test_message_pqe_reconnu_dans_la_conformite():
+    plan = {"blocks": [{"block_name": "BLOC_A_SERIE_DU_JOUR", "window": "00:00-06:00",
+                        "items": [{"title": "PQE J 1"}, {"title": "Proverbes 1"}]}]}
+    h = hist(("pqe j1", 0), ("Proverbes 1", 1))
+    out = build_plan_section(h, date(2026, 6, 25), plan)
+    assert "conformité 100%" in out
 
 
 def test_window_bounds():

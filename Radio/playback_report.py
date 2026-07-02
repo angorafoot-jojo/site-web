@@ -119,11 +119,16 @@ def load_plan(day: date, plans_dir: str = PLANS_DIR) -> dict | None:
 
 def norm_title(title: str) -> str:
     """Forme normalisée d'un titre pour comparer plan et historique
-    (insensible aux accents, à la casse, à la ponctuation et aux espaces)."""
+    (insensible aux accents, à la casse, à la ponctuation et aux espaces).
+
+    Les espaces sont SUPPRIMÉS, pas réduits : le plan stocke « PQE J 1 »
+    quand l'historique journalise « pqe j1 » — avec des espaces conservés,
+    le message était compté à tort « prévu non joué » + « joué non prévu »
+    dans chaque bloc (conformité sous-estimée, vu sur les rapports de
+    fin juin 2026)."""
     t = unicodedata.normalize("NFKD", title or "")
     t = "".join(c for c in t if not unicodedata.combining(c))
-    t = re.sub(r"[^a-z0-9]+", " ", t.lower())
-    return t.strip()
+    return re.sub(r"[^a-z0-9]+", "", t.lower())
 
 
 def _window_bounds(window: str) -> tuple[int, int]:
