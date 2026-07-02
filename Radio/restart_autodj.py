@@ -5,13 +5,17 @@ Réinitialise l'AutoDJ d'AzuraCast à minuit.
 Déclenché chaque nuit à 00h00 UTC pour que toutes les playlists séquentielles
 (BLOC_A/B/C/D) repartent de la position 1 (jingle → message).
 
-Trois étapes, dans cet ordre :
+Quatre étapes, dans cet ordre :
   1. reshuffle de chaque bloc → réinitialise sa file séquentielle interne
      (champ `queue_reset_at`) à la position 1. ÉTAPE CLÉ, longtemps absente :
      ni `queue/clear` ni `backend/restart` ne touchent ce curseur, d'où un
      BLOC_A qui reprenait systématiquement au milieu (jamais sur le message).
   2. queue/clear → vide la file « à venir » de la station (restes de BLOC_D).
   3. backend/restart → Liquidsoap reconstruit sa file sur les blocs réinitialisés.
+  4. surveillance de la file post-restart → journalise un instantané (diagnostic)
+     et supprime les doublons dos à dos. Audit 06-25→07-01 : le message du jour
+     jouait EXACTEMENT 2× d'affilée à 00h01 (écart réel/fichier = 2,00×, 4 nuits
+     sur 5) — la 2e lecture attend dans la file pendant la 1re, on la retire.
 
 Usage:
     python Radio/restart_autodj.py --base-url URL [--station-id ID] [--dry-run]
@@ -25,6 +29,7 @@ import argparse
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.request
 
@@ -96,12 +101,98 @@ def reshuffle_blocks(base: str, sid: int, api_key: str, dry_run: bool) -> None:
             print(f"  AVERTISSEMENT reshuffle {p['name']} : {e}", file=sys.stderr)
 
 
+def queue_dup_delete_urls(now_song_id: str | None, queue_items: list) -> list:
+    """URLs DELETE des éléments de la file qui sont des doublons dos à dos.
+
+    Parcourt la séquence [titre à l'antenne] + file « à venir » : tout élément
+    dont la chanson est identique à celle de l'élément PRÉCÉDENT est une
+    rediffusion immédiate (le bug « message joué 2× d'affilée »). Les copies
+    non consécutives (ex. le message rejoué 6 h plus tard par le bloc suivant)
+    sont légitimes et conservées.
+
+    L'API queue n'expose pas d'id de ligne : la cible DELETE est `links.self`.
+    `now_song_id` = None si le titre à l'antenne n'est pas fiable (démarré
+    avant le restart) : on ne compare alors que la file avec elle-même.
+    """
+    urls = []
+    prev = now_song_id
+    for item in queue_items:
+        if item.get("is_played"):
+            continue
+        song_id = (item.get("song") or {}).get("id")
+        self_url = (item.get("links") or {}).get("self")
+        if song_id and prev and song_id == prev and self_url:
+            urls.append(self_url)
+        prev = song_id
+    return urls
+
+
+def watch_and_dedup_queue(base: str, sid: int, api_key: str, restart_ts: float,
+                          dry_run: bool, checks: int, wait_s: int) -> None:
+    """Instantané de la file post-restart + suppression des doublons dos à dos.
+
+    Entièrement non bloquant : le reset (étapes 1-3) a déjà réussi, cette étape
+    ne doit jamais faire échouer le workflow. Le doublon reste en file pendant
+    toute la 1re lecture du message (25 min à 1h48) : plusieurs passages
+    espacés suffisent à le retirer avant qu'il ne parte à l'antenne.
+    """
+    for check in range(1, checks + 1):
+        if not dry_run and wait_s:
+            time.sleep(wait_s)
+        try:
+            np = api_get(f"{base}/api/nowplaying/{sid}", api_key)
+            queue = api_get(f"{base}/api/station/{sid}/queue", api_key)
+        except Exception as e:  # noqa: BLE001 — non bloquant
+            print(f"  AVERTISSEMENT check {check}/{checks} : lecture file/antenne impossible ({e})",
+                  file=sys.stderr)
+            continue
+
+        now = (np or {}).get("now_playing") or {}
+        now_song = now.get("song") or {}
+        played_at = now.get("played_at") or 0
+        # Garde-fou : si le titre à l'antenne a démarré AVANT le restart
+        # (info périmée / Liquidsoap pas encore relancé), le comparer à la file
+        # supprimerait la lecture LÉGITIME du message → on l'ignore ce tour-ci.
+        started_after_restart = played_at >= restart_ts - 5
+        items = queue if isinstance(queue, list) else []
+
+        print(f"  check {check}/{checks} — à l'antenne : « {now_song.get('text', '?')} » "
+              f"(démarré {'après' if started_after_restart else 'AVANT'} le restart) ; "
+              f"file : {len(items)} élément(s)")
+        for pos, item in enumerate(items[:8], 1):
+            song = item.get("song") or {}
+            print(f"    {pos}. {song.get('text', '?')}"
+                  f" | playlist={item.get('playlist', '?')}"
+                  f" | sent_to_autodj={item.get('sent_to_autodj')}"
+                  f" | is_played={item.get('is_played')}")
+
+        dup_urls = queue_dup_delete_urls(
+            now_song.get("id") if started_after_restart else None, items)
+        if not dup_urls:
+            print("    aucun doublon dos à dos dans la file.")
+            continue
+        for url in dup_urls:
+            if dry_run:
+                print(f"    [DRY-RUN] DELETE {url} (doublon dos à dos)")
+                continue
+            try:
+                api_post(url, api_key, method="DELETE")
+                print(f"    doublon dos à dos supprimé de la file ✅ ({url})")
+            except Exception as e:  # noqa: BLE001 — non bloquant
+                print(f"    AVERTISSEMENT : suppression impossible ({url}) : {e}",
+                      file=sys.stderr)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Redémarre l'AutoDJ AzuraCast")
     parser.add_argument("--base-url", required=True, help="URL de base AzuraCast")
     parser.add_argument("--station-id", type=int, default=1, help="ID de la station")
     parser.add_argument("--dry-run", action="store_true",
                         help="n'appelle aucune action destructive ; affiche seulement ce qui serait fait")
+    parser.add_argument("--queue-checks", type=int, default=3,
+                        help="nombre de passages de surveillance de la file après le restart (défaut 3)")
+    parser.add_argument("--queue-check-wait", type=int, default=40,
+                        help="secondes d'attente avant chaque passage de surveillance (défaut 40)")
     args = parser.parse_args()
 
     api_key = os.environ.get("AZURACAST_API_KEY", "").strip()
@@ -162,6 +253,17 @@ def main() -> None:
         except Exception as e:
             print(f"  ERREUR : {e}", file=sys.stderr)
             sys.exit(1)
+
+    # 4. Surveiller la file reconstruite : instantané (diagnostic du bug
+    #    « message 2× d'affilée ») + suppression des doublons dos à dos avant
+    #    qu'ils ne partent à l'antenne. En dry-run : un seul passage immédiat,
+    #    en lecture seule (valide le parsing sur l'API réelle sans rien toucher).
+    restart_ts = time.time()
+    checks = 1 if args.dry_run else max(0, args.queue_checks)
+    if checks:
+        print("4) Surveillance de la file post-restart (diagnostic + dédoublonnage)")
+        watch_and_dedup_queue(base, sid, api_key, restart_ts,
+                              args.dry_run, checks, args.queue_check_wait)
 
     print("=== RESET TERMINÉ ===")
 
