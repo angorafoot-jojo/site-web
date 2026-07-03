@@ -41,7 +41,12 @@ EXPECTED_SLOTS = {
     "BLOC_A_SERIE_DU_JOUR": (2, 559),
     "BLOC_B_SERIE_DU_JOUR": (600, 1159),
     "BLOC_C_SERIE_DU_JOUR": (1200, 1759),
-    "BLOC_D_SERIE_DU_JOUR": (1800, 2359),
+    # BLOC_D s'arrête à 23h29 : la rotation de 23h30 ne doit JAMAIS reconstruire
+    # un bloc à l'antenne (sa file repartirait en position 1 → message du
+    # lendemain en avant-première, coupé à minuit). BLOC_E_LOUANGE_NUIT
+    # (statique, jamais touchée par la rotation) couvre 23h30→23h59.
+    "BLOC_D_SERIE_DU_JOUR": (1800, 2329),
+    "BLOC_E_LOUANGE_NUIT": (2330, 2359),
 }
 
 

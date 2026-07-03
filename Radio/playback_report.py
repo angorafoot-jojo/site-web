@@ -132,9 +132,12 @@ def norm_title(title: str) -> str:
 
 
 def _window_bounds(window: str) -> tuple[int, int]:
-    """'06:00-12:00' -> (6, 12). Heures UTC, fin exclusive."""
+    """'06:00-12:00' -> (360, 720). Minutes UTC depuis minuit, fin exclusive.
+    Précision à la minute requise depuis que BLOC_D s'arrête à 23h30
+    (BLOC_E_LOUANGE_NUIT couvre 23h30-minuit, hors plan)."""
     start, end = window.split("-")
-    return int(start[:2]), int(end[:2])
+    return (int(start[:2]) * 60 + int(start[3:5]),
+            int(end[:2]) * 60 + int(end[3:5]))
 
 
 def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str:
@@ -164,9 +167,9 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
         items = block.get("items", [])
         if not window or not items:
             continue
-        h0, h1 = _window_bounds(window)
+        m0, m1 = _window_bounds(window)
         planned_titles = [it.get("title", "?") for it in items]
-        actual_titles = [t for (dt, t) in played if h0 <= dt.hour < h1]
+        actual_titles = [t for (dt, t) in played if m0 <= dt.hour * 60 + dt.minute < m1]
 
         plan_norm = [norm_title(t) for t in planned_titles]
         act_norm = [norm_title(t) for t in actual_titles]

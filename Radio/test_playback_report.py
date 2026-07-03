@@ -40,8 +40,10 @@ def test_message_pqe_reconnu_dans_la_conformite():
 
 
 def test_window_bounds():
-    assert _window_bounds("06:00-12:00") == (6, 12)
-    assert _window_bounds("18:00-24:00") == (18, 24)
+    assert _window_bounds("06:00-12:00") == (360, 720)
+    assert _window_bounds("18:00-24:00") == (1080, 1440)
+    # BLOC_D s'arrête à 23h30 depuis l'ajout de BLOC_E_LOUANGE_NUIT.
+    assert _window_bounds("18:00-23:30") == (1080, 1410)
 
 
 def test_plan_section_absent_signale_proprement():

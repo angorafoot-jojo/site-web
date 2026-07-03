@@ -45,6 +45,17 @@ BLOCK_PLAYLISTS = [
 # Durée d'un créneau de bloc (grille de 4 blocs de 6h).
 SLOT_SECONDS = 6 * 3600
 
+# Créneaux plus courts que la grille de 6h, par bloc. BLOC_D s'arrête à 23h29 :
+# la rotation de 23h30 reconstruisait D pendant qu'il était à l'antenne, sa file
+# repartait en position 1 et diffusait le message du LENDEMAIN ~23h40 (« teaser »
+# coupé net par le restart de minuit — mesuré 4 nuits/4 sur l'audit 06-25→07-01).
+# De 23h30 à minuit, la playlist statique BLOC_E_LOUANGE_NUIT (louange en
+# aléatoire, jamais reconstruite) prend l'antenne : plus aucun bloc n'est à
+# l'antenne pendant la rotation.
+BLOCK_SLOT_SECONDS = {
+    "BLOC_D_SERIE_DU_JOUR": int(5.5 * 3600),
+}
+
 # Le redémarrage AutoDJ relance le bloc à l'antenne depuis son début.
 # Utile dans les premières minutes d'un créneau (le bloc repart proprement
 # sur le nouveau contenu), destructeur en plein milieu (coupe le message en
@@ -470,20 +481,20 @@ def get_media_length(base_url: str, station_id: int, api_key: str, path: str) ->
     return 0
 
 
-def scale_cycle_plan(message_seconds: int) -> list[tuple[str, Any]]:
+def scale_cycle_plan(message_seconds: int, slot_seconds: int = SLOT_SECONDS) -> list[tuple[str, Any]]:
     """Réduit les cibles bible/louange au prorata pour que le bloc complet
-    (message inclus) totalise ~SLOT_SECONDS. Sans durée connue du message,
+    (message inclus) totalise ~slot_seconds. Sans durée connue du message,
     le plan original est conservé (comportement historique)."""
     if message_seconds <= 0:
         print("AVERTISSEMENT: durée du message inconnue — cibles non ajustées (bloc > 6h).")
         return CYCLE_PLAN
 
     base_total = sum(p for t, p in CYCLE_PLAN if t in ("bible", "music"))
-    available = SLOT_SECONDS - message_seconds
+    available = slot_seconds - message_seconds
     if available < 30 * 60:
         raise RuntimeError(
             f"Message trop long ({seconds_to_hms(message_seconds)}) pour un créneau "
-            f"de {seconds_to_hms(SLOT_SECONDS)} : moins de 30 min restantes."
+            f"de {seconds_to_hms(slot_seconds)} : moins de 30 min restantes."
         )
 
     factor = available / base_total
@@ -495,7 +506,7 @@ def scale_cycle_plan(message_seconds: int) -> list[tuple[str, Any]]:
     print(
         f"Cibles ajustées au message ({seconds_to_hms(message_seconds)}) : "
         f"facteur {factor:.2f}, bible+louange {seconds_to_hms(scaled_total)}, "
-        f"total visé {seconds_to_hms(message_seconds + scaled_total)} / créneau {seconds_to_hms(SLOT_SECONDS)}"
+        f"total visé {seconds_to_hms(message_seconds + scaled_total)} / créneau {seconds_to_hms(slot_seconds)}"
     )
     return scaled
 
@@ -769,7 +780,9 @@ def compute_broadcast_date(now: datetime) -> str:
 
 # Fenêtres horaires UTC des 4 blocs (cohérentes avec les schedule_items AzuraCast :
 # A 00:00-06:00, B 06:00-12:00, C 12:00-18:00, D 18:00-24:00).
-BLOCK_WINDOWS = ["00:00-06:00", "06:00-12:00", "12:00-18:00", "18:00-24:00"]
+# BLOC_D s'arrête à 23h30 : BLOC_E_LOUANGE_NUIT (statique, hors rotation)
+# couvre 23h30-minuit pendant que la rotation reconstruit les 4 blocs.
+BLOCK_WINDOWS = ["00:00-06:00", "06:00-12:00", "12:00-18:00", "18:00-23:30"]
 
 
 def write_daily_plan(plans_dir: Path, broadcast_date: str, message: Episode,
@@ -912,7 +925,11 @@ def main() -> None:
 
     print("Durée du message du jour...")
     message_seconds = get_media_length(base_url, station_id, api_key, ep.path)
-    cycle_plan = scale_cycle_plan(message_seconds)
+    cycle_plans = {
+        block_name: scale_cycle_plan(message_seconds,
+                                     BLOCK_SLOT_SECONDS.get(block_name, SLOT_SECONDS))
+        for block_name, _ in block_playlists
+    }
 
     built_blocks: list[tuple[str, int, list[str]]] = []
     for block_name, playlist_id in block_playlists:
@@ -926,7 +943,7 @@ def main() -> None:
             used_music_global=used_music_global,
             bible_progress=bible_progress,
             used_bible_books_global=used_bible_books_global,
-            cycle_plan=cycle_plan,
+            cycle_plan=cycle_plans[block_name],
         )
         print_debug_summary(debug)
         all_debug["blocks"].append(debug)
