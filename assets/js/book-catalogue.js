@@ -220,6 +220,24 @@
       card.click();
     });
 
+    /* Lien profond #lire-<id> : ouvre le lecteur directement à l'arrivée
+       (utilisé par nouveau.html — vaut pour articles.html et livres.html). */
+    function openFromHash() {
+      var m = (window.location.hash || '').match(/^#lire-(\d+)$/);
+      if (!m) return;
+      var id = parseInt(m[1], 10);
+      var item = null;
+      for (var i = 0; i < DATA.length; i++) {
+        if (DATA[i].id === id) { item = DATA[i]; break; }
+      }
+      if (!item || !opts.availFn(item)) return;
+      if (typeof opts.openFn === 'function') {
+        opts.openFn(id);
+      } else if (opts.openFnName && typeof window[opts.openFnName] === 'function') {
+        window[opts.openFnName](id);
+      }
+    }
+
     /* Chargement JSON */
     fetch(opts.dataUrl)
       .then(function(r) {
@@ -231,6 +249,7 @@
         _stores[opts.gridId] = DATA; /* registre pour find() */
         count.textContent = DATA.length + ' ' + opts.plural;
         renderGrid();
+        openFromHash();
       })
       .catch(function(e) {
         grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:rgba(28,28,40,.45);padding:3rem 0">' +

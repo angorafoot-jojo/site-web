@@ -29,6 +29,7 @@ window.EduRoyaume.config.version   = '1.0.0';
   /* Correspondance page → clé de navigation active */
   var ACTIVE_MAP = {
     'index'          : 'accueil',
+    'nouveau'        : 'nouveau',
     'radio'          : 'ecouter',
     'audios'         : 'ecouter',
     'podcasts'       : 'ecouter',
@@ -97,6 +98,7 @@ window.EduRoyaume.config.version   = '1.0.0';
     + '</a>'
     + '<ul class="nav-links" role="list">'
     + '<li class="nav-item"><a href="index.html" class="nav-link" data-nav="accueil">Accueil</a></li>'
+    + '<li class="nav-item"><a href="nouveau.html" class="nav-link" data-nav="nouveau">Nouveau</a></li>'
     + '<li class="nav-item">'
     + '<a href="radio.html" class="nav-link" data-nav="ecouter" role="button" aria-haspopup="true">'
     + 'Écouter'
@@ -137,6 +139,7 @@ window.EduRoyaume.config.version   = '1.0.0';
   /* ── Mobile Menu HTML ────────────────────────────────────── */
   var MOBILE_HTML = '<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">'
     + '<a href="index.html" class="mobile-nav-link">Accueil</a>'
+    + '<a href="nouveau.html" class="mobile-nav-link">Nouveau</a>'
     + '<div class="mobile-nav-link" data-sub="mob-ecouter" role="button" tabindex="0">Écouter <svg class="m-chevron" style="width:18px;height:18px;transition:.3s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>'
     + '<ul class="mobile-sub" id="mob-ecouter">'
     + '<li><a href="radio.html" class="mobile-sub-link"><svg width="16" height="16"><use href="#icon-radio"/></svg> Radio en direct</a></li>'
@@ -178,6 +181,7 @@ window.EduRoyaume.config.version   = '1.0.0';
     + '<li><a href="louange.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Louanges</a></li>'
     + '</ul></nav>'
     + '<nav aria-label="Vidéos et lecture"><h4>Vidéos et lecture</h4><ul class="footer-links">'
+    + '<li><a href="nouveau.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Nouveau</a></li>'
     + '<li><a href="videos.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Vidéos</a></li>'
     + '<li><a href="articles.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Articles</a></li>'
     + '<li><a href="livres.html" class="footer-link"><svg width="12" height="12"><use href="#icon-arrow-right"/></svg> Livres</a></li>'
@@ -213,7 +217,7 @@ window.EduRoyaume.config.version   = '1.0.0';
     + " script-src 'self' cdn.jsdelivr.net browser.sentry-cdn.com;"
     + " style-src 'self' 'unsafe-inline' fonts.googleapis.com;"
     + " font-src 'self' fonts.gstatic.com;"
-    + " img-src 'self' data: images.unsplash.com img.youtube.com;"
+    + " img-src 'self' data: img.youtube.com;"
     + " frame-src www.youtube.com www.youtube-nocookie.com drive.google.com;"
     + " media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com;"
     + " connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com *.ingest.sentry.io;"

@@ -6,12 +6,17 @@
   <title>Nouveau | L'Évangile du Royaume</title>
   <meta name="description" content="Les derniers contenus mis en avant de chaque catégorie sur une seule page : radio, vidéos, messages audio, séries podcast, louange et articles.">
   <link rel="canonical" href="https://levangileduroyaume.com/nouveau.html">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://levangileduroyaume.com/nouveau.html">
+  <meta property="og:title" content="Nouveau | L'Évangile du Royaume">
+  <meta property="og:description" content="Les derniers contenus mis en avant de chaque catégorie sur une seule page : radio, vidéos, messages audio, séries podcast, louange et articles.">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
   <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
   <link rel="stylesheet" href="assets/css/style.css?v=contrast-aa-2">
+  <link rel="stylesheet" href="assets/css/media-player.css?v=mp-1">
   <link rel="stylesheet" href="assets/css/pages/nouveau.css?v=contrast-aa-2">
   <meta property="og:image" content="https://levangileduroyaume.com/assets/images/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,17 +67,15 @@
           <article class="highlight-card primary">
             <div class="highlight-media">
               <span class="highlight-badge video">Vidéo</span>
-              <img src="https://levangileduroyaume.com/assets/images/og-default.png" alt="Message du moment" loading="lazy">
+              <img id="nv-video-thumb" src="assets/images/og-default.png" alt="" width="320" height="180" loading="lazy">
             </div>
             <div class="highlight-body">
-              <div class="highlight-meta">
-                <span>18 mai 2025</span>
-                <span>52 min</span>
-                <span>Message du moment</span>
+              <div class="highlight-meta" id="nv-video-meta">
+                <span>Dernier ajout vidéo</span>
               </div>
-              <h3>Sortez de Babylone — L'appel à la séparation</h3>
-              <p>Le contenu vidéo actuellement mis en avant sur la plateforme pour commencer par le message éditorial le plus visible.</p>
-              <a href="videos.html" class="row-cta">Voir les vidéos <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+              <h3 id="nv-video-title">Derniers enseignements vidéo</h3>
+              <p>La vidéo la plus récemment ajoutée à la plateforme, pour commencer par le message le plus frais.</p>
+              <a id="nv-video-link" href="videos.html" class="row-cta">Regarder <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
             </div>
           </article>
 
@@ -98,26 +101,7 @@
           </div>
           <a href="audios.html" class="new-link">Tous les messages audio <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
         </div>
-        <div class="row-grid">
-          <article class="row-card">
-            <div class="row-top"><span class="row-tag">Audio</span><span class="row-date">26 fév. 2022</span></div>
-            <h3>Session du 26 Février 2022</h3>
-            <p>Dernière session mise en tête de la série “Aux pieds du Seigneur”.</p>
-            <a href="audios.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
-          </article>
-          <article class="row-card">
-            <div class="row-top"><span class="row-tag">Audio</span><span class="row-date">19 fév. 2022</span></div>
-            <h3>Session du 19 Février 2022</h3>
-            <p>Deuxième session la plus récente visible dans la même série.</p>
-            <a href="audios.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
-          </article>
-          <article class="row-card">
-            <div class="row-top"><span class="row-tag">Audio</span><span class="row-date">29 janv. 2022</span></div>
-            <h3>Session du 29 Janvier 2022</h3>
-            <p>Troisième entrée récente affichée dans la même série.</p>
-            <a href="audios.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
-          </article>
-        </div>
+        <div class="row-grid" id="nv-audios"></div>
       </section>
 
       <section class="new-section" aria-labelledby="podcast-title">
@@ -128,26 +112,7 @@
           </div>
           <a href="podcasts.html" class="new-link">Toutes les séries podcast <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
         </div>
-        <div class="row-grid">
-          <article class="row-card">
-            <div class="row-top"><span class="row-tag">Podcast</span><span class="row-date">Fondements</span></div>
-            <h3>Être fondé et être enraciné dans l'amour</h3>
-            <p>Premier épisode visible de la série “Fondements de la foi”.</p>
-            <a href="podcasts.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
-          </article>
-          <article class="row-card">
-            <div class="row-top"><span class="row-tag">Podcast</span><span class="row-date">Fondements</span></div>
-            <h3>L'œuvre de la foi et l'épreuve de la foi</h3>
-            <p>Deuxième contenu actuellement mis en tête de la série.</p>
-            <a href="podcasts.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
-          </article>
-          <article class="row-card">
-            <div class="row-top"><span class="row-tag">Podcast</span><span class="row-date">Fondements</span></div>
-            <h3>Qu'est-ce qu'une doctrine et la doctrine de la résurrection des morts</h3>
-            <p>Troisième épisode visible dans la même sélection.</p>
-            <a href="podcasts.html" class="row-cta">Écouter <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
-          </article>
-        </div>
+        <div class="row-grid" id="nv-podcasts"></div>
       </section>
 
       <section class="new-section" aria-labelledby="louange-title">
@@ -161,32 +126,31 @@
           <article class="highlight-card primary">
             <div class="highlight-media">
               <span class="highlight-badge louange">Louange</span>
-              <img src="https://img.youtube.com/vi/t1GNRlGR6NY/mqdefault.jpg" alt="Qui est digne d'ouvrir le livre" loading="lazy">
+              <img id="nv-louange-thumb" src="assets/images/og-default.png" alt="" width="320" height="180" loading="lazy">
             </div>
             <div class="highlight-body">
               <div class="highlight-meta">
                 <span>Premier cantique affiché</span>
                 <span>YouTube</span>
               </div>
-              <h3>Qui est digne d'ouvrir le livre</h3>
+              <h3 id="nv-louange-title">Cantiques et louange</h3>
               <p>La première entrée de la page Louange, idéale pour relancer une session d’écoute ou de méditation.</p>
-              <a href="louange.html" class="row-cta">Aller à la louange <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+              <a id="nv-louange-link" href="louange.html" class="row-cta">Aller à la louange <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
             </div>
           </article>
 
           <article class="highlight-card secondary">
             <div class="highlight-media">
               <span class="highlight-badge audio">Article</span>
-              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80&auto=format&fit=crop" alt="Article récent" loading="lazy">
+              <img src="assets/images/nouveau-article.jpg" alt="" width="900" height="600" loading="lazy">
             </div>
             <div class="highlight-body">
-              <div class="highlight-meta">
-                <span>12 mai 2025</span>
-                <span>Lecture récente</span>
+              <div class="highlight-meta" id="nv-article-meta">
+                <span>Lecture mise en avant</span>
               </div>
-              <h3>Les signes de la fin des temps selon les Écritures</h3>
-              <p>L’article actuellement mis en tête des lectures récentes sur la page d’accueil.</p>
-              <a href="articles.html" class="row-cta">Lire les articles <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
+              <h3 id="nv-article-title">Articles et méditations</h3>
+              <p>L’article actuellement mis en avant parmi les lectures récentes.</p>
+              <a id="nv-article-link" href="articles.html" class="row-cta">Lire <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></a>
             </div>
           </article>
         </div>
@@ -195,6 +159,9 @@
   </section>
 </main>
 
+<script src="assets/js/utils.js" defer></script>
+<script src="assets/js/media-player.js" defer></script>
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/pages/nouveau-init.js" defer></script>
 </body>
 </html>

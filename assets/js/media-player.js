@@ -110,6 +110,31 @@
     } catch(e) {}
   }
 
+  /* ── Markup d'une ligne audio (partagé listing + page Nouveau) ── */
+  function rowHtml(t, num) {
+    return '<div class="audio-row"' +
+      ' data-src="'    + esc(t.src)    + '"' +
+      ' data-title="'  + esc(t.title)  + '"' +
+      ' data-series="' + esc(t.series) + '">' +
+      '<button class="ar-play-btn" aria-label="Lire">' +
+        '<svg width="14" height="14"><use href="#icon-play"/></svg>' +
+      '</button>' +
+      '<div>' +
+        '<span class="ar-num">' + String(num).padStart(2, '0') + '</span>' +
+        '<span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span>' +
+      '</div>' +
+      '<div class="ar-info">' +
+        '<div class="ar-title">' + esc(t.title)  + '</div>' +
+        '<span class="ar-series">' + esc(t.series) + '</span>' +
+      '</div>' +
+      '<span class="ar-dur">' + (t.duration ? esc(t.duration) : '—') + '</span>' +
+      '<a href="' + esc(t.src) + '" target="_blank" rel="noopener noreferrer"' +
+        ' class="ar-dl" aria-label="Télécharger">' +
+        '<svg width="15" height="15"><use href="#icon-download"/></svg>' +
+      '</a>' +
+    '</div>';
+  }
+
   /* ── Rendu des sections depuis les données JSON ───────── */
   function renderAudioSections(tracks, opts) {
     var order  = [];
@@ -126,29 +151,7 @@
       var count = rows.length;
       var label = count > 1 ? opts.labelPlural : opts.labelSingular;
 
-      var cards = rows.map(function(t, i) {
-        return '<div class="audio-row"' +
-          ' data-src="'    + esc(t.src)    + '"' +
-          ' data-title="'  + esc(t.title)  + '"' +
-          ' data-series="' + esc(t.series) + '">' +
-          '<button class="ar-play-btn" aria-label="Lire">' +
-            '<svg width="14" height="14"><use href="#icon-play"/></svg>' +
-          '</button>' +
-          '<div>' +
-            '<span class="ar-num">' + String(i + 1).padStart(2, '0') + '</span>' +
-            '<span class="ar-playing-bars"><span></span><span></span><span></span><span></span></span>' +
-          '</div>' +
-          '<div class="ar-info">' +
-            '<div class="ar-title">' + esc(t.title)  + '</div>' +
-            '<span class="ar-series">' + esc(t.series) + '</span>' +
-          '</div>' +
-          '<span class="ar-dur">' + (t.duration ? esc(t.duration) : '—') + '</span>' +
-          '<a href="' + esc(t.src) + '" target="_blank" rel="noopener noreferrer"' +
-            ' class="ar-dl" aria-label="Télécharger">' +
-            '<svg width="15" height="15"><use href="#icon-download"/></svg>' +
-          '</a>' +
-        '</div>';
-      }).join('');
+      var cards = rows.map(function(t, i) { return rowHtml(t, i + 1); }).join('');
 
       return '<section class="audio-section">' +
         '<div class="audio-section-hd">' +
@@ -393,29 +396,14 @@
       labelPlural   : 'parties',
     }, opts || {});
 
-    /* Récupérer les refs DOM */
-    audio      = document.getElementById('audioEl');
-    playerBar  = document.getElementById('playerBar');
-    pbTitle    = document.getElementById('pbTitle');
-    pbSeries   = document.getElementById('pbSeries');
-    btnPP      = document.getElementById('btnPlayPause');
-    ppIcon     = document.getElementById('ppIcon');
-    btnPrev    = document.getElementById('btnPrev');
-    btnNext    = document.getElementById('btnNext');
-    pbBarWrap  = document.getElementById('pbBarWrap');
-    pbBarFill  = document.getElementById('pbBarFill');
-    pbCurrent  = document.getElementById('pbCurrent');
-    pbDuration = document.getElementById('pbDuration');
-    volSlider  = document.getElementById('volSlider');
-    btnMute    = document.getElementById('btnMute');
-    btnClose   = document.getElementById('btnClose');
-    pbStatus   = document.getElementById('pbStatus');
+    setupDom();
+
+    /* Icône de la barre alignée sur celle de la page (casque, micro…) */
+    var pbIconUse = playerBar ? playerBar.querySelector('.pb-icon use') : null;
+    if (pbIconUse) pbIconUse.setAttribute('href', opts.icon);
 
     /* Clé localStorage dérivée de l'URL du fichier de données */
     dataKey = opts.dataUrl.replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_').slice(-30);
-
-    bindPlayerControls();
-    restoreVolume();
 
     /* Charger les données */
     fetch(opts.dataUrl)
@@ -439,8 +427,86 @@
       });
   }
 
+  /* ── Barre player — source unique du markup ───────────── */
+  /* Injectée dans <body> si absente. Les pages n'ont plus à
+     copier ce bloc dans leur HTML. */
+  var PLAYER_BAR_HTML =
+    '<div class="player-bar" id="playerBar" role="region" aria-label="Lecteur audio">' +
+      '<audio id="audioEl" preload="none"></audio>' +
+      '<div class="pb-track">' +
+        '<div class="pb-icon"><svg width="22" height="22"><use href="#icon-headphones"/></svg></div>' +
+        '<div class="pb-info">' +
+          '<div class="pb-title" id="pbTitle">—</div>' +
+          '<div class="pb-series" id="pbSeries">—</div>' +
+          '<div class="pb-status" id="pbStatus" role="alert" aria-live="polite"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pb-controls">' +
+        '<div class="pb-btns">' +
+          '<button class="pb-btn pb-skip" id="btnPrev" aria-label="Précédent"><svg width="20" height="20"><use href="#icon-skip-prev"/></svg></button>' +
+          '<button class="pb-btn-main" id="btnPlayPause" aria-label="Lecture / Pause"><svg width="18" height="18" id="ppIcon"><use href="#icon-play"/></svg></button>' +
+          '<button class="pb-btn pb-skip" id="btnNext" aria-label="Suivant"><svg width="20" height="20"><use href="#icon-skip-next"/></svg></button>' +
+        '</div>' +
+        '<div class="pb-progress">' +
+          '<span class="pb-time" id="pbCurrent">0:00</span>' +
+          '<div class="pb-bar-wrap" id="pbBarWrap"><div class="pb-bar-fill" id="pbBarFill"></div></div>' +
+          '<span class="pb-time" id="pbDuration">0:00</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pb-vol">' +
+        '<button class="pb-vol-btn" id="btnMute" aria-label="Muet"><svg width="16" height="16"><use href="#icon-volume"/></svg></button>' +
+        '<input type="range" class="pb-vol-slider" id="volSlider" min="0" max="1" step="0.02" value="1" aria-label="Volume">' +
+      '</div>' +
+      '<button class="pb-close" id="btnClose" aria-label="Fermer le lecteur">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+          '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>' +
+        '</svg>' +
+      '</button>' +
+    '</div>';
+
+  function ensurePlayerBar() {
+    if (!document.getElementById('playerBar')) {
+      document.body.insertAdjacentHTML('beforeend', PLAYER_BAR_HTML);
+    }
+  }
+
+  /* ── Refs DOM + contrôles (commun init / attach) ──────── */
+  function setupDom() {
+    ensurePlayerBar();
+
+    audio      = document.getElementById('audioEl');
+    playerBar  = document.getElementById('playerBar');
+    pbTitle    = document.getElementById('pbTitle');
+    pbSeries   = document.getElementById('pbSeries');
+    btnPP      = document.getElementById('btnPlayPause');
+    ppIcon     = document.getElementById('ppIcon');
+    btnPrev    = document.getElementById('btnPrev');
+    btnNext    = document.getElementById('btnNext');
+    pbBarWrap  = document.getElementById('pbBarWrap');
+    pbBarFill  = document.getElementById('pbBarFill');
+    pbCurrent  = document.getElementById('pbCurrent');
+    pbDuration = document.getElementById('pbDuration');
+    volSlider  = document.getElementById('volSlider');
+    btnMute    = document.getElementById('btnMute');
+    btnClose   = document.getElementById('btnClose');
+    pbStatus   = document.getElementById('pbStatus');
+
+    bindPlayerControls();
+    restoreVolume();
+  }
+
+  /* ── attach(storageKey) — pages dont les .audio-row sont déjà
+     rendues dans le DOM (ex. nouveau.html). Ne charge aucun JSON,
+     ne rend rien : branche la barre + les lignes existantes. ───── */
+  function attach(storageKey) {
+    setupDom();
+    dataKey = String(storageKey || document.body.getAttribute('data-page') || 'page')
+      .replace(/[^a-z0-9]/gi, '_').slice(-30);
+    initRows();
+  }
+
   /* ── Export ───────────────────────────────────────────── */
   global.EduRoyaume             = global.EduRoyaume || {};
-  global.EduRoyaume.MediaPlayer = { init: init };
+  global.EduRoyaume.MediaPlayer = { init: init, attach: attach, rowHtml: rowHtml };
 
 })(window);

@@ -26,10 +26,9 @@
   #   - drive.google : iframes cantiques
   #   - AzuraCast    : stream radio MP3
   #   - backblaze    : fichiers audio/PDF/EPUB CDN
-  #   - unsplash     : images hero (temporaire → T43)
   #   - img.youtube  : thumbnails vidéo
   #
   # Tous les blocs <script> inline ont été externalisés → 'unsafe-inline' supprimé de script-src.
   # 'unsafe-inline' dans style-src est conservé pour les <style> encore présents dans index.html
   # (radio-player, hero-themes) — à supprimer après migration CSS complète (CAT-05).
-  Content-Security-Policy: default-src 'self'; script-src 'self' cdn.jsdelivr.net browser.sentry-cdn.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: images.unsplash.com img.youtube.com; frame-src www.youtube.com www.youtube-nocookie.com drive.google.com; media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com; connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com *.ingest.sentry.io; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' cdn.jsdelivr.net browser.sentry-cdn.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: img.youtube.com; frame-src www.youtube.com www.youtube-nocookie.com drive.google.com; media-src 'self' f005.backblazeb2.com parole-prophetique-fm.levangileduroyaume.com; connect-src 'self' parole-prophetique-fm.levangileduroyaume.com api.rss2json.com *.ingest.sentry.io; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests

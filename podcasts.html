@@ -6,13 +6,18 @@
   <title>Séries podcast | L'Évangile du Royaume</title>
   <meta name="description" content="24 enseignements classiques de L'Évangile du Royaume — écoutez directement en ligne.">
   <link rel="canonical" href="https://levangileduroyaume.com/podcasts.html">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://levangileduroyaume.com/podcasts.html">
+  <meta property="og:title" content="Séries podcast | L'Évangile du Royaume">
+  <meta property="og:description" content="24 enseignements classiques de L'Évangile du Royaume — écoutez directement en ligne.">
   <link rel="alternate" type="application/rss+xml" title="Podcasts — L'Évangile du Royaume" href="https://levangileduroyaume.com/podcast.xml">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
   <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32">
   <link rel="stylesheet" href="assets/css/style.css?v=contrast-aa-2">
-  <link rel="stylesheet" href="assets/css/pages/podcasts.css?v=contrast-aa-2">
+  <link rel="stylesheet" href="assets/css/media-player.css?v=mp-1">
+  <link rel="stylesheet" href="assets/css/pages/podcasts.css?v=mp-1">
   <meta property="og:image" content="https://levangileduroyaume.com/assets/images/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -92,56 +97,7 @@
   </div>
 </main>
 
-<!-- ══ STICKY PLAYER BAR ══════════════════════════════════ -->
-<div class="player-bar" id="playerBar" role="region" aria-label="Lecteur audio">
-  <audio id="audioEl" preload="none"></audio>
-
-  <div class="pb-track">
-    <div class="pb-icon">
-      <svg width="22" height="22"><use href="#icon-mic"/></svg>
-    </div>
-    <div class="pb-info">
-      <div class="pb-title" id="pbTitle">—</div>
-      <div class="pb-series" id="pbSeries">—</div>
-      <div class="pb-status" id="pbStatus" role="alert" aria-live="polite"></div>
-    </div>
-  </div>
-
-  <!-- Controls (HTML5 mode) -->
-  <div class="pb-controls">
-    <div class="pb-btns">
-      <button class="pb-btn pb-skip" id="btnPrev" aria-label="Précédent">
-        <svg width="20" height="20"><use href="#icon-skip-prev"/></svg>
-      </button>
-      <button class="pb-btn-main" id="btnPlayPause" aria-label="Lecture / Pause">
-        <svg width="18" height="18" id="ppIcon"><use href="#icon-play"/></svg>
-      </button>
-      <button class="pb-btn pb-skip" id="btnNext" aria-label="Suivant">
-        <svg width="20" height="20"><use href="#icon-skip-next"/></svg>
-      </button>
-    </div>
-    <div class="pb-progress">
-      <span class="pb-time" id="pbCurrent">0:00</span>
-      <div class="pb-bar-wrap" id="pbBarWrap">
-        <div class="pb-bar-fill" id="pbBarFill"></div>
-      </div>
-      <span class="pb-time" id="pbDuration">0:00</span>
-    </div>
-  </div>
-
-  <div class="pb-vol">
-    <button class="pb-vol-btn" id="btnMute" aria-label="Muet">
-      <svg width="16" height="16"><use href="#icon-volume"/></svg>
-    </button>
-    <input type="range" class="pb-vol-slider" id="volSlider" min="0" max="1" step="0.02" value="1" aria-label="Volume">
-  </div>
-
-  <button class="pb-close" id="btnClose" aria-label="Fermer le lecteur">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  </button>
-</div>
+<!-- Barre player injectée par assets/js/media-player.js -->
 
 <script src="assets/js/utils.js"></script>
 <script src="assets/js/media-player.js"></script>
