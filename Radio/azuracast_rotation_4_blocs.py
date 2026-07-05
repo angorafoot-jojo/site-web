@@ -54,6 +54,10 @@ SLOT_SECONDS = 6 * 3600
 # médiathèque, il suffit de le réuploader plus long pour le réintégrer.
 MIN_ITEM_SECONDS = 7
 
+# Dépassement toléré quand un slot musique se referme : au-delà, on cherche un
+# titre plus court qui colle mieux à la place restante. Voir pick_until_duration.
+CLOSING_TOLERANCE_SECONDS = 120
+
 # Créneaux plus courts que la grille de 6h, par bloc. BLOC_D s'arrête à 23h29 :
 # la rotation de 23h30 reconstruisait D pendant qu'il était à l'antenne, sa file
 # repartait en position 1 et diffusait le message du LENDEMAIN ~23h40 (« teaser »
@@ -445,14 +449,31 @@ def pick_until_duration(
     candidates = files[:]
     random.shuffle(candidates)
 
+    # 1er passage avec clôture ajustée : en fin de slot, un titre qui déborderait
+    # la cible de plus de CLOSING_TOLERANCE_SECONDS est mis de côté au profit
+    # d'un titre plus court qui referme mieux le slot. Sans ça, le slot se
+    # termine sur le premier titre venu (jusqu'à ~12 min de trop) et le bloc
+    # déborde de son créneau d'autant. Si aucun titre ne referme proprement,
+    # le plus court des mis de côté est utilisé (jamais de sous-remplissage).
+    best_fallback = None
     for item in candidates:
         if item.path in selected_paths or item.path in avoid_paths:
+            continue
+        if total + item.length > target_seconds + CLOSING_TOLERANCE_SECONDS:
+            if best_fallback is None or item.length < best_fallback.length:
+                best_fallback = item
             continue
         selected.append(item)
         selected_paths.add(item.path)
         total += item.length
         if total >= target_seconds:
             return selected, total, repeated_count
+
+    if total < target_seconds and best_fallback is not None:
+        selected.append(best_fallback)
+        selected_paths.add(best_fallback.path)
+        total += best_fallback.length
+        return selected, total, repeated_count
 
     candidates = files[:]
     random.shuffle(candidates)

@@ -73,7 +73,7 @@ Tous dans `Radio/`. Dépendance unique : `requests` (`pip install -r requirement
 
 | Script | Rôle |
 |--------|------|
-| `azuracast_rotation_4_blocs.py` | **Script principal de rotation** — sélectionne le message du jour et remplit les 4 blocs |
+| `azuracast_rotation_4_blocs.py` | **Script principal de rotation** — sélectionne le message du jour et remplit les 4 blocs. Budget par bloc : message + bible + louange ≈ créneau (dépassement ≤ ~2 min). Les fichiers < 7 s (jingle tronqué, fragment) sont écartés de la rotation |
 | `azuracast_rotation_cycle_builder.py` | Construit le cycle de rotation des séries |
 | `restart_autodj.py` | Redémarre l'AutoDJ et vide la file (reset de minuit) |
 | `playback_report.py` | Génère le rapport de diffusion quotidien |

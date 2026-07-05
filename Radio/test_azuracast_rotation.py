@@ -10,11 +10,11 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(__file__))
 
 from azuracast_rotation_4_blocs import (
-    Episode, MediaItem, CYCLE_PLAN, MIN_ITEM_SECONDS,
+    Episode, MediaItem, CYCLE_PLAN, MIN_ITEM_SECONDS, CLOSING_TOLERANCE_SECONDS,
     categorize_jingles, pick_jingle_from_category, build_full_cycle,
     extract_book_chapter, group_bible_by_book, pick_bible_sequential,
     compute_broadcast_date, EVENING_PREP_HOUR_UTC,
-    filter_short_items, scale_cycle_plan,
+    filter_short_items, pick_until_duration, scale_cycle_plan,
 )
 
 
@@ -613,6 +613,28 @@ def test_block_duration_fits_budget_with_scaled_plan():
     print("✅ test_block_duration_fits_budget_with_scaled_plan")
 
 
+def test_pick_until_duration_closes_tight():
+    """Quand un titre court permet de refermer le slot près de la cible, le
+    dépassement reste sous CLOSING_TOLERANCE_SECONDS (fini les slots clos par
+    un titre de 12 min pris au hasard)."""
+    files = [MediaItem(i, f"long_{i}.mp3", f"long {i}", 400, "music") for i in range(5)]
+    files += [MediaItem(100 + i, f"court_{i}.mp3", f"court {i}", 150, "music") for i in range(5)]
+    for _ in range(10):  # sélection aléatoire : on vérifie 10 tirages
+        _, total, _ = pick_until_duration(files, 1000, "music")
+        assert 1000 <= total <= 1000 + CLOSING_TOLERANCE_SECONDS, total
+    print("✅ test_pick_until_duration_closes_tight")
+
+
+def test_pick_until_duration_never_underfills():
+    """Si AUCUN titre ne referme proprement, le moins long des candidats est
+    quand même pris : la cible est toujours atteinte (un slot sous-rempli
+    épuiserait la playlist avant la fin du créneau → rebouclage sur le message)."""
+    files = [MediaItem(i, f"m_{i}.mp3", f"m {i}", 500, "music") for i in range(4)]
+    _, total, _ = pick_until_duration(files, 600, "music")
+    assert total >= 600, total
+    print("✅ test_pick_until_duration_never_underfills")
+
+
 # ─── Runner ─────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
@@ -654,6 +676,8 @@ if __name__ == "__main__":
         # Budget global du bloc
         test_block_duration_fits_budget,
         test_block_duration_fits_budget_with_scaled_plan,
+        test_pick_until_duration_closes_tight,
+        test_pick_until_duration_never_underfills,
     ]
 
     passed = 0
