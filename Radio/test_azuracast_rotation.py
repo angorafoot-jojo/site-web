@@ -10,10 +10,11 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(__file__))
 
 from azuracast_rotation_4_blocs import (
-    Episode, MediaItem, CYCLE_PLAN,
+    Episode, MediaItem, CYCLE_PLAN, MIN_ITEM_SECONDS,
     categorize_jingles, pick_jingle_from_category, build_full_cycle,
     extract_book_chapter, group_bible_by_book, pick_bible_sequential,
     compute_broadcast_date, EVENING_PREP_HOUR_UTC,
+    filter_short_items, scale_cycle_plan,
 )
 
 
@@ -528,6 +529,90 @@ def test_broadcast_date_no_collision_morning_then_evening():
     print("✅ test_broadcast_date_no_collision_morning_then_evening")
 
 
+# ─── Filtre des fichiers trop courts ────────────────────────────────────────
+
+def test_filter_short_items_threshold():
+    """Un fichier < MIN_ITEM_SECONDS est écarté, un fichier >= est gardé
+    (le jingle « avant bible 04 » d'1s était l'item le plus sauté : 16x)."""
+    items = [
+        make_jingle("ok_7s.mp3", length=7),
+        make_jingle("ok_10s.mp3", length=10),
+        make_jingle("tronque_1s.mp3", length=1),
+        make_jingle("court_6s.mp3", length=6),
+    ]
+    kept = filter_short_items(items, "jingle")
+    assert [i.path for i in kept] == ["ok_7s.mp3", "ok_10s.mp3"]
+    assert MIN_ITEM_SECONDS == 7
+    print("✅ test_filter_short_items_threshold")
+
+
+def test_filter_short_items_all_kept():
+    """Aucune exclusion → liste inchangée (et pas de log parasite)."""
+    items = make_media("music", 5, length=300)
+    assert filter_short_items(items, "musique") == items
+    print("✅ test_filter_short_items_all_kept")
+
+
+# ─── Budget global du bloc ──────────────────────────────────────────────────
+
+def test_block_duration_fits_budget():
+    """Le total du bloc (jingles inclus, hors message) ne dépasse la somme des
+    cibles que d'au plus UN titre. Sans correction cumulative, chaque slot
+    dépassait sa cible et le bloc débordait de 14 à 37 min (plans du 25/06 au
+    05/07) : la fin du bloc ne passait jamais à l'antenne."""
+    max_music_len = 300
+    message = Episode("série_test", "titre_test", "message_test.mp3")
+    for _ in range(5):  # la sélection est aléatoire : on vérifie 5 tirages
+        _, debug = build_full_cycle(
+            block_name="BLOC_TEST",
+            message=message,
+            music_files=make_media("music", 200, length=max_music_len),
+            bible_books=make_bible_library(),
+            jingle_categories=build_test_jingle_categories(),
+            used_music_global=set(),
+            bible_progress={},
+        )
+        total = debug["known_duration_without_message_seconds"]
+        targets = sum(p for t, p in CYCLE_PLAN if t in ("bible", "music"))
+        assert total <= targets + max_music_len, (
+            f"bloc de {total}s pour {targets}s de cibles : "
+            f"dépassement {total - targets}s > 1 titre ({max_music_len}s)"
+        )
+        assert total >= targets - 60, (
+            f"bloc de {total}s pour {targets}s de cibles : sous-remplissage "
+            f"{targets - total}s — risque de blanc d'antenne / rebouclage"
+        )
+    print("✅ test_block_duration_fits_budget")
+
+
+def test_block_duration_fits_budget_with_scaled_plan():
+    """Même garantie avec un plan réduit par scale_cycle_plan (message de
+    24 min dans un créneau de 6h, cas réel « pqe j4 » du 04/07)."""
+    message_seconds = 24 * 60
+    slot_seconds = 6 * 3600
+    plan = scale_cycle_plan(message_seconds, slot_seconds)
+    max_music_len = 300
+    message = Episode("série_test", "pqe j4", "message_test.mp3")
+    _, debug = build_full_cycle(
+        block_name="BLOC_TEST",
+        message=message,
+        music_files=make_media("music", 200, length=max_music_len),
+        bible_books=make_bible_library(),
+        jingle_categories=build_test_jingle_categories(),
+        used_music_global=set(),
+        bible_progress={},
+        cycle_plan=plan,
+    )
+    total_with_message = message_seconds + debug["known_duration_without_message_seconds"]
+    assert total_with_message <= slot_seconds + max_music_len, (
+        f"bloc de {total_with_message}s (message inclus) pour un créneau de "
+        f"{slot_seconds}s : dépassement > 1 titre"
+    )
+    # int() dans scale_cycle_plan arrondit chaque cible vers le bas (≤ 1s × slot)
+    assert total_with_message >= slot_seconds - 120
+    print("✅ test_block_duration_fits_budget_with_scaled_plan")
+
+
 # ─── Runner ─────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
@@ -563,6 +648,12 @@ if __name__ == "__main__":
         test_broadcast_date_threshold_boundary,
         test_broadcast_date_crosses_month_end,
         test_broadcast_date_no_collision_morning_then_evening,
+        # Filtre fichiers courts
+        test_filter_short_items_threshold,
+        test_filter_short_items_all_kept,
+        # Budget global du bloc
+        test_block_duration_fits_budget,
+        test_block_duration_fits_budget_with_scaled_plan,
     ]
 
     passed = 0

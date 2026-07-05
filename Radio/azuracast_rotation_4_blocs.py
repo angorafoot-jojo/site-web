@@ -45,6 +45,15 @@ BLOCK_PLAYLISTS = [
 # Durée d'un créneau de bloc (grille de 4 blocs de 6h).
 SLOT_SECONDS = 6 * 3600
 
+# Durée minimale d'un fichier pour entrer dans la rotation (jingles et musique).
+# Les clips de 1 à 6 s (jingle tronqué à l'upload, fragment) sont avalés par le
+# crossfade ou sautés par l'AutoDJ : l'audit du 05/07 montre le jingle
+# « avant bible 04 » (1 s) sauté 16 fois et « Parole Prophétique FM » (5 s,
+# rangé dans la musique) sauté ~31 % du temps. En dessous de ce seuil, le
+# fichier est écarté à la construction des blocs — il reste dans la
+# médiathèque, il suffit de le réuploader plus long pour le réintégrer.
+MIN_ITEM_SECONDS = 7
+
 # Créneaux plus courts que la grille de 6h, par bloc. BLOC_D s'arrête à 23h29 :
 # la rotation de 23h30 reconstruisait D pendant qu'il était à l'antenne, sa file
 # repartait en position 1 et diffusait le message du LENDEMAIN ~23h40 (« teaser »
@@ -403,6 +412,24 @@ def pick_bible_sequential(
     return selected, total, first_book or "inconnue"
 
 
+def filter_short_items(
+    items: list[MediaItem],
+    source_name: str,
+    min_seconds: int = MIN_ITEM_SECONDS,
+) -> list[MediaItem]:
+    """Écarte de la rotation les fichiers plus courts que min_seconds.
+
+    Retourne la liste filtrée et journalise chaque exclusion pour que le
+    rapport de rotation montre clairement ce qui ne jouera plus."""
+    kept = [i for i in items if i.length >= min_seconds]
+    excluded = [i for i in items if i.length < min_seconds]
+    if excluded:
+        print(f"  {len(excluded)} fichier(s) {source_name} < {min_seconds}s écarté(s) de la rotation :")
+        for item in excluded:
+            print(f"    - {item.length}s  {item.title}  ({item.path})")
+    return kept
+
+
 def pick_until_duration(
     files: list[MediaItem],
     target_seconds: int,
@@ -536,6 +563,16 @@ def build_full_cycle(
     previous_jingle = None
     total_duration_without_message = 0
 
+    # Correction budgétaire cumulative. Chaque slot bible/louange s'arrête
+    # APRÈS avoir dépassé sa cible (jusqu'à un titre de trop), et les jingles
+    # ne sont comptés dans aucune cible : sans correction, les dépassements
+    # s'ADDITIONNENT (+14 à +37 min mesurés sur les plans du 25/06 au 05/07)
+    # et la fin du bloc ne passe jamais à l'antenne — cause n°1 des titres
+    # « prévus non joués » de l'audit du 05/07. Ici, chaque slot vise sa cible
+    # MOINS l'avance déjà accumulée : le dépassement total du bloc retombe à
+    # celui du dernier slot (un titre au plus).
+    budget_drift = 0  # secondes réalisées au-delà des cibles cumulées
+
     for block_type, param in cycle_plan:
         if block_type == "message":
             playlist_paths.append(message.path)
@@ -555,6 +592,7 @@ def build_full_cycle(
             previous_jingle = item.path
             playlist_paths.append(item.path)
             total_duration_without_message += item.length
+            budget_drift += item.length  # hors cible : à absorber par les slots suivants
             debug_blocks.append({
                 "type": "jingle",
                 "category": jingle_category,
@@ -569,11 +607,14 @@ def build_full_cycle(
             continue
 
         if block_type == "bible":
-            target_seconds = param
+            # Cible corrigée de l'avance accumulée (plancher : 1 minute, pour
+            # ne jamais vider un slot — la structure du cycle reste intacte).
+            target_seconds = max(60, param - budget_drift)
             selected, duration, starting_book = pick_bible_sequential(
                 bible_books, target_seconds, used_bible_books_global,
                 bible_progress, message.path,
             )
+            budget_drift += duration - param
             for item in selected:
                 playlist_paths.append(item.path)
                 book, chapter = extract_book_chapter(item.title, item.path)
@@ -597,9 +638,10 @@ def build_full_cycle(
             continue
 
         if block_type == "music":
-            target_seconds = param
+            target_seconds = max(60, param - budget_drift)
             avoid = used_music_global | used_music_cycle | {message.path}
             selected, duration, repeats = pick_until_duration(music_files, target_seconds, "music", avoid)
+            budget_drift += duration - param
             for item in selected:
                 playlist_paths.append(item.path)
                 used_music_cycle.add(item.path)
@@ -888,6 +930,7 @@ def main() -> None:
     print("Chargement bibliothèque musique...")
     music_playlist = find_playlist(base_url, station_id, api_key, MUSIC_PLAYLIST_NAME)
     music_files = get_playlist_files(base_url, station_id, api_key, int(music_playlist["id"]), "music")
+    music_files = filter_short_items(music_files, "musique")
     print(f"  Musique: {len(music_files)} fichiers (ID {music_playlist['id']})")
 
     print("Chargement bibliothèque Bible...")
@@ -901,6 +944,7 @@ def main() -> None:
     print("Chargement bibliothèque jingles...")
     jingle_playlist = find_playlist(base_url, station_id, api_key, JINGLE_PLAYLIST_NAME)
     all_jingles = get_playlist_files(base_url, station_id, api_key, int(jingle_playlist["id"]), "jingle")
+    all_jingles = filter_short_items(all_jingles, "jingle")
     print(f"  Jingles: {len(all_jingles)} fichiers (ID {jingle_playlist['id']})")
 
     print("Catégorisation des jingles...")
@@ -946,6 +990,13 @@ def main() -> None:
             cycle_plan=cycle_plans[block_name],
         )
         print_debug_summary(debug)
+        # Contrôle budgétaire : le total (message inclus) doit coller au créneau.
+        # Un léger dépassement (≤ ~1 titre) est voulu : il évite que la playlist
+        # s'épuise avant la fin du créneau et reboucle sur le message.
+        slot = BLOCK_SLOT_SECONDS.get(block_name, SLOT_SECONDS)
+        total_block = message_seconds + debug["known_duration_without_message_seconds"]
+        print(f"BUDGET {block_name}: {seconds_to_hms(total_block)} pour un créneau de "
+              f"{seconds_to_hms(slot)} (écart {total_block - slot:+d}s)")
         all_debug["blocks"].append(debug)
         built_blocks.append((block_name, playlist_id, cycle_paths))
 
