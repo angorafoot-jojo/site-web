@@ -56,6 +56,17 @@ BLOCK_SLOT_SECONDS = {
     "BLOC_D_SERIE_DU_JOUR": int(5.5 * 3600),
 }
 
+# Les jingles plus courts que ça sont écartés de la construction des blocs.
+# Mesuré en prod (04-05/07/2026) : les fichiers de 1 à 5 s ne sont JAMAIS
+# diffusés — l'AutoDJ échoue à les lancer et ressert à la place un titre déjà
+# en file, souvent LE MESSAGE DE 30 MIN (rejoué 2× d'affilée à 05:59, 12:24,
+# 17:34…), ce qui décale tout le bloc et ampute sa fin de 40-80 min/jour.
+# Les jingles ≥ 6 s passent normalement. À la source : 4 fichiers à
+# réenregistrer en 8-15 s (bible 04 = 1 s, louange 03 = 4 s, bible 05 et
+# louange 04 = 5 s) ; ce garde-fou les réintégrera de lui-même une fois
+# les fichiers remplacés sur le serveur.
+MIN_JINGLE_SECONDS = 6
+
 # Le redémarrage AutoDJ relance le bloc à l'antenne depuis son début.
 # Utile dans les premières minutes d'un créneau (le bloc repart proprement
 # sur le nouveau contenu), destructeur en plein milieu (coupe le message en
@@ -222,6 +233,17 @@ def clear_playlist_contents(base_url: str, station_id: int, playlist_id: int, ap
 
     print(f"Playlist ID {playlist_id} vidée.")
     return count
+
+
+def filter_short_jingles(
+    all_jingles: list[MediaItem],
+    min_seconds: int = MIN_JINGLE_SECONDS,
+) -> tuple[list[MediaItem], list[MediaItem]]:
+    """Écarte les jingles trop courts pour être diffusables (voir MIN_JINGLE_SECONDS).
+    Retourne (jingles gardés, jingles écartés)."""
+    kept = [j for j in all_jingles if j.length >= min_seconds]
+    rejected = [j for j in all_jingles if j.length < min_seconds]
+    return kept, rejected
 
 
 def categorize_jingles(
@@ -902,6 +924,13 @@ def main() -> None:
     jingle_playlist = find_playlist(base_url, station_id, api_key, JINGLE_PLAYLIST_NAME)
     all_jingles = get_playlist_files(base_url, station_id, api_key, int(jingle_playlist["id"]), "jingle")
     print(f"  Jingles: {len(all_jingles)} fichiers (ID {jingle_playlist['id']})")
+    all_jingles, rejected_jingles = filter_short_jingles(all_jingles)
+    for j in rejected_jingles:
+        print(f"  AVERTISSEMENT: jingle écarté ({j.length}s < {MIN_JINGLE_SECONDS}s, "
+              f"indiffusable — à réenregistrer en 8-15s) : {j.path}")
+    if not all_jingles:
+        raise RuntimeError(
+            f"Tous les jingles font moins de {MIN_JINGLE_SECONDS}s — rien de diffusable.")
 
     print("Catégorisation des jingles...")
     config_jingle_cats = config.get("jingle_categories", {})

@@ -14,6 +14,7 @@ from azuracast_rotation_4_blocs import (
     categorize_jingles, pick_jingle_from_category, build_full_cycle,
     extract_book_chapter, group_bible_by_book, pick_bible_sequential,
     compute_broadcast_date, EVENING_PREP_HOUR_UTC,
+    filter_short_jingles, MIN_JINGLE_SECONDS,
 )
 
 
@@ -528,6 +529,55 @@ def test_broadcast_date_no_collision_morning_then_evening():
     print("✅ test_broadcast_date_no_collision_morning_then_evening")
 
 
+# ─── Jingles trop courts ────────────────────────────────────────────────────
+
+def test_filter_short_jingles_ecarte_les_indiffusables():
+    """Reproduit l'inventaire réel du 05/07/2026 : les fichiers de 1 à 5 s
+    ne sont jamais diffusés par l'AutoDJ (qui ressert le message à la place),
+    ceux de 6 s et plus passent."""
+    jingles = [make_jingle("bible_04.mp3", length=1),
+               make_jingle("louange_03.mp3", length=4),
+               make_jingle("bible_05.mp3", length=5),
+               make_jingle("louange_04.mp3", length=5),
+               make_jingle("bible_03.mp3", length=6),
+               make_jingle("message_01.mp3", length=10)]
+    kept, rejected = filter_short_jingles(jingles)
+    assert [j.path for j in kept] == ["bible_03.mp3", "message_01.mp3"]
+    assert [j.path for j in rejected] == ["bible_04.mp3", "louange_03.mp3",
+                                          "bible_05.mp3", "louange_04.mp3"]
+    print("✅ test_filter_short_jingles_ecarte_les_indiffusables")
+
+def test_filter_short_jingles_seuil_exact():
+    """Un jingle pile à MIN_JINGLE_SECONDS est gardé."""
+    kept, rejected = filter_short_jingles([make_jingle("j.mp3", length=MIN_JINGLE_SECONDS)])
+    assert len(kept) == 1 and not rejected
+    print("✅ test_filter_short_jingles_seuil_exact")
+
+def test_filter_short_jingles_tout_garde_si_tous_longs():
+    jingles = [make_jingle(f"j{i}.mp3", length=8) for i in range(5)]
+    kept, rejected = filter_short_jingles(jingles)
+    assert len(kept) == 5 and not rejected
+    print("✅ test_filter_short_jingles_tout_garde_si_tous_longs")
+
+def test_build_reutilise_jingles_sains_quand_pool_reduit():
+    """Avec le pool réduit aux jingles ≥6s (7 fichiers pour 9 slots), la
+    construction doit toujours produire ses 9 jingles par bloc (réutilisation
+    tolérée) plutôt que d'échouer ou de réintroduire un fichier court."""
+    cats = {
+        "avant_message": [make_jingle("avant_message_A.mp3", length=10),
+                          make_jingle("avant_message_B.mp3", length=8)],
+        "avant_bible":   [make_jingle("avant_bible_A.mp3", length=6),
+                          make_jingle("avant_bible_B.mp3", length=7),
+                          make_jingle("avant_bible_C.mp3", length=6)],
+        "avant_louange": [make_jingle("avant_louange_A.mp3", length=6),
+                          make_jingle("avant_louange_B.mp3", length=7)],
+    }
+    jingle_blocks, _ = run_build(jingle_categories=cats)
+    expected = len(jingle_positions_in_cycle())
+    assert len(jingle_blocks) == expected, f"{len(jingle_blocks)} jingles au lieu de {expected}"
+    print("✅ test_build_reutilise_jingles_sains_quand_pool_reduit")
+
+
 # ─── Runner ─────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
@@ -563,6 +613,11 @@ if __name__ == "__main__":
         test_broadcast_date_threshold_boundary,
         test_broadcast_date_crosses_month_end,
         test_broadcast_date_no_collision_morning_then_evening,
+        # Jingles trop courts
+        test_filter_short_jingles_ecarte_les_indiffusables,
+        test_filter_short_jingles_seuil_exact,
+        test_filter_short_jingles_tout_garde_si_tous_longs,
+        test_build_reutilise_jingles_sains_quand_pool_reduit,
     ]
 
     passed = 0
