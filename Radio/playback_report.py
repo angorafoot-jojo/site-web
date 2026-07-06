@@ -30,6 +30,17 @@ from pathlib import Path
 # le titre est signalé (coupé ou suivi d'un trou d'antenne).
 TOLERANCE_SECONDS = 10
 
+# Paliers de gravité des anomalies (secondes d'écart) : au même titre,
+# un jingle décalé de 12 s et un trou d'antenne d'une heure ne pèsent
+# pas pareil dans le bilan.
+SEVERITY_SERIOUS_SECONDS = 60
+SEVERITY_CRITICAL_SECONDS = 600
+
+# Deux diffusions du message du jour espacées de moins de ça sont un
+# « double rapproché » : l'auditeur entend le même message deux fois
+# de suite (reboucle du bloc sortant + démarrage du bloc entrant).
+MESSAGE_DOUBLE_WINDOW_SECONDS = 900
+
 # Les rapports plus vieux que ça sont supprimés à chaque exécution.
 RETENTION_DAYS = 90
 
@@ -69,6 +80,7 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
         "-" * 100,
     ]
     problems = 0
+    severities = []  # écarts absolus (s) des anomalies, pour les paliers de gravité
 
     for i, entry in enumerate(entries):
         started = datetime.fromtimestamp(entry["played_at"], tz=timezone.utc)
@@ -84,9 +96,11 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
             elif gap < -TOLERANCE_SECONDS:
                 status, shown_gap = "❌ COUPÉ", f"{gap:+d}s"
                 problems += 1
+                severities.append(-gap)
             elif gap > TOLERANCE_SECONDS:
                 status, shown_gap = "⚠️ TROU APRÈS", f"{gap:+d}s"
                 problems += 1
+                severities.append(gap)
             else:
                 status, shown_gap = "✅", f"{gap:+d}s"
             actual_str = fmt_duration(actual)
@@ -98,11 +112,20 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
             f"{actual_str:>10s} {shown_gap:>8s}  {status}  {title}"
         )
 
-    lines += [
-        "-" * 100,
+    bilan = (
         f"Bilan : {len(entries)} titres, {problems} anomalie(s) "
-        f"(titre coupé de plus de {TOLERANCE_SECONDS}s ou trou d'antenne).",
-    ]
+        f"(titre coupé de plus de {TOLERANCE_SECONDS}s ou trou d'antenne)."
+    )
+    if severities:
+        minor = sum(1 for s in severities if s < SEVERITY_SERIOUS_SECONDS)
+        serious = sum(1 for s in severities
+                      if SEVERITY_SERIOUS_SECONDS <= s < SEVERITY_CRITICAL_SECONDS)
+        critical = sum(1 for s in severities if s >= SEVERITY_CRITICAL_SECONDS)
+        bilan += (
+            f" Gravité : {minor} mineure(s) <1min · {serious} sérieuse(s) 1-10min"
+            f" · {critical} critique(s) >10min."
+        )
+    lines += ["-" * 100, bilan]
     return "\n".join(lines) + "\n", problems
 
 
@@ -218,6 +241,152 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
     return "\n".join(lines) + "\n"
 
 
+def build_health_section(history: list[dict], day: date, plan: dict | None) -> str:
+    """Section « CONTRÔLES APPROFONDIS » : les défauts que le tableau titre
+    par titre ne montre pas — message du jour rejoué, jingles sautés, blocs
+    débordant de leur fenêtre, bouche-trous, couverture début/fin de journée.
+    Chaque contrôle correspond à un défaut réellement observé en prod
+    (audits de juin-juillet 2026)."""
+    head = ["", "=" * 100, "CONTRÔLES APPROFONDIS", "=" * 100]
+    if not plan:
+        head.append("Plan non disponible : contrôles approfondis impossibles pour ce jour.")
+        return "\n".join(head) + "\n"
+
+    entries = sorted(history, key=lambda e: e["played_at"])
+    played = [
+        {
+            "dt": datetime.fromtimestamp(e["played_at"], tz=timezone.utc),
+            "title": (e.get("song") or {}).get("title") or "?",
+            "playlist": e.get("playlist") or "?",
+            "duration": e.get("duration") or 0,
+        }
+        for e in entries
+    ]
+    for p in played:
+        p["norm"] = norm_title(p["title"])
+
+    blocks = [b for b in plan.get("blocks", []) if b.get("window") and b.get("items")]
+    lines = list(head)
+
+    # --- 1. Message du jour : combien de diffusions, et des doubles rapprochés ?
+    message = plan.get("message") or {}
+    msg_norm = norm_title(message.get("title", ""))
+    planned_plays = sum(1 for b in blocks for it in b["items"] if it.get("type") == "message")
+    if msg_norm and planned_plays:
+        plays = [p for p in played if p["norm"] == msg_norm]
+        doubles = 0
+        for prev, cur in zip(plays, plays[1:]):
+            prev_end = prev["dt"] + timedelta(
+                seconds=prev["duration"] or message.get("duration_seconds") or 0)
+            cur["double"] = (cur["dt"] - prev_end).total_seconds() < MESSAGE_DOUBLE_WINDOW_SECONDS
+            doubles += cur["double"]
+        verdict = "✅" if len(plays) == planned_plays and not doubles else "❌"
+        lines.append(
+            f"MESSAGE DU JOUR « {message.get('title', '?')} » : "
+            f"{len(plays)} diffusion(s) pour {planned_plays} prévue(s) {verdict}"
+        )
+        for p in plays:
+            mark = "  ⚠️ DOUBLE RAPPROCHÉ (rejoué juste après la diffusion précédente)" \
+                if p.get("double") else ""
+            lines.append(f"   {p['dt']:%H:%M:%S}  (étiquette {p['playlist']}){mark}")
+        if len(plays) > planned_plays:
+            lines.append(
+                "   → diffusions en trop = reboucle d'un bloc avant la fin de sa fenêtre"
+                " (l'étiquette playlist des fichiers partagés n'est pas fiable,"
+                " se fier aux heures)."
+            )
+
+    # --- 2. Jingles : joués vs prévus, par bloc.
+    jingle_lines, tot_played, tot_planned = [], 0, 0
+    for block in blocks:
+        m0, m1 = _window_bounds(block["window"])
+        planned = sum(1 for it in block["items"] if it.get("type") == "jingle")
+        in_window = [p for p in played
+                     if m0 <= p["dt"].hour * 60 + p["dt"].minute < m1]
+        played_jingles = sum(1 for p in in_window if p["norm"].startswith("jingle"))
+        tot_planned += planned
+        tot_played += played_jingles
+        name = (block.get("block_name") or "").replace("_SERIE_DU_JOUR", "")
+        jingle_lines.append(f"{name} {played_jingles}/{planned}")
+    if tot_planned:
+        pct = 100 * tot_played / tot_planned
+        verdict = "✅" if tot_played >= tot_planned else "⚠️"
+        lines.append(
+            f"JINGLES : {tot_played} joués / {tot_planned} prévus ({pct:.0f}%) {verdict}"
+            f"   ·   {' · '.join(jingle_lines)}"
+        )
+
+    # --- 3. Titres joués hors de la fenêtre de leur bloc (débordements).
+    #     Seuls les titres présents dans UN seul bloc du plan sont testables :
+    #     jingles et message sont partagés par les 4 blocs (étiquette non fiable).
+    owner: dict[str, tuple[str, str, int, int]] = {}
+    counts: dict[str, int] = {}
+    for block in blocks:
+        m0, m1 = _window_bounds(block["window"])
+        name = (block.get("block_name") or "").replace("_SERIE_DU_JOUR", "")
+        for it in block["items"]:
+            n = norm_title(it.get("title", ""))
+            counts[n] = counts.get(n, 0) + 1
+            owner[n] = (name, block["window"], m0, m1)
+    exclusive = {n: o for n, o in owner.items() if counts[n] == 1}
+    all_windows = [_window_bounds(b["window"]) for b in blocks]
+    overflow = []
+    for p in played:
+        info = exclusive.get(p["norm"])
+        if not info:
+            continue
+        minute = p["dt"].hour * 60 + p["dt"].minute
+        # Hors de toute fenêtre du plan (ex. 23h30-minuit = BLOC_E_LOUANGE_NUIT,
+        # playlist statique volontairement hors plan) : rien à contrôler.
+        if not any(w0 <= minute < w1 for (w0, w1) in all_windows):
+            continue
+        name, window, m0, m1 = info
+        if not (m0 <= minute < m1):
+            overflow.append(f"   {p['dt']:%H:%M:%S}  {p['title']} — prévu dans {name} ({window})")
+    if overflow:
+        lines.append(f"HORS FENÊTRE : {len(overflow)} titre(s) d'un bloc joués hors de sa plage ⚠️")
+        lines += overflow[:8]
+        if len(overflow) > 8:
+            lines.append(f"   …(+{len(overflow) - 8})")
+    else:
+        lines.append("HORS FENÊTRE : aucun débordement de bloc détecté ✅")
+
+    # --- 4. Bouche-trous : titres inconnus du plan ET sans playlist identifiée
+    #     (« AzuraCast is Live! », titre « ? »… = l'AutoDJ a comblé un vide).
+    plan_norms = set(owner)
+    fillers = [p for p in played
+               if p["norm"] not in plan_norms
+               and (p["playlist"] == "?" or p["title"] == "?"
+                    or p["norm"].startswith("azuracastislive"))]
+    if fillers:
+        lines.append(f"BOUCHE-TROUS : {len(fillers)} titre(s) hors plan sans playlist ⚠️")
+        for p in fillers[:8]:
+            lines.append(
+                f"   {p['dt']:%H:%M:%S}  {p['title']}  ({fmt_duration(p['duration'])})")
+    else:
+        lines.append("BOUCHE-TROUS : aucun ✅")
+
+    # --- 5. Couverture de la journée : l'antenne démarre-t-elle à minuit,
+    #     et le dernier titre couvre-t-il la fin de journée ?
+    #     (les trous à cheval sur minuit échappent au tableau titre par titre)
+    if played:
+        day_start = datetime(day.year, day.month, day.day, tzinfo=timezone.utc)
+        day_end = day_start + timedelta(days=1)
+        start_gap = (played[0]["dt"] - day_start).total_seconds()
+        last = played[-1]
+        end_gap = (day_end - (last["dt"] + timedelta(seconds=last["duration"]))).total_seconds()
+        start_txt = (f"premier titre à {played[0]['dt']:%H:%M:%S}"
+                     + (f" ⚠️ trou de {fmt_duration(start_gap)} en début de journée"
+                        if start_gap > 150 else " ✅"))
+        end_txt = (f"dernier titre finit vers "
+                   f"{(last['dt'] + timedelta(seconds=last['duration'])):%H:%M:%S} (estimé)"
+                   + (f" ⚠️ fin de journée possiblement découverte ({fmt_duration(end_gap)})"
+                      if end_gap > 150 else " ✅"))
+        lines.append(f"COUVERTURE : {start_txt} · {end_txt}")
+
+    return "\n".join(lines) + "\n"
+
+
 def purge_old_reports(output_dir: Path, today: date) -> None:
     cutoff = today - timedelta(days=RETENTION_DAYS)
     for log_file in sorted(output_dir.glob("diffusion_*.log")):
@@ -266,8 +435,10 @@ def main() -> int:
         print(f"Aucune diffusion trouvée pour le {day.isoformat()}.")
         return 0
 
+    plan = load_plan(day, args.plans_dir)
     report, problems = build_report(history, day)
-    report += build_plan_section(history, day, load_plan(day, args.plans_dir))
+    report += build_health_section(history, day, plan)
+    report += build_plan_section(history, day, plan)
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
