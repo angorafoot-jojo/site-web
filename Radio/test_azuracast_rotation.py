@@ -14,7 +14,7 @@ from azuracast_rotation_4_blocs import (
     categorize_jingles, pick_jingle_from_category, build_full_cycle,
     extract_book_chapter, group_bible_by_book, pick_bible_sequential,
     compute_broadcast_date, EVENING_PREP_HOUR_UTC,
-    filter_short_jingles, MIN_JINGLE_SECONDS,
+    filter_short_jingles, filter_short_items, MIN_JINGLE_SECONDS, MIN_MUSIC_SECONDS,
 )
 
 
@@ -558,6 +558,20 @@ def test_filter_short_jingles_tout_garde_si_tous_longs():
     kept, rejected = filter_short_jingles(jingles)
     assert len(kept) == 5 and not rejected
     print("✅ test_filter_short_jingles_tout_garde_si_tous_longs")
+
+def test_filter_short_items_musique_ecarte_les_jingles_mal_catalogues():
+    """Reproduit l'inventaire réel du 08/07/2026 : 001_LA_MUSIQUE contient
+    2 jingles de 5 et 7 s importés avec les cantiques — un slot musique de
+    quelques secondes subit le même échec AutoDJ que les jingles courts."""
+    musiques = [make_jingle("jingle_-_parole_prophetique_fm.mp3", length=5),
+                make_jingle("jingle_-_la_parole_qui_brille.mp3", length=7),
+                make_jingle("cantique_court.mp3", length=59),
+                make_jingle("cantique_ok.mp3", length=60),
+                make_jingle("cantique_long.mp3", length=300)]
+    kept, rejected = filter_short_items(musiques, min_seconds=MIN_MUSIC_SECONDS)
+    assert [m.path for m in kept] == ["cantique_ok.mp3", "cantique_long.mp3"]
+    assert len(rejected) == 3
+    print("✅ test_filter_short_items_musique_ecarte_les_jingles_mal_catalogues")
 
 def test_build_reutilise_jingles_sains_quand_pool_reduit():
     """Avec le pool réduit aux jingles ≥6s (7 fichiers pour 9 slots), la

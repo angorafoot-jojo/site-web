@@ -67,6 +67,14 @@ BLOCK_SLOT_SECONDS = {
 # les fichiers remplacés sur le serveur.
 MIN_JINGLE_SECONDS = 6
 
+# Même garde-fou pour le pool musique : la bibliothèque 001_LA_MUSIQUE peut
+# contenir des jingles catalogués par erreur comme cantiques (ex. fichiers
+# jingle_-_*.mp3 de 5-7 s importés avec « Cantiques du royaume »). Un slot
+# musique de quelques secondes ne sert à rien à l'antenne et subit le même
+# échec AutoDJ que les jingles courts. Ne s'applique PAS à la Bible
+# (Psaumes 117 = 16 s est un chapitre légitime).
+MIN_MUSIC_SECONDS = 60
+
 # Le redémarrage AutoDJ relance le bloc à l'antenne depuis son début.
 # Utile dans les premières minutes d'un créneau (le bloc repart proprement
 # sur le nouveau contenu), destructeur en plein milieu (coupe le message en
@@ -235,15 +243,19 @@ def clear_playlist_contents(base_url: str, station_id: int, playlist_id: int, ap
     return count
 
 
-def filter_short_jingles(
-    all_jingles: list[MediaItem],
+def filter_short_items(
+    items: list[MediaItem],
     min_seconds: int = MIN_JINGLE_SECONDS,
 ) -> tuple[list[MediaItem], list[MediaItem]]:
-    """Écarte les jingles trop courts pour être diffusables (voir MIN_JINGLE_SECONDS).
-    Retourne (jingles gardés, jingles écartés)."""
-    kept = [j for j in all_jingles if j.length >= min_seconds]
-    rejected = [j for j in all_jingles if j.length < min_seconds]
+    """Écarte les fichiers trop courts pour être diffusables (voir
+    MIN_JINGLE_SECONDS et MIN_MUSIC_SECONDS). Retourne (gardés, écartés)."""
+    kept = [j for j in items if j.length >= min_seconds]
+    rejected = [j for j in items if j.length < min_seconds]
     return kept, rejected
+
+
+# Alias historique (tests et scripts existants).
+filter_short_jingles = filter_short_items
 
 
 def categorize_jingles(
@@ -911,6 +923,13 @@ def main() -> None:
     music_playlist = find_playlist(base_url, station_id, api_key, MUSIC_PLAYLIST_NAME)
     music_files = get_playlist_files(base_url, station_id, api_key, int(music_playlist["id"]), "music")
     print(f"  Musique: {len(music_files)} fichiers (ID {music_playlist['id']})")
+    music_files, rejected_music = filter_short_items(music_files, min_seconds=MIN_MUSIC_SECONDS)
+    for m in rejected_music:
+        print(f"  AVERTISSEMENT: fichier musique écarté ({m.length}s < {MIN_MUSIC_SECONDS}s, "
+              f"probablement un jingle mal catalogué — à retirer de la playlist musique) : {m.path}")
+    if not music_files:
+        raise RuntimeError(
+            f"Tous les fichiers musique font moins de {MIN_MUSIC_SECONDS}s — rien de diffusable.")
 
     print("Chargement bibliothèque Bible...")
     bible_playlist = find_playlist(base_url, station_id, api_key, BIBLE_PLAYLIST_NAME)
@@ -924,7 +943,7 @@ def main() -> None:
     jingle_playlist = find_playlist(base_url, station_id, api_key, JINGLE_PLAYLIST_NAME)
     all_jingles = get_playlist_files(base_url, station_id, api_key, int(jingle_playlist["id"]), "jingle")
     print(f"  Jingles: {len(all_jingles)} fichiers (ID {jingle_playlist['id']})")
-    all_jingles, rejected_jingles = filter_short_jingles(all_jingles)
+    all_jingles, rejected_jingles = filter_short_items(all_jingles)
     for j in rejected_jingles:
         print(f"  AVERTISSEMENT: jingle écarté ({j.length}s < {MIN_JINGLE_SECONDS}s, "
               f"indiffusable — à réenregistrer en 8-15s) : {j.path}")

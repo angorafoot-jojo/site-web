@@ -184,7 +184,7 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
     ]
 
     lines = list(head)
-    tot_plan = tot_match = tot_extra = 0
+    tot_plan = tot_match = tot_extra = tot_tail = 0
     for block in plan.get("blocks", []):
         window = block.get("window", "")
         items = block.get("items", [])
@@ -197,10 +197,23 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
         plan_norm = [norm_title(t) for t in planned_titles]
         act_norm = [norm_title(t) for t in actual_titles]
         sm = difflib.SequenceMatcher(None, plan_norm, act_norm, autojunk=False)
+        opcodes = sm.get_opcodes()
 
-        matched = skipped_idx = extra_idx = 0
+        # Marge de fin de bloc : chaque plan embarque volontairement un surplus
+        # au-delà de la fenêtre (anti-rebouclage). Le suffixe du plan qui suit
+        # le dernier titre réellement joué n'a donc jamais été atteint — c'est
+        # attendu, on le sort de la conformité et on le liste à part.
+        tail: list[str] = []
+        tail_seconds = 0
+        if opcodes and opcodes[-1][0] == "delete" and opcodes[-1][2] == len(plan_norm):
+            _, i1, i2, _, _ = opcodes[-1]
+            tail = planned_titles[i1:i2]
+            tail_seconds = sum(it.get("duration_seconds") or 0 for it in items[i1:i2])
+            opcodes = opcodes[:-1]
+
+        matched = 0
         skipped, extra = [], []
-        for op, i1, i2, j1, j2 in sm.get_opcodes():
+        for op, i1, i2, j1, j2 in opcodes:
             if op == "equal":
                 matched += i2 - i1
             elif op == "delete":
@@ -212,16 +225,19 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
                 extra += actual_titles[j1:j2]
 
         n_plan = len(planned_titles)
-        conf = 100 * matched / n_plan if n_plan else 0
-        tot_plan += n_plan
+        n_reach = n_plan - len(tail)
+        conf = 100 * matched / n_reach if n_reach else 0
+        tot_plan += n_reach
         tot_match += matched
         tot_extra += len(extra)
+        tot_tail += len(tail)
 
         name = (block.get("block_name") or "").replace("_SERIE_DU_JOUR", "")
         lines.append("-" * 100)
         lines.append(
-            f"{name:7s} ({window})  prévus {n_plan:>3} · joués {len(actual_titles):>3} · "
-            f"conformité {conf:>3.0f}% · sautés {len(skipped):>2} · en trop {len(extra):>2}"
+            f"{name:7s} ({window})  prévus {n_plan:>3} · atteignables {n_reach:>3} · "
+            f"joués {len(actual_titles):>3} · conformité {conf:>3.0f}% · "
+            f"sautés {len(skipped):>2} · en trop {len(extra):>2}"
         )
         if skipped:
             shown = " · ".join(skipped[:6])
@@ -231,12 +247,30 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
             shown = " · ".join(extra[:6])
             more = f"  …(+{len(extra) - 6})" if len(extra) > 6 else ""
             lines.append(f"   ➕  JOUÉ NON PRÉVU : {shown}{more}")
+        if tail:
+            shown = " · ".join(tail[:6])
+            more = f"  …(+{len(tail) - 6})" if len(tail) > 6 else ""
+            lines.append(
+                f"   ⏸️  FIN DE BLOC NON ATTEINTE ({len(tail)} titres · ~{fmt_duration(tail_seconds)}) "
+                f"— marge anti-rebouclage au-delà de la fenêtre, normal : {shown}{more}"
+            )
+            # Garde-fou : si la part non atteinte dépasse nettement le surplus
+            # planifié, ce n'est plus la marge — un incident a amputé le bloc.
+            window_seconds = (m1 - m0) * 60
+            plan_seconds = sum(it.get("duration_seconds") or 0 for it in items)
+            surplus = max(0, plan_seconds - window_seconds)
+            if tail_seconds > surplus + 600:
+                lines.append(
+                    f"   ⚠️  part non atteinte (~{fmt_duration(tail_seconds)}) excède la marge prévue "
+                    f"(~{fmt_duration(surplus)}) — reboucle ou coupure probable dans le bloc"
+                )
 
     lines.append("-" * 100)
     global_conf = 100 * tot_match / tot_plan if tot_plan else 0
     lines.append(
-        f"CONFORMITÉ GLOBALE : {tot_match}/{tot_plan} titres prévus joués dans l'ordre "
-        f"= {global_conf:.0f}%  ({tot_extra} titre(s) hors plan)"
+        f"CONFORMITÉ GLOBALE : {tot_match}/{tot_plan} titres atteignables joués dans l'ordre "
+        f"= {global_conf:.0f}%  ({tot_extra} titre(s) hors plan · "
+        f"{tot_tail} non atteint(s) en fin de bloc, marge normale)"
     )
     return "\n".join(lines) + "\n"
 

@@ -82,6 +82,53 @@ def test_detecte_titre_saute_et_titre_hors_plan():
     assert "en trop  1" in out
 
 
+def test_fin_de_bloc_non_atteinte_exclue_de_la_conformite():
+    # Le plan embarque un surplus au-delà de la fenêtre (marge anti-rebouclage) :
+    # les derniers titres jamais atteints ne comptent plus comme « sautés »
+    # et ne pénalisent plus la conformité.
+    plan = {"blocks": [{"block_name": "BLOC_A_SERIE_DU_JOUR", "window": "00:00-06:00",
+                        "items": [{"title": "Amos 1", "duration_seconds": 10800},
+                                  {"title": "Amos 2", "duration_seconds": 10800},
+                                  {"title": "Cantique fin 1", "duration_seconds": 600},
+                                  {"title": "Cantique fin 2", "duration_seconds": 600}]}]}
+    h = hist(("Amos 1", 0), ("Amos 2", 3))
+    out = build_plan_section(h, date(2026, 6, 25), plan)
+    assert "conformité 100%" in out
+    assert "sautés  0" in out
+    assert "FIN DE BLOC NON ATTEINTE (2 titres" in out
+    assert "Cantique fin 1" in out
+    assert "normal" in out
+    assert "CONFORMITÉ GLOBALE : 2/2" in out
+    # surplus planifié (1200 s) ≈ part non atteinte → pas d'alerte
+    assert "excède la marge" not in out
+
+
+def test_fin_de_bloc_excedant_la_marge_est_signalee():
+    # Bloc amputé : la part non atteinte dépasse largement le surplus planifié
+    # (plan de 2h20 pour une fenêtre de 6h → surplus nul, 40 min non atteintes).
+    plan = {"blocks": [{"block_name": "BLOC_A_SERIE_DU_JOUR", "window": "00:00-06:00",
+                        "items": [{"title": "Amos 1", "duration_seconds": 3600},
+                                  {"title": "Amos 2", "duration_seconds": 2400},
+                                  {"title": "Amos 3", "duration_seconds": 2400}]}]}
+    h = hist(("Amos 1", 0), ("Amos 2", 1))
+    out = build_plan_section(h, date(2026, 6, 25), plan)
+    assert "FIN DE BLOC NON ATTEINTE (1 titres" in out
+    assert "excède la marge" in out
+
+
+def test_saut_en_milieu_de_bloc_reste_compte():
+    # Un titre manquant au milieu (échec AutoDJ) reste un vrai « sauté »,
+    # même si la fin du bloc est aussi tronquée.
+    plan = {"blocks": [{"block_name": "BLOC_A_SERIE_DU_JOUR", "window": "00:00-06:00",
+                        "items": [{"title": "Amos 1"}, {"title": "jingle avant bible 01"},
+                                  {"title": "Amos 2"}, {"title": "Cantique fin"}]}]}
+    h = hist(("Amos 1", 0), ("Amos 2", 2))
+    out = build_plan_section(h, date(2026, 6, 25), plan)
+    assert "sautés  1" in out
+    assert "jingle avant bible 01" in out
+    assert "FIN DE BLOC NON ATTEINTE (1 titres" in out
+
+
 def plan_2_blocs():
     """Plan minimal 2 blocs avec message, jingles et bible (types renseignés,
     comme les vrais plan_*.json écrits par la rotation)."""
