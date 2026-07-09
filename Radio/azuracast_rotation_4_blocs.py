@@ -193,7 +193,7 @@ def get_playlist_files(base_url: str, station_id: int, api_key: str, playlist_id
     items = []
     for row in rows:
         playlists = row.get("playlists", [])
-        if playlists and not any(p.get("id") == playlist_id for p in playlists):
+        if not any(p.get("id") == playlist_id for p in playlists):
             continue
         path = row.get("path")
         length = int(row.get("length") or 0)

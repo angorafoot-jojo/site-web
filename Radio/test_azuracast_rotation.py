@@ -15,7 +15,9 @@ from azuracast_rotation_4_blocs import (
     extract_book_chapter, group_bible_by_book, pick_bible_sequential,
     compute_broadcast_date, EVENING_PREP_HOUR_UTC,
     filter_short_jingles, filter_short_items, MIN_JINGLE_SECONDS, MIN_MUSIC_SECONDS,
+    get_playlist_files,
 )
+import azuracast_rotation_4_blocs as rotation_module
 
 
 # ─── Helpers ────────────────────────────────────────────────────────────────
@@ -547,6 +549,40 @@ def test_filter_short_jingles_ecarte_les_indiffusables():
                                           "bible_05.mp3", "louange_04.mp3"]
     print("✅ test_filter_short_jingles_ecarte_les_indiffusables")
 
+
+def test_get_playlist_files_exclut_les_fichiers_orphelins():
+    """Régression 08/07/2026 : GET /files?playlist=X ignore le paramètre
+    (renvoie toute la médiathèque) — le filtrage se fait côté client sur
+    row['playlists']. Un fichier retiré de TOUTES ses playlists (playlists=[],
+    ex. via PUT playlists=[] pour l'écarter de la rotation) a une liste
+    playlists vide, et l'ancienne condition (`if playlists and not any(...)`)
+    le laissait passer par erreur au lieu de l'exclure : un jingle "retiré"
+    continuait donc à être proposé à la rotation."""
+    class FakeResponse:
+        ok = True
+        status_code = 200
+        text = ""
+        def json(self):
+            return [
+                {"id": 1, "path": "Jingle/dans_la_playlist.mp3", "length": 10,
+                 "playlists": [{"id": 29}]},
+                {"id": 2, "path": "Jingle/autre_playlist.mp3", "length": 10,
+                 "playlists": [{"id": 30}]},
+                {"id": 3, "path": "Jingle/orpheline_retiree.mp3", "length": 7,
+                 "playlists": []},
+            ]
+
+    original = rotation_module.request_api
+    rotation_module.request_api = lambda *a, **k: FakeResponse()
+    try:
+        items = get_playlist_files("https://example.com", 1, "fake-key", 29, "jingle")
+    finally:
+        rotation_module.request_api = original
+
+    paths = [i.path for i in items]
+    assert paths == ["Jingle/dans_la_playlist.mp3"]
+    print("✅ test_get_playlist_files_exclut_les_fichiers_orphelins")
+
 def test_filter_short_jingles_seuil_exact():
     """Un jingle pile à MIN_JINGLE_SECONDS est gardé."""
     kept, rejected = filter_short_jingles([make_jingle("j.mp3", length=MIN_JINGLE_SECONDS)])
@@ -632,6 +668,7 @@ if __name__ == "__main__":
         test_filter_short_jingles_seuil_exact,
         test_filter_short_jingles_tout_garde_si_tous_longs,
         test_build_reutilise_jingles_sains_quand_pool_reduit,
+        test_get_playlist_files_exclut_les_fichiers_orphelins,
     ]
 
     passed = 0
