@@ -246,6 +246,24 @@ def test_bilan_sans_anomalie_sans_gravite():
     assert "Gravité" not in out
 
 
+def test_dernier_titre_du_jour_diffuse_contre_le_lendemain():
+    # fetch_history() élargit désormais la fenêtre de 15 min sur le lendemain
+    # pour que le dernier titre du jour ait une entrée "suivante" à comparer
+    # (sinon il reste éternellement "durée réelle inconnue"). Cette entrée du
+    # lendemain ne doit jamais apparaître dans le rapport affiché ni le bilan.
+    lendemain = int(datetime(2026, 6, 26, 0, 1, 30, tzinfo=timezone.utc).timestamp())
+    h = [entry("a", 23, 0, duration=60),
+         entry("dernier", 23, 1, duration=90),
+         {"played_at": lendemain, "duration": 8, "playlist": "BLOC_A_SERIE_DU_JOUR",
+          "song": {"title": "premier titre du lendemain"}}]
+    out, problems = build_report(h, JOUR)
+    assert "dernier" in out
+    assert "premier titre du lendemain" not in out
+    assert "2 titres joués" in out
+    assert "Bilan : 2 titres" in out
+    assert "⏳ dernier titre" not in out
+
+
 if __name__ == "__main__":
     import pytest
     raise SystemExit(pytest.main([__file__, "-q"]))

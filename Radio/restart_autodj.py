@@ -32,6 +32,8 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from datetime import datetime, timezone
+from pathlib import Path
 
 
 def api_post(url: str, api_key: str, method: str = "POST") -> dict:
@@ -127,8 +129,39 @@ def queue_dup_delete_urls(now_song_id: str | None, queue_items: list) -> list:
     return urls
 
 
+def append_watch_log(log_path: Path, check: int, now_song: dict,
+                      started_after_restart: bool, items: list) -> None:
+    """Persiste un instantané de surveillance minuit (JSON Lines, append-only).
+
+    Les 3 sondages nowplaying/queue de watch_and_dedup_queue() tombent chaque
+    nuit à ~00h00:40/01:20/02:00 UTC — exactement la fenêtre du restart et de
+    la playlist 000_TRANSITION, jusqu'ici seulement imprimée puis perdue dans
+    le log GitHub Actions éphémère. Écriture non bloquante : un échec ici ne
+    doit jamais faire échouer le restart (voir l'appel, protégé par try/except).
+    """
+    record = {
+        "logged_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "check": check,
+        "now_playing_title": now_song.get("text", "?"),
+        "started_after_restart": started_after_restart,
+        "queue_preview": [
+            {
+                "title": (item.get("song") or {}).get("text", "?"),
+                "playlist": item.get("playlist", "?"),
+                "sent_to_autodj": item.get("sent_to_autodj"),
+                "is_played": item.get("is_played"),
+            }
+            for item in items[:8]
+        ],
+    }
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with log_path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
 def watch_and_dedup_queue(base: str, sid: int, api_key: str, restart_ts: float,
-                          dry_run: bool, checks: int, wait_s: int) -> None:
+                          dry_run: bool, checks: int, wait_s: int,
+                          log_path: Path | None = None) -> None:
     """Instantané de la file post-restart + suppression des doublons dos à dos.
 
     Entièrement non bloquant : le reset (étapes 1-3) a déjà réussi, cette étape
@@ -155,6 +188,13 @@ def watch_and_dedup_queue(base: str, sid: int, api_key: str, restart_ts: float,
         # supprimerait la lecture LÉGITIME du message → on l'ignore ce tour-ci.
         started_after_restart = played_at >= restart_ts - 5
         items = queue if isinstance(queue, list) else []
+
+        if log_path is not None:
+            try:
+                append_watch_log(log_path, check, now_song, started_after_restart, items)
+            except Exception as e:  # noqa: BLE001 — non bloquant, jamais faire échouer le restart
+                print(f"  AVERTISSEMENT : écriture du log de surveillance impossible ({e})",
+                      file=sys.stderr)
 
         print(f"  check {check}/{checks} — à l'antenne : « {now_song.get('text', '?')} » "
               f"(démarré {'après' if started_after_restart else 'AVANT'} le restart) ; "
@@ -193,6 +233,9 @@ def main() -> None:
                         help="nombre de passages de surveillance de la file après le restart (défaut 3)")
     parser.add_argument("--queue-check-wait", type=int, default=40,
                         help="secondes d'attente avant chaque passage de surveillance (défaut 40)")
+    parser.add_argument("--watch-log-dir", default="Radio/logs",
+                        help="dossier où persister les instantanés de surveillance minuit "
+                             "(fichier midnight_watch_<date>.log, JSON Lines) ; vide pour désactiver")
     args = parser.parse_args()
 
     api_key = os.environ.get("AZURACAST_API_KEY", "").strip()
@@ -262,8 +305,13 @@ def main() -> None:
     checks = 1 if args.dry_run else max(0, args.queue_checks)
     if checks:
         print("4) Surveillance de la file post-restart (diagnostic + dédoublonnage)")
+        watch_log_path = (
+            Path(args.watch_log_dir) / f"midnight_watch_{datetime.now(timezone.utc):%Y-%m-%d}.log"
+            if args.watch_log_dir and not args.dry_run else None
+        )
         watch_and_dedup_queue(base, sid, api_key, restart_ts,
-                              args.dry_run, checks, args.queue_check_wait)
+                              args.dry_run, checks, args.queue_check_wait,
+                              log_path=watch_log_path)
 
     print("=== RESET TERMINÉ ===")
 

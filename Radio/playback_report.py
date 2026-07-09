@@ -59,9 +59,14 @@ def fmt_duration(seconds: float) -> str:
 
 
 def fetch_history(api_key: str, day: date) -> list[dict]:
+    # La fenêtre déborde de 15 min sur le lendemain : le dernier titre du jour
+    # a besoin d'une entrée "suivante" pour calculer sa durée réelle (voir
+    # build_report) — sans ça il reste pour toujours "durée inconnue".
+    end = (datetime.combine(day + timedelta(days=1), datetime.min.time(), tzinfo=timezone.utc)
+           + timedelta(minutes=15))
     params = urllib.parse.urlencode({
         "start": f"{day.isoformat()}T00:00:00Z",
-        "end": f"{day.isoformat()}T23:59:59Z",
+        "end": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "rowsPerPage": 1000,
     })
     url = f"{BASE_URL}/api/station/{STATION_ID}/history?{params}"
@@ -71,10 +76,15 @@ def fetch_history(api_key: str, day: date) -> list[dict]:
 
 
 def build_report(history: list[dict], day: date) -> tuple[str, int]:
+    # entries peut déborder sur le lendemain (voir fetch_history) : la 1re
+    # entrée du lendemain sert de référence de fin pour le dernier titre du
+    # jour, mais n'est jamais affichée ni comptée (day_entries ci-dessous).
     entries = sorted(history, key=lambda e: e["played_at"])
+    day_entries = [e for e in entries
+                   if datetime.fromtimestamp(e["played_at"], tz=timezone.utc).date() == day]
     lines = [
         f"Rapport de diffusion — {day.isoformat()} (heures UTC)",
-        f"{len(entries)} titres joués | tolérance ±{TOLERANCE_SECONDS}s",
+        f"{len(day_entries)} titres joués | tolérance ±{TOLERANCE_SECONDS}s",
         "=" * 100,
         f"{'HEURE':8s} {'PLAYLIST':28s} {'FICHIER':10s} {'RÉEL':>10s} {'ÉCART':>8s}  STATUT  TITRE",
         "-" * 100,
@@ -84,6 +94,8 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
 
     for i, entry in enumerate(entries):
         started = datetime.fromtimestamp(entry["played_at"], tz=timezone.utc)
+        if started.date() != day:
+            continue
         expected = entry.get("duration") or 0
         title = (entry.get("song") or {}).get("title") or "?"
         playlist = entry.get("playlist") or "?"
@@ -113,7 +125,7 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
         )
 
     bilan = (
-        f"Bilan : {len(entries)} titres, {problems} anomalie(s) "
+        f"Bilan : {len(day_entries)} titres, {problems} anomalie(s) "
         f"(titre coupé de plus de {TOLERANCE_SECONDS}s ou trou d'antenne)."
     )
     if severities:

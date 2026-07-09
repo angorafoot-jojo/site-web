@@ -21,5 +21,7 @@ __pycache__/
 # Clés API locales
 .env
 
-# … sauf les rapports de diffusion quotidiens, versionnés volontairement
+# … sauf les rapports de diffusion quotidiens et les logs de surveillance
+# minuit, versionnés volontairement
 !logs/diffusion_*.log
+!logs/midnight_watch_*.log

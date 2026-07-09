@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      contents: write # Pour committer le log de surveillance minuit
       issues: write   # Pour créer une Issue en cas d'échec
 
     steps:
@@ -36,6 +37,22 @@ jobs:
           python Radio/restart_autodj.py \
             --base-url https://parole-prophetique-fm.levangileduroyaume.com \
             --station-id 1
+
+      - name: Sauvegarder le log de surveillance minuit
+        if: always()
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          # Le fichier peut être absent (ex. API AzuraCast injoignable aux 3
+          # passages) — pas d'échec du step dans ce cas, rien à committer.
+          if ls Radio/logs/midnight_watch_*.log > /dev/null 2>&1; then
+            git add Radio/logs/midnight_watch_*.log
+            git diff --staged --quiet || git commit -m "chore: surveillance minuit $(date '+%Y-%m-%d') [skip ci]"
+            # Un autre workflow peut avoir poussé entre le checkout et ce push
+            git push || (git pull --rebase origin main && git push)
+          else
+            echo "Aucun log de surveillance minuit à committer."
+          fi
 
       - name: Notifier en cas d'échec
         if: failure()
