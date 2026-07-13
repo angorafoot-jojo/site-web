@@ -47,9 +47,19 @@ class QueueDupDeleteUrlsTest(unittest.TestCase):
         queue = [_item(10, "jingle"), _item(11, "bible1"), _item(12, "bible1")]
         self.assertEqual(queue_dup_delete_urls("msg", queue), [_url(12)])
 
-    def test_copie_non_consecutive_conservee(self):
-        # Le message rejoué plus loin dans la file (autre bloc) est légitime.
+    def test_doublon_du_message_derriere_un_jingle_supprime(self):
+        # Motif des frontières 12h/18h (09 et 11/07/2026) : pendant la 1re
+        # lecture du message, la file contient [jingle', message'] — le
+        # doublon du message n'est pas adjacent à sa copie à l'antenne.
+        # La file ne porte que quelques minutes de programme : une copie du
+        # titre en cours y est toujours le bug, jamais le bloc suivant.
         queue = [_item(10, "jingle"), _item(11, "msg"), _item(12, "bible1")]
+        self.assertEqual(queue_dup_delete_urls("msg", queue), [_url(11)])
+
+    def test_copie_non_consecutive_d_un_titre_pas_a_l_antenne_conservee(self):
+        # Deux copies ÉLOIGNÉES d'un titre qui n'est pas à l'antenne : aucune
+        # règle ne s'applique (ni dos à dos, ni copie du titre en cours).
+        queue = [_item(10, "jingle"), _item(11, "bible1"), _item(12, "jingle")]
         self.assertEqual(queue_dup_delete_urls("msg", queue), [])
 
     def test_antenne_non_fiable_ignore_le_titre_en_cours(self):

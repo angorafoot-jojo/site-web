@@ -104,13 +104,21 @@ def reshuffle_blocks(base: str, sid: int, api_key: str, dry_run: bool) -> None:
 
 
 def queue_dup_delete_urls(now_song_id: str | None, queue_items: list) -> list:
-    """URLs DELETE des éléments de la file qui sont des doublons dos à dos.
+    """URLs DELETE des éléments de la file qui sont des rediffusions immédiates.
 
-    Parcourt la séquence [titre à l'antenne] + file « à venir » : tout élément
-    dont la chanson est identique à celle de l'élément PRÉCÉDENT est une
-    rediffusion immédiate (le bug « message joué 2× d'affilée »). Les copies
-    non consécutives (ex. le message rejoué 6 h plus tard par le bloc suivant)
-    sont légitimes et conservées.
+    Deux règles, chacune pour un motif observé du bug « message joué 2×
+    d'affilée » (double remplissage de la file au démarrage d'un bloc) :
+
+    1. Élément identique au PRÉCÉDENT de la séquence [antenne] + file —
+       motif vu à minuit (surveillance du 13/07/2026 : le jingle d'ouverture
+       deux fois dos à dos en file).
+    2. Élément identique au titre À L'ANTENNE, même non adjacent — motif des
+       frontières 12h/18h (09 et 11/07/2026) : pendant la 1re lecture du
+       message, la file contient [jingle', message'] — le doublon du message
+       n'est PAS adjacent à sa 1re copie. La file ne portant que quelques
+       minutes de programme, une copie du titre en cours d'antenne y est
+       toujours le bug, jamais la rediffusion légitime du bloc suivant (6 h
+       plus loin, hors de portée de la file).
 
     L'API queue n'expose pas d'id de ligne : la cible DELETE est `links.self`.
     `now_song_id` = None si le titre à l'antenne n'est pas fiable (démarré
@@ -123,7 +131,9 @@ def queue_dup_delete_urls(now_song_id: str | None, queue_items: list) -> list:
             continue
         song_id = (item.get("song") or {}).get("id")
         self_url = (item.get("links") or {}).get("self")
-        if song_id and prev and song_id == prev and self_url:
+        if song_id and self_url and (
+                (prev and song_id == prev)
+                or (now_song_id and song_id == now_song_id)):
             urls.append(self_url)
         prev = song_id
     return urls
@@ -229,6 +239,10 @@ def main() -> None:
     parser.add_argument("--station-id", type=int, default=1, help="ID de la station")
     parser.add_argument("--dry-run", action="store_true",
                         help="n'appelle aucune action destructive ; affiche seulement ce qui serait fait")
+    parser.add_argument("--watch-only", action="store_true",
+                        help="garde de frontière de bloc (06h/12h/18h) : AUCUN reset ni restart, "
+                             "surveille seulement la file et supprime les rediffusions immédiates "
+                             "(doublon du message au démarrage d'un bloc)")
     parser.add_argument("--queue-checks", type=int, default=3,
                         help="nombre de passages de surveillance de la file après le restart (défaut 3)")
     parser.add_argument("--queue-check-wait", type=int, default=40,
@@ -245,6 +259,26 @@ def main() -> None:
 
     base = args.base_url.rstrip("/")
     sid = args.station_id
+
+    if args.watch_only:
+        # Garde de frontière : le double remplissage de la file au démarrage
+        # d'un bloc (doublon du message, vu les 09 et 11/07/2026 à 12h/18h)
+        # reste en file pendant toute la 1re lecture du message — quelques
+        # passages de surveillance juste après la frontière suffisent à le
+        # retirer avant diffusion, sans toucher à l'antenne. restart_ts=0 :
+        # pas de restart, le titre à l'antenne est toujours une info fiable.
+        print(f"=== GARDE DE FRONTIÈRE (station {sid})"
+              f"{' [DRY-RUN]' if args.dry_run else ''} ===")
+        checks = 1 if args.dry_run else max(1, args.queue_checks)
+        watch_log_path = (
+            Path(args.watch_log_dir) / f"boundary_watch_{datetime.now(timezone.utc):%Y-%m-%d}.log"
+            if args.watch_log_dir and not args.dry_run else None
+        )
+        watch_and_dedup_queue(base, sid, api_key, 0,
+                              args.dry_run, checks, args.queue_check_wait,
+                              log_path=watch_log_path)
+        print("=== GARDE TERMINÉE ===")
+        return
 
     print(f"=== RESET AUTODJ (station {sid}){' [DRY-RUN]' if args.dry_run else ''} ===")
 
