@@ -116,6 +116,28 @@ def test_fin_de_bloc_excedant_la_marge_est_signalee():
     assert "excède la marge" in out
 
 
+def test_marge_reste_marge_malgre_artefact_de_frontiere():
+    # Régression des 09 et 11/07/2026 : un rebouclage + un bouche-trou joués
+    # APRÈS le dernier titre atteint transformaient le « delete » final en
+    # « replace » — la marge anti-rebouclage entière passait pour « sautée »
+    # (8 faux sautés par bloc). Les artefacts restent comptés « en trop ».
+    plan = {"blocks": [{"block_name": "BLOC_A_SERIE_DU_JOUR", "window": "00:00-06:00",
+                        "items": [{"title": "Amos 1", "duration_seconds": 10800},
+                                  {"title": "Amos 2", "duration_seconds": 10700},
+                                  {"title": "Cantique fin 1", "duration_seconds": 600},
+                                  {"title": "Cantique fin 2", "duration_seconds": 600}]}]}
+    h = [entry("Amos 1", 0, 0, duration=10800),
+         entry("Amos 2", 3, 0, duration=10700),
+         entry("jingle avant message 02", 5, 58, duration=8),
+         entry("AzuraCast is Live!", 5, 59, duration=30, playlist="?")]
+    out = build_plan_section(h, JOUR, plan)
+    assert "conformité 100%" in out
+    assert "sautés  0" in out
+    assert "en trop  2" in out
+    assert "FIN DE BLOC NON ATTEINTE (2 titres" in out
+    assert "Cantique fin 1" in out
+
+
 def test_saut_en_milieu_de_bloc_reste_compte():
     # Un titre manquant au milieu (échec AutoDJ) reste un vrai « sauté »,
     # même si la fin du bloc est aussi tronquée.

@@ -342,13 +342,16 @@ BLOC_A  (00:00-06:00)  prévus  88 · atteignables  86 · joués  84 · conformi
    ➕  JOUÉ NON PRÉVU : ?
    ⏸️  FIN DE BLOC NON ATTEINTE (2 titres · ~17m14s) — marge anti-rebouclage au-delà de la fenêtre, normal : There Is No Lie - SWBN TV · Holy are You oh Lord (Olaedo Uzoma & Vincent Opara)
 ----------------------------------------------------------------------------------------------------
-BLOC_B  (06:00-12:00)  prévus  91 · atteignables  91 · joués  82 · conformité  87% · sautés 12 · en trop  3
-   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 03 ecoutez la voix de dieu · jingle avant bible 04 restons a lecoute des ecritures · jingle avant bible 01 la foi vient de ce quon entend · LA BONNE NOUVELLE PARTOUT · Cantique des Cantiques 3 · Cantique des Cantiques 4  …(+6)
+BLOC_B  (06:00-12:00)  prévus  91 · atteignables  83 · joués  82 · conformité  95% · sautés  4 · en trop  3
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 03 ecoutez la voix de dieu · jingle avant bible 04 restons a lecoute des ecritures · jingle avant bible 01 la foi vient de ce quon entend · LA BONNE NOUVELLE PARTOUT
    ➕  JOUÉ NON PRÉVU : jingle avant message 02 enseignement parole de dieu · jingle avant message 02 enseignement parole de dieu · AzuraCast is Live!
+   ⏸️  FIN DE BLOC NON ATTEINTE (8 titres · ~37m55s) — marge anti-rebouclage au-delà de la fenêtre, normal : Cantique des Cantiques 3 · Cantique des Cantiques 4 · Cantique des Cantiques 5 · JINGLE · That I May Know Him - Toronto HF · Oh Lord I Want to Know Your Glory - Port Harcourt HF  …(+2)
 ----------------------------------------------------------------------------------------------------
-BLOC_C  (12:00-18:00)  prévus  82 · atteignables  82 · joués  74 · conformité  87% · sautés 11 · en trop  3
-   ⏭️  PRÉVU NON JOUÉ : jingle avant louange 01 place a la louange et adoration · jingle avant message 05 vous etes a lecoute de levangile du royaume · Esdras 9 · Esdras 10 · Aggée 1 · Aggée 2  …(+5)
+BLOC_C  (12:00-18:00)  prévus  82 · atteignables  73 · joués  74 · conformité  97% · sautés  2 · en trop  3
+   ⏭️  PRÉVU NON JOUÉ : jingle avant louange 01 place a la louange et adoration · jingle avant message 05 vous etes a lecoute de levangile du royaume
    ➕  JOUÉ NON PRÉVU : jingle avant message 02 enseignement parole de dieu · 1-pqe c1 · AzuraCast is Live!
+   ⏸️  FIN DE BLOC NON ATTEINTE (9 titres · ~46m25s) — marge anti-rebouclage au-delà de la fenêtre, normal : Esdras 9 · Esdras 10 · Aggée 1 · Aggée 2 · LA BONNE NOUVELLE PARTOUT · Hosanna - Toronto HF  …(+3)
+   ⚠️  part non atteinte (~46m25s) excède la marge prévue (~25m32s) — reboucle ou coupure probable dans le bloc
 ----------------------------------------------------------------------------------------------------
 BLOC_D  (18:00-23:30)  prévus  86 · atteignables  67 · joués  62 · conformité  91% · sautés  6 · en trop  1
    ⏭️  PRÉVU NON JOUÉ : jingle avant louange 03 continuons dans la louange · jingle avant louange 01 place a la louange et adoration · jingle avant louange 02 voici notre selection de cantiques · jingle avant bible 02 voici la lecture de la bible · jingle avant louange 04 suite de la selection musicale · Parole Prophétique FM
@@ -356,4 +359,4 @@ BLOC_D  (18:00-23:30)  prévus  86 · atteignables  67 · joués  62 · conformi
    ⏸️  FIN DE BLOC NON ATTEINTE (19 titres · ~39m13s) — marge anti-rebouclage au-delà de la fenêtre, normal : jingle avant message 05 vous etes a lecoute de levangile du royaume · 1 Jean 1 · 1 Jean 2 · 1 Jean 3 · 1 Jean 4 · 1 Jean 5  …(+13)
    ⚠️  part non atteinte (~39m13s) excède la marge prévue (~18m45s) — reboucle ou coupure probable dans le bloc
 ----------------------------------------------------------------------------------------------------
-CONFORMITÉ GLOBALE : 294/326 titres atteignables joués dans l'ordre = 90%  (8 titre(s) hors plan · 21 non atteint(s) en fin de bloc, marge normale)
+CONFORMITÉ GLOBALE : 294/309 titres atteignables joués dans l'ordre = 95%  (8 titre(s) hors plan · 38 non atteint(s) en fin de bloc, marge normale)

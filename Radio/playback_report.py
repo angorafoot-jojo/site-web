@@ -270,13 +270,21 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
         # au-delà de la fenêtre (anti-rebouclage). Le suffixe du plan qui suit
         # le dernier titre réellement joué n'a donc jamais été atteint — c'est
         # attendu, on le sort de la conformité et on le liste à part.
+        # Le suffixe se présente en « delete » quand la fenêtre se termine sur
+        # un titre du plan, ou en « replace » quand un artefact de frontière
+        # (jingle rebouclé, bouche-trou) joue après le dernier titre atteint —
+        # sans ce second cas, la marge entière passait pour « sautée » (vu les
+        # 09 et 11/07/2026 : 8 faux sautés par bloc). La part « réel » du
+        # replace reste comptée en trop.
         tail: list[str] = []
         tail_seconds = 0
-        if opcodes and opcodes[-1][0] == "delete" and opcodes[-1][2] == len(plan_norm):
-            _, i1, i2, _, _ = opcodes[-1]
+        if opcodes and opcodes[-1][0] in ("delete", "replace") and opcodes[-1][2] == len(plan_norm):
+            op, i1, i2, j1, j2 = opcodes[-1]
             tail = planned_titles[i1:i2]
             tail_seconds = sum(it.get("duration_seconds") or 0 for it in items[i1:i2])
             opcodes = opcodes[:-1]
+            if op == "replace":
+                opcodes.append(("insert", i2, i2, j1, j2))
 
         matched = 0
         skipped, extra = [], []
