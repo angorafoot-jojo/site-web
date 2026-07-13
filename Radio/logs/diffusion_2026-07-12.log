@@ -333,35 +333,37 @@ Bilan : 324 titres, 2 anomalie(s) (titre coupé de plus de 10s ou trou d'antenne
 ====================================================================================================
 CONTRÔLES APPROFONDIS
 ====================================================================================================
-MESSAGE DU JOUR « Tian Le pardon 2 » : 0 diffusion(s) pour 4 prévue(s) ❌
-JINGLES : 28 joués / 36 prévus (78%) ⚠️   ·   BLOC_A 10/9 · BLOC_B 5/9 · BLOC_C 7/9 · BLOC_D 6/9
+MESSAGE DU JOUR « Tian Le pardon 2 » : 4 diffusion(s) pour 4 prévue(s) ✅
+   00:04:09  (étiquette BLOC_A_SERIE_DU_JOUR)
+   06:05:58  (étiquette BLOC_B_SERIE_DU_JOUR)
+   12:04:50  (étiquette BLOC_C_SERIE_DU_JOUR)
+   18:06:03  (étiquette BLOC_D_SERIE_DU_JOUR)
+JINGLES : 26 joués / 36 prévus (72%) ⚠️   ·   BLOC_A 8/9 · BLOC_B 5/9 · BLOC_C 7/9 · BLOC_D 6/9
 HORS FENÊTRE : aucun débordement de bloc détecté ✅
 BOUCHE-TROUS : 2 titre(s) hors plan sans playlist ⚠️
    00:01:47  AzuraCast is Live!  (0m01s)
    00:01:48  ?  (2m12s)
-COUVERTURE : premier titre à 00:00:05 ✅ · dernier titre finit vers 00:24:40 (estimé) ✅
+COUVERTURE : premier titre à 00:00:05 ✅ · dernier titre finit vers 00:00:31 (estimé) ✅
 
 ====================================================================================================
 RÉEL vs PRÉVU — ce qui a joué vs ce que le plan prévoyait
 ====================================================================================================
 ----------------------------------------------------------------------------------------------------
-BLOC_A  (00:00-06:00)  prévus  87 · atteignables  87 · joués  89 · conformité  93% · sautés  6 · en trop  8
-   ⏭️  PRÉVU NON JOUÉ : Tian Le pardon 2 · jingle avant louange 05 elevons nos coeurs vers dieu · jingle avant louange 07 voici un temps de louange · Hashem - PHF · Ascribe Greatness - PHF · The Mountains, Come and, Oh City - Ketu HF
-   ➕  JOUÉ NON PRÉVU : jingle avant bible 08 prenons un moment pour ecouter la parole · AzuraCast is Live! · ? · 2020 tian le pardon 2 · jingle avant message 03 vous ecoutez parole prophetique fm · 2020 tian le pardon 3  …(+2)
+BLOC_A  (00:00-06:00)  prévus  87 · atteignables  84 · joués  85 · conformité  98% · sautés  2 · en trop  3
+   ⏭️  PRÉVU NON JOUÉ : jingle avant louange 05 elevons nos coeurs vers dieu · jingle avant louange 07 voici un temps de louange
+   ➕  JOUÉ NON PRÉVU : jingle avant bible 08 prenons un moment pour ecouter la parole · AzuraCast is Live! · ?
+   ⏸️  FIN DE BLOC NON ATTEINTE (3 titres · ~24m22s) — marge anti-rebouclage au-delà de la fenêtre, normal : Hashem - PHF · Ascribe Greatness - PHF · The Mountains, Come and, Oh City - Ketu HF
 ----------------------------------------------------------------------------------------------------
-BLOC_B  (06:00-12:00)  prévus  82 · atteignables  77 · joués  74 · conformité  95% · sautés  4 · en trop  1
-   ⏭️  PRÉVU NON JOUÉ : Tian Le pardon 2 · jingle avant bible 08 prenons un moment pour ecouter la parole · jingle avant louange 06 que la louange seleve · jingle id station 03 notre mission annonce levangile
-   ➕  JOUÉ NON PRÉVU : 2020 tian le pardon 2
+BLOC_B  (06:00-12:00)  prévus  82 · atteignables  77 · joués  74 · conformité  96% · sautés  3 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 08 prenons un moment pour ecouter la parole · jingle avant louange 06 que la louange seleve · jingle id station 03 notre mission annonce levangile
    ⏸️  FIN DE BLOC NON ATTEINTE (5 titres · ~25m02s) — marge anti-rebouclage au-delà de la fenêtre, normal : jingle id station 02 radio evangile du royaume · Holy is the Lord (Emmanuel Umoh) · Oh Lord I Want to Know Your Glory - Port Harcourt HF · That I May Know Him - Toronto HF · I Will Call Upon The Lord
 ----------------------------------------------------------------------------------------------------
-BLOC_C  (12:00-18:00)  prévus  94 · atteignables  88 · joués  87 · conformité  98% · sautés  2 · en trop  1
-   ⏭️  PRÉVU NON JOUÉ : Tian Le pardon 2 · jingle avant bible 06 ouvrons les saintes ecritures
-   ➕  JOUÉ NON PRÉVU : 2020 tian le pardon 2
+BLOC_C  (12:00-18:00)  prévus  94 · atteignables  88 · joués  87 · conformité  99% · sautés  1 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 06 ouvrons les saintes ecritures
    ⏸️  FIN DE BLOC NON ATTEINTE (6 titres · ~25m57s) — marge anti-rebouclage au-delà de la fenêtre, normal : JINGLE · Not Naked (Abasiama Timothy) · I Choose the Way of the Lord - Abuja HF · Awaken My Heart · Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable · Yahweh Is Mighty - SWBN TV
 ----------------------------------------------------------------------------------------------------
-BLOC_D  (18:00-23:30)  prévus  80 · atteignables  75 · joués  73 · conformité  96% · sautés  3 · en trop  1
-   ⏭️  PRÉVU NON JOUÉ : jingle avant message 01 voici le message du jour · Tian Le pardon 2 · jingle avant bible 08 prenons un moment pour ecouter la parole
-   ➕  JOUÉ NON PRÉVU : 2020 tian le pardon 2
+BLOC_D  (18:00-23:30)  prévus  80 · atteignables  75 · joués  73 · conformité  97% · sautés  2 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant message 01 voici le message du jour · jingle avant bible 08 prenons un moment pour ecouter la parole
    ⏸️  FIN DE BLOC NON ATTEINTE (5 titres · ~22m58s) — marge anti-rebouclage au-delà de la fenêtre, normal : jingle id station 02 radio evangile du royaume · There is no Lie (Imah Adegoke & Mary Umoh) · The Lord on High is Mightier - Toronto HF · Cantique Jahweh, Tu es élevé au dessus de tout (1) · Song Of Victory - Emmanuel Igunbor
 ----------------------------------------------------------------------------------------------------
-CONFORMITÉ GLOBALE : 312/327 titres atteignables joués dans l'ordre = 95%  (11 titre(s) hors plan · 16 non atteint(s) en fin de bloc, marge normale)
+CONFORMITÉ GLOBALE : 316/324 titres atteignables joués dans l'ordre = 98%  (3 titre(s) hors plan · 19 non atteint(s) en fin de bloc, marge normale)
