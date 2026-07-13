@@ -162,6 +162,82 @@ def test_message_compte_et_double_rapproche_detecte():
     assert "reboucle d'un bloc" in out
 
 
+def test_message_reconnu_par_duree_malgre_tag_fichier_different():
+    # Régression 09-11/07/2026 : le plan porte l'étiquette d'épisode de la
+    # config (« Tian Le pardon 1 ») mais l'historique journalise le tag du
+    # fichier (« La pardon ») → 0 diffusion comptée et détecteur de doubles
+    # aveugle. La durée (même média AzuraCast des deux côtés) doit suffire.
+    plan = plan_2_blocs()
+    plan["message"] = {"title": "Tian Le pardon 1", "duration_seconds": 614}
+    for b in plan["blocks"]:
+        for it in b["items"]:
+            if it["type"] == "message":
+                it["title"] = "Tian Le pardon 1"
+    h = [entry("La pardon", 0, 2, duration=614),
+         entry("Amos 1", 0, 32, duration=300),
+         entry("La pardon", 6, 0, duration=614, playlist="BLOC_B_SERIE_DU_JOUR")]
+    out = build_health_section(h, JOUR, plan)
+    assert "2 diffusion(s) pour 2 prévue(s) ✅" in out
+
+
+def test_message_duree_identique_mais_titre_du_plan_non_compte():
+    # Un cantique PLANIFIÉ de même durée que le message ne doit pas passer
+    # pour une diffusion du message.
+    plan = plan_2_blocs()
+    plan["blocks"][0]["items"].append(
+        {"type": "louange", "title": "Cantique long", "duration_seconds": 1800})
+    h = [entry("pqe j1", 0, 2, duration=1800),
+         entry("Cantique long", 2, 0, duration=1800),
+         entry("pqe j1", 6, 0, duration=1800, playlist="BLOC_B_SERIE_DU_JOUR")]
+    out = build_health_section(h, JOUR, plan)
+    assert "2 diffusion(s) pour 2 prévue(s) ✅" in out
+
+
+def test_health_ignore_les_entrees_du_lendemain():
+    # Régression 11/07/2026 : les 15 min de débordement de fetch_history()
+    # retombaient dans la fenêtre BLOC_A (00:00-06:00) — 3 jingles du
+    # lendemain comptés, « 9/9 » affiché au lieu de 6/9.
+    lendemain = int(datetime(2026, 6, 26, 0, 1, 30, tzinfo=timezone.utc).timestamp())
+    h = [entry("jingle avant message 01", 0, 1, duration=10),
+         entry("pqe j1", 0, 2, duration=1800),
+         entry("pqe j1", 6, 0, duration=1800, playlist="BLOC_B_SERIE_DU_JOUR"),
+         {"played_at": lendemain, "duration": 10, "playlist": "BLOC_A_SERIE_DU_JOUR",
+          "song": {"title": "jingle avant bible 02"}},
+         {"played_at": lendemain + 15, "duration": 1800,
+          "playlist": "BLOC_A_SERIE_DU_JOUR", "song": {"title": "pqe j1"}}]
+    out = build_health_section(h, JOUR, plan_2_blocs())
+    assert "BLOC_A 1/2" in out                       # pas le jingle du lendemain
+    assert "2 diffusion(s) pour 2 prévue(s) ✅" in out  # pas le message du lendemain
+
+
+def test_plan_section_ignore_les_entrees_du_lendemain():
+    plan = {"blocks": [{"block_name": "BLOC_A_SERIE_DU_JOUR", "window": "00:00-06:00",
+                        "items": [{"title": "Amos 1"}, {"title": "Amos 2"}]}]}
+    lendemain = int(datetime(2026, 6, 26, 0, 1, 30, tzinfo=timezone.utc).timestamp())
+    h = hist(("Amos 1", 1), ("Amos 2", 2)) + [
+        {"played_at": lendemain, "song": {"title": "AzuraCast is Live!"}}]
+    out = build_plan_section(h, date(2026, 6, 25), plan)
+    assert "conformité 100%" in out
+    assert "en trop  0" in out
+    assert "AzuraCast is Live!" not in out
+
+
+def test_plan_section_message_tag_fichier_different_reste_conforme():
+    # Même régression que côté santé : le message joué sous son tag fichier
+    # ne doit plus compter « sauté » + « en trop » dans chaque bloc.
+    plan = {"message": {"title": "Tian Le pardon 1", "duration_seconds": 614},
+            "blocks": [{"block_name": "BLOC_A_SERIE_DU_JOUR", "window": "00:00-06:00",
+                        "items": [{"type": "message", "title": "Tian Le pardon 1",
+                                   "duration_seconds": 614},
+                                  {"type": "bible", "title": "Amos 1"}]}]}
+    h = [entry("La pardon", 0, 2, duration=614),
+         entry("Amos 1", 0, 32, duration=300)]
+    out = build_plan_section(h, JOUR, plan)
+    assert "conformité 100%" in out
+    assert "sautés  0" in out
+    assert "en trop  0" in out
+
+
 def test_message_nominal_sans_double():
     h = [entry("pqe j1", 0, 2, duration=1800),
          entry("Amos 1", 0, 32, duration=300),

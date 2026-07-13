@@ -166,6 +166,52 @@ def norm_title(title: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", t.lower())
 
 
+def _message_matcher(plan: dict | None):
+    """Prédicat « cette diffusion est le message du jour » : (norm, duration) -> bool.
+
+    Le titre du plan est l'étiquette d'épisode de la config, alors que
+    l'historique journalise le tag du fichier audio — ils peuvent ne rien
+    partager (« PQE C1 » vs « 1-pqe c1 », « Tian Le pardon 1 » vs
+    « La pardon », vu sur les rapports des 09-11/07/2026 où le message
+    était compté 0 diffusion à tort). La durée, elle, vient du même média
+    AzuraCast des deux côtés : elle sert de second critère, en écartant
+    les titres qui appartiennent déjà au plan (un cantique planifié de
+    même durée ne doit pas passer pour le message). Limite assumée : un
+    titre HORS plan de même durée à ±2 s près serait compté à tort —
+    improbable, et l'heure listée dans le rapport le rendrait visible."""
+    message = (plan or {}).get("message") or {}
+    msg_norm = norm_title(message.get("title", ""))
+    msg_seconds = message.get("duration_seconds") or 0
+    other_norms = {
+        norm_title(it.get("title", ""))
+        for b in (plan or {}).get("blocks", [])
+        for it in b.get("items", [])
+        if it.get("type") != "message"
+    }
+
+    def matches(norm: str, duration: float) -> bool:
+        if not msg_norm:
+            return False
+        if norm == msg_norm:
+            return True
+        return bool(msg_seconds and duration
+                    and abs(duration - msg_seconds) <= 2
+                    and norm not in other_norms)
+
+    return matches
+
+
+def _day_entries(history: list[dict], day: date) -> list[dict]:
+    """Entrées de l'historique appartenant au jour, triées. fetch_history()
+    déborde de 15 min sur le lendemain (durée réelle du dernier titre) :
+    sans ce filtre, les titres de 00h00-00h15 du lendemain retombent dans
+    la fenêtre de BLOC_A (le fenêtrage se fait sur l'heure du jour) — vu
+    le 11/07/2026 : 3 jingles du 12/07 comptés dans BLOC_A, 9/9 au lieu
+    de 6/9, et des bouche-trous du lendemain listés dans le rapport."""
+    return [e for e in sorted(history, key=lambda e: e["played_at"])
+            if datetime.fromtimestamp(e["played_at"], tz=timezone.utc).date() == day]
+
+
 def _window_bounds(window: str) -> tuple[int, int]:
     """'06:00-12:00' -> (360, 720). Minutes UTC depuis minuit, fin exclusive.
     Précision à la minute requise depuis que BLOC_D s'arrête à 23h30
@@ -187,13 +233,21 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
         )
         return "\n".join(head) + "\n"
 
-    entries = sorted(history, key=lambda e: e["played_at"])
-    # Titre réel + heure de début pour chaque diffusion.
-    played = [
-        (datetime.fromtimestamp(e["played_at"], tz=timezone.utc),
-         (e.get("song") or {}).get("title") or "?")
-        for e in entries
-    ]
+    entries = _day_entries(history, day)
+    # Titre réel + heure de début + forme normalisée pour chaque diffusion.
+    # Le message du jour est ramené au titre du plan quand le tag du fichier
+    # diffère (voir _message_matcher) : sinon il compte à tort comme
+    # « sauté » + « en trop » dans chacun des 4 blocs.
+    matches_message = _message_matcher(plan)
+    msg_norm = norm_title((plan.get("message") or {}).get("title", ""))
+    played = []
+    for e in entries:
+        dt = datetime.fromtimestamp(e["played_at"], tz=timezone.utc)
+        title = (e.get("song") or {}).get("title") or "?"
+        n = norm_title(title)
+        if matches_message(n, e.get("duration") or 0):
+            n = msg_norm
+        played.append((dt, title, n))
 
     lines = list(head)
     tot_plan = tot_match = tot_extra = tot_tail = 0
@@ -204,10 +258,11 @@ def build_plan_section(history: list[dict], day: date, plan: dict | None) -> str
             continue
         m0, m1 = _window_bounds(window)
         planned_titles = [it.get("title", "?") for it in items]
-        actual_titles = [t for (dt, t) in played if m0 <= dt.hour * 60 + dt.minute < m1]
+        in_win = [(t, n) for (dt, t, n) in played if m0 <= dt.hour * 60 + dt.minute < m1]
+        actual_titles = [t for (t, n) in in_win]
 
         plan_norm = [norm_title(t) for t in planned_titles]
-        act_norm = [norm_title(t) for t in actual_titles]
+        act_norm = [n for (t, n) in in_win]
         sm = difflib.SequenceMatcher(None, plan_norm, act_norm, autojunk=False)
         opcodes = sm.get_opcodes()
 
@@ -298,7 +353,7 @@ def build_health_section(history: list[dict], day: date, plan: dict | None) -> s
         head.append("Plan non disponible : contrôles approfondis impossibles pour ce jour.")
         return "\n".join(head) + "\n"
 
-    entries = sorted(history, key=lambda e: e["played_at"])
+    entries = _day_entries(history, day)
     played = [
         {
             "dt": datetime.fromtimestamp(e["played_at"], tz=timezone.utc),
@@ -317,9 +372,10 @@ def build_health_section(history: list[dict], day: date, plan: dict | None) -> s
     # --- 1. Message du jour : combien de diffusions, et des doubles rapprochés ?
     message = plan.get("message") or {}
     msg_norm = norm_title(message.get("title", ""))
+    matches_message = _message_matcher(plan)
     planned_plays = sum(1 for b in blocks for it in b["items"] if it.get("type") == "message")
     if msg_norm and planned_plays:
-        plays = [p for p in played if p["norm"] == msg_norm]
+        plays = [p for p in played if matches_message(p["norm"], p["duration"])]
         doubles = 0
         for prev, cur in zip(plays, plays[1:]):
             prev_end = prev["dt"] + timedelta(

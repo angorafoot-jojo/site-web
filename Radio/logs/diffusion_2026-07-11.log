@@ -321,38 +321,42 @@ Bilan : 312 titres, 1 anomalie(s) (titre coupé de plus de 10s ou trou d'antenne
 ====================================================================================================
 CONTRÔLES APPROFONDIS
 ====================================================================================================
-MESSAGE DU JOUR « Tian Le pardon 1 » : 0 diffusion(s) pour 4 prévue(s) ❌
-JINGLES : 31 joués / 36 prévus (86%) ⚠️   ·   BLOC_A 9/9 · BLOC_B 8/9 · BLOC_C 6/9 · BLOC_D 8/9
+MESSAGE DU JOUR « Tian Le pardon 1 » : 5 diffusion(s) pour 4 prévue(s) ❌
+   00:05:25  (étiquette BLOC_A_SERIE_DU_JOUR)
+   06:12:32  (étiquette BLOC_B_SERIE_DU_JOUR)
+   12:01:31  (étiquette BLOC_C_SERIE_DU_JOUR)
+   18:00:15  (étiquette BLOC_D_SERIE_DU_JOUR)
+   18:10:37  (étiquette BLOC_D_SERIE_DU_JOUR)  ⚠️ DOUBLE RAPPROCHÉ (rejoué juste après la diffusion précédente)
+   → diffusions en trop = reboucle d'un bloc avant la fin de sa fenêtre (l'étiquette playlist des fichiers partagés n'est pas fiable, se fier aux heures).
+JINGLES : 28 joués / 36 prévus (78%) ⚠️   ·   BLOC_A 6/9 · BLOC_B 8/9 · BLOC_C 6/9 · BLOC_D 8/9
 HORS FENÊTRE : 1 titre(s) d'un bloc joués hors de sa plage ⚠️
    06:08:03  Sing Hallelujah - Abuja HF — prévu dans BLOC_A (00:00-06:00)
-BOUCHE-TROUS : 5 titre(s) hors plan sans playlist ⚠️
+BOUCHE-TROUS : 3 titre(s) hors plan sans playlist ⚠️
    00:01:34  ?  (3m41s)
    17:59:56  AzuraCast is Live!  (0m09s)
    23:59:30  AzuraCast is Live!  (0m35s)
-   00:01:47  AzuraCast is Live!  (0m01s)
-   00:01:48  ?  (2m12s)
-COUVERTURE : premier titre à 00:01:34 ✅ · dernier titre finit vers 00:16:42 (estimé) ✅
+COUVERTURE : premier titre à 00:01:34 ✅ · dernier titre finit vers 00:00:05 (estimé) ✅
 
 ====================================================================================================
 RÉEL vs PRÉVU — ce qui a joué vs ce que le plan prévoyait
 ====================================================================================================
 ----------------------------------------------------------------------------------------------------
-BLOC_A  (00:00-06:00)  prévus  85 · atteignables  85 · joués  87 · conformité  92% · sautés  7 · en trop  9
-   ⏭️  PRÉVU NON JOUÉ : jingle avant message 01 voici le message du jour · Tian Le pardon 1 · jingle avant bible 08 prenons un moment pour ecouter la parole · jingle avant louange 06 que la louange seleve · Sing Hallelujah - Abuja HF · 6 minutes  …(+1)
-   ➕  JOUÉ NON PRÉVU : ? · La pardon · jingle avant bible 08 prenons un moment pour ecouter la parole · AzuraCast is Live! · ? · jingle avant message 05 vous etes a lecoute de levangile du royaume  …(+3)
+BLOC_A  (00:00-06:00)  prévus  85 · atteignables  82 · joués  80 · conformité  96% · sautés  3 · en trop  1
+   ⏭️  PRÉVU NON JOUÉ : jingle avant message 01 voici le message du jour · jingle avant bible 08 prenons un moment pour ecouter la parole · jingle avant louange 06 que la louange seleve
+   ➕  JOUÉ NON PRÉVU : ?
+   ⏸️  FIN DE BLOC NON ATTEINTE (3 titres · ~15m46s) — marge anti-rebouclage au-delà de la fenêtre, normal : Sing Hallelujah - Abuja HF · 6 minutes · Je veux vivre ton royaume
 ----------------------------------------------------------------------------------------------------
-BLOC_B  (06:00-12:00)  prévus  85 · atteignables  78 · joués  79 · conformité  99% · sautés  1 · en trop  2
-   ⏭️  PRÉVU NON JOUÉ : Tian Le pardon 1
-   ➕  JOUÉ NON PRÉVU : Sing Hallelujah - Abuja HF · La pardon
+BLOC_B  (06:00-12:00)  prévus  85 · atteignables  78 · joués  79 · conformité 100% · sautés  0 · en trop  1
+   ➕  JOUÉ NON PRÉVU : Sing Hallelujah - Abuja HF
    ⏸️  FIN DE BLOC NON ATTEINTE (7 titres · ~29m23s) — marge anti-rebouclage au-delà de la fenêtre, normal : Luc 15 · JINGLE · jai donné ma vie à jésus (1) · That I May Know Him - Toronto HF · I Know The Blood - PHF · Song Of Victory - Emmanuel Igunbor  …(+1)
 ----------------------------------------------------------------------------------------------------
-BLOC_C  (12:00-18:00)  prévus  77 · atteignables  77 · joués  71 · conformité  88% · sautés  9 · en trop  3
-   ⏭️  PRÉVU NON JOUÉ : Tian Le pardon 1 · jingle avant bible 06 ouvrons les saintes ecritures · jingle avant bible 08 prenons un moment pour ecouter la parole · JINGLE · JINGLE · God's Got An Army - PHF  …(+3)
-   ➕  JOUÉ NON PRÉVU : La pardon · jingle avant message 01 voici le message du jour · AzuraCast is Live!
+BLOC_C  (12:00-18:00)  prévus  77 · atteignables  77 · joués  71 · conformité  90% · sautés  8 · en trop  2
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 06 ouvrons les saintes ecritures · jingle avant bible 08 prenons un moment pour ecouter la parole · JINGLE · JINGLE · God's Got An Army - PHF · There's A Mighty River Flowing - SWBN TV  …(+2)
+   ➕  JOUÉ NON PRÉVU : jingle avant message 01 voici le message du jour · AzuraCast is Live!
 ----------------------------------------------------------------------------------------------------
-BLOC_D  (18:00-23:30)  prévus  80 · atteignables  75 · joués  76 · conformité  97% · sautés  2 · en trop  3
-   ⏭️  PRÉVU NON JOUÉ : Tian Le pardon 1 · JINGLE
-   ➕  JOUÉ NON PRÉVU : La pardon · jingle avant message 01 voici le message du jour · La pardon
+BLOC_D  (18:00-23:30)  prévus  80 · atteignables  75 · joués  76 · conformité  99% · sautés  1 · en trop  2
+   ⏭️  PRÉVU NON JOUÉ : JINGLE
+   ➕  JOUÉ NON PRÉVU : jingle avant message 01 voici le message du jour · La pardon
    ⏸️  FIN DE BLOC NON ATTEINTE (5 titres · ~22m43s) — marge anti-rebouclage au-delà de la fenêtre, normal : jingle id station 02 radio evangile du royaume · Crown Him Lord of Lords - Nonso Njoku · cantique   prends tout le contrôle · Praise the Lord of Host - Toronto HF · I Will Call Upon The Lord
 ----------------------------------------------------------------------------------------------------
-CONFORMITÉ GLOBALE : 296/315 titres atteignables joués dans l'ordre = 94%  (17 titre(s) hors plan · 12 non atteint(s) en fin de bloc, marge normale)
+CONFORMITÉ GLOBALE : 300/312 titres atteignables joués dans l'ordre = 96%  (6 titre(s) hors plan · 15 non atteint(s) en fin de bloc, marge normale)

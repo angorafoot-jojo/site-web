@@ -311,34 +311,34 @@ Bilan : 302 titres, 2 anomalie(s) (titre coupé de plus de 10s ou trou d'antenne
 ====================================================================================================
 CONTRÔLES APPROFONDIS
 ====================================================================================================
-MESSAGE DU JOUR « PQE C2 » : 0 diffusion(s) pour 4 prévue(s) ❌
+MESSAGE DU JOUR « PQE C2 » : 4 diffusion(s) pour 4 prévue(s) ✅
+   00:03:30  (étiquette BLOC_A_SERIE_DU_JOUR)
+   06:00:56  (étiquette BLOC_B_SERIE_DU_JOUR)
+   12:05:18  (étiquette BLOC_C_SERIE_DU_JOUR)
+   18:02:53  (étiquette BLOC_D_SERIE_DU_JOUR)
 JINGLES : 28 joués / 36 prévus (78%) ⚠️   ·   BLOC_A 7/9 · BLOC_B 7/9 · BLOC_C 7/9 · BLOC_D 7/9
 HORS FENÊTRE : aucun débordement de bloc détecté ✅
-BOUCHE-TROUS : 1 titre(s) hors plan sans playlist ⚠️
-   00:01:34  ?  (3m41s)
-COUVERTURE : premier titre à 00:01:38 ✅ · dernier titre finit vers 00:19:01 (estimé) ✅
+BOUCHE-TROUS : aucun ✅
+COUVERTURE : premier titre à 00:01:38 ✅ · dernier titre finit vers 00:07:53 (estimé) ✅
 
 ====================================================================================================
 RÉEL vs PRÉVU — ce qui a joué vs ce que le plan prévoyait
 ====================================================================================================
 ----------------------------------------------------------------------------------------------------
-BLOC_A  (00:00-06:00)  prévus  81 · atteignables  81 · joués  75 · conformité  88% · sautés 10 · en trop  4
-   ⏭️  PRÉVU NON JOUÉ : PQE C2 · jingle avant bible 08 prenons un moment pour ecouter la parole · Daniel 1 · Daniel 2 · JINGLE · Cantique sa miséricorde  …(+4)
-   ➕  JOUÉ NON PRÉVU : 2-pqe c2 · ? · La pardon · Galates 1
+BLOC_A  (00:00-06:00)  prévus  81 · atteignables  73 · joués  72 · conformité  99% · sautés  1 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 08 prenons un moment pour ecouter la parole
+   ⏸️  FIN DE BLOC NON ATTEINTE (8 titres · ~44m11s) — marge anti-rebouclage au-delà de la fenêtre, normal : Daniel 1 · Daniel 2 · JINGLE · Cantique sa miséricorde · You are God - Winnipeg Fellowship · In the Day of Your Power  - Winnipeg Fellowship  …(+2)
 ----------------------------------------------------------------------------------------------------
-BLOC_B  (06:00-12:00)  prévus  87 · atteignables  85 · joués  83 · conformité  96% · sautés  3 · en trop  1
-   ⏭️  PRÉVU NON JOUÉ : PQE C2 · jingle avant bible 06 ouvrons les saintes ecritures · jingle avant louange 05 elevons nos coeurs vers dieu
-   ➕  JOUÉ NON PRÉVU : 2-pqe c2
+BLOC_B  (06:00-12:00)  prévus  87 · atteignables  85 · joués  83 · conformité  98% · sautés  2 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 06 ouvrons les saintes ecritures · jingle avant louange 05 elevons nos coeurs vers dieu
    ⏸️  FIN DE BLOC NON ATTEINTE (2 titres · ~15m06s) — marge anti-rebouclage au-delà de la fenêtre, normal : As We Worship In Ypur Presence · Agunechemba - SWBN TV
 ----------------------------------------------------------------------------------------------------
-BLOC_C  (12:00-18:00)  prévus  78 · atteignables  76 · joués  74 · conformité  96% · sautés  3 · en trop  1
-   ⏭️  PRÉVU NON JOUÉ : PQE C2 · jingle avant bible 08 prenons un moment pour ecouter la parole · jingle avant louange 06 que la louange seleve
-   ➕  JOUÉ NON PRÉVU : 2-pqe c2
+BLOC_C  (12:00-18:00)  prévus  78 · atteignables  76 · joués  74 · conformité  97% · sautés  2 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 08 prenons un moment pour ecouter la parole · jingle avant louange 06 que la louange seleve
    ⏸️  FIN DE BLOC NON ATTEINTE (2 titres · ~14m38s) — marge anti-rebouclage au-delà de la fenêtre, normal : Shine in Darkness O Lord  - Winnipeg Fellowship · Mon modèle, c est Jésus
 ----------------------------------------------------------------------------------------------------
-BLOC_D  (18:00-23:30)  prévus  73 · atteignables  68 · joués  67 · conformité  97% · sautés  2 · en trop  1
-   ⏭️  PRÉVU NON JOUÉ : PQE C2 · jingle avant bible 07 place a la lecture de la bible
-   ➕  JOUÉ NON PRÉVU : 2-pqe c2
+BLOC_D  (18:00-23:30)  prévus  73 · atteignables  68 · joués  67 · conformité  99% · sautés  1 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant bible 07 place a la lecture de la bible
    ⏸️  FIN DE BLOC NON ATTEINTE (5 titres · ~28m53s) — marge anti-rebouclage au-delà de la fenêtre, normal : jingle id station 01 la bonne nouvelle partout · Holy Holy - Abuja HF · I Will Not Be Silent - Calabar HF · Hallelujah - PHF · Unto Him (Vincent Opara)
 ----------------------------------------------------------------------------------------------------
-CONFORMITÉ GLOBALE : 292/310 titres atteignables joués dans l'ordre = 94%  (7 titre(s) hors plan · 9 non atteint(s) en fin de bloc, marge normale)
+CONFORMITÉ GLOBALE : 296/302 titres atteignables joués dans l'ordre = 98%  (0 titre(s) hors plan · 17 non atteint(s) en fin de bloc, marge normale)
