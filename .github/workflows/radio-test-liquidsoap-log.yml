@@ -13,20 +13,12 @@ jobs:
           AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
         run: |
           echo "=== 1) Logs disponibles (GET /station/1/logs) ==="
-          curl -s \
-            -H "X-API-Key: $AZURACAST_API_KEY" \
-            "$AZURACAST_BASE_URL/api/station/1/logs" \
-          | tee /tmp/logs_list.json \
-          | python3 -m json.tool
+          curl -s -H "X-API-Key: $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/logs" | tee /tmp/logs_list.json | jq .
 
           echo
           echo "=== 2) Clé du log liquidsoap détectée ==="
-          LOG_KEY=$(python3 -c "
-import json
-data = json.load(open('/tmp/logs_list.json'))
-candidates = [l for l in data if 'liquidsoap' in (l.get('key','') + l.get('name','')).lower()]
-print(candidates[0]['key'] if candidates else '')
-")
+          LOG_KEY=$(jq -r '[.[] | select((((.key // "") + (.name // "")) | ascii_downcase) | contains("liquidsoap"))][0].key // empty' /tmp/logs_list.json)
           echo "LOG_KEY=$LOG_KEY"
           if [ -z "$LOG_KEY" ]; then
             echo "❌ Aucun log liquidsoap trouvé dans la liste ci-dessus — voir les clés disponibles."
@@ -35,31 +27,18 @@ print(candidates[0]['key'] if candidates else '')
 
           echo
           echo "=== 3) Contenu de $LOG_KEY (GET /station/1/log/$LOG_KEY) ==="
-          curl -s \
-            -H "X-API-Key: $AZURACAST_API_KEY" \
-            "$AZURACAST_BASE_URL/api/station/1/log/$LOG_KEY" \
-          > /tmp/liquidsoap_full.json
+          curl -s -H "X-API-Key: $AZURACAST_API_KEY" \
+            "$AZURACAST_BASE_URL/api/station/1/log/$LOG_KEY" > /tmp/liquidsoap_full.json
 
-          python3 -c "
-import json
-data = json.load(open('/tmp/liquidsoap_full.json'))
-# La réponse peut être {'contents': '...'} ou une liste de lignes selon la version.
-if isinstance(data, dict) and 'contents' in data:
-    text = data['contents']
-elif isinstance(data, list):
-    text = '\n'.join(str(x) for x in data)
-else:
-    text = json.dumps(data, indent=2, ensure_ascii=False)
-print(f'--- Taille totale : {len(text)} caractères, {text.count(chr(10))} lignes ---')
-lines = text.splitlines()
-print('--- 5 premières lignes (début couvert par le log) ---')
-for l in lines[:5]:
-    print(l)
-print('--- 5 dernières lignes (fin) ---')
-for l in lines[-5:]:
-    print(l)
-open('/tmp/liquidsoap_full.txt', 'w').write(text)
-"
+          jq -r 'if type=="object" and has("contents") then .contents
+                 elif type=="array" then (map(tostring) | join("\n"))
+                 else tostring end' /tmp/liquidsoap_full.json > /tmp/liquidsoap_full.txt
+
+          echo "--- Taille : $(wc -c < /tmp/liquidsoap_full.txt) caractères, $(wc -l < /tmp/liquidsoap_full.txt) lignes ---"
+          echo "--- 5 premières lignes (début couvert par le log) ---"
+          head -n 5 /tmp/liquidsoap_full.txt
+          echo "--- 5 dernières lignes (fin) ---"
+          tail -n 5 /tmp/liquidsoap_full.txt
 
           echo
           echo "=== 4) Lignes du 2026-07-12 (06h-12h UTC = BLOC_B, 5/9 jingles joués) ==="
