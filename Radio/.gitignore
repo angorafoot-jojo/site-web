@@ -22,6 +22,8 @@ __pycache__/
 .env
 
 # … sauf les rapports de diffusion quotidiens et les logs de surveillance
-# minuit, versionnés volontairement
+# (minuit + garde de frontière), versionnés volontairement
 !logs/diffusion_*.log
 !logs/midnight_watch_*.log
+!logs/boundary_watch_*.log
+!logs/liquidsoap_events_*.log
