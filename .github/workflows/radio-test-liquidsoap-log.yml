@@ -18,7 +18,7 @@ jobs:
 
           echo
           echo "=== 2) Clé du log liquidsoap détectée ==="
-          LOG_KEY=$(jq -r '[.[] | select((((.key // "") + (.name // "")) | ascii_downcase) | contains("liquidsoap"))][0].key // empty' /tmp/logs_list.json)
+          LOG_KEY=$(jq -r '[.logs[] | select(.tail == true) | select((.key // "" | ascii_downcase) | contains("liquidsoap"))][0].key // empty' /tmp/logs_list.json)
           echo "LOG_KEY=$LOG_KEY"
           if [ -z "$LOG_KEY" ]; then
             echo "❌ Aucun log liquidsoap trouvé dans la liste ci-dessus — voir les clés disponibles."
@@ -30,7 +30,12 @@ jobs:
           curl -s -H "X-API-Key: $AZURACAST_API_KEY" \
             "$AZURACAST_BASE_URL/api/station/1/log/$LOG_KEY" > /tmp/liquidsoap_full.json
 
+          echo "--- Forme brute de la réponse (clés top-level) ---"
+          jq -r 'if type=="object" then keys elif type=="array" then "[array de \(length) éléments]" else type end' /tmp/liquidsoap_full.json
+
           jq -r 'if type=="object" and has("contents") then .contents
+                 elif type=="object" and has("content") then .content
+                 elif type=="object" and has("log") then .log
                  elif type=="array" then (map(tostring) | join("\n"))
                  else tostring end' /tmp/liquidsoap_full.json > /tmp/liquidsoap_full.txt
 
