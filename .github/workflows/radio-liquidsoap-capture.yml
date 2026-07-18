@@ -1,0 +1,76 @@
+name: Capture des événements Liquidsoap
+
+# ──────────────────────────────────────────────────────────────
+# Le liquidsoap.log du serveur AzuraCast est un tampon glissant
+# d'environ 24 h : les causes des anomalies (erreurs de décodage,
+# « Fetch failed », fichiers sautés) disparaissent avant que le
+# rapport quotidien de 01h00 puisse les corréler.
+#
+# Ce workflow capture donc le log toutes les heures via l'API
+# (lecture seule) et archive les seules lignes d'intérêt dans
+# Radio/logs/liquidsoap_events_<date>.log — la matière première de
+# la section « causes probables » du rapport de diffusion.
+#
+# Idempotent : liquidsoap_capture_state.json (committé) mémorise la
+# position de lecture — aucune ligne n'est archivée deux fois. Un run
+# raté n'est pas grave : la capture suivante rattrape le retard tant
+# que le tampon serveur n'a pas tourné (~24 h).
+# ──────────────────────────────────────────────────────────────
+on:
+  schedule:
+    - cron: '17 * * * *'   # 17 min décalées : évite minuit pile, la rotation de 23h30 et l'engorgement des crons GitHub à l'heure ronde
+  workflow_dispatch:
+
+permissions:
+  contents: write   # committer les archives d'événements + l'état de capture
+  issues: write     # alerter si la capture échoue de façon répétée
+
+concurrency:
+  group: radio-liquidsoap-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    name: Archiver les événements du liquidsoap.log
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Capturer les nouveaux événements du log
+        env:
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: python Radio/capture_liquidsoap_log.py
+
+      - name: Committer les archives et l'état de capture
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add Radio/logs/liquidsoap_events_*.log Radio/liquidsoap_capture_state.json
+          git diff --staged --quiet || git commit -m "chore: capture liquidsoap $(date -u '+%Y-%m-%d %H:%M') [skip ci]"
+          # Un autre workflow peut avoir poussé entre le checkout et ce push
+          git push || (git pull --rebase origin main && git push)
+
+      - name: Notifier en cas d'échec
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'radio,alerte',
+            });
+            if (existing.data.length > 0) {
+              console.log('Issue déjà ouverte — pas de doublon créé.');
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Capture Liquidsoap échouée — ${new Date().toISOString().slice(0,16).replace('T',' ')} UTC`,
+              body: `La capture horaire des événements du liquidsoap.log a échoué.\n\nSans elle, les causes des anomalies (tampon serveur ~24 h) seront perdues et le rapport de diffusion ne pourra plus les expliquer.\n\n👉 [Voir le log complet](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+              labels: ['radio', 'alerte']
+            })
