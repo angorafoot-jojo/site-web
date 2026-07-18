@@ -21,13 +21,9 @@ Site **statique** HTML/CSS/JS vanilla. Aucun framework, aucun serveur backend.
 /
 ├── assets/
 │   ├── css/
-│   │   ├── style.css           → Variables globales, reset, typographie
-│   │   ├── layout.css          → Grilles et containers
-│   │   ├── navigation.css      → Header, menu mobile, dropdown
-│   │   ├── forms.css           → Formulaire de contact
-│   │   ├── reader.css          → Lecteur EPUB (modale)
+│   │   ├── style.css           → Variables, reset, typographie, layout, navigation, lecteur EPUB (monolithique ~1600 lignes — découpage par responsabilité planifié)
 │   │   ├── media-player.css    → Player audio sticky
-│   │   └── pages/              → Styles spécifiques par page
+│   │   └── pages/              → Styles spécifiques par page (index, livres, audios, radio, nouveau…)
 │   ├── js/
 │   │   ├── main.js             → Navigation, menu mobile, comportements globaux
 │   │   ├── nav.js              → Injection du header/footer (composant partagé)
@@ -48,6 +44,7 @@ Site **statique** HTML/CSS/JS vanilla. Aucun framework, aucun serveur backend.
 │   │       ├── louange-init.js
 │   │       ├── partners-init.js
 │   │       ├── radio-schedule-init.js
+│   │       ├── nouveau-init.js
 │   │       └── index-init.js
 │   ├── data/
 │   │   ├── books.json          → Livres numériques
@@ -57,6 +54,7 @@ Site **statique** HTML/CSS/JS vanilla. Aucun framework, aucun serveur backend.
 │   │   ├── videos.json         → Vidéos YouTube
 │   │   ├── louange.json        → Cantiques de louange
 │   │   ├── partners.json       → Partenaires / liens
+│   │   ├── pages-meta.json     → Métadonnées SEO par page
 │   │   └── radio-schedule.json → Grille horaire radio
 │   ├── images/                 → Images, favicon, og-images
 │   └── books/                  → Fichiers EPUB (assets/books/*.epub)
@@ -65,11 +63,11 @@ Site **statique** HTML/CSS/JS vanilla. Aucun framework, aucun serveur backend.
 │   ├── validate-links.mjs      → Validation liens internes HTML
 │   ├── generate-pages.mjs      → Génération pages individuelles
 │   └── generate-rss.mjs        → Génération flux RSS podcasts
+├── Radio/                      → Système radio AzuraCast (voir Radio/README.md)
 └── .github/
     └── workflows/
-        ├── ci.yml              → Validation + déploiement
-        ├── radio-healthcheck.yml
-        └── radio-rotation.yml
+        ├── ci.yml              → Validation + déploiement du site
+        └── radio-*.yml         → 10 workflows radio : rotation, reset minuit, garde de frontière, healthcheck, capture liquidsoap, rapport, validation, tests (voir Radio/README.md §2)
 ```
 
 ---
@@ -233,6 +231,6 @@ EPUB.js et JSZip sont **lazy-loadés** : ils ne sont téléchargés que lorsque 
 
 ### Autres limitations
 
-- **Google Drive** : utilisé pour quelques audios anciens (instable, à migrer vers Backblaze B2).
+- **Google Drive** : plus utilisé pour l'audio (tout est sur Backblaze B2) ; reste uniquement autorisé en `frame-src` dans la CSP pour les cantiques de la page louange.
 - **Header/footer** : injectés via `nav.js` (composant JS) — dépendance à ce fichier sur toutes les pages.
 - **Miniatures YouTube** : `img.youtube.com/vi/[id]/mqdefault.jpg` peut retourner une image noire pour les vidéos privées/supprimées plutôt qu'une erreur 404. Un `onerror` dans `video-renderer.js` affiche un placeholder SVG dans ce cas.

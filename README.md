@@ -2,14 +2,15 @@
 
 Site officiel du ministère **L'Évangile du Royaume** — plateforme de ressources bibliques (vidéos, audios, livres numériques, articles, radio, louange).
 
-🌐 **Site en production** : [levangileduroyaume.com](https://levangileduroyaume.com)  
+🌐 **Site déployé (GitHub Pages)** : [angorafoot-jojo.github.io/site-web](https://angorafoot-jojo.github.io/site-web/)  
+🎯 **Domaine cible** : [levangileduroyaume.com](https://levangileduroyaume.com) — ⚠️ sert encore l'ancien site WordPress, bascule DNS à faire (voir ci-dessous)  
 📦 **Repo GitHub** : [angorafoot-jojo/site-web](https://github.com/angorafoot-jojo/site-web)
 
 ---
 
-## État du projet (à jour : juin 2026)
+## État du projet (à jour : juillet 2026)
 
-Le site est **fonctionnel, déployé sur son domaine custom et stable**. La migration issue de l'audit technique (couche données JSON, CDN, composants partagés, CI/CD, SEO) est essentiellement terminée.
+Le nouveau site est **fonctionnel, complet et déployé sur GitHub Pages**. La migration issue de l'audit technique (couche données JSON, CDN, composants partagés, CI/CD, SEO) est terminée, et l'audit de prod-readiness du 03/07 est vert sur tout **sauf la bascule du domaine**.
 
 ### Ce qui fonctionne
 - Navigation (header/footer injectés par `nav.js`)
@@ -18,7 +19,9 @@ Le site est **fonctionnel, déployé sur son domaine custom et stable**. La migr
 - Recherche + filtres côté client (livres, articles, audios, vidéos)
 - Cantiques YouTube (modale vidéo)
 - Player radio AzuraCast en direct — voir [`Radio/README.md`](Radio/README.md)
+- Page **Nouveau** data-driven (dernières parutions + lecture directe)
 - Toutes les données en JSON (`assets/data/`) — plus aucune donnée hardcodée
+- Toutes les images en local (`assets/images/`) — plus aucune dépendance Unsplash
 - CDN audio/PDF sur **Backblaze B2** (plus de Google Drive)
 - Protection XSS (`escapeHtml`), Sentry, SRI sur CDN
 - Accessibilité **WCAG AA** sur les contrastes (lot corrigé juin 2026)
@@ -26,13 +29,15 @@ Le site est **fonctionnel, déployé sur son domaine custom et stable**. La migr
 - Responsive mobile
 - CI/CD GitHub Actions (validation + déploiement automatique)
 
-### Ce qui reste (optimisations, rien de bloquant)
+### Ce qui reste
 
 | Priorité | Sujet | Action |
 |----------|-------|--------|
+| 🔴 **Bloquant prod** | **Le domaine sert encore l'ancien WordPress** (DNS apex → 216.172.184.159 ; GitHub Pages API : `cname: null`) | Saisir le domaine dans *Settings → Pages* du repo (le fichier `CNAME` ne suffit pas en build "workflow"), **puis** basculer le DNS : A → 185.199.108/109/110/111.153, `www` → CNAME `angorafoot-jojo.github.io`. ⚠️ Ne pas toucher au sous-domaine `parole-prophetique-fm.levangileduroyaume.com` (radio AzuraCast, fonctionne) |
 | 🟡 Important | **Erreurs console Sentry** à confirmer sur le site live | Vérifier dans un vrai navigateur que le monitoring d'erreurs remonte bien |
 | 🟢 Planifié | **Mesure de performance** réelle | Lancer Lighthouse sur le site live (le serveur local fausse les scores) ; envisager minification/fingerprinting des assets |
 | 🟢 Planifié | **Tests a11y automatisés** | Intégrer axe-core / pa11y au pipeline CI |
+| 🟢 Planifié | **`style.css` monolithique** (~1600 lignes) | Découper par responsabilité (§5 de CLAUDE.md) ; dédupliquer le composant `.type-tabs` copié dans 3 CSS de page |
 
 ---
 
@@ -117,10 +122,12 @@ dev ──(push)──→ CI Validation (JSON + liens)
 │   ├── books/              → Fichiers EPUB des livres
 │   └── articles/           → Fichiers EPUB des articles
 ├── scripts/                → Scripts Node.js (validation, génération)
+├── Radio/                  → Système radio AzuraCast (scripts Python, plans, rapports)
 ├── .github/
-│   ├── workflows/          → CI/CD GitHub Actions
+│   ├── workflows/          → CI/CD site (ci.yml) + 8 workflows radio (radio-*.yml)
 │   ├── PULL_REQUEST_TEMPLATE.md
 │   └── WORKFLOW.md
+├── _headers                → Headers HTTP (préparation Cloudflare Pages/Netlify — PAS lu par GitHub Pages, la CSP est injectée par nav.js)
 ├── CNAME                   → Domaine custom levangileduroyaume.com
 ├── sitemap.xml             → Plan du site pour les moteurs de recherche
 ├── robots.txt              → Directives pour les robots
@@ -152,7 +159,7 @@ dev ──(push)──→ CI Validation (JSON + liens)
 |-----------|----------|
 | HTML/CSS/JS | Vanilla — aucun framework |
 | Hébergement | GitHub Pages |
-| Domaine | levangileduroyaume.com (domaine custom configuré, HTTPS) |
+| Domaine | levangileduroyaume.com (cible — bascule DNS depuis WordPress à faire) |
 | Radio | AzuraCast (Parole Prophétique FM) — voir [Radio/README.md](Radio/README.md) |
 | Lecteur EPUB | epub.js 0.3.93 + JSZip 3.10.1 via jsDelivr (SRI) |
 | Audio / PDF CDN | Backblaze B2 |

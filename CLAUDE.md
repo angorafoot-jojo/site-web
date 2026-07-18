@@ -337,44 +337,46 @@ Aucune modification ne doit augmenter la complexité globale sans justification 
 
 ---
 
-## 18. État actuel du projet (juin 2026)
+## 18. État actuel du projet (juillet 2026)
+
+La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldées — voir `tasks.json`, se fier au `status` de chaque tâche, pas au bloc `summary` périmé) : données en JSON, header/footer injectés par `nav.js`, lazy-load EPUB, player audio mutualisé, CDN Backblaze B2, CI/CD GitHub Actions, schema.org, OpenGraph complet. Le formulaire Formspree a été **supprimé** (contact = email direct `nousecrire@levangileduroyaume.com`). **Ne pas re-signaler ces anciens problèmes.**
 
 ### Dette technique connue — à traiter dans l'ordre
 
 | Priorité | Problème | Fichier(s) | Action |
 |----------|----------|------------|--------|
-| 🔴 Critique | Formspree URL invalide | `contact.html` | Remplacer par un vrai ID Formspree |
-| 🔴 Critique | Header/footer dupliqués dans 13 pages | Tous les `.html` | Centraliser via composant JS |
-| 🔴 Critique | Données livres hardcodées | `livres.html` | Migrer vers `assets/data/books.json` |
-| 🔴 Critique | Données audios hardcodées | `audios.html` | Migrer vers `assets/data/audios.json` |
-| 🟡 Important | EPUB.js chargé au démarrage | `livres.html`, `articles.html` | Lazy-load au clic |
-| 🟡 Important | Lecteur audio dupliqué | `audios.html`, `podcasts.html` | Mutualiser dans `media-player.js` |
-| 🟡 Important | Google Drive utilisé pour l'audio | `audios.html`, `podcasts.html` | Migrer vers CDN |
-| 🟡 Important | SVG sprite inline répété | Tous les `.html` | Externaliser dans `assets/images/icons.svg` |
-| 🟢 Planifié | Pas de CI/CD | `.github/workflows/` | Ajouter GitHub Actions minimal |
-| 🟢 Planifié | Pas de schema.org | Toutes les pages | Ajouter JSON-LD par type de contenu |
+| 🔴 Bloquant prod | Domaine encore sur l'ancien WordPress | DNS + Settings→Pages | Saisir le domaine dans Settings→Pages du repo puis basculer le DNS (détails dans README) — ⚠️ ne pas toucher au sous-domaine radio `parole-prophetique-fm.*` |
+| 🟡 Important | Erreurs console Sentry à confirmer sur le site live | `assets/js/error-monitor.js` | Vérifier dans un vrai navigateur |
+| 🟢 Planifié | `style.css` monolithique (~1600 lignes) | `assets/css/style.css` | Découper par responsabilité (§5) |
+| 🟢 Planifié | Composant `.type-tabs` dupliqué | 3 CSS de `assets/css/pages/` | Dédupliquer (§12) |
+| 🟢 Planifié | Pas de minification/fingerprinting (T31), pas de tests a11y en CI (T38) | CI | Différés volontairement |
+| 🟢 Radio | Jingles réellement sautés 5–14/jour | Serveur AzuraCast | Voir `Radio/README.md` §7 (nécessite les logs Liquidsoap côté serveur) |
 
 ### Ce qui fonctionne bien — ne pas casser
 
 - Lecteur EPUB : mode pages/défilement, zoom, sauvegarde position localStorage
 - Player audio sticky : prev/next, volume, barre de progression
-- Recherche + filtres côté client sur les livres
+- Recherche + filtres côté client (livres, articles, audios, vidéos)
 - Protection XSS via `escapeHtml()` sur toutes les insertions innerHTML
-- Responsive mobile sur toutes les pages
-- Navigation avec dropdown desktop et menu hamburger mobile
+- Responsive mobile sur toutes les pages, contrastes WCAG AA
+- Navigation avec dropdown desktop et menu hamburger mobile (injectée par `nav.js`, CSP incluse)
+- Pages individuelles générées par la CI (`scripts/generate-pages.mjs`) + RSS podcasts
 - `sitemap.xml` et `robots.txt` en place et pointant vers `levangileduroyaume.com`
+- Radio automatisée 24/7 (rotation, reset minuit, garde de frontière, rapports — voir `Radio/README.md`)
 
-### Checklist avant mise en production
+### Convention cache-busting (IMPORTANT)
 
-- [ ] Formspree : tester l'envoi réel depuis un navigateur incognito
-- [ ] Tous les fichiers EPUB référencés existent dans `assets/books/`
-- [ ] Tous les liens PDF répondent (HEAD request)
-- [ ] Tous les liens Google Drive testés en navigation privée
-- [ ] Header correct sur mobile (< 480px) et desktop
-- [ ] Lecteur audio fonctionne sur iOS Safari
-- [ ] Lecteur EPUB fonctionne sur Chrome et Safari
+Les CSS (`style.css` **et** `assets/css/pages/*.css`) sont liés avec `?v=<version>` dans les 13 pages HTML. **À chaque modification d'un fichier CSS ou JS, incrémenter cette version** dans les `<link>`/`<script>` concernés — sinon GitHub Pages (~10 min de cache) sert l'ancien fichier et Lighthouse mesure du CSS périmé.
+
+### Checklist avant bascule du domaine
+
+- [ ] Domaine saisi dans Settings → Pages (l'API doit renvoyer `cname` non nul)
+- [ ] DNS basculé (A vers GitHub Pages + www en CNAME), sous-domaine radio intact
+- [ ] `node scripts/validate-data.mjs` + `validate-links.mjs` verts
+- [ ] Liens médias B2 en 200 (validate-media, hors CI par design)
+- [ ] Lecteur audio fonctionne sur iOS Safari ; lecteur EPUB sur Chrome et Safari
+- [ ] Console navigateur sans erreur sur toutes les pages (Sentry vérifié)
 - [ ] `sitemap.xml` contient toutes les pages actives
-- [ ] Console navigateur sans erreur sur toutes les pages
 
 ---
 
@@ -383,11 +385,11 @@ Aucune modification ne doit augmenter la complexité globale sans justification 
 | Composant | Solution |
 |-----------|----------|
 | HTML/CSS/JS | Vanilla, pas de framework |
-| Hébergement | GitHub Pages |
-| Domaine | levangileduroyaume.com |
-| Radio | AzuraCast (Parole Prophétique FM) |
-| Formulaire | Formspree (ID à corriger) |
-| Lecteur EPUB | epub.js 0.3.93 + JSZip 3.10.1 (CDN) |
-| Audio externe | Google Drive (temporaire → CDN) |
-| Vidéo | YouTube embed |
-| CDN audio cible | Cloudflare R2 ou Backblaze B2 |
+| Hébergement | GitHub Pages (déploiement via GitHub Actions) |
+| Domaine | levangileduroyaume.com (bascule DNS depuis WordPress à faire) |
+| Radio | AzuraCast (Parole Prophétique FM) — automatisation Python + GitHub Actions, voir `Radio/README.md` |
+| Contact | Email direct (plus de formulaire) |
+| Lecteur EPUB | epub.js 0.3.93 + JSZip 3.10.1 (jsDelivr, SRI) |
+| Audio / PDF | CDN Backblaze B2 |
+| Vidéo | YouTube embed (youtube-nocookie.com) |
+| Monitoring | Sentry (browser SDK) |
