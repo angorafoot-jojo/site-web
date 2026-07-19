@@ -393,3 +393,39 @@
 2026/07/19 13:48:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" (RID 493).
 2026/07/19 13:48:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/07/19 13:48:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" (RID 494).
+2026/07/19 13:57:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 13:57:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique - Je veux vivre ton royaume.mp3" (RID 495).
+2026/07/19 14:02:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique - Je veux vivre ton royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:02:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" (RID 496).
+2026/07/19 14:08:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:08:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" (RID 497).
+2026/07/19 14:15:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:15:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/02 - Unto Him (Vincent Opara).mp3" (RID 498).
+2026/07/19 14:23:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/02 - Unto Him (Vincent Opara).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:23:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" (RID 499).
+2026/07/19 14:27:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:27:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/05 - Jesus I'm Waiting for You (Mary Umoh).mp3" (RID 500).
+2026/07/19 14:33:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/05 - Jesus I'm Waiting for You (Mary Umoh).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:33:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" (RID 501).
+2026/07/19 14:40:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:40:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/91 - Ella Samuels - Oh Lord Our Maker.mp3" (RID 502).
+2026/07/19 14:46:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/91 - Ella Samuels - Oh Lord Our Maker.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:46:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 503).
+2026/07/19 14:46:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:46:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_027.mp3" (RID 504).
+2026/07/19 14:50:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_027.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:50:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_028.mp3" (RID 505).
+2026/07/19 14:50:03 [clock.main:2] We must catchup 1.09 seconds!
+2026/07/19 14:54:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_028.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:54:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_029.mp3" (RID 506).
+2026/07/19 14:59:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_029.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 14:59:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_030.mp3" (RID 507).
+2026/07/19 15:02:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_030.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:02:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_031.mp3" (RID 508).
+2026/07/19 15:09:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_031.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:09:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_032.mp3" (RID 509).
+2026/07/19 15:15:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_032.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:15:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" (RID 510).
+2026/07/19 15:15:04 [clock.main:2] We must catchup 1.49 seconds!
+2026/07/19 15:15:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:15:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" (RID 511).
