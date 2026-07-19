@@ -429,3 +429,21 @@
 2026/07/19 15:15:04 [clock.main:2] We must catchup 1.49 seconds!
 2026/07/19 15:15:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/07/19 15:15:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" (RID 511).
+2026/07/19 15:17:23 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:17:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" (RID 512).
+2026/07/19 15:26:35 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:26:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/03 - Holy are You oh Lord (Olaedo Uzoma & Vincent Opara).mp3" (RID 513).
+2026/07/19 15:36:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/03 - Holy are You oh Lord (Olaedo Uzoma & Vincent Opara).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:36:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" (RID 514).
+2026/07/19 15:39:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:39:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/53 - In Jesus - PHF.mp3" (RID 515).
+2026/07/19 15:45:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/53 - In Jesus - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:45:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/76 - You Have sworn By Your Holiness - Chidera Bisong.mp3" (RID 516).
+2026/07/19 15:52:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/76 - You Have sworn By Your Holiness - Chidera Bisong.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:52:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" (RID 517).
+2026/07/19 15:57:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 15:57:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" (RID 518).
+2026/07/19 16:02:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 16:02:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/WhatsApp Audio 2022-03-15 at 01.33.50 (1)(1).mp3" (RID 519).
+2026/07/19 16:11:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/WhatsApp Audio 2022-03-15 at 01.33.50 (1)(1).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/19 16:11:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__ta_bonte.mp3" (RID 520).
