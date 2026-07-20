@@ -1,0 +1,18 @@
+2026/07/20 00:00:05 [clock.main:2] We must catchup 1.02 seconds!
+2026/07/20 00:00:07 [clock.main:2] We must catchup 1.43 seconds!
+2026/07/20 00:00:08 [clock.main:2] We must catchup 1.93 seconds!
+2026/07/20 00:00:09 [clock.main:2] We must catchup 2.14 seconds!
+2026/07/20 00:00:10 [clock.main:2] We must catchup 1.86 seconds!
+2026/07/20 00:04:38 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__tes_promesses__pub_direct_dec_2021_import_(2).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/20 00:04:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_007.mp3" (RID 610).
+2026/07/20 00:06:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/20 00:06:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_008.mp3" (RID 611).
+2026/07/20 00:09:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/20 00:09:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_01.mp3" (RID 612).
+2026/07/20 00:09:04 [clock.main:2] We must catchup 3.15 seconds!
+2026/07/20 00:09:05 [clock.main:2] We must catchup 2.45 seconds!
+2026/07/20 00:09:06 [clock.main:2] We must catchup 2.33 seconds!
+2026/07/20 00:09:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_01.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/20 00:09:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_jai_donné_ma_vie_à_jésus_(1).mp3" (RID 613).
+2026/07/20 00:13:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_jai_donné_ma_vie_à_jésus_(1).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/20 00:13:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/08 - You're the Lamb (Abasiama Timothy).mp3" (RID 614).
