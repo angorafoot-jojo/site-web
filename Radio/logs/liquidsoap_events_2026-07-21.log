@@ -1,0 +1,26 @@
+2026/07/21 00:00:00 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 12).
+2026/07/21 00:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/07/21 00:00:00 [live_fallback:3] Switch to cross_0.
+2026/07/21 00:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/07/21 00:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/07/21 00:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/07/21 00:00:00 [schedule_switch:3] Switch to metadata.map_0.
+2026/07/21 00:00:07 [clock.main:2] We must catchup 1.00 seconds!
+2026/07/21 00:00:08 [clock.main:2] We must catchup 1.09 seconds!
+2026/07/21 00:01:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/21 00:01:28 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 909).
+2026/07/21 00:01:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 910).
+2026/07/21 00:01:28 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/07/21 00:01:28 [dynamic_startup:3] Switch to cue_next_song.
+2026/07/21 00:03:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/21 00:03:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 911).
+2026/07/21 00:05:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/21 00:05:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" (RID 912).
+2026/07/21 00:05:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/21 00:05:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_001.mp3" (RID 913).
+2026/07/21 00:09:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/21 00:09:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_002.mp3" (RID 914).
+2026/07/21 00:11:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/21 00:11:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_003.mp3" (RID 915).
+2026/07/21 00:13:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/21 00:13:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_004.mp3" (RID 916).
