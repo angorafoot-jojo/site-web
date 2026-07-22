@@ -23,6 +23,7 @@ import sys
 import unicodedata
 import urllib.parse
 import urllib.request
+from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -43,6 +44,17 @@ MESSAGE_DOUBLE_WINDOW_SECONDS = 900
 
 # Les rapports plus vieux que ça sont supprimés à chaque exécution.
 RETENTION_DAYS = 90
+
+# Section MONITEUR : fenêtre (secondes) autour d'une anomalie de diffusion dans
+# laquelle un incident serveur (crash, échec réseau, silence, saut) est retenu
+# comme « cause probable ». Le titre coupé et l'événement Liquidsoap qui l'a
+# causé sont journalisés à quelques secondes d'écart (voir le crash de 00h01
+# du 22/07/2026 : PANIC puis bascule error_jingle dans la même minute).
+CORRELATION_WINDOW_SECONDS = 120
+
+# Incidents serveur groupés en amas quand ils se suivent de près (un crash
+# entraîne une rafale de lignes : PANIC + bascules + reprise).
+INCIDENT_CLUSTER_SECONDS = 90
 
 BASE_URL = "https://parole-prophetique-fm.levangileduroyaume.com"
 STATION_ID = 1
@@ -75,16 +87,39 @@ def fetch_history(api_key: str, day: date) -> list[dict]:
         return json.load(response)
 
 
-def build_report(history: list[dict], day: date) -> tuple[str, int]:
-    # entries peut déborder sur le lendemain (voir fetch_history) : la 1re
-    # entrée du lendemain sert de référence de fin pour le dernier titre du
-    # jour, mais n'est jamais affichée ni comptée (day_entries ci-dessous).
+def iter_day_playback(history: list[dict], day: date):
+    """Pour chaque titre joué le jour `day`, sa durée réelle (écart avec le
+    lancement du titre suivant) comparée à la durée du fichier.
+
+    Source unique partagée par `build_report` (affichage titre par titre) et
+    par `playback_incidents` (corrélation du moniteur) — aucune détection de
+    coupure/trou n'est dupliquée. `fetch_history` déborde de 15 min sur le
+    lendemain : la 1re entrée du lendemain sert de référence de fin au dernier
+    titre du jour mais n'est jamais restituée (filtre sur `day`)."""
     entries = sorted(history, key=lambda e: e["played_at"])
-    day_entries = [e for e in entries
-                   if datetime.fromtimestamp(e["played_at"], tz=timezone.utc).date() == day]
+    for i, entry in enumerate(entries):
+        started = datetime.fromtimestamp(entry["played_at"], tz=timezone.utc)
+        if started.date() != day:
+            continue
+        base = {
+            "dt": started,
+            "expected": entry.get("duration") or 0,
+            "title": (entry.get("song") or {}).get("title") or "?",
+            "playlist": entry.get("playlist") or "?",
+        }
+        if i + 1 < len(entries):
+            actual = entries[i + 1]["played_at"] - entry["played_at"]
+            yield {**base, "actual": actual, "gap": actual - base["expected"],
+                   "is_last": False}
+        else:
+            yield {**base, "actual": None, "gap": None, "is_last": True}
+
+
+def build_report(history: list[dict], day: date) -> tuple[str, int]:
+    plays = list(iter_day_playback(history, day))
     lines = [
         f"Rapport de diffusion — {day.isoformat()} (heures UTC)",
-        f"{len(day_entries)} titres joués | tolérance ±{TOLERANCE_SECONDS}s",
+        f"{len(plays)} titres joués | tolérance ±{TOLERANCE_SECONDS}s",
         "=" * 100,
         f"{'HEURE':8s} {'PLAYLIST':28s} {'FICHIER':10s} {'RÉEL':>10s} {'ÉCART':>8s}  STATUT  TITRE",
         "-" * 100,
@@ -92,17 +127,12 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
     problems = 0
     severities = []  # écarts absolus (s) des anomalies, pour les paliers de gravité
 
-    for i, entry in enumerate(entries):
-        started = datetime.fromtimestamp(entry["played_at"], tz=timezone.utc)
-        if started.date() != day:
-            continue
-        expected = entry.get("duration") or 0
-        title = (entry.get("song") or {}).get("title") or "?"
-        playlist = entry.get("playlist") or "?"
-
-        if i + 1 < len(entries):
-            actual = entries[i + 1]["played_at"] - entry["played_at"]
-            gap = actual - expected
+    for p in plays:
+        expected = p["expected"]
+        if p["is_last"]:
+            actual_str, shown_gap, status = "?", "", "⏳ dernier titre (durée réelle inconnue)"
+        else:
+            gap = p["gap"]
             if expected == 0:
                 status, shown_gap = "❔ durée inconnue", ""
             elif gap < -TOLERANCE_SECONDS:
@@ -115,17 +145,15 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
                 severities.append(gap)
             else:
                 status, shown_gap = "✅", f"{gap:+d}s"
-            actual_str = fmt_duration(actual)
-        else:
-            actual_str, shown_gap, status = "?", "", "⏳ dernier titre (durée réelle inconnue)"
+            actual_str = fmt_duration(p["actual"])
 
         lines.append(
-            f"{started:%H:%M:%S} {playlist[:28]:28s} {fmt_duration(expected):>10s} "
-            f"{actual_str:>10s} {shown_gap:>8s}  {status}  {title}"
+            f"{p['dt']:%H:%M:%S} {p['playlist'][:28]:28s} {fmt_duration(expected):>10s} "
+            f"{actual_str:>10s} {shown_gap:>8s}  {status}  {p['title']}"
         )
 
     bilan = (
-        f"Bilan : {len(day_entries)} titres, {problems} anomalie(s) "
+        f"Bilan : {len(plays)} titres, {problems} anomalie(s) "
         f"(titre coupé de plus de {TOLERANCE_SECONDS}s ou trou d'antenne)."
     )
     if severities:
@@ -199,6 +227,36 @@ def _message_matcher(plan: dict | None):
                     and norm not in other_norms)
 
     return matches
+
+
+def _message_plays(history: list[dict], day: date, plan: dict | None) -> list[dict]:
+    """Diffusions du message du jour, horodatées, chacune marquée « double
+    rapproché » si elle suit de moins de MESSAGE_DOUBLE_WINDOW_SECONDS la
+    précédente (auditeur qui entend deux fois le même message).
+
+    Source unique partagée par les contrôles approfondis (section 1) et par le
+    moniteur, pour ne pas dupliquer le repérage du message (matching par titre
+    OU durée, voir `_message_matcher`)."""
+    message = (plan or {}).get("message") or {}
+    if not norm_title(message.get("title", "")):
+        return []
+    matches_message = _message_matcher(plan)
+    plays = []
+    for e in _day_entries(history, day):
+        duration = e.get("duration") or 0
+        norm = norm_title((e.get("song") or {}).get("title") or "?")
+        if matches_message(norm, duration):
+            plays.append({
+                "dt": datetime.fromtimestamp(e["played_at"], tz=timezone.utc),
+                "duration": duration,
+                "playlist": e.get("playlist") or "?",
+                "double": False,
+            })
+    for prev, cur in zip(plays, plays[1:]):
+        prev_end = prev["dt"] + timedelta(
+            seconds=prev["duration"] or message.get("duration_seconds") or 0)
+        cur["double"] = (cur["dt"] - prev_end).total_seconds() < MESSAGE_DOUBLE_WINDOW_SECONDS
+    return plays
 
 
 def _day_entries(history: list[dict], day: date) -> list[dict]:
@@ -380,16 +438,10 @@ def build_health_section(history: list[dict], day: date, plan: dict | None) -> s
     # --- 1. Message du jour : combien de diffusions, et des doubles rapprochés ?
     message = plan.get("message") or {}
     msg_norm = norm_title(message.get("title", ""))
-    matches_message = _message_matcher(plan)
     planned_plays = sum(1 for b in blocks for it in b["items"] if it.get("type") == "message")
     if msg_norm and planned_plays:
-        plays = [p for p in played if matches_message(p["norm"], p["duration"])]
-        doubles = 0
-        for prev, cur in zip(plays, plays[1:]):
-            prev_end = prev["dt"] + timedelta(
-                seconds=prev["duration"] or message.get("duration_seconds") or 0)
-            cur["double"] = (cur["dt"] - prev_end).total_seconds() < MESSAGE_DOUBLE_WINDOW_SECONDS
-            doubles += cur["double"]
+        plays = _message_plays(history, day, plan)
+        doubles = sum(1 for p in plays if p["double"])
         verdict = "✅" if len(plays) == planned_plays and not doubles else "❌"
         lines.append(
             f"MESSAGE DU JOUR « {message.get('title', '?')} » : "
@@ -497,6 +549,261 @@ def build_health_section(history: list[dict], day: date, plan: dict | None) -> s
     return "\n".join(lines) + "\n"
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# MONITEUR : corrélation des 3 rapports + plan en une seule vue.
+#
+# Le rapport de diffusion est le seul fichier qu'un humain ouvre quand la radio
+# a un souci (README §8). Plutôt que de le forcer à croiser à la main les 3
+# journaux, cette section rassemble en tête :
+#   - les anomalies HORODATÉES de diffusion (coupures/trous/doubles),
+#   - les incidents SERVEUR (liquidsoap_events : crash, réseau, silence, saut),
+#   - les actions de RESET/GARDE (midnight/boundary_watch),
+# puis rattache à chaque anomalie la cause serveur probable la plus proche.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Ligne datée du log Liquidsoap : « 2026/07/22 00:01:22 [source:niveau] texte ».
+_SERVER_LINE = re.compile(r"^(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) (.*)$")
+
+# Étiquettes lisibles des catégories d'incident serveur retenues.
+INCIDENT_LABELS = {
+    "crash": "💥 crash Liquidsoap (redémarrage automatique)",
+    "network": "🌐 échec réseau AzuraCast/Liquidsoap",
+    "deadair": "🔇 bascule sur jingle d'erreur (silence potentiel)",
+    "skip": "⏭️ fichier sauté par l'AutoDJ",
+}
+
+
+@dataclass
+class ServerEvent:
+    """Un événement d'intérêt du liquidsoap.log, daté et catégorisé."""
+    dt: datetime
+    category: str  # clé de INCIDENT_LABELS
+    text: str
+
+
+def classify_server_line(text: str) -> str:
+    """Catégorise le texte d'une ligne Liquidsoap (après l'horodatage).
+
+    Renvoie une clé de INCIDENT_LABELS pour les lignes d'incident, ou "" pour
+    le bruit bénin (fins de décodage normales, avertissements de dépréciation,
+    lignes « Prepared » qui ne servent que de contexte)."""
+    low = text.lower()
+    if "panic" in low or "crashed with exception" in low or "has crashed" in low:
+        return "crash"
+    if ("could not perform http request" in low or "fetch failed" in low
+            or "curlexception" in low or "api djoff - error" in low):
+        return "network"
+    if "error_jingle" in low or "underrun" in low or "blank" in low:
+        return "deadair"
+    # « skip » réel de l'AutoDJ, mais pas les fins de décodage (End_of_file) ni
+    # les avertissements de dépréciation qui contiennent d'autres mots-clés.
+    if "skip" in low and "deprecated" not in low:
+        return "skip"
+    return ""
+
+
+def parse_server_events(text: str, day: date) -> list[ServerEvent]:
+    """Événements d'incident du jour extraits du texte de liquidsoap_events."""
+    events = []
+    for line in text.splitlines():
+        m = _SERVER_LINE.match(line)
+        if not m:
+            continue
+        try:
+            dt = datetime.strptime(m.group(1), "%Y/%m/%d %H:%M:%S").replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        if dt.date() != day:
+            continue
+        category = classify_server_line(m.group(2))
+        if category:
+            events.append(ServerEvent(dt, category, m.group(2)))
+    return events
+
+
+def group_incidents(events: list[ServerEvent],
+                    cluster_seconds: int = INCIDENT_CLUSTER_SECONDS) -> list[dict]:
+    """Regroupe les incidents de même catégorie qui se suivent de près.
+
+    Un crash produit une rafale de lignes (PANIC + bascules) : sans
+    regroupement le moniteur listerait dix lignes pour un seul incident."""
+    groups: list[dict] = []
+    for ev in sorted(events, key=lambda e: e.dt):
+        last = groups[-1] if groups else None
+        if (last and last["category"] == ev.category
+                and (ev.dt - last["last"]).total_seconds() <= cluster_seconds):
+            last["count"] += 1
+            last["last"] = ev.dt
+        else:
+            groups.append({"category": ev.category, "start": ev.dt,
+                           "last": ev.dt, "count": 1})
+    return groups
+
+
+def playback_incidents(history: list[dict], day: date) -> list[dict]:
+    """Anomalies horodatées du RÉEL : titres coupés et trous d'antenne.
+    Réutilise `iter_day_playback` (même détection que le tableau titre par
+    titre)."""
+    out = []
+    for p in iter_day_playback(history, day):
+        if p["is_last"] or not p["expected"]:
+            continue
+        gap = p["gap"]
+        if gap < -TOLERANCE_SECONDS:
+            out.append({"kind": "COUPÉ", "dt": p["dt"], "severity": -gap, "title": p["title"]})
+        elif gap > TOLERANCE_SECONDS:
+            out.append({"kind": "TROU", "dt": p["dt"], "severity": gap, "title": p["title"]})
+    return out
+
+
+def parse_watch_records(text: str) -> list[dict]:
+    """Instantanés JSON Lines d'un log de surveillance (midnight/boundary)."""
+    records = []
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            records.append(json.loads(line))
+        except ValueError:
+            continue
+    return records
+
+
+def summarize_watch(records: list[dict]) -> dict | None:
+    """Synthèse d'un log de surveillance : restart confirmé ? doublon vu en file ?
+
+    Un doublon en file = un titre non joué qui apparaît deux fois dans un même
+    instantané, ou identique au titre à l'antenne (motif du message « joué 2×
+    d'affilée » que le dédoublonnage retire)."""
+    if not records:
+        return None
+    dup_seen = False
+    for r in records:
+        now = (r.get("now_playing_title") or "").strip().lower()
+        titles = [(i.get("title") or "").strip().lower()
+                  for i in r.get("queue_preview", []) if not i.get("is_played")]
+        titles = [t for t in titles if t]
+        if len(titles) != len(set(titles)) or (now and now in titles):
+            dup_seen = True
+    return {
+        "checks": len(records),
+        "restart": any(r.get("started_after_restart") for r in records),
+        "dup_seen": dup_seen,
+        "first": (records[0].get("logged_at") or "")[11:19],
+    }
+
+
+def nearest_incident(dt: datetime, groups: list[dict],
+                     window: int = CORRELATION_WINDOW_SECONDS) -> dict | None:
+    """Amas d'incident serveur le plus proche de `dt` dans la fenêtre, ou None."""
+    best = None
+    for g in groups:
+        if g["start"] <= dt <= g["last"]:
+            distance = 0.0
+        else:
+            distance = min(abs((dt - g["start"]).total_seconds()),
+                           abs((dt - g["last"]).total_seconds()))
+        if distance <= window and (best is None or distance < best[0]):
+            best = (distance, g)
+    return best[1] if best else None
+
+
+def load_sibling_logs(day: date, output_dir: str | Path) -> dict[str, str]:
+    """Texte brut des 2 autres rapports du jour (serveur + surveillances).
+    Tolère l'absence : une chaîne vide signale « archive indisponible »."""
+    output_dir = Path(output_dir)
+
+    def read(name: str) -> str:
+        try:
+            return (output_dir / name).read_text(encoding="utf-8")
+        except OSError:
+            return ""
+
+    return {
+        "server": read(f"liquidsoap_events_{day.isoformat()}.log"),
+        "midnight": read(f"midnight_watch_{day.isoformat()}.log"),
+        "boundary": read(f"boundary_watch_{day.isoformat()}.log"),
+    }
+
+
+def build_monitor_section(history: list[dict], day: date, plan: dict | None,
+                          logs: dict[str, str]) -> str:
+    """Section « MONITEUR » en tête du rapport : synthèse et corrélation des 3
+    rapports + plan, pour ne plus avoir à chercher la cause dans 3 fichiers."""
+    groups = group_incidents(parse_server_events(logs.get("server", ""), day))
+    midnight = summarize_watch(parse_watch_records(logs.get("midnight", "")))
+    boundary = summarize_watch(parse_watch_records(logs.get("boundary", "")))
+    anomalies = playback_incidents(history, day)
+    doubles = [p["dt"] for p in _message_plays(history, day, plan) if p["double"]]
+
+    have_server = bool(logs.get("server", "").strip())
+    n_server = sum(g["count"] for g in groups)
+    n_diffusion = len(anomalies) + len(doubles)
+
+    verdict = "✅ RAS" if not n_diffusion and not n_server else "❌ incident(s) détecté(s)"
+    lines = [
+        "=" * 100,
+        f"MONITEUR RADIO — {day.isoformat()} (synthèse des 3 rapports + plan, heures UTC)",
+        "=" * 100,
+        f"État : {verdict}  ·  diffusion : {len(anomalies)} coupure(s)/trou(s), "
+        f"{len(doubles)} double(s) message  ·  serveur : {n_server} incident(s)",
+    ]
+
+    # --- Incidents serveur (liquidsoap_events) ---
+    if not have_server:
+        lines.append("SERVEUR : archive liquidsoap_events absente pour ce jour "
+                     "— causes serveur indisponibles.")
+    elif not groups:
+        lines.append("SERVEUR : aucun incident (ni crash, ni échec réseau, ni silence) ✅")
+    else:
+        lines.append("SERVEUR (liquidsoap_events) :")
+        for g in groups[:12]:
+            count = f"  (×{g['count']})" if g["count"] > 1 else ""
+            lines.append(f"   {g['start']:%H:%M:%S}  {INCIDENT_LABELS[g['category']]}{count}")
+        if len(groups) > 12:
+            lines.append(f"   …(+{len(groups) - 12} autre(s))")
+
+    # --- Reset minuit / garde de frontière (midnight/boundary_watch) ---
+    if midnight is None and boundary is None:
+        lines.append("RESET/GARDE : aucun instantané de surveillance pour ce jour.")
+    else:
+        if midnight:
+            state = "restart confirmé" if midnight["restart"] else "restart NON confirmé ⚠️"
+            queue = "⚠️ doublon vu dans la file" if midnight["dup_seen"] else "file saine ✅"
+            lines.append(f"RESET MINUIT : {state} vers {midnight['first']} · "
+                         f"{midnight['checks']} contrôle(s) · {queue}")
+        if boundary:
+            queue = "⚠️ doublon(s) vu(s) dans la file" if boundary["dup_seen"] else "aucun doublon"
+            lines.append(f"GARDE DE FRONTIÈRE : {boundary['checks']} snapshot(s) · {queue}")
+
+    # --- Corrélation anomalie ↔ cause serveur ---
+    rows = [(a["kind"], a["dt"], a["severity"], a["title"]) for a in anomalies]
+    rows += [("DOUBLE MESSAGE", dt, None, "message du jour rejoué") for dt in doubles]
+    rows.sort(key=lambda r: r[1])
+    if rows:
+        lines.append("INCIDENTS CORRÉLÉS (anomalie de diffusion ↔ cause serveur probable) :")
+        for kind, dt, severity, title in rows[:15]:
+            sev = f" {int(round(severity))}s" if severity else ""
+            lines.append(f"   {dt:%H:%M:%S}  {kind}{sev} « {title} »")
+            group = nearest_incident(dt, groups) if have_server else None
+            if group:
+                lines.append(f"          ↳ cause probable {group['start']:%H:%M:%S} : "
+                             f"{INCIDENT_LABELS[group['category']]}")
+            elif have_server:
+                lines.append("          ↳ aucune cause serveur à proximité "
+                             "(voir CONTRÔLES APPROFONDIS et RÉEL vs PRÉVU ci-dessous)")
+            else:
+                lines.append("          ↳ archive serveur absente — cause non déterminable")
+        if len(rows) > 15:
+            lines.append(f"   …(+{len(rows) - 15} autre(s))")
+    else:
+        lines.append("INCIDENTS CORRÉLÉS : aucune anomalie de diffusion à corréler ✅")
+
+    lines.append("(Détail titre par titre, contrôles approfondis et RÉEL vs PRÉVU ci-dessous.)")
+    return "\n".join(lines) + "\n"
+
+
 def purge_old_reports(output_dir: Path, today: date) -> None:
     cutoff = today - timedelta(days=RETENTION_DAYS)
     for log_file in sorted(output_dir.glob("diffusion_*.log")):
@@ -546,7 +853,12 @@ def main() -> int:
         return 0
 
     plan = load_plan(day, args.plans_dir)
-    report, problems = build_report(history, day)
+    logs = load_sibling_logs(day, args.output_dir)
+    # Le moniteur (synthèse + corrélation des 3 rapports) ouvre le fichier ;
+    # viennent ensuite le détail titre par titre, les contrôles et le plan.
+    body, problems = build_report(history, day)
+    report = build_monitor_section(history, day, plan, logs)
+    report += body
     report += build_health_section(history, day, plan)
     report += build_plan_section(history, day, plan)
 
