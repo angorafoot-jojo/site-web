@@ -7,7 +7,11 @@ from datetime import date, datetime, timezone
 sys.path.insert(0, os.path.dirname(__file__))
 
 from playback_report import (norm_title, build_plan_section, build_health_section,
-                             build_report, _window_bounds)
+                             build_report, _window_bounds,
+                             classify_server_line, parse_server_events,
+                             group_incidents, playback_incidents,
+                             parse_watch_records, summarize_watch,
+                             nearest_incident, build_monitor_section)
 
 JOUR = date(2026, 6, 25)
 
@@ -360,6 +364,134 @@ def test_dernier_titre_du_jour_diffuse_contre_le_lendemain():
     assert "2 titres joués" in out
     assert "Bilan : 2 titres" in out
     assert "⏳ dernier titre" not in out
+
+
+# ── Moniteur : corrélation des 3 rapports + plan ────────────────────────────
+
+def srv(h, m, s, text):
+    """Ligne liquidsoap_events datée (format serveur, heures UTC)."""
+    return f"2026/06/25 {h:02d}:{m:02d}:{s:02d} {text}"
+
+
+def test_classify_server_line_categorise_les_incidents():
+    assert classify_server_line("[threads:1] PANIC: Liquidsoap has crashed") == "crash"
+    assert classify_server_line("[lang:2] Could not perform http request: CurlException") == "network"
+    assert classify_server_line("[safe_fallback:3] Switch to error_jingle.") == "deadair"
+    assert classify_server_line("[source:3] track skip requested") == "skip"
+
+
+def test_classify_server_line_ignore_le_bruit_benin():
+    # Fins de décodage normales, dépréciations, préparations = pas des incidents.
+    assert classify_server_line('[decoder:2] Decoding "x.mp3" ended: Ffmpeg_decoder.End_of_file.') == ""
+    assert classify_server_line('[lang.deprecated:2] WARNING: "map_metadata" is deprecated') == ""
+    assert classify_server_line('[next_song:3] Prepared "/media/jingle.mp3" (RID 14).') == ""
+
+
+def test_parse_server_events_filtre_par_jour_et_categorie():
+    text = "\n".join([
+        srv(0, 1, 22, "[lang:2] Could not perform http request: CurlException"),
+        srv(0, 1, 22, "[threads:1] PANIC: Liquidsoap has crashed, exiting."),
+        srv(0, 1, 26, '[decoder:2] Decoding "x.mp3" ended: Ffmpeg_decoder.End_of_file.'),
+        "2026/06/26 05:00:00 [threads:1] PANIC: crash du lendemain",  # autre jour
+        "ligne sans horodatage à ignorer",
+    ])
+    events = parse_server_events(text, JOUR)
+    cats = [e.category for e in events]
+    assert cats == ["network", "crash"]  # benin + lendemain + non daté écartés
+
+
+def test_group_incidents_regroupe_les_rafales():
+    events = parse_server_events("\n".join([
+        srv(0, 1, 22, "[threads:2] Queue #1 crashed with exception"),
+        srv(0, 1, 23, "[threads:1] PANIC: Liquidsoap has crashed"),  # même rafale
+        srv(6, 0, 0, "[threads:1] PANIC: autre crash 6h plus tard"),
+    ]), JOUR)
+    groups = group_incidents(events)
+    assert len(groups) == 2
+    assert groups[0]["count"] == 2
+    assert groups[1]["count"] == 1
+
+
+def test_playback_incidents_reprend_coupures_et_trous():
+    # a coupé (réel 10s pour 600s), trou après b (réel 600s pour 60s), c normal.
+    h = [entry("a", 0, 0, duration=600), entry("b", 0, 0, 10, duration=60),
+         entry("c", 0, 10, 10, duration=60), entry("d", 0, 11, 10, duration=60)]
+    inc = playback_incidents(h, JOUR)
+    kinds = {i["kind"] for i in inc}
+    assert "COUPÉ" in kinds and "TROU" in kinds
+
+
+def test_summarize_watch_detecte_restart_et_doublon():
+    text = "\n".join([
+        '{"logged_at": "2026-06-25T00:02:04+00:00", "check": 1, "now_playing_title": "",'
+        ' "started_after_restart": true, "queue_preview": ['
+        '{"title": "jingle x", "is_played": false},'
+        '{"title": "jingle x", "is_played": false}]}',  # doublon dans la file
+    ])
+    summary = summarize_watch(parse_watch_records(text))
+    assert summary["restart"] is True
+    assert summary["dup_seen"] is True
+    assert summary["first"] == "00:02:04"
+
+
+def test_summarize_watch_file_saine():
+    text = ('{"logged_at": "2026-06-25T00:02:04+00:00", "started_after_restart": true,'
+            ' "queue_preview": [{"title": "a", "is_played": false},'
+            ' {"title": "b", "is_played": false}]}')
+    summary = summarize_watch(parse_watch_records(text))
+    assert summary["dup_seen"] is False
+    assert summarize_watch([]) is None
+
+
+def test_nearest_incident_dans_la_fenetre():
+    groups = group_incidents(parse_server_events(
+        srv(14, 31, 58, "[safe_fallback:3] Switch to error_jingle."), JOUR))
+    at_anomaly = datetime(2026, 6, 25, 14, 32, 5, tzinfo=timezone.utc)
+    far = datetime(2026, 6, 25, 20, 0, 0, tzinfo=timezone.utc)
+    assert nearest_incident(at_anomaly, groups) is not None
+    assert nearest_incident(far, groups) is None
+
+
+def test_monitor_correle_une_coupure_avec_un_crash_serveur():
+    # Coupure à 00:01:30 (fichier 600s, coupé à 8s) causée par le crash 00:01:22.
+    h = [entry("Message du jour", 0, 1, 22, duration=600),
+         entry("suite", 0, 1, 30, duration=600)]
+    logs = {
+        "server": "\n".join([
+            srv(0, 1, 22, "[lang:2] Could not perform http request: CurlException"),
+            srv(0, 1, 22, "[threads:1] PANIC: Liquidsoap has crashed, exiting."),
+        ]),
+        "midnight": '{"logged_at": "2026-06-25T00:02:04+00:00",'
+                    ' "started_after_restart": true, "queue_preview": []}',
+        "boundary": "",
+    }
+    out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
+    assert "MONITEUR RADIO — 2026-06-25" in out
+    assert "incident(s) détecté(s)" in out
+    assert "crash Liquidsoap" in out
+    assert "RESET MINUIT : restart confirmé vers 00:02:04" in out
+    assert "INCIDENTS CORRÉLÉS" in out
+    assert "cause probable 00:01:22" in out
+
+
+def test_monitor_ras_quand_tout_va_bien():
+    h = [entry("a", 0, 0, duration=60), entry("b", 0, 1, duration=60)]
+    logs = {"server": srv(3, 0, 0,
+                          '[decoder:2] Decoding "x.mp3" ended: Ffmpeg_decoder.End_of_file.'),
+            "midnight": "", "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
+    assert "État : ✅ RAS" in out
+    assert "SERVEUR : aucun incident" in out
+    assert "aucune anomalie de diffusion à corréler ✅" in out
+
+
+def test_monitor_signale_archives_absentes():
+    h = [entry("a", 0, 0, duration=600), entry("b", 0, 0, 8, duration=600)]
+    logs = {"server": "", "midnight": "", "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
+    assert "archive liquidsoap_events absente" in out
+    assert "aucun instantané de surveillance" in out
+    assert "archive serveur absente — cause non déterminable" in out
 
 
 if __name__ == "__main__":
