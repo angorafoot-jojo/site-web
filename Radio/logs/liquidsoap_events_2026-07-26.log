@@ -1,0 +1,48 @@
+2026/07/26 00:00:03 [clock.main:2] We must catchup 1.11 seconds!
+2026/07/26 00:00:04 [clock.main:2] We must catchup 1.37 seconds!
+2026/07/26 00:00:05 [clock.main:2] We must catchup 1.91 seconds!
+2026/07/26 00:00:06 [clock.main:2] We must catchup 2.58 seconds!
+2026/07/26 00:00:07 [clock.main:2] We must catchup 3.20 seconds!
+2026/07/26 00:00:08 [clock.main:2] We must catchup 3.80 seconds!
+2026/07/26 00:00:09 [clock.main:2] We must catchup 4.35 seconds!
+2026/07/26 00:00:10 [clock.main:2] We must catchup 4.87 seconds!
+2026/07/26 00:00:11 [clock.main:2] We must catchup 5.26 seconds!
+2026/07/26 00:00:12 [clock.main:2] We must catchup 5.35 seconds!
+2026/07/26 00:00:13 [clock.main:2] We must catchup 5.60 seconds!
+2026/07/26 00:00:14 [clock.main:2] We must catchup 5.48 seconds!
+2026/07/26 00:00:15 [clock.main:2] We must catchup 5.05 seconds!
+2026/07/26 00:00:17 [clock.main:2] We must catchup 4.40 seconds!
+2026/07/26 00:00:18 [clock.main:2] We must catchup 3.77 seconds!
+2026/07/26 00:00:19 [clock.main:2] We must catchup 3.15 seconds!
+2026/07/26 00:00:20 [clock.main:2] We must catchup 2.35 seconds!
+2026/07/26 00:00:22 [clock.main:2] We must catchup 0.22 seconds!
+2026/07/26 00:01:16 [threads:2] Queue generic queue #1 crashed with exception Sys_error("Condition.wait: Operation not permitted")
+2026/07/26 00:01:16 [threads:2] Raised by primitive operation at Duppy.queue.run in file "src/duppy.ml", line 341, characters 6-32
+2026/07/26 00:01:16 [threads:2] Called from Duppy.queue in file "src/duppy.ml", line 357, characters 8-12
+2026/07/26 00:01:16 [threads:2] Re-raised at Duppy.queue in file "src/duppy.ml", line 361, characters 8-17
+2026/07/26 00:01:16 [threads:2] Called from Tutils.create.(fun).process in file "tools/tutils.ml", line 164, characters 12-15
+2026/07/26 00:01:16 [threads:2] 
+2026/07/26 00:01:16 [threads:1] PANIC: Liquidsoap has crashed, exiting.,
+2026/07/26 00:01:16 [threads:1] Please report at: savonet-users@lists.sf.net
+2026/07/26 00:01:23 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/07/26 00:01:23 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/07/26 00:01:23 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/07/26 00:01:23 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/07/26 00:01:23 [safe_fallback:3] Switch to error_jingle.
+2026/07/26 00:01:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 8).
+2026/07/26 00:01:23 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/07/26 00:01:23 [live_fallback:3] Switch to cross_0.
+2026/07/26 00:01:23 [interrupting_fallback:3] Switch to requests_fallback.
+2026/07/26 00:01:23 [requests_fallback:3] Switch to autodj_fallback.
+2026/07/26 00:01:23 [autodj_fallback:3] Switch to dynamic_startup.
+2026/07/26 00:01:23 [dynamic_startup:3] Switch to cue_next_song.
+2026/07/26 00:01:31 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 00:01:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 14).
+2026/07/26 00:01:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 00:01:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 15).
+2026/07/26 00:03:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 00:03:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/amc_tian_combat_spirituel_3.mp3" (RID 16).
+2026/07/26 00:12:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/amc_tian_combat_spirituel_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 00:12:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 17).
+2026/07/26 00:12:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 00:12:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/abdias_001.mp3" (RID 18).
