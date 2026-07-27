@@ -11,18 +11,41 @@ name: Garde de frontière de bloc
 # via restart_autodj.py, qui a supprimé le doublon du 13/07 à 00h02).
 #
 # Le doublon attend en file pendant TOUTE la 1re lecture du message
-# (10 à 25 min) : il suffit d'intervenir dans ce délai. Le cron GitHub
-# part à l'heure pile et subit un retard typique de 2 à 10 min — c'est
-# suffisant. Pour une ponctualité garantie, ajouter aussi des
-# déclencheurs cron-job.org à 06h01/12h01/18h01 UTC sur
-# workflow_dispatch (comme pour la rotation et le reset de minuit).
+# (10 à 25 min) : il faut intervenir dans ce délai.
+#
+# ⚠️ LE CRON GITHUB A ÉTÉ RETIRÉ LE 27/07/2026 — IL NE POUVAIT PAS MARCHER.
+# L'hypothèse d'origine (« retard typique de 2 à 10 min, c'est suffisant »)
+# était fausse. Mesure sur 18 runs consécutifs de ce workflow :
+#
+#     cron cible 06:00 → runs réels 07:49, 08:06, 08:07, 08:09, 08:06…
+#     cron cible 12:00 → runs réels 12:56, 12:59, 13:14, 13:19, 13:22…
+#     cron cible 18:00 → runs réels 18:51, 18:55, 18:57, 19:02, 19:10…
+#
+# soit +51 à +129 min de retard, JAMAIS moins de 51 min — donc toujours
+# hors de la fenêtre utile de 10-25 min. Preuve par l'absence : aucun
+# fichier logs/boundary_watch_*.log n'a jamais été créé, la garde n'a
+# donc jamais retiré un seul doublon. Contre-preuve directe le 25/07 :
+# doublons à 06:09:52 et 12:09:52 (message diffusé 6× pour 4 prévues),
+# la garde est passée à 07:49 et 12:59 — bien après.
+#
+# ➜ Le workflow reste déclenchable À LA MAIN (workflow_dispatch), et
+#   redevient utile dès qu'on lui ajoute des déclencheurs cron-job.org à
+#   06h01/12h01/18h01 UTC (ponctuels à la minute, comme la rotation et le
+#   reset de minuit). Contrairement à ces deux-là, une panne de
+#   cron-job.org ne ferait ici que désactiver la garde, sans dégât en
+#   cascade — le no-op est sans conséquence.
+#
+# ➜ La vraie cause reste à traiter (voir Radio/README.md §7, chantier
+#   ouvert) : un micro-trou de 6 à 28 s juste AVANT la frontière précède
+#   chacun des doublons mesurés — corrélation 4/4 sur 9 jours, et zéro
+#   doublon les jours sans micro-trou.
 #
 # Aucune action sur l'antenne : lecture de la file + DELETE des
 # doublons uniquement. Sans doublon, le run est un no-op silencieux.
 # ──────────────────────────────────────────────────────────────
 on:
-  schedule:
-    - cron: '0 6,12,18 * * *'
+  # Pas de 'schedule' : voir l'encadré ci-dessus (le cron GitHub arrive
+  # systématiquement 51 à 129 min trop tard sur ce dépôt).
   workflow_dispatch:
 
 permissions:
