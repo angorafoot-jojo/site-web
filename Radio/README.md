@@ -66,10 +66,12 @@ Règles apprises en production (voir §6) et codées dans `azuracast_rotation_4_
 
 Tous les horaires sont en **UTC**. La rotation et le reset de minuit sont déclenchés **de l'extérieur par [cron-job.org](https://cron-job.org)** via `workflow_dispatch`, car le cron natif de GitHub Actions subit un retard de 2 min à 5 h (file d'attente partagée).
 
+Depuis le 26/07/2026, ces deux workflows ont **en plus un cron GitHub natif de secours** — voir la note « Filet de sécurité » ci-dessous.
+
 | Workflow | Horaire (UTC) | Déclencheur | Rôle |
 |----------|---------------|-------------|------|
-| `radio-rotation.yml` | 23h30 | cron-job.org → `workflow_dispatch` | Rotation : choisit le message **du lendemain** et reconstruit les 4 blocs (pendant que `BLOC_E_LOUANGE_NUIT` est à l'antenne). Commit `chore: rotation du <date>` + `plan_<date>.json` |
-| `radio-midnight-reset.yml` | 00h00 | cron-job.org → `workflow_dispatch` | Redémarre l'AutoDJ, vide la file (les blocs repartent en position 1 : jingle → message), **dédoublonne la file** puis fait 3 contrôles à +40/80/120 s persistés dans `logs/midnight_watch_<date>.log` |
+| `radio-rotation.yml` | 23h30 | cron-job.org → `workflow_dispatch` **+ cron GitHub de secours** | Rotation : choisit le message **du lendemain** et reconstruit les 4 blocs (pendant que `BLOC_E_LOUANGE_NUIT` est à l'antenne). Commit `chore: rotation du <date>` + `plan_<date>.json` |
+| `radio-midnight-reset.yml` | 00h00 | cron-job.org → `workflow_dispatch` **+ cron GitHub de secours** | Redémarre l'AutoDJ, vide la file (les blocs repartent en position 1 : jingle → message), **dédoublonne la file** puis fait 3 contrôles à +40/80/120 s persistés dans `logs/midnight_watch_<date>.log` |
 | `radio-boundary-guard.yml` | 06h/12h/18h | cron GitHub (+ cron-job.org 06h01/12h01/18h01 recommandé, voir note) | **Garde de frontière de bloc** : retire de la file les doublons du message qui apparaissent quand le bloc sortant s'épuise avant la frontière. Lecture seule + DELETE, no-op silencieux sans doublon ; commit `logs/boundary_watch_*.log` seulement si un doublon a été retiré |
 | `radio-healthcheck.yml` | toutes les 15 min | cron GitHub | Vérifie que le flux diffuse |
 | `radio-liquidsoap-capture.yml` | toutes les heures (h+17) | cron GitHub | Capture les lignes d'intérêt du `liquidsoap.log` (erreurs, échecs, titres préparés) dans `logs/liquidsoap_events_<date>.log` — le log serveur est un tampon glissant d'~24 h, sans capture les causes des anomalies disparaissent avant le rapport |
@@ -79,7 +81,18 @@ Tous les horaires sont en **UTC**. La rotation et le reset de minuit sont décle
 | `radio-test-liquidsoap-log.yml` | manuel | `workflow_dispatch` | Test : liste les logs serveur disponibles et inspecte le contenu brut du `liquidsoap.log` |
 | `radio-test-restart.yml` | manuel | `workflow_dispatch` | Test : restart AutoDJ + vérification du pointeur |
 
-> ℹ️ **Garde de frontière & ponctualité** : le doublon attend en file pendant toute la 1re lecture du message (10–25 min), donc le retard typique du cron GitHub (2–10 min) est toléré. Pour une ponctualité garantie, ajouter des déclencheurs cron-job.org à 06h01/12h01/18h01 UTC sur `workflow_dispatch` (comme pour la rotation et le reset). Minuit est déjà couvert par le dédoublonnage du reset.
+> 🛟 **Filet de sécurité sur la rotation et le reset (26/07/2026)** — `cron-job.org` déclenche les deux tâches les plus critiques, donc une panne du service arrête les deux à la fois. C'est arrivé **deux fois** : le 23/06 et surtout du **18 au 21/07 (3 nuits sans rotation)**, où la radio a rediffusé le contenu du 18/07 pendant 3 jours.
+>
+> Chacun des deux workflows a désormais **un `schedule:` GitHub natif de secours à la même heure**. Le cron GitHub arrive en retard (mesuré sur ce dépôt : **+51 à +129 min**), ce qui est sans conséquence car chaque workflow ne fait quelque chose que si la tâche a réellement été manquée :
+>
+> - **Rotation** — déjà idempotente : `last_run_date == broadcast_date` → `return` **avant tout appel API**. Un run de secours tardif est donc un no-op strict. Vérifié sur tous les retards jusqu'à +5 h.
+> - **Reset de minuit** — *pas* idempotent (il redémarre Liquidsoap à chaque fois). Une **garde** a donc été ajoutée : si `logs/midnight_watch_<date>.log` existe déjà, le run de secours ne fait rien. Sans elle, le cron aurait coupé un titre en pleine diffusion vers 01h **chaque nuit**. La garde ne s'applique qu'aux runs `schedule` : un lancement manuel force toujours le reset.
+>
+> Quand le secours agit réellement, il ouvre une issue via l'action mutualisée `.github/actions/alerte-declencheur` — label **`declencheur`**, volontairement isolé pour ne bâillonner aucune autre alerte (voir la note ci-dessous). Un `concurrency:` par workflow empêche un run externe et un run de secours de travailler en parallèle.
+
+> 🔇 **Piège majeur — une issue d'alerte ouverte bâillonne les alertes suivantes.** Chaque workflow d'alerte fait `listForRepo({state:'open', labels:…})` et **sort sans rien créer** si une issue portant ces labels existe déjà. Une issue non fermée éteint donc toute la surveillance de son type. Constaté : `#6` (`radio,alerte`) neutralisait **3 workflows** (healthcheck, garde de frontière, capture liquidsoap) et `#8` (`radio,validation`) neutralisait la validation des chemins — **du 20 au 26/07/2026 la radio n'avait plus aucune alerte fonctionnelle**. ➜ **Réflexe : fermer l'issue dès l'incident traité.**
+
+> ℹ️ **Garde de frontière & ponctualité** : le doublon attend en file pendant toute la 1re lecture du message (10–25 min). ⚠️ **Mesure du 26/07/2026 : le cron GitHub arrive en réalité avec +51 à +129 min de retard** (18 runs, jamais moins de 51 min) — donc **hors de la fenêtre utile**, et aucun `logs/boundary_watch_*.log` n'existe : la garde **n'a jamais retiré un seul doublon**. Pour qu'elle serve, il faut des déclencheurs cron-job.org à 06h01/12h01/18h01 UTC sur `workflow_dispatch` (comme pour la rotation et le reset) ; sinon elle est à supprimer. Minuit est déjà couvert par le dédoublonnage du reset.
 
 > ⚠️ **Faux échec connu** : `radio-test-playlists.yml` apparaît « failed » à chaque push sur `main` (GitHub crée un run fantôme malgré `on: workflow_dispatch` seul). Connu depuis le 24/06, gardé volontairement (outil de diagnostic manuel), zéro impact — ne pas traiter comme une régression.
 
