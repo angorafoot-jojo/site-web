@@ -72,7 +72,7 @@ Depuis le 26/07/2026, ces deux workflows ont **en plus un cron GitHub natif de s
 |----------|---------------|-------------|------|
 | `radio-rotation.yml` | 23h30 | cron-job.org → `workflow_dispatch` **+ cron GitHub de secours** | Rotation : choisit le message **du lendemain** et reconstruit les 4 blocs (pendant que `BLOC_E_LOUANGE_NUIT` est à l'antenne). Commit `chore: rotation du <date>` + `plan_<date>.json` |
 | `radio-midnight-reset.yml` | 00h00 | cron-job.org → `workflow_dispatch` **+ cron GitHub de secours** | Redémarre l'AutoDJ, vide la file (les blocs repartent en position 1 : jingle → message), **dédoublonne la file** puis fait 3 contrôles à +40/80/120 s persistés dans `logs/midnight_watch_<date>.log` |
-| `radio-boundary-guard.yml` | 06h/12h/18h | cron GitHub (+ cron-job.org 06h01/12h01/18h01 recommandé, voir note) | **Garde de frontière de bloc** : retire de la file les doublons du message qui apparaissent quand le bloc sortant s'épuise avant la frontière. Lecture seule + DELETE, no-op silencieux sans doublon ; commit `logs/boundary_watch_*.log` seulement si un doublon a été retiré |
+| `radio-boundary-guard.yml` | **manuel uniquement** (cron GitHub retiré le 27/07/2026, voir note) | `workflow_dispatch` | **Garde de frontière de bloc** : retire de la file les doublons du message qui apparaissent quand le bloc sortant s'épuise avant la frontière. Lecture seule + DELETE, no-op silencieux sans doublon ; commit `logs/boundary_watch_*.log` seulement si un doublon a été retiré |
 | `radio-healthcheck.yml` | toutes les 15 min | cron GitHub | Vérifie que le flux diffuse |
 | `radio-liquidsoap-capture.yml` | toutes les heures (h+17) | cron GitHub | Capture les lignes d'intérêt du `liquidsoap.log` (erreurs, échecs, titres préparés) dans `logs/liquidsoap_events_<date>.log` — le log serveur est un tampon glissant d'~24 h, sans capture les causes des anomalies disparaissent avant le rapport |
 | `radio-playback-report.yml` | 01h00 | cron GitHub | Génère le rapport de diffusion de la veille (`logs/diffusion_<date>.log`) |
@@ -92,7 +92,13 @@ Depuis le 26/07/2026, ces deux workflows ont **en plus un cron GitHub natif de s
 
 > 🔇 **Piège majeur — une issue d'alerte ouverte bâillonne les alertes suivantes.** Chaque workflow d'alerte fait `listForRepo({state:'open', labels:…})` et **sort sans rien créer** si une issue portant ces labels existe déjà. Une issue non fermée éteint donc toute la surveillance de son type. Constaté : `#6` (`radio,alerte`) neutralisait **3 workflows** (healthcheck, garde de frontière, capture liquidsoap) et `#8` (`radio,validation`) neutralisait la validation des chemins — **du 20 au 26/07/2026 la radio n'avait plus aucune alerte fonctionnelle**. ➜ **Réflexe : fermer l'issue dès l'incident traité.**
 
-> ℹ️ **Garde de frontière & ponctualité** : le doublon attend en file pendant toute la 1re lecture du message (10–25 min). ⚠️ **Mesure du 26/07/2026 : le cron GitHub arrive en réalité avec +51 à +129 min de retard** (18 runs, jamais moins de 51 min) — donc **hors de la fenêtre utile**, et aucun `logs/boundary_watch_*.log` n'existe : la garde **n'a jamais retiré un seul doublon**. Pour qu'elle serve, il faut des déclencheurs cron-job.org à 06h01/12h01/18h01 UTC sur `workflow_dispatch` (comme pour la rotation et le reset) ; sinon elle est à supprimer. Minuit est déjà couvert par le dédoublonnage du reset.
+> ⚠️ **Garde de frontière — cron GitHub RETIRÉ le 27/07/2026 : il ne pouvait pas fonctionner.** Le doublon n'attend en file que pendant la 1re lecture du message, soit une **fenêtre utile de 10–25 min**. Mesure sur 18 runs consécutifs : le cron GitHub arrive avec **+51 à +129 min de retard, jamais moins de 51 min** — donc toujours hors fenêtre.
+>
+> Preuve par l'absence : **aucun `logs/boundary_watch_*.log` n'a jamais été créé** → la garde n'a jamais retiré un seul doublon depuis sa mise en place. Contre-preuve directe le 25/07 : doublons à 06:09:52 et 12:09:52 (message diffusé 6× pour 4 prévues), garde passée à 07:49 et 12:59.
+>
+> Le workflow reste **déclenchable à la main** et redevient efficace dès qu'on lui ajoute des déclencheurs **cron-job.org à 06h01/12h01/18h01 UTC** sur `workflow_dispatch`. Contrairement à la rotation et au reset, une panne de cron-job.org ne ferait ici que **désactiver** la garde, sans dégât en cascade : ce n'est donc pas un point de défaillance critique. Minuit est déjà couvert par le dédoublonnage du reset.
+>
+> ➜ La cause racine reste à traiter, voir « Chantier ouvert » (§7).
 
 > ⚠️ **Faux échec connu** : `radio-test-playlists.yml` apparaît « failed » à chaque push sur `main` (GitHub crée un run fantôme malgré `on: workflow_dispatch` seul). Connu depuis le 24/06, gardé volontairement (outil de diagnostic manuel), zéro impact — ne pas traiter comme une régression.
 
@@ -218,12 +224,30 @@ Pour comprendre *pourquoi* le code est comme il est :
   - **Fait (22/07/2026)** : la section **MONITEUR** de `playback_report.py` corrèle désormais chaque anomalie **horodatée** de diffusion (coupure, trou, double message) avec l'incident serveur le plus proche (crash, échec réseau, silence, saut) et l'état du reset/garde. Une coupure et sa cause serveur s'affichent côte à côte, plus besoin d'ouvrir les 3 fichiers.
   - **Reste** : corréler aussi les items **« PRÉVU NON JOUÉ »** du plan (jingles sautés sans horodatage propre) avec les événements serveur de leur fenêtre de bloc — la corrélation actuelle porte sur les anomalies qui ont une heure précise.
 
+- **Doublon du message aux frontières — cause immédiate identifiée le 27/07/2026, pas encore corrigée.** Le workflow `radio-boundary-guard.yml` ne traitait que le symptôme, et son cron GitHub était trop tardif pour même y parvenir (voir la note du §2). Mesure sur 9 jours de rapports (15→26/07) :
+
+  | Jour | Message | Micro-trou juste avant une frontière |
+  |------|---------|--------------------------------------|
+  | 15/07 | **5**/4 | `17:59:46` |
+  | 16→18, 22, 23, 26/07 | 4/4 ✅ | — |
+  | 24/07 | **5**/4 | `17:59:24` |
+  | 25/07 | **6**/4 | `05:59:59` · `11:59:37` |
+
+  **Corrélation 4/4, zéro faux positif, zéro cas manqué** : chaque diffusion en trop est précédée d'un bouche-trou de 6 à 28 s (`AzuraCast is Live!`) dans la dernière minute avant une frontière, et tous les jours sans micro-trou sont à 4/4 exact. Fréquence : ~0,4 diffusion en trop par jour, sur 1 jour sur 3.
+
+  Mécanisme retenu : le bloc sortant laisse un micro-silence avant la frontière → le *fallback* Liquidsoap prend l'antenne → la file du bloc entrant se remplit **deux fois** (`[jingle, message] × 2`) → le message part 2× d'affilée ~10 min après la frontière.
+
+  **Pistes à explorer, par ordre de robustesse :**
+  1. **Supprimer le micro-trou** (vraie correction) : garantir qu'un titre du bloc sortant couvre la frontière. À rapprocher de la PR #7 (budget global par bloc).
+  2. **`duplicate_prevention_time_range` d'AzuraCast** : vaut **5** dans `backend_config` (vérifié via `GET /api/admin/station/1` le 27/07). Si l'unité est la minute, une reprise à +9 min passe entre les mailles, alors que les rediffusions **légitimes** du message sont à 6 h d'intervalle — une valeur plus élevée (30–60) bloquerait le doublon sans toucher au plan. ⚠️ **À vérifier avant de changer quoi que ce soit** : unité réelle du réglage, et si la prévention s'applique à une file **déjà construite** (le doublon vient d'un double remplissage, pas d'une sélection de titre).
+  3. **Brancher la garde sur cron-job.org** (06h01/12h01/18h01 UTC) : corrigerait les 4 cas mesurés, mais reste un pansement sur le symptôme.
+
 ---
 
 ## 8. En cas de problème
 
 1. **Le flux est muet** → vérifier le workflow `radio-healthcheck` (Actions) ; relancer `radio-midnight-reset` manuellement.
-2. **Le message du jour passe 2× d'affilée** → relancer `radio-boundary-guard` (ou `restart_autodj.py --watch-only` en local) ; vérifier `logs/boundary_watch_*.log` et `logs/midnight_watch_*.log`.
+2. **Le message du jour passe 2× d'affilée** → lancer `radio-boundary-guard` **à la main** (il n'a plus de cron, voir §2) **dans les 10 min suivant la frontière**, sinon le doublon a déjà joué et l'intervention est inutile ; ou `restart_autodj.py --watch-only` en local. Vérifier `logs/boundary_watch_*.log` et `logs/midnight_watch_*.log`. Cause immédiate connue : micro-trou avant la frontière — voir « Chantier ouvert » (§7).
 3. **Mauvais message diffusé / blocs désynchronisés** → relancer `radio-rotation` puis `radio-midnight-reset`.
 4. **Un fichier ne joue pas** → lancer `validate_paths.py` (ou le workflow `radio-validate-paths`) pour repérer un chemin manquant.
 5. **Analyser une journée de diffusion** → lire `logs/diffusion_<date>.log` : la section **MONITEUR** en tête synthétise et corrèle les 3 rapports + le plan (état du jour, incidents serveur, reset/garde, cause probable de chaque anomalie). Le détail titre par titre suit en dessous. Workflow `radio-playback-report`, relançable manuellement avec une date en entrée.
