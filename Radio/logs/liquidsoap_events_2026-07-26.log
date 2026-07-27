@@ -689,3 +689,115 @@
 2026/07/26 23:08:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_014.mp3" (RID 336).
 2026/07/26 23:10:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_014.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/07/26 23:10:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jude_001.mp3" (RID 337).
+2026/07/26 23:14:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jude_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:14:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_001.mp3" (RID 338).
+2026/07/26 23:17:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:17:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_002.mp3" (RID 339).
+2026/07/26 23:23:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:23:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_003.mp3" (RID 340).
+2026/07/26 23:27:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:27:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" (RID 341).
+2026/07/26 23:27:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:27:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___ta_lumière.mp3" (RID 342).
+2026/07/26 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:44 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:46 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:49 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:50 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:51 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:52 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:52 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:53 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:54 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:54 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:55 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:55 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:56 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:57 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:58 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:32:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:03 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:48 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___ta_lumière.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:33:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/66 - Victorious Is the Lamb - Winnipeg Fellowship.mp3" (RID 343).
+2026/07/26 23:33:49 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:50 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:51 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:51 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:52 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:53 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:54 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:55 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:55 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:56 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:56 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:57 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:58 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:58 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:33:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:01 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:01 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:02 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:03 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:04 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:49 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:49 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:50 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:50 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:51 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:51 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:52 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:52 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:53 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:54 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:54 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:56 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:56 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:57 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:58 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:58 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:55 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:56 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:57 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:58 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:58 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:35:59 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:00 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:01 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:02 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:03 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:04 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/07/26 23:41:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/66 - Victorious Is the Lamb - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:41:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" (RID 820).
+2026/07/26 23:46:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:46:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/76 - You Have sworn By Your Holiness - Chidera Bisong.mp3" (RID 1315).
+2026/07/26 23:53:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/76 - You Have sworn By Your Holiness - Chidera Bisong.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:53:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_jai_donné_ma_vie_à_jésus_(1).mp3" (RID 1316).
+2026/07/26 23:57:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_jai_donné_ma_vie_à_jésus_(1).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/26 23:57:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/83 - Awaken My Heart.mp3" (RID 1317).
