@@ -1,0 +1,28 @@
+2026/07/28 00:00:11 [clock.main:2] We must catchup 1.01 seconds!
+2026/07/28 00:00:12 [clock.main:2] We must catchup 1.28 seconds!
+2026/07/28 00:01:21 [lang:2] Could not perform http request: CurlException(Aborted_by_callback, 42, CURLE_ABORTED_BY_CALLBACK).
+2026/07/28 00:01:21 [lang.deprecated:2] WARNING: "error.kind" is deprecated and will be removed in future version.
+2026/07/28 00:01:21 [lang.deprecated:2] WARNING: "error.message" is deprecated and will be removed in future version.
+2026/07/28 00:01:21 [lang:3] API djoff - Error: http - CurlException(Aborted_by_callback, 42, CURLE_ABORTED_BY_CALLBACK)
+2026/07/28 00:01:25 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/07/28 00:01:25 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/07/28 00:01:25 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/07/28 00:01:25 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/07/28 00:01:25 [safe_fallback:3] Switch to error_jingle.
+2026/07/28 00:01:26 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 11).
+2026/07/28 00:01:26 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/07/28 00:01:26 [live_fallback:3] Switch to cross_0.
+2026/07/28 00:01:26 [interrupting_fallback:3] Switch to requests_fallback.
+2026/07/28 00:01:26 [requests_fallback:3] Switch to autodj_fallback.
+2026/07/28 00:01:26 [autodj_fallback:3] Switch to schedule_switch.
+2026/07/28 00:01:26 [schedule_switch:3] Switch to metadata.map_0.
+2026/07/28 00:01:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 14).
+2026/07/28 00:03:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/28 00:03:02 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 7).
+2026/07/28 00:03:02 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour with forgetful transition.
+2026/07/28 00:03:02 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/07/28 00:03:02 [dynamic_startup:3] Switch to cue_next_song.
+2026/07/28 00:04:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/28 00:04:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 15).
+2026/07/28 00:04:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/28 00:04:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/amc_tian_combat_spirituel_5.mp3" (RID 16).
