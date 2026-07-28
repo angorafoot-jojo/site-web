@@ -1,0 +1,66 @@
+name: Test Rotation Radio (dry-run)
+
+# ──────────────────────────────────────────────────────────────
+# Lancement MANUEL uniquement. Exécute la rotation complète en
+# --dry-run : construit les 4 blocs contre la VRAIE médiathèque
+# AzuraCast (lectures API seules) sans rien écrire.
+#
+# Vérifié dans le code de azuracast_rotation_4_blocs.py :
+#   - clear_playlist_contents / import_playlist_paths /
+#     reorder_playlist sortent immédiatement si dry_run ;
+#   - write_daily_plan et save_json(state_path, …) sont tous deux
+#     sous `if not args.dry_run` → ni plan, ni état modifiés ;
+#   - aucun redémarrage AutoDJ (même garde).
+# La seule écriture est le JSON de debug local (gitignoré, et le job
+# n'a que `contents: read` : aucun push possible).
+#
+# `--force-advance` contourne la garde « déjà préparé pour ce jour de
+# diffusion » pour que le dry-run construise vraiment les blocs au lieu
+# de sortir tout de suite. Sans écriture d'état, l'épisode réellement
+# diffusé n'est pas affecté.
+#
+# À lire dans le log du run :
+#   - les fichiers écartés par MIN_JINGLE_SECONDS / MIN_MUSIC_SECONDS ;
+#   - la composition des 4 blocs et leur durée totale, à comparer au
+#     créneau : un surplus de ~+15 à +35 min est ATTENDU et voulu
+#     (marge anti-rebouclage, voir Radio/README.md §7). Un surplus
+#     proche de zéro est un signal d'alerte, pas un progrès : le bloc
+#     s'épuiserait avant sa frontière, provoquant le micro-trou qui
+#     fait rejouer le message 2× (corrélation établie le 27/07/2026).
+# ──────────────────────────────────────────────────────────────
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dryrun:
+    name: Rotation en dry-run (aucune écriture)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances
+        run: |
+          pip install -r Radio/requirements.txt
+          pip install pytest
+
+      - name: Tests unitaires
+        run: python -m pytest Radio/ -q
+
+      - name: Rotation en dry-run
+        env:
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          python Radio/azuracast_rotation_4_blocs.py \
+            --config Radio/azuracast_rotation_config_option_a.example.json \
+            --state Radio/azuracast_rotation_state.json \
+            --dry-run --force-advance

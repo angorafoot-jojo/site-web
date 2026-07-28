@@ -80,6 +80,7 @@ Depuis le 26/07/2026, ces deux workflows ont **en plus un cron GitHub natif de s
 | `radio-test-playlists.yml` | manuel | `workflow_dispatch` | Test : vérifie les playlists via l'API |
 | `radio-test-liquidsoap-log.yml` | manuel | `workflow_dispatch` | Test : liste les logs serveur disponibles et inspecte le contenu brut du `liquidsoap.log` |
 | `radio-test-restart.yml` | manuel | `workflow_dispatch` | Test : restart AutoDJ + vérification du pointeur |
+| `radio-test-rotation-dryrun.yml` | manuel | `workflow_dispatch` | Test : tests unitaires + rotation complète en `--dry-run` contre la vraie médiathèque. **Aucune écriture** (ni playlists, ni état, ni plan, ni restart) ; permet de vérifier la composition des blocs avant une modification de la rotation |
 
 > 🛟 **Filet de sécurité sur la rotation et le reset (26/07/2026)** — `cron-job.org` déclenche les deux tâches les plus critiques, donc une panne du service arrête les deux à la fois. C'est arrivé **deux fois** : le 23/06 et surtout du **18 au 21/07 (3 nuits sans rotation)**, où la radio a rediffusé le contenu du 18/07 pendant 3 jours.
 >
