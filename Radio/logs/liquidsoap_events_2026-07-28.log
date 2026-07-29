@@ -671,3 +671,9 @@
 2026/07/28 22:15:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/07/28 22:15:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique- Mon modèle, c_est Jésus.mp3" (RID 334).
 2026/07/28 22:15:06 [clock.main:2] We must catchup 1.04 seconds!
+2026/07/28 23:59:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/72 - There is no name  - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/28 23:59:19 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/07/28 23:59:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/28 23:59:29 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/07/28 23:59:56 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/28 23:59:56 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
