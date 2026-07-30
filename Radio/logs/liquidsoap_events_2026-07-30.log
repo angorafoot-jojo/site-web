@@ -395,3 +395,15 @@
 2026/07/30 16:44:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_007.mp3" (RID 201).
 2026/07/30 16:48:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_007.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/07/30 16:48:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_008.mp3" (RID 202).
+2026/07/30 17:59:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_jean_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/30 18:00:00 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/07/30 18:00:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/30 18:00:08 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 10).
+2026/07/30 18:00:08 [schedule_switch:3] Switch to cue_playlist_bloc_d_serie_du_jour with forgetful transition.
+2026/07/30 18:00:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/30 18:00:17 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/legre_1_la_vie_des_œuvres_et_la_vie_de_lesprit.mp3" (RID 220).
+2026/07/30 18:00:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 221).
+2026/07/30 18:00:17 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/07/30 18:00:17 [dynamic_startup:3] Switch to cue_next_song.
+2026/07/30 18:00:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/30 18:00:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/legre_1_la_vie_des_œuvres_et_la_vie_de_lesprit.mp3" (RID 222).
