@@ -1,0 +1,25 @@
+2026/07/30 00:00:03 [clock.main:2] We must catchup 1.00 seconds!
+2026/07/30 00:00:04 [clock.main:2] We must catchup 1.36 seconds!
+2026/07/30 00:00:05 [clock.main:2] We must catchup 1.04 seconds!
+2026/07/30 00:01:23 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/07/30 00:01:23 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/07/30 00:01:23 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/07/30 00:01:23 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/07/30 00:01:24 [safe_fallback:3] Switch to error_jingle.
+2026/07/30 00:01:24 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 11).
+2026/07/30 00:01:24 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/07/30 00:01:24 [live_fallback:3] Switch to cross_0.
+2026/07/30 00:01:24 [interrupting_fallback:3] Switch to requests_fallback.
+2026/07/30 00:01:24 [requests_fallback:3] Switch to autodj_fallback.
+2026/07/30 00:01:24 [autodj_fallback:3] Switch to schedule_switch.
+2026/07/30 00:01:24 [schedule_switch:3] Switch to metadata.map_0.
+2026/07/30 00:01:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 14).
+2026/07/30 00:02:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/30 00:03:00 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 7).
+2026/07/30 00:03:00 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour with forgetful transition.
+2026/07/30 00:03:00 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/07/30 00:03:00 [dynamic_startup:3] Switch to cue_next_song.
+2026/07/30 00:05:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/30 00:05:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 15).
+2026/07/30 00:05:20 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/30 00:05:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/legre_1_la_vie_des_œuvres_et_la_vie_de_lesprit.mp3" (RID 16).
