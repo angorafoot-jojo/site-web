@@ -645,3 +645,5 @@
 2026/07/31 22:57:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/14 - Great & Marvelluos - Toronto HF.mp3" (RID 323).
 2026/07/31 23:09:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/14 - Great & Marvelluos - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/07/31 23:09:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/40 - I See Your Face - Toronto HF.mp3" (RID 324).
+2026/07/31 23:59:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-chist_-_4_minutes.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/07/31 23:59:28 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
