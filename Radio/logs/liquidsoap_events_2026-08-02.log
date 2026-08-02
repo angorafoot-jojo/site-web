@@ -92,3 +92,19 @@
 2026/08/02 03:40:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" (RID 47).
 2026/08/02 03:45:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/02 03:45:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/56 - Hashem - PHF.mp3" (RID 48).
+2026/08/02 05:59:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/galates_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 05:59:59 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/02 06:00:00 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 9).
+2026/08/02 06:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/02 06:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/02 06:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/02 06:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/02 06:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/02 06:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_b_serie_du_jour.
+2026/08/02 06:00:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 06:00:07 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/la_résurrection_des_morts_et_la_délivrance_de_lesclavage_de_la_corruption_-_part2.mp3" (RID 76).
+2026/08/02 06:00:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 77).
+2026/08/02 06:00:07 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/02 06:00:07 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/02 06:00:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 06:00:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/la_résurrection_des_morts_et_la_délivrance_de_lesclavage_de_la_corruption_-_part2.mp3" (RID 78).
