@@ -534,3 +534,69 @@
 2026/08/01 23:01:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantiques  Il a pris mes iniquités.mp3" (RID 271).
 2026/08/01 23:09:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantiques  Il a pris mes iniquités.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/01 23:09:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" (RID 272).
+2026/08/01 23:14:38 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:14:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/06 - Psalm 93 - Port Harcourt HF.mp3" (RID 273).
+2026/08/01 23:24:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/06 - Psalm 93 - Port Harcourt HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:24:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" (RID 274).
+2026/08/01 23:24:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:24:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_037.mp3" (RID 275).
+2026/08/01 23:28:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_037.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:28:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_038.mp3" (RID 276).
+2026/08/01 23:32:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:32:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:17 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_038.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:33:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/05 - There Is No Lie - SWBN TV.mp3" (RID 277).
+2026/08/01 23:33:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:33:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:08 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:09 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:10 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:12 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:12 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:14 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:14 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:15 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:15 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:16 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:16 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:57 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:58 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:58 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:58 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/01 23:40:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/05 - There Is No Lie - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:40:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" (RID 711).
+2026/08/01 23:46:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:46:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/07 - There is no Lie (Imah Adegoke & Mary Umoh).mp3" (RID 1117).
+2026/08/01 23:52:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/07 - There is no Lie (Imah Adegoke & Mary Umoh).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:52:55 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique Jahweh, Tu es élevé au dessus de tout (1).mp3" (RID 1118).
+2026/08/01 23:57:44 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique Jahweh, Tu es élevé au dessus de tout (1).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/01 23:57:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/09 - Not Naked (Abasiama Timothy).mp3" (RID 1119).
