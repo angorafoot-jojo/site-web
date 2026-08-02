@@ -87,6 +87,129 @@ def fetch_history(api_key: str, day: date) -> list[dict]:
         return json.load(response)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# IDENTIFICATION DES TITRES : quand AzuraCast ne sait pas ce qui passe.
+#
+# Au redémarrage de minuit, l'AutoDJ est indisponible quelques secondes :
+# Liquidsoap bascule sur sa source de repli et joue un fichier SANS passer par
+# la file de l'AutoDJ. AzuraCast n'en reçoit alors aucune métadonnée — l'entrée
+# d'historique arrive sans titre ni playlist, et le rapport affichait « ? »
+# (14 fois entre le 30/06 et le 01/08/2026, toujours le 1er titre du jour vers
+# 00h01 ; le now-playing des instantanés de minuit était vide lui aussi).
+#
+# Le log Liquidsoap, lui, journalise le fichier réellement mis à l'antenne
+# (« Prepared "/…/media/xxx.mp3" ») et la source qui l'a préparé. Il est déjà
+# archivé chaque heure par capture_liquidsoap_log.py : il n'y avait qu'à le
+# lire. Aucune nouvelle collecte, aucun appel réseau supplémentaire.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# « 2026/08/01 00:01:26 [playlist_000_transition:3] Prepared "/…/x.mp3" (RID 11). »
+_PREPARED_LINE = re.compile(
+    r'^(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[([^\]:]+):\d+\] Prepared "([^"]+)"'
+)
+
+# Écart admis entre le « Prepared » Liquidsoap et le passage à l'antenne
+# journalisé par AzuraCast. Mesuré sur les 2 130 titres des rapports du 22/07
+# au 01/08/2026 : le fichier est préparé 5 à 6 s avant, jamais au-delà de 2 min.
+PREPARED_MATCH_SECONDS = 120
+
+# Marqueur posé sur une entrée d'historique dont le titre ne vient pas
+# d'AzuraCast mais du log Liquidsoap. Le rapport l'affiche : un titre reconstitué
+# ne doit pas se faire passer pour une métadonnée d'origine.
+TITLE_SOURCE_KEY = "_title_source"
+
+# Texte affiché quand ni AzuraCast ni Liquidsoap ne savent ce qui a joué.
+UNIDENTIFIED_TITLE = "? — non identifié (ni métadonnée AzuraCast, ni trace Liquidsoap)"
+
+
+def parse_prepared_files(text: str) -> list[tuple[datetime, str, str]]:
+    """[(heure, source Liquidsoap, chemin du fichier)] des lignes « Prepared »,
+    triées par heure. Le tri est stable : plusieurs préparations dans la même
+    seconde (repli puis reprise de l'AutoDJ) gardent l'ordre du log, et la
+    dernière — celle qui l'emporte à l'antenne — reste la dernière."""
+    prepared = []
+    for line in text.splitlines():
+        m = _PREPARED_LINE.match(line)
+        if not m:
+            continue
+        try:
+            dt = datetime.strptime(m.group(1), "%Y/%m/%d %H:%M:%S").replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        prepared.append((dt, m.group(2), m.group(3)))
+    prepared.sort(key=lambda p: p[0])
+    return prepared
+
+
+def title_from_media_path(path: str) -> str:
+    """Titre lisible déduit du chemin du fichier joué.
+
+    Les médias de la station sont nommés d'après leur titre
+    (« jingles_de_transition_1.mp3 » → « jingles de transition 1 »). Le rendu
+    peut différer du tag ID3 qu'AzuraCast affiche d'habitude (« genèse 001 »
+    contre « Genèse 1 ») : c'est un titre de secours, exploitable par un
+    humain, pas une clé de comparaison avec le plan."""
+    name = path.rsplit("/", 1)[-1].rsplit(".", 1)[0].replace("_", " ")
+    name = re.sub(r"\s+", " ", name).strip()
+    # error.mp3 d'Icecast : fichier du serveur, absent de la médiathèque —
+    # le nommer « error » tout court n'apprendrait rien au lecteur.
+    if "/media/" not in path:
+        return f"{name} (fichier serveur, hors médiathèque)"
+    return name
+
+
+def playlist_from_source(source: str) -> str:
+    """Nom de playlist AzuraCast déduit de la source Liquidsoap qui a préparé le
+    fichier (« playlist_000_transition » → « 000_TRANSITION »). Vide pour les
+    sources qui n'en portent pas (next_song, error_jingle, dynamic_startup…)."""
+    return source[len("playlist_"):].upper() if source.startswith("playlist_") else ""
+
+
+def resolve_missing_titles(history: list[dict],
+                           server_text: str) -> tuple[list[dict], list[dict]]:
+    """Complète, depuis le log Liquidsoap, les entrées dont AzuraCast ignore le
+    titre. Renvoie (historique complété, entrées restées non identifiées).
+
+    Appariement : le dernier fichier préparé au plus tard à l'heure du passage
+    à l'antenne, dans la limite de PREPARED_MATCH_SECONDS. Vérifié sur les
+    rapports du 22/07 au 01/08/2026 : cette règle retrouve 97 % des titres que
+    l'historique connaissait déjà, et les 6 titres inconnus de la période sont
+    tous identifiés (jingle de transition joué pendant le restart de minuit).
+
+    Les entrées sont recopiées : l'historique d'origine n'est pas modifié.
+    Balayage linéaire par entrée à compléter — elles se comptent sur les doigts
+    d'une main par jour, un index serait de la complexité sans gain."""
+    prepared = parse_prepared_files(server_text)
+    filled_history, unidentified = [], []
+    for entry in history:
+        if (entry.get("song") or {}).get("title"):
+            filled_history.append(entry)
+            continue
+        played_at = datetime.fromtimestamp(entry["played_at"], tz=timezone.utc)
+        match = None
+        for prep_dt, source, path in prepared:
+            if prep_dt > played_at:
+                break
+            if (played_at - prep_dt).total_seconds() <= PREPARED_MATCH_SECONDS:
+                match = (source, path)
+        if not match:
+            unidentified.append(entry)
+            filled_history.append(entry)
+            continue
+        source, path = match
+        filled = dict(entry)
+        filled["song"] = {**(entry.get("song") or {}), "title": title_from_media_path(path)}
+        filled["playlist"] = entry.get("playlist") or playlist_from_source(source)
+        filled[TITLE_SOURCE_KEY] = "liquidsoap"
+        filled_history.append(filled)
+    return filled_history, unidentified
+
+
+def resolved_entries(history: list[dict], day: date) -> list[dict]:
+    """Entrées du jour dont le titre a été reconstitué depuis le log Liquidsoap."""
+    return [e for e in _day_entries(history, day) if e.get(TITLE_SOURCE_KEY)]
+
+
 def iter_day_playback(history: list[dict], day: date):
     """Pour chaque titre joué le jour `day`, sa durée réelle (écart avec le
     lancement du titre suivant) comparée à la durée du fichier.
@@ -106,6 +229,7 @@ def iter_day_playback(history: list[dict], day: date):
             "expected": entry.get("duration") or 0,
             "title": (entry.get("song") or {}).get("title") or "?",
             "playlist": entry.get("playlist") or "?",
+            "title_source": entry.get(TITLE_SOURCE_KEY, "azuracast"),
         }
         if i + 1 < len(entries):
             actual = entries[i + 1]["played_at"] - entry["played_at"]
@@ -147,9 +271,18 @@ def build_report(history: list[dict], day: date) -> tuple[str, int]:
                 status, shown_gap = "✅", f"{gap:+d}s"
             actual_str = fmt_duration(p["actual"])
 
+        # D'où sort le titre : métadonnée AzuraCast (cas normal, rien à dire),
+        # reconstitution depuis le log serveur, ou aucune des deux.
+        if p["title_source"] == "liquidsoap":
+            title = f"{p['title']}   ← titre reconstitué depuis le log Liquidsoap"
+        elif p["title"] == "?":
+            title = UNIDENTIFIED_TITLE
+        else:
+            title = p["title"]
+
         lines.append(
             f"{p['dt']:%H:%M:%S} {p['playlist'][:28]:28s} {fmt_duration(expected):>10s} "
-            f"{actual_str:>10s} {shown_gap:>8s}  {status}  {p['title']}"
+            f"{actual_str:>10s} {shown_gap:>8s}  {status}  {title}"
         )
 
     bilan = (
@@ -426,6 +559,7 @@ def build_health_section(history: list[dict], day: date, plan: dict | None) -> s
             "title": (e.get("song") or {}).get("title") or "?",
             "playlist": e.get("playlist") or "?",
             "duration": e.get("duration") or 0,
+            "title_source": e.get(TITLE_SOURCE_KEY, "azuracast"),
         }
         for e in entries
     ]
@@ -513,18 +647,26 @@ def build_health_section(history: list[dict], day: date, plan: dict | None) -> s
     else:
         lines.append("HORS FENÊTRE : aucun débordement de bloc détecté ✅")
 
-    # --- 4. Bouche-trous : titres inconnus du plan ET sans playlist identifiée
-    #     (« AzuraCast is Live! », titre « ? »… = l'AutoDJ a comblé un vide).
+    # --- 4. Bouche-trous : titres inconnus du plan ET dont AzuraCast n'a pas su
+    #     dire ce qu'ils étaient (« AzuraCast is Live! », titre ou playlist
+    #     absents) = l'AutoDJ a comblé un vide. Un titre reconstitué depuis le
+    #     log Liquidsoap reste un bouche-trou : le connaître ne le rend pas
+    #     prévu — c'est justement le symptôme d'un passage hors AutoDJ.
     plan_norms = set(owner)
     fillers = [p for p in played
                if p["norm"] not in plan_norms
                and (p["playlist"] == "?" or p["title"] == "?"
+                    or p["title_source"] == "liquidsoap"
                     or p["norm"].startswith("azuracastislive"))]
     if fillers:
         lines.append(f"BOUCHE-TROUS : {len(fillers)} titre(s) hors plan sans playlist ⚠️")
         for p in fillers[:8]:
+            origin = ("  ← titre reconstitué depuis le log Liquidsoap"
+                      if p["title_source"] == "liquidsoap" else "")
+            title = UNIDENTIFIED_TITLE if p["title"] == "?" else p["title"]
             lines.append(
-                f"   {p['dt']:%H:%M:%S}  {p['title']}  ({fmt_duration(p['duration'])})")
+                f"   {p['dt']:%H:%M:%S}  {title}  ({fmt_duration(p['duration'])})"
+                f"{origin}")
     else:
         lines.append("BOUCHE-TROUS : aucun ✅")
 
@@ -722,6 +864,12 @@ def load_sibling_logs(day: date, output_dir: str | Path) -> dict[str, str]:
 
     return {
         "server": read(f"liquidsoap_events_{day.isoformat()}.log"),
+        # Veille : un titre lancé dans les toutes premières secondes du jour a
+        # été « Prepared » la veille — sans quoi il resterait non identifiable.
+        # Réservé à l'identification des titres : le moniteur ne corrèle que
+        # les incidents du jour (`server`), une archive de la veille ne doit
+        # pas faire croire que celle du jour existe.
+        "server_prev": read(f"liquidsoap_events_{(day - timedelta(days=1)).isoformat()}.log"),
         "midnight": read(f"midnight_watch_{day.isoformat()}.log"),
         "boundary": read(f"boundary_watch_{day.isoformat()}.log"),
     }
@@ -763,6 +911,27 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
             lines.append(f"   {g['start']:%H:%M:%S}  {INCIDENT_LABELS[g['category']]}{count}")
         if len(groups) > 12:
             lines.append(f"   …(+{len(groups) - 12} autre(s))")
+
+    # --- Identification des titres qu'AzuraCast n'a pas su nommer ---
+    # Sans cette ligne, un titre reconstitué passerait pour une métadonnée
+    # d'origine, et un « ? » resterait sans explication.
+    recovered = resolved_entries(history, day)
+    lost = [e for e in _day_entries(history, day)
+            if not (e.get("song") or {}).get("title")]
+    if recovered or lost:
+        lines.append(
+            f"IDENTIFICATION : {len(recovered) + len(lost)} titre(s) sans métadonnée "
+            f"AzuraCast (passage hors file AutoDJ, typiquement au restart de minuit) · "
+            f"{len(recovered)} retrouvé(s) dans le log Liquidsoap"
+            + (f" · {len(lost)} non identifiable(s) ⚠️" if lost else " ✅")
+        )
+        for e in recovered[:5]:
+            dt = datetime.fromtimestamp(e["played_at"], tz=timezone.utc)
+            lines.append(f"   {dt:%H:%M:%S}  {(e.get('song') or {}).get('title')}  "
+                         f"(playlist {e.get('playlist') or '?'})")
+        for e in lost[:5]:
+            dt = datetime.fromtimestamp(e["played_at"], tz=timezone.utc)
+            lines.append(f"   {dt:%H:%M:%S}  {UNIDENTIFIED_TITLE}")
 
     # --- Reset minuit / garde de frontière (midnight/boundary_watch) ---
     if midnight is None and boundary is None:
@@ -854,6 +1023,16 @@ def main() -> int:
 
     plan = load_plan(day, args.plans_dir)
     logs = load_sibling_logs(day, args.output_dir)
+
+    # Titres qu'AzuraCast n'a pas su nommer : complétés depuis le log
+    # Liquidsoap AVANT toute analyse, pour que le tableau, le moniteur, les
+    # contrôles et « réel vs prévu » travaillent tous sur le même historique.
+    history, unidentified = resolve_missing_titles(
+        history, logs["server_prev"] + logs["server"])
+    if unidentified:
+        print(f"⚠️  {len(unidentified)} titre(s) sans métadonnée AzuraCast ET sans "
+              f"ligne « Prepared » Liquidsoap — non identifiables.")
+
     # Le moniteur (synthèse + corrélation des 3 rapports) ouvre le fichier ;
     # viennent ensuite le détail titre par titre, les contrôles et le plan.
     body, problems = build_report(history, day)

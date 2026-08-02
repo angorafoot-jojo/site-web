@@ -11,7 +11,10 @@ from playback_report import (norm_title, build_plan_section, build_health_sectio
                              classify_server_line, parse_server_events,
                              group_incidents, playback_incidents,
                              parse_watch_records, summarize_watch,
-                             nearest_incident, build_monitor_section)
+                             nearest_incident, build_monitor_section,
+                             parse_prepared_files, title_from_media_path,
+                             playlist_from_source, resolve_missing_titles,
+                             load_sibling_logs, TITLE_SOURCE_KEY)
 
 JOUR = date(2026, 6, 25)
 
@@ -492,6 +495,150 @@ def test_monitor_signale_archives_absentes():
     assert "archive liquidsoap_events absente" in out
     assert "aucun instantané de surveillance" in out
     assert "archive serveur absente — cause non déterminable" in out
+
+
+# ── Identification des titres qu'AzuraCast n'a pas su nommer ────────────────
+# Cas réel : au restart de minuit, Liquidsoap joue un jingle via sa source de
+# repli, hors file AutoDJ — AzuraCast journalise l'entrée sans titre ni
+# playlist et le rapport affichait « ? » (14 fois du 30/06 au 01/08/2026).
+
+MEDIA = "/var/azuracast/stations/evangile_du_royaume/media"
+
+
+def prep(h, m, s, source, path):
+    """Ligne « Prepared » du log Liquidsoap."""
+    return f'2026/06/25 {h:02d}:{m:02d}:{s:02d} [{source}:3] Prepared "{path}" (RID 11).'
+
+
+def sans_titre(h, m, s):
+    """Entrée d'historique arrivée sans métadonnée (repli hors AutoDJ)."""
+    return {"played_at": ts(h, m, s), "duration": 95, "playlist": "", "song": {"title": ""}}
+
+
+def test_titre_deduit_du_chemin_du_media():
+    assert title_from_media_path(f"{MEDIA}/jingles_de_transition_1.mp3") \
+        == "jingles de transition 1"
+    assert title_from_media_path(f"{MEDIA}/La bible/genèse_001.mp3") == "genèse 001"
+
+
+def test_titre_hors_mediatheque_est_signale_comme_tel():
+    # error.mp3 d'Icecast : « error » tout court n'apprendrait rien au lecteur.
+    out = title_from_media_path("/usr/local/share/icecast/web/error.mp3")
+    assert out == "error (fichier serveur, hors médiathèque)"
+
+
+def test_playlist_deduite_de_la_source_liquidsoap():
+    assert playlist_from_source("playlist_000_transition") == "000_TRANSITION"
+    assert playlist_from_source("playlist_bloc_a_serie_du_jour") == "BLOC_A_SERIE_DU_JOUR"
+    # Sources qui ne portent aucune playlist : ne rien inventer.
+    assert playlist_from_source("next_song") == ""
+    assert playlist_from_source("error_jingle") == ""
+
+
+def test_parse_prepared_garde_l_ordre_du_log_dans_la_seconde():
+    # Bascule sur le jingle d'erreur puis reprise 1 s plus tard : c'est la
+    # DERNIÈRE préparation qui tient l'antenne.
+    text = "\n".join([
+        prep(0, 1, 25, "error_jingle", "/usr/local/share/icecast/web/error.mp3"),
+        prep(0, 1, 25, "playlist_000_transition", f"{MEDIA}/jingles_de_transition_1.mp3"),
+        "ligne non datée ignorée",
+    ])
+    prepared = parse_prepared_files(text)
+    assert [p[1] for p in prepared] == ["error_jingle", "playlist_000_transition"]
+
+
+def test_titre_manquant_retrouve_dans_le_log_liquidsoap():
+    history = [sans_titre(0, 1, 31)]
+    server = "\n".join([
+        prep(0, 1, 25, "error_jingle", "/usr/local/share/icecast/web/error.mp3"),
+        prep(0, 1, 26, "playlist_000_transition", f"{MEDIA}/jingles_de_transition_1.mp3"),
+    ])
+    filled, unidentified = resolve_missing_titles(history, server)
+    assert unidentified == []
+    assert filled[0]["song"]["title"] == "jingles de transition 1"
+    assert filled[0]["playlist"] == "000_TRANSITION"
+    assert filled[0][TITLE_SOURCE_KEY] == "liquidsoap"
+    # L'historique d'origine n'est pas modifié.
+    assert history[0]["song"]["title"] == ""
+
+
+def test_titre_connu_d_azuracast_n_est_jamais_ecrase():
+    history = [entry("Genèse 1", 1, 18, 26, duration=348)]
+    server = prep(1, 18, 21, "next_song", f"{MEDIA}/La bible/genèse_001.mp3")
+    filled, _ = resolve_missing_titles(history, server)
+    assert filled[0]["song"]["title"] == "Genèse 1"
+    assert TITLE_SOURCE_KEY not in filled[0]
+
+
+def test_prepared_trop_ancien_ou_posterieur_n_est_pas_apparie():
+    history = [sans_titre(0, 10, 0)]
+    trop_vieux = prep(0, 5, 0, "playlist_000_transition", f"{MEDIA}/vieux.mp3")
+    posterieur = prep(0, 10, 5, "playlist_000_transition", f"{MEDIA}/suivant.mp3")
+    filled, unidentified = resolve_missing_titles(history, f"{trop_vieux}\n{posterieur}")
+    assert len(unidentified) == 1
+    assert filled[0]["song"]["title"] == ""
+
+
+def test_sans_archive_liquidsoap_le_titre_reste_non_identifie():
+    filled, unidentified = resolve_missing_titles([sans_titre(0, 1, 31)], "")
+    assert len(unidentified) == 1
+    assert TITLE_SOURCE_KEY not in filled[0]
+
+
+def test_rapport_affiche_la_provenance_du_titre_reconstitue():
+    server = prep(0, 1, 26, "playlist_000_transition",
+                  f"{MEDIA}/jingles_de_transition_1.mp3")
+    history, _ = resolve_missing_titles(
+        [sans_titre(0, 1, 31), entry("pqe j1", 0, 4, 42, duration=1800)], server)
+    out, _ = build_report(history, JOUR)
+    assert "jingles de transition 1   ← titre reconstitué depuis le log Liquidsoap" in out
+    assert "  ?\n" not in out
+
+
+def test_rapport_explicite_un_titre_non_identifiable():
+    history, _ = resolve_missing_titles([sans_titre(0, 1, 31)], "")
+    out, _ = build_report(history, JOUR)
+    assert "ni métadonnée AzuraCast, ni trace Liquidsoap" in out
+
+
+def test_moniteur_annonce_les_titres_retrouves():
+    server = prep(0, 1, 26, "playlist_000_transition",
+                  f"{MEDIA}/jingles_de_transition_1.mp3")
+    history, _ = resolve_missing_titles([sans_titre(0, 1, 31)], server)
+    out = build_monitor_section(history, JOUR, plan_2_blocs(),
+                                {"server": server, "midnight": "", "boundary": ""})
+    assert "IDENTIFICATION : 1 titre(s) sans métadonnée AzuraCast" in out
+    assert "1 retrouvé(s) dans le log Liquidsoap ✅" in out
+    assert "00:01:31  jingles de transition 1  (playlist 000_TRANSITION)" in out
+
+
+def test_moniteur_muet_quand_tous_les_titres_sont_connus():
+    h = [entry("pqe j1", 0, 1, duration=1800)]
+    out = build_monitor_section(h, JOUR, plan_2_blocs(),
+                                {"server": "", "midnight": "", "boundary": ""})
+    assert "IDENTIFICATION" not in out
+
+
+def test_titre_reconstitue_reste_un_bouche_trou():
+    # Connaître le nom du jingle ne le rend pas prévu : il a joué hors AutoDJ,
+    # le contrôle doit continuer à le signaler — avec son nom, cette fois.
+    server = prep(0, 1, 26, "playlist_000_transition",
+                  f"{MEDIA}/jingles_de_transition_1.mp3")
+    history, _ = resolve_missing_titles(
+        [sans_titre(0, 1, 31), entry("pqe j1", 0, 4, duration=1800)], server)
+    out = build_health_section(history, JOUR, plan_2_blocs())
+    assert "BOUCHE-TROUS : 1 titre(s)" in out
+    assert "jingles de transition 1" in out
+    assert "← titre reconstitué depuis le log Liquidsoap" in out
+
+
+def test_prepared_de_la_veille_charge_pour_les_titres_d_apres_minuit(tmp_path):
+    veille = f'2026/06/24 23:59:58 [playlist_000_transition:3] Prepared "{MEDIA}/x.mp3" (RID 1).'
+    (tmp_path / "liquidsoap_events_2026-06-24.log").write_text(veille, encoding="utf-8")
+    logs = load_sibling_logs(JOUR, tmp_path)
+    assert logs["server_prev"] == veille
+    # L'archive du jour reste vide : le moniteur doit continuer à le dire.
+    assert logs["server"] == ""
 
 
 if __name__ == "__main__":
