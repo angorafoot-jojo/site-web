@@ -394,3 +394,20 @@
 2026/08/03 15:08:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/48 - The Glory -  PHF.mp3" (RID 195).
 2026/08/03 15:15:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/48 - The Glory -  PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/03 15:15:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/75 - How Precious Oh Lord.mp3" (RID 196).
+2026/08/03 17:59:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/08 - You're the Lamb (Abasiama Timothy).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 17:59:02 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/03 17:59:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 17:59:12 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/03 17:59:39 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 17:59:39 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/03 18:00:00 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" (RID 11).
+2026/08/03 18:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/03 18:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/03 18:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/03 18:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/03 18:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/03 18:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_d_serie_du_jour.
+2026/08/03 18:00:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 18:00:06 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/aa_la_révélation_de_la_victoire_du_fils_mâle.mp3" (RID 234).
+2026/08/03 18:00:07 [clock.main:2] We must catchup 1.53 seconds!
+2026/08/03 18:00:09 [clock.main:2] We must catchup 1.05 seconds!
