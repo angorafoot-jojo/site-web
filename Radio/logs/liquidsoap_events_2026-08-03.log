@@ -446,3 +446,40 @@
 2026/08/03 19:49:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/80 - I Will Call Upon The Lord.mp3" (RID 250).
 2026/08/03 19:54:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/80 - I Will Call Upon The Lord.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/03 19:54:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/36 - Praise the Lord of Host - Toronto HF.mp3" (RID 251).
+2026/08/03 20:01:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/36 - Praise the Lord of Host - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:01:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/24 - We Ascribe Greatness - Abuja HF.mp3" (RID 252).
+2026/08/03 20:07:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/24 - We Ascribe Greatness - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:07:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" (RID 253).
+2026/08/03 20:11:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:11:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/72 - There is no name  - Winnipeg Fellowship.mp3" (RID 254).
+2026/08/03 20:18:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/72 - There is no name  - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:18:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/34 - Great and Marvellous - Ketu HF.mp3" (RID 255).
+2026/08/03 20:26:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/34 - Great and Marvellous - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:26:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/88 - Good God - Asaba Fellowship.mp3" (RID 256).
+2026/08/03 20:33:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/88 - Good God - Asaba Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:33:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/41 - Abba, Singing a, I Will Sing - Ketu HF.mp3" (RID 257).
+2026/08/03 20:39:05 [clock.main:2] We must catchup 0.48 seconds!
+2026/08/03 20:43:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/41 - Abba, Singing a, I Will Sing - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:43:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 258).
+2026/08/03 20:43:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:43:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/3_jean_001.mp3" (RID 259).
+2026/08/03 20:45:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/3_jean_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:45:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_006.mp3" (RID 260).
+2026/08/03 20:49:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:49:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_007.mp3" (RID 261).
+2026/08/03 20:52:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:52:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_008.mp3" (RID 262).
+2026/08/03 20:58:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 20:58:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_009.mp3" (RID 263).
+2026/08/03 21:03:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 21:03:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_010.mp3" (RID 264).
+2026/08/03 21:06:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_010.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 21:06:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_011.mp3" (RID 265).
+2026/08/03 21:11:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/romains_011.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 21:11:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 266).
+2026/08/03 21:11:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 21:11:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" (RID 267).
+2026/08/03 21:18:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 21:18:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/01 - There Is Forgiveness In Thee - SWBN TV.mp3" (RID 268).
+2026/08/03 21:24:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/01 - There Is Forgiveness In Thee - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/03 21:24:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/07 - There is no Lie (Imah Adegoke & Mary Umoh).mp3" (RID 269).
