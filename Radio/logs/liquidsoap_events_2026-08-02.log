@@ -484,3 +484,89 @@
 2026/08/02 23:04:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" (RID 265).
 2026/08/02 23:11:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/02 23:11:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/60 - Be Exalted - PHF.mp3" (RID 266).
+2026/08/02 23:22:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/60 - Be Exalted - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 23:22:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" (RID 267).
+2026/08/02 23:22:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 23:22:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_024.mp3" (RID 268).
+2026/08/02 23:25:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_024.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 23:25:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_025.mp3" (RID 269).
+2026/08/02 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:46 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:46 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:46 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:50 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:32:51 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:36 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_025.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/14 - Great & Marvelluos - Toronto HF.mp3" (RID 270).
+2026/08/02 23:33:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:34:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:02 [clock.main:2] We must catchup 1.01 seconds!
+2026/08/02 23:35:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:35:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/02 23:45:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/14 - Great & Marvelluos - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 23:45:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/28 - He Shall Feed His Flock - I Want to walk  - Ketu HF.mp3" (RID 658).
+2026/08/02 23:50:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/28 - He Shall Feed His Flock - I Want to walk  - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 23:50:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" (RID 1063).
+2026/08/02 23:54:38 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/02 23:54:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/13 - For By My God - Toronto & Winnipeg HF.mp3" (RID 1064).
