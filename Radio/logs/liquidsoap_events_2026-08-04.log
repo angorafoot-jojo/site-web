@@ -375,3 +375,15 @@
 2026/08/04 15:26:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/15 - Satisfy My Soul - Calabar HF.mp3" (RID 190).
 2026/08/04 15:32:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/15 - Satisfy My Soul - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/04 15:32:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/84 - Song Of Victory - Emmanuel Igunbor.mp3" (RID 191).
+2026/08/04 17:59:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_rois_013.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 17:59:49 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/04 18:00:00 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 11).
+2026/08/04 18:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/04 18:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/04 18:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/04 18:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/04 18:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/04 18:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_d_serie_du_jour.
+2026/08/04 18:00:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 18:00:08 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2017_ndimy_distraction_comme_aux_jours_de_noe_et_lot_1-2.mp3" (RID 224).
+2026/08/04 18:00:09 [clock.main:2] We must catchup 1.37 seconds!
