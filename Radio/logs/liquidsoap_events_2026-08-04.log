@@ -387,3 +387,10 @@
 2026/08/04 18:00:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/04 18:00:08 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2017_ndimy_distraction_comme_aux_jours_de_noe_et_lot_1-2.mp3" (RID 224).
 2026/08/04 18:00:09 [clock.main:2] We must catchup 1.37 seconds!
+2026/08/04 19:02:11 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/2017_ndimy_distraction_comme_aux_jours_de_noe_et_lot_1-2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 19:02:11 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 225).
+2026/08/04 19:02:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 226).
+2026/08/04 19:02:11 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/04 19:02:11 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/04 19:02:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 19:02:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2017_ndimy_distraction_comme_aux_jours_de_noe_et_lot_1-2.mp3" (RID 227).
