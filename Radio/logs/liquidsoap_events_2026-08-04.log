@@ -492,3 +492,37 @@
 2026/08/04 23:08:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_004.mp3" (RID 275).
 2026/08/04 23:14:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_004.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/04 23:14:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_005.mp3" (RID 276).
+2026/08/04 23:34:17 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:20 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:20 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:20 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:34:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:16 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:35:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/04 23:37:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 23:37:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_6_minutes.mp3" (RID 280).
+2026/08/04 23:44:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_6_minutes.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 23:44:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/48 - The Glory -  PHF.mp3" (RID 1149).
+2026/08/04 23:51:23 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/48 - The Glory -  PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 23:51:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique l_Éternel est mon Berger (1).mp3" (RID 1150).
+2026/08/04 23:57:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique l_Éternel est mon Berger (1).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/04 23:57:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" (RID 1151).
