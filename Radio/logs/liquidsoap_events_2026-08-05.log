@@ -78,3 +78,19 @@
 2026/08/05 03:21:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/19 - You're the Lamb - Calabar HF.mp3" (RID 44).
 2026/08/05 03:30:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/19 - You're the Lamb - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/05 03:30:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___il_s_est_lui-même_humilié.mp3" (RID 45).
+2026/08/05 05:59:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/05 05:59:03 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/05 05:59:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/05 05:59:13 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/05 05:59:40 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/05 05:59:40 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/05 06:00:00 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 8).
+2026/08/05 06:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/05 06:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/05 06:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/05 06:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/05 06:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/05 06:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_b_serie_du_jour.
+2026/08/05 06:00:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/05 06:00:07 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2017_ndimy_distraction_comme_aux_jours_de_noe_et_lot_2-2.mp3" (RID 81).
+2026/08/05 06:00:09 [clock.main:2] We must catchup 1.78 seconds!
