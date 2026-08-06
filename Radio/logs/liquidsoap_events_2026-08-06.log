@@ -61,3 +61,16 @@
 2026/08/06 03:25:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/75 - How Precious Oh Lord.mp3" (RID 32).
 2026/08/06 03:30:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/75 - How Precious Oh Lord.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/06 03:30:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/07 - Baruch Ha'ba B'Shem Adonai⧸Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF.mp3" (RID 33).
+2026/08/06 05:59:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_pierre_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/06 05:59:28 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/06 05:59:34 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/06 05:59:37 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/06 06:00:00 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 8).
+2026/08/06 06:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/06 06:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/06 06:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/06 06:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/06 06:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/06 06:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_b_serie_du_jour.
+2026/08/06 06:00:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/06 06:00:07 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/bosson_1_la_marche_avec_dieu.mp3" (RID 66).
