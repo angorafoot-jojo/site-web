@@ -208,3 +208,9 @@
 2026/08/06 15:14:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/40 - I See Your Face - Toronto HF.mp3" (RID 131).
 2026/08/06 15:23:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/40 - I See Your Face - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/06 15:23:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/08 - You're the Lamb (Abasiama Timothy).mp3" (RID 132).
+2026/08/06 23:59:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___ta_lumière.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/06 23:59:29 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/06 23:59:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/06 23:59:40 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/06 23:59:44 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/06 23:59:44 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
