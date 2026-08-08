@@ -176,3 +176,20 @@
 2026/08/08 05:53:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_005.mp3" (RID 85).
 2026/08/08 05:56:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_005.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/08 05:56:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_006.mp3" (RID 86).
+2026/08/08 05:57:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 05:57:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_007.mp3" (RID 87).
+2026/08/08 06:00:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 06:00:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 88).
+2026/08/08 06:00:04 [clock.main:2] We must catchup 1.07 seconds!
+2026/08/08 06:00:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 06:00:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/bosson_1_la_marche_avec_dieu(2).mp3" (RID 89).
+2026/08/08 07:06:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/bosson_1_la_marche_avec_dieu(2).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 07:06:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 90).
+2026/08/08 07:06:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 07:06:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_thessaloniciens_001.mp3" (RID 91).
+2026/08/08 07:08:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_thessaloniciens_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 07:08:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_thessaloniciens_002.mp3" (RID 92).
+2026/08/08 07:11:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_thessaloniciens_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 07:11:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_thessaloniciens_003.mp3" (RID 93).
+2026/08/08 07:14:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_thessaloniciens_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 07:14:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_thessaloniciens_004.mp3" (RID 94).
