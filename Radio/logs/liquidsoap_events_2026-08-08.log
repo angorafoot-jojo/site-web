@@ -581,3 +581,90 @@
 2026/08/08 22:39:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_jai_donné_ma_vie_à_jésus_(1).mp3" (RID 281).
 2026/08/08 22:43:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_jai_donné_ma_vie_à_jésus_(1).mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/08 22:43:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/46 - Praise the Lord All Ye Nations - Toronto HF.mp3" (RID 282).
+2026/08/08 23:29:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_019.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 23:29:07 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/08 23:29:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 23:29:16 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/08 23:29:37 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 23:29:37 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/08 23:30:00 [playlist_bloc_e_louange_nuit:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/04 - Yahweh Is Mighty - SWBN TV.mp3" (RID 12).
+2026/08/08 23:30:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/08 23:30:00 [live_fallback:3] Switch to cross_0.
+2026/08/08 23:30:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/08 23:30:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/08 23:30:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/08 23:30:00 [schedule_switch:3] Switch to cue_playlist_bloc_e_louange_nuit.
+2026/08/08 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:46 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:46 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:36 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:36 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:36 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/08 23:38:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/04 - Yahweh Is Mighty - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 23:38:15 [playlist_bloc_e_louange_nuit:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/30 - Yeshua I'm Waiting for You  - Ketu HF.mp3" (RID 1220).
+2026/08/08 23:38:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/04 - The King is Here (Abasiama Timothy).mp3" (RID 292).
+2026/08/08 23:38:15 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/08 23:38:15 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/08 23:44:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/04 - The King is Here (Abasiama Timothy).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 23:44:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_10_minutes.mp3" (RID 1229).
