@@ -303,3 +303,17 @@
 2026/08/08 10:50:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/08 10:50:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/03 - Agunechemba - SWBN TV.mp3" (RID 148).
 2026/08/08 10:50:03 [clock.main:2] We must catchup 1.10 seconds!
+2026/08/08 10:58:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/03 - Agunechemba - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 10:58:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" (RID 149).
+2026/08/08 11:05:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:05:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/60 - Be Exalted - PHF.mp3" (RID 150).
+2026/08/08 11:15:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/60 - Be Exalted - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:15:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/30 - Yeshua I'm Waiting for You  - Ketu HF.mp3" (RID 151).
+2026/08/08 11:20:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/30 - Yeshua I'm Waiting for You  - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:20:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/41 - Abba, Singing a, I Will Sing - Ketu HF.mp3" (RID 152).
+2026/08/08 11:31:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/41 - Abba, Singing a, I Will Sing - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:31:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" (RID 153).
+2026/08/08 11:42:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:42:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" (RID 154).
+2026/08/08 11:42:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:42:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_024.mp3" (RID 155).
