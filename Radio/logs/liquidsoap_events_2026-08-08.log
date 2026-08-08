@@ -317,3 +317,33 @@
 2026/08/08 11:42:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" (RID 154).
 2026/08/08 11:42:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/08 11:42:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_024.mp3" (RID 155).
+2026/08/08 11:45:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_024.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:45:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_025.mp3" (RID 156).
+2026/08/08 11:53:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_025.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:53:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_026.mp3" (RID 157).
+2026/08/08 11:57:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_026.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:57:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_027.mp3" (RID 158).
+2026/08/08 11:59:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_samuel_027.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:59:43 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/08 11:59:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 11:59:54 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/08 12:00:00 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 9).
+2026/08/08 12:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/08 12:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/08 12:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/08 12:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/08 12:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/08 12:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_c_serie_du_jour.
+2026/08/08 12:00:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 12:00:10 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/bosson_1_la_marche_avec_dieu(2).mp3" (RID 160).
+2026/08/08 13:06:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/bosson_1_la_marche_avec_dieu(2).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 13:06:29 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 161).
+2026/08/08 13:06:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 162).
+2026/08/08 13:06:29 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/08 13:06:29 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/08 13:06:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 13:06:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 163).
+2026/08/08 13:06:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 13:06:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ézéchiel_029.mp3" (RID 164).
+2026/08/08 13:10:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ézéchiel_029.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 13:10:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ézéchiel_030.mp3" (RID 165).
