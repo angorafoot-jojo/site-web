@@ -668,3 +668,7 @@
 2026/08/08 23:38:15 [dynamic_startup:3] Switch to cue_next_song.
 2026/08/08 23:44:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/04 - The King is Here (Abasiama Timothy).mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/08 23:44:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_10_minutes.mp3" (RID 1229).
+2026/08/08 23:53:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_10_minutes.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 23:53:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" (RID 1230).
+2026/08/08 23:57:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/08 23:57:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/42 - God is Building - Will You Be - Ketu HF.mp3" (RID 1231).
