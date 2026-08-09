@@ -408,3 +408,80 @@
 2026/08/09 22:46:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" (RID 210).
 2026/08/09 22:46:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/09 22:46:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/02 - Unto Him (Vincent Opara).mp3" (RID 211).
+2026/08/09 23:29:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:29:07 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/09 23:29:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:29:21 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/09 23:29:31 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:29:32 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/09 23:29:59 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:29:59 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/09 23:30:00 [playlist_bloc_e_louange_nuit:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" (RID 12).
+2026/08/09 23:30:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/09 23:30:00 [live_fallback:3] Switch to cross_0.
+2026/08/09 23:30:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/09 23:30:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/09 23:30:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/09 23:30:00 [schedule_switch:3] Switch to cue_playlist_bloc_e_louange_nuit.
+2026/08/09 23:32:10 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:11 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:14 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:14 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:15 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:16 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:17 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:20 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:32:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:00 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:01 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:02 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:04 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:06 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:07 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:08 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:10 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:10 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:10 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:11 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:12 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:33:19 [playlist_bloc_e_louange_nuit:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/59 - Ascribe Greatness - PHF.mp3" (RID 596).
+2026/08/09 23:33:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/32 - There is A Mighty River Flowing - Ketu HF.mp3" (RID 218).
+2026/08/09 23:33:19 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/09 23:33:19 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/09 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/09 23:40:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/32 - There is A Mighty River Flowing - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:40:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" (RID 629).
