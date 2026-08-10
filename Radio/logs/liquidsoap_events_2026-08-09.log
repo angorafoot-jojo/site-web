@@ -485,3 +485,7 @@
 2026/08/09 23:34:25 [request.dynamic:3] Fetch failed: retry.
 2026/08/09 23:40:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/32 - There is A Mighty River Flowing - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/09 23:40:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" (RID 629).
+2026/08/09 23:49:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:49:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/13 - For By My God - Toronto & Winnipeg HF.mp3" (RID 928).
+2026/08/09 23:56:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/13 - For By My God - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/09 23:56:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique- Mon modèle, c_est Jésus.mp3" (RID 929).
