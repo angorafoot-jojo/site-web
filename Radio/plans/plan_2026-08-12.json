@@ -1,0 +1,1917 @@
+{
+  "date": "2026-08-12",
+  "generated_at": "2026-08-11T23:36:42.305478+00:00",
+  "message": {
+    "series": "005_Conquête_du_royaume",
+    "title": "La moisson 3",
+    "duration_seconds": 1557
+  },
+  "blocks": [
+    {
+      "block_name": "BLOC_A_SERIE_DU_JOUR",
+      "window": "00:00-06:00",
+      "items": [
+        {
+          "type": "jingle",
+          "title": "jingle avant message 05 vous etes a lecoute de levangile du royaume",
+          "duration_seconds": 11,
+          "category": "avant_message"
+        },
+        {
+          "type": "message",
+          "title": "La moisson 3",
+          "duration_seconds": 1557
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 07 place a la lecture de la bible",
+          "duration_seconds": 13,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Colossiens 3",
+          "duration_seconds": 224,
+          "book": "Colossiens",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Colossiens 4",
+          "duration_seconds": 176,
+          "book": "Colossiens",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "Sophonie 1",
+          "duration_seconds": 176,
+          "book": "Sophonie",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Sophonie 2",
+          "duration_seconds": 166,
+          "book": "Sophonie",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Sophonie 3",
+          "duration_seconds": 226,
+          "book": "Sophonie",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "1 Rois 20",
+          "duration_seconds": 501,
+          "book": "1 Rois",
+          "chapter": 20
+        },
+        {
+          "type": "bible",
+          "title": "1 Rois 21",
+          "duration_seconds": 325,
+          "book": "1 Rois",
+          "chapter": 21
+        },
+        {
+          "type": "bible",
+          "title": "1 Rois 22",
+          "duration_seconds": 538,
+          "book": "1 Rois",
+          "chapter": 22
+        },
+        {
+          "type": "bible",
+          "title": "Daniel 10",
+          "duration_seconds": 225,
+          "book": "Daniel",
+          "chapter": 10
+        },
+        {
+          "type": "bible",
+          "title": "Daniel 11",
+          "duration_seconds": 506,
+          "book": "Daniel",
+          "chapter": 11
+        },
+        {
+          "type": "bible",
+          "title": "Daniel 12",
+          "duration_seconds": 146,
+          "book": "Daniel",
+          "chapter": 12
+        },
+        {
+          "type": "bible",
+          "title": "Proverbes 21",
+          "duration_seconds": 188,
+          "book": "Proverbes",
+          "chapter": 21
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 07 voici un temps de louange",
+          "duration_seconds": 13,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Cantique Jahweh, Tu es élevé au dessus de tout (1)",
+          "duration_seconds": 293
+        },
+        {
+          "type": "music",
+          "title": "Jesus I'm Waiting for You (Mary Umoh)",
+          "duration_seconds": 350
+        },
+        {
+          "type": "music",
+          "title": "Yeshua Hamashiach - Calabar HF",
+          "duration_seconds": 502
+        },
+        {
+          "type": "music",
+          "title": "There is no Lie (Imah Adegoke & Mary Umoh)",
+          "duration_seconds": 414
+        },
+        {
+          "type": "music",
+          "title": "Hallelujah - PHF",
+          "duration_seconds": 449
+        },
+        {
+          "type": "music",
+          "title": "Gabrielle LIDJI - Mélodie Céleste  by LFXA(Light FX Animation)_2",
+          "duration_seconds": 319
+        },
+        {
+          "type": "music",
+          "title": "I Will Call Upon The Lord",
+          "duration_seconds": 310
+        },
+        {
+          "type": "music",
+          "title": "qui est digne d ouvrir le livre",
+          "duration_seconds": 417
+        },
+        {
+          "type": "music",
+          "title": "Ella Samuels - Oh Lord Our Maker",
+          "duration_seconds": 345
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 08 prenons un moment pour ecouter la parole",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "1 Jean 1",
+          "duration_seconds": 100,
+          "book": "1 Jean",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "1 Jean 2",
+          "duration_seconds": 279,
+          "book": "1 Jean",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "1 Jean 3",
+          "duration_seconds": 214,
+          "book": "1 Jean",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "1 Jean 4",
+          "duration_seconds": 196,
+          "book": "1 Jean",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "1 Jean 5",
+          "duration_seconds": 191,
+          "book": "1 Jean",
+          "chapter": 5
+        },
+        {
+          "type": "bible",
+          "title": "2 Corinthiens 12",
+          "duration_seconds": 268,
+          "book": "2 Corinthiens",
+          "chapter": 12
+        },
+        {
+          "type": "bible",
+          "title": "2 Corinthiens 13",
+          "duration_seconds": 145,
+          "book": "2 Corinthiens",
+          "chapter": 13
+        },
+        {
+          "type": "bible",
+          "title": "Abdias 1",
+          "duration_seconds": 206,
+          "book": "Abdias",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Aggée 1",
+          "duration_seconds": 163,
+          "book": "Aggée",
+          "chapter": 1
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 05 elevons nos coeurs vers dieu",
+          "duration_seconds": 11,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "That I May Know Him - Toronto HF",
+          "duration_seconds": 370
+        },
+        {
+          "type": "music",
+          "title": "Where Two or Three are Gathered - Calabar HF",
+          "duration_seconds": 352
+        },
+        {
+          "type": "music",
+          "title": "You Are Worthy - Ketu HF",
+          "duration_seconds": 258
+        },
+        {
+          "type": "music",
+          "title": "Bless Ye the Lord - PHF",
+          "duration_seconds": 504
+        },
+        {
+          "type": "music",
+          "title": "There is A Mighty River Flowing - Ketu HF",
+          "duration_seconds": 429
+        },
+        {
+          "type": "music",
+          "title": "Sing Hallelujah - Abuja HF",
+          "duration_seconds": 261
+        },
+        {
+          "type": "music",
+          "title": "There's A Mighty River Flowing - SWBN TV",
+          "duration_seconds": 260
+        },
+        {
+          "type": "music",
+          "title": "Ascribe Greatness - PHF",
+          "duration_seconds": 244
+        },
+        {
+          "type": "music",
+          "title": "Now is Come Salvation - Toronto HF",
+          "duration_seconds": 318
+        },
+        {
+          "type": "music",
+          "title": "Baruch Ha'ba B'Shem Adonai/Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF",
+          "duration_seconds": 635
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 06 ouvrons les saintes ecritures",
+          "duration_seconds": 10,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Job 10",
+          "duration_seconds": 140,
+          "book": "Job",
+          "chapter": 10
+        },
+        {
+          "type": "bible",
+          "title": "Job 11",
+          "duration_seconds": 117,
+          "book": "Job",
+          "chapter": 11
+        },
+        {
+          "type": "bible",
+          "title": "Job 12",
+          "duration_seconds": 155,
+          "book": "Job",
+          "chapter": 12
+        },
+        {
+          "type": "bible",
+          "title": "Job 13",
+          "duration_seconds": 157,
+          "book": "Job",
+          "chapter": 13
+        },
+        {
+          "type": "bible",
+          "title": "Job 14",
+          "duration_seconds": 145,
+          "book": "Job",
+          "chapter": 14
+        },
+        {
+          "type": "bible",
+          "title": "Job 15",
+          "duration_seconds": 201,
+          "book": "Job",
+          "chapter": 15
+        },
+        {
+          "type": "bible",
+          "title": "Job 16",
+          "duration_seconds": 135,
+          "book": "Job",
+          "chapter": 16
+        },
+        {
+          "type": "bible",
+          "title": "Job 17",
+          "duration_seconds": 96,
+          "book": "Job",
+          "chapter": 17
+        },
+        {
+          "type": "bible",
+          "title": "Job 18",
+          "duration_seconds": 122,
+          "book": "Job",
+          "chapter": 18
+        },
+        {
+          "type": "bible",
+          "title": "Job 19",
+          "duration_seconds": 185,
+          "book": "Job",
+          "chapter": 19
+        },
+        {
+          "type": "bible",
+          "title": "Job 20",
+          "duration_seconds": 179,
+          "book": "Job",
+          "chapter": 20
+        },
+        {
+          "type": "bible",
+          "title": "Job 21",
+          "duration_seconds": 192,
+          "book": "Job",
+          "chapter": 21
+        },
+        {
+          "type": "bible",
+          "title": "Job 22",
+          "duration_seconds": 157,
+          "book": "Job",
+          "chapter": 22
+        },
+        {
+          "type": "bible",
+          "title": "Job 23",
+          "duration_seconds": 103,
+          "book": "Job",
+          "chapter": 23
+        },
+        {
+          "type": "bible",
+          "title": "Job 24",
+          "duration_seconds": 172,
+          "book": "Job",
+          "chapter": 24
+        },
+        {
+          "type": "bible",
+          "title": "Job 25",
+          "duration_seconds": 36,
+          "book": "Job",
+          "chapter": 25
+        },
+        {
+          "type": "bible",
+          "title": "Job 26",
+          "duration_seconds": 73,
+          "book": "Job",
+          "chapter": 26
+        },
+        {
+          "type": "bible",
+          "title": "Job 27",
+          "duration_seconds": 132,
+          "book": "Job",
+          "chapter": 27
+        },
+        {
+          "type": "bible",
+          "title": "Job 28",
+          "duration_seconds": 167,
+          "book": "Job",
+          "chapter": 28
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 06 que la louange seleve",
+          "duration_seconds": 10,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "cantique   prends tout le contrôle",
+          "duration_seconds": 292
+        },
+        {
+          "type": "music",
+          "title": "Be Exalted - PHF",
+          "duration_seconds": 638
+        },
+        {
+          "type": "music",
+          "title": "Adorons l'Éternel GAEL - JÉSUS EST SEIGNEUR -",
+          "duration_seconds": 221
+        },
+        {
+          "type": "music",
+          "title": "God is Moving Us On - Ketu HF",
+          "duration_seconds": 292
+        },
+        {
+          "type": "music",
+          "title": "We Ascribe Greatness - Abuja HF",
+          "duration_seconds": 347
+        },
+        {
+          "type": "music",
+          "title": "Hymne des vainqueurs",
+          "duration_seconds": 369
+        },
+        {
+          "type": "music",
+          "title": "There Is Forgiveness In Thee - SWBN TV",
+          "duration_seconds": 367
+        },
+        {
+          "type": "music",
+          "title": "How Precious Oh Lord",
+          "duration_seconds": 345
+        },
+        {
+          "type": "music",
+          "title": "Agunechemba - SWBN TV",
+          "duration_seconds": 490
+        },
+        {
+          "type": "jingle",
+          "title": "JINGLE",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Éphésiens 1",
+          "duration_seconds": 206,
+          "book": "Éphésiens",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Éphésiens 2",
+          "duration_seconds": 196,
+          "book": "Éphésiens",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Éphésiens 3",
+          "duration_seconds": 176,
+          "book": "Éphésiens",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Éphésiens 4",
+          "duration_seconds": 293,
+          "book": "Éphésiens",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "Éphésiens 5",
+          "duration_seconds": 252,
+          "book": "Éphésiens",
+          "chapter": 5
+        },
+        {
+          "type": "jingle",
+          "title": "jingle id station 01 la bonne nouvelle partout",
+          "duration_seconds": 9,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "6 minutes",
+          "duration_seconds": 401
+        },
+        {
+          "type": "music",
+          "title": "Yahweh Be Praised - Abuja HF",
+          "duration_seconds": 315
+        },
+        {
+          "type": "music",
+          "title": "The King is Here (Abasiama Timothy)",
+          "duration_seconds": 372
+        },
+        {
+          "type": "music",
+          "title": "Le Bien-Etre Universel",
+          "duration_seconds": 388
+        }
+      ]
+    },
+    {
+      "block_name": "BLOC_B_SERIE_DU_JOUR",
+      "window": "06:00-12:00",
+      "items": [
+        {
+          "type": "jingle",
+          "title": "jingle avant message 01 voici le message du jour",
+          "duration_seconds": 10,
+          "category": "avant_message"
+        },
+        {
+          "type": "message",
+          "title": "La moisson 3",
+          "duration_seconds": 1557
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 08 prenons un moment pour ecouter la parole",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Habacuc 1",
+          "duration_seconds": 160,
+          "book": "Habacuc",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Habacuc 2",
+          "duration_seconds": 204,
+          "book": "Habacuc",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Habacuc 3",
+          "duration_seconds": 191,
+          "book": "Habacuc",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Romains 16",
+          "duration_seconds": 224,
+          "book": "Romains",
+          "chapter": 16
+        },
+        {
+          "type": "bible",
+          "title": "Marc 11",
+          "duration_seconds": 282,
+          "book": "Marc",
+          "chapter": 11
+        },
+        {
+          "type": "bible",
+          "title": "Marc 12",
+          "duration_seconds": 432,
+          "book": "Marc",
+          "chapter": 12
+        },
+        {
+          "type": "bible",
+          "title": "Marc 13",
+          "duration_seconds": 309,
+          "book": "Marc",
+          "chapter": 13
+        },
+        {
+          "type": "bible",
+          "title": "Marc 14",
+          "duration_seconds": 625,
+          "book": "Marc",
+          "chapter": 14
+        },
+        {
+          "type": "bible",
+          "title": "Marc 15",
+          "duration_seconds": 351,
+          "book": "Marc",
+          "chapter": 15
+        },
+        {
+          "type": "bible",
+          "title": "Marc 16",
+          "duration_seconds": 170,
+          "book": "Marc",
+          "chapter": 16
+        },
+        {
+          "type": "bible",
+          "title": "2 Jean 1",
+          "duration_seconds": 127,
+          "book": "2 Jean",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "2 Samuel 1",
+          "duration_seconds": 246,
+          "book": "2 Samuel",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "2 Samuel 2",
+          "duration_seconds": 312,
+          "book": "2 Samuel",
+          "chapter": 2
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 07 voici un temps de louange",
+          "duration_seconds": 13,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Immortal God - Elohim Adonai - Abuja HF",
+          "duration_seconds": 373
+        },
+        {
+          "type": "music",
+          "title": "Guide Me - El ELyon - Abuja HF",
+          "duration_seconds": 304
+        },
+        {
+          "type": "music",
+          "title": "We Bless You Wonderful God  - Winnipeg Fellowship",
+          "duration_seconds": 424
+        },
+        {
+          "type": "music",
+          "title": "Arise Out of Zion  - Winnipeg Fellowship",
+          "duration_seconds": 466
+        },
+        {
+          "type": "music",
+          "title": "You're the Lamb - Calabar HF",
+          "duration_seconds": 544
+        },
+        {
+          "type": "music",
+          "title": "The Lord is my Light and Salvation - Nonso Njoku",
+          "duration_seconds": 184
+        },
+        {
+          "type": "music",
+          "title": "cantique  ta bonte",
+          "duration_seconds": 366
+        },
+        {
+          "type": "music",
+          "title": "He Shall Feed His Flock - I Want to walk  - Ketu HF",
+          "duration_seconds": 333
+        },
+        {
+          "type": "music",
+          "title": "All in All - CHF",
+          "duration_seconds": 280
+        },
+        {
+          "type": "music",
+          "title": "Satisfy My Soul - Calabar HF",
+          "duration_seconds": 362
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 06 ouvrons les saintes ecritures",
+          "duration_seconds": 10,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 34",
+          "duration_seconds": 177,
+          "book": "Ésaïe",
+          "chapter": 34
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 35",
+          "duration_seconds": 118,
+          "book": "Ésaïe",
+          "chapter": 35
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 36",
+          "duration_seconds": 247,
+          "book": "Ésaïe",
+          "chapter": 36
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 37",
+          "duration_seconds": 421,
+          "book": "Ésaïe",
+          "chapter": 37
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 38",
+          "duration_seconds": 233,
+          "book": "Ésaïe",
+          "chapter": 38
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 39",
+          "duration_seconds": 102,
+          "book": "Ésaïe",
+          "chapter": 39
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 40",
+          "duration_seconds": 312,
+          "book": "Ésaïe",
+          "chapter": 40
+        },
+        {
+          "type": "bible",
+          "title": "Ésaïe 41",
+          "duration_seconds": 325,
+          "book": "Ésaïe",
+          "chapter": 41
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 05 elevons nos coeurs vers dieu",
+          "duration_seconds": 11,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Unto Him (Vincent Opara)",
+          "duration_seconds": 521
+        },
+        {
+          "type": "music",
+          "title": "Hosanna - Toronto HF",
+          "duration_seconds": 419
+        },
+        {
+          "type": "music",
+          "title": "Abba, Singing a, I Will Sing - Ketu HF",
+          "duration_seconds": 647
+        },
+        {
+          "type": "music",
+          "title": "Oh Lord I Want to Know Your Glory - Port Harcourt HF",
+          "duration_seconds": 375
+        },
+        {
+          "type": "music",
+          "title": "Holy is the Lord (Emmanuel Umoh)",
+          "duration_seconds": 438
+        },
+        {
+          "type": "music",
+          "title": "I Enter The Holy of Holies - Port Harcourt HF",
+          "duration_seconds": 304
+        },
+        {
+          "type": "music",
+          "title": "In the Day of Your Power  - Winnipeg Fellowship",
+          "duration_seconds": 501
+        },
+        {
+          "type": "music",
+          "title": "Mon modèle, c est Jésus",
+          "duration_seconds": 254
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 07 place a la lecture de la bible",
+          "duration_seconds": 13,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Nombres 1",
+          "duration_seconds": 422,
+          "book": "Nombres",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Nombres 2",
+          "duration_seconds": 268,
+          "book": "Nombres",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Nombres 3",
+          "duration_seconds": 425,
+          "book": "Nombres",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Nombres 4",
+          "duration_seconds": 456,
+          "book": "Nombres",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "Nombres 5",
+          "duration_seconds": 296,
+          "book": "Nombres",
+          "chapter": 5
+        },
+        {
+          "type": "bible",
+          "title": "Nombres 6",
+          "duration_seconds": 254,
+          "book": "Nombres",
+          "chapter": 6
+        },
+        {
+          "type": "bible",
+          "title": "Nombres 7",
+          "duration_seconds": 681,
+          "book": "Nombres",
+          "chapter": 7
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 06 que la louange seleve",
+          "duration_seconds": 10,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "cantique  béni soit le dieu d israël",
+          "duration_seconds": 394
+        },
+        {
+          "type": "music",
+          "title": "As We Worship In Ypur Presence",
+          "duration_seconds": 416
+        },
+        {
+          "type": "music",
+          "title": "Cantiques  Il a pris mes iniquités",
+          "duration_seconds": 457
+        },
+        {
+          "type": "music",
+          "title": "Great & Marvelluos - Toronto HF",
+          "duration_seconds": 714
+        },
+        {
+          "type": "music",
+          "title": "We Shall Not Fear - Nonso Njoku",
+          "duration_seconds": 321
+        },
+        {
+          "type": "music",
+          "title": "God's Got An Army - PHF",
+          "duration_seconds": 322
+        },
+        {
+          "type": "music",
+          "title": "Il s'appelait Emmanuel - Marcel Boungou + Paroles",
+          "duration_seconds": 313
+        },
+        {
+          "type": "music",
+          "title": "esprit de dieu",
+          "duration_seconds": 192
+        },
+        {
+          "type": "music",
+          "title": "Victorious Is the Lamb - Winnipeg Fellowship",
+          "duration_seconds": 445
+        },
+        {
+          "type": "jingle",
+          "title": "JINGLE",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Philippiens 1",
+          "duration_seconds": 255,
+          "book": "Philippiens",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Philippiens 2",
+          "duration_seconds": 268,
+          "book": "Philippiens",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Philippiens 3",
+          "duration_seconds": 206,
+          "book": "Philippiens",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Philippiens 4",
+          "duration_seconds": 219,
+          "book": "Philippiens",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "Luc 5",
+          "duration_seconds": 339,
+          "book": "Luc",
+          "chapter": 5
+        },
+        {
+          "type": "jingle",
+          "title": "JINGLE",
+          "duration_seconds": 9,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "By the word of the lord - Ketu HF",
+          "duration_seconds": 321
+        },
+        {
+          "type": "music",
+          "title": "15 at 01.33.50 (1)(1)",
+          "duration_seconds": 571
+        },
+        {
+          "type": "music",
+          "title": "10 minutes",
+          "duration_seconds": 563
+        }
+      ]
+    },
+    {
+      "block_name": "BLOC_C_SERIE_DU_JOUR",
+      "window": "12:00-18:00",
+      "items": [
+        {
+          "type": "jingle",
+          "title": "jingle avant message 01 voici le message du jour",
+          "duration_seconds": 10,
+          "category": "avant_message"
+        },
+        {
+          "type": "message",
+          "title": "La moisson 3",
+          "duration_seconds": 1557
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 08 prenons un moment pour ecouter la parole",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Nahum 1",
+          "duration_seconds": 141,
+          "book": "Nahum",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Nahum 2",
+          "duration_seconds": 124,
+          "book": "Nahum",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Nahum 3",
+          "duration_seconds": 182,
+          "book": "Nahum",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 7",
+          "duration_seconds": 330,
+          "book": "Lévitique",
+          "chapter": 7
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 8",
+          "duration_seconds": 325,
+          "book": "Lévitique",
+          "chapter": 8
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 9",
+          "duration_seconds": 216,
+          "book": "Lévitique",
+          "chapter": 9
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 10",
+          "duration_seconds": 242,
+          "book": "Lévitique",
+          "chapter": 10
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 11",
+          "duration_seconds": 391,
+          "book": "Lévitique",
+          "chapter": 11
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 12",
+          "duration_seconds": 90,
+          "book": "Lévitique",
+          "chapter": 12
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 13",
+          "duration_seconds": 624,
+          "book": "Lévitique",
+          "chapter": 13
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 14",
+          "duration_seconds": 511,
+          "book": "Lévitique",
+          "chapter": 14
+        },
+        {
+          "type": "bible",
+          "title": "Lévitique 15",
+          "duration_seconds": 277,
+          "book": "Lévitique",
+          "chapter": 15
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 07 voici un temps de louange",
+          "duration_seconds": 13,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Ses cheveux étaient blancs..",
+          "duration_seconds": 202
+        },
+        {
+          "type": "music",
+          "title": "He Has Given Me - PHF",
+          "duration_seconds": 308
+        },
+        {
+          "type": "music",
+          "title": "For By My God - Toronto & Winnipeg HF",
+          "duration_seconds": 441
+        },
+        {
+          "type": "music",
+          "title": "Praise the Lord of Host - Toronto HF",
+          "duration_seconds": 390
+        },
+        {
+          "type": "music",
+          "title": "Not Naked (Abasiama Timothy)",
+          "duration_seconds": 352
+        },
+        {
+          "type": "music",
+          "title": "You're the Lamb (Abasiama Timothy)",
+          "duration_seconds": 429
+        },
+        {
+          "type": "music",
+          "title": "Thy Throne Oh Lord - Ketu HF",
+          "duration_seconds": 583
+        },
+        {
+          "type": "music",
+          "title": "I See Your Face - Toronto HF",
+          "duration_seconds": 564
+        },
+        {
+          "type": "music",
+          "title": "Yahweh Is Mighty - SWBN TV",
+          "duration_seconds": 498
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 06 ouvrons les saintes ecritures",
+          "duration_seconds": 10,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 1",
+          "duration_seconds": 141,
+          "book": "Ecclésiaste",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 2",
+          "duration_seconds": 257,
+          "book": "Ecclésiaste",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 3",
+          "duration_seconds": 170,
+          "book": "Ecclésiaste",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 4",
+          "duration_seconds": 143,
+          "book": "Ecclésiaste",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 5",
+          "duration_seconds": 197,
+          "book": "Ecclésiaste",
+          "chapter": 5
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 6",
+          "duration_seconds": 110,
+          "book": "Ecclésiaste",
+          "chapter": 6
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 7",
+          "duration_seconds": 224,
+          "book": "Ecclésiaste",
+          "chapter": 7
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 8",
+          "duration_seconds": 171,
+          "book": "Ecclésiaste",
+          "chapter": 8
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 9",
+          "duration_seconds": 194,
+          "book": "Ecclésiaste",
+          "chapter": 9
+        },
+        {
+          "type": "bible",
+          "title": "Ecclésiaste 10",
+          "duration_seconds": 149,
+          "book": "Ecclésiaste",
+          "chapter": 10
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 06 que la louange seleve",
+          "duration_seconds": 10,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Psalm 93 - Port Harcourt HF",
+          "duration_seconds": 579
+        },
+        {
+          "type": "music",
+          "title": "Yahweh is Mighty (Imah Adegoke)",
+          "duration_seconds": 477
+        },
+        {
+          "type": "music",
+          "title": "He Has Given Me & Emmanuel You Joy Over Us (Medley) (Abasiama Timothy & Imah Adegoke)",
+          "duration_seconds": 517
+        },
+        {
+          "type": "music",
+          "title": "cantique  tes promesses  pub direct dec 2021 import (2)",
+          "duration_seconds": 437
+        },
+        {
+          "type": "music",
+          "title": "cantique  heureux l homme qui ne marche pas selon",
+          "duration_seconds": 140
+        },
+        {
+          "type": "music",
+          "title": "Holy Holy - Abuja HF",
+          "duration_seconds": 511
+        },
+        {
+          "type": "music",
+          "title": "Je veux vivre ton royaume",
+          "duration_seconds": 284
+        },
+        {
+          "type": "music",
+          "title": "Praise the Lord All Ye Nations - Toronto HF",
+          "duration_seconds": 372
+        },
+        {
+          "type": "music",
+          "title": "The Lord on High is Mightier - Toronto HF",
+          "duration_seconds": 417
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 07 place a la lecture de la bible",
+          "duration_seconds": 13,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 18",
+          "duration_seconds": 435,
+          "book": "2 Rois",
+          "chapter": 18
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 19",
+          "duration_seconds": 423,
+          "book": "2 Rois",
+          "chapter": 19
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 20",
+          "duration_seconds": 245,
+          "book": "2 Rois",
+          "chapter": 20
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 21",
+          "duration_seconds": 251,
+          "book": "2 Rois",
+          "chapter": 21
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 22",
+          "duration_seconds": 242,
+          "book": "2 Rois",
+          "chapter": 22
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 23",
+          "duration_seconds": 471,
+          "book": "2 Rois",
+          "chapter": 23
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 24",
+          "duration_seconds": 205,
+          "book": "2 Rois",
+          "chapter": 24
+        },
+        {
+          "type": "bible",
+          "title": "2 Rois 25",
+          "duration_seconds": 332,
+          "book": "2 Rois",
+          "chapter": 25
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 05 elevons nos coeurs vers dieu",
+          "duration_seconds": 11,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "la Parole",
+          "duration_seconds": 190
+        },
+        {
+          "type": "music",
+          "title": "jai donné ma vie à jésus (1)",
+          "duration_seconds": 251
+        },
+        {
+          "type": "music",
+          "title": "Unto Him - CHF",
+          "duration_seconds": 379
+        },
+        {
+          "type": "music",
+          "title": "There is no name  - Winnipeg Fellowship",
+          "duration_seconds": 471
+        },
+        {
+          "type": "music",
+          "title": "Holy Are You - PHF",
+          "duration_seconds": 625
+        },
+        {
+          "type": "music",
+          "title": "You Have sworn By Your Holiness - Chidera Bisong",
+          "duration_seconds": 439
+        },
+        {
+          "type": "music",
+          "title": "Shine in Darkness O Lord  - Winnipeg Fellowship",
+          "duration_seconds": 624
+        },
+        {
+          "type": "music",
+          "title": "Jesus is Alpha - PHF",
+          "duration_seconds": 492
+        },
+        {
+          "type": "jingle",
+          "title": "jingle id station 01 la bonne nouvelle partout",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Esther 10",
+          "duration_seconds": 33,
+          "book": "Esther",
+          "chapter": 10
+        },
+        {
+          "type": "bible",
+          "title": "Joël 1",
+          "duration_seconds": 187,
+          "book": "Joël",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Joël 2",
+          "duration_seconds": 341,
+          "book": "Joël",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Joël 3",
+          "duration_seconds": 216,
+          "book": "Joël",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "2 Timothée 1",
+          "duration_seconds": 179,
+          "book": "2 Timothée",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "2 Timothée 2",
+          "duration_seconds": 232,
+          "book": "2 Timothée",
+          "chapter": 2
+        },
+        {
+          "type": "jingle",
+          "title": "JINGLE",
+          "duration_seconds": 9,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Thou art Worthy Lord - PHF",
+          "duration_seconds": 563
+        },
+        {
+          "type": "music",
+          "title": "Awaken My Heart",
+          "duration_seconds": 199
+        },
+        {
+          "type": "music",
+          "title": "In Jesus - PHF",
+          "duration_seconds": 358
+        },
+        {
+          "type": "music",
+          "title": "We Worship Adonai - PHF",
+          "duration_seconds": 510
+        }
+      ]
+    },
+    {
+      "block_name": "BLOC_D_SERIE_DU_JOUR",
+      "window": "18:00-23:30",
+      "items": [
+        {
+          "type": "jingle",
+          "title": "jingle avant message 01 voici le message du jour",
+          "duration_seconds": 10,
+          "category": "avant_message"
+        },
+        {
+          "type": "message",
+          "title": "La moisson 3",
+          "duration_seconds": 1557
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 07 place a la lecture de la bible",
+          "duration_seconds": 13,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Jacques 5",
+          "duration_seconds": 208,
+          "book": "Jacques",
+          "chapter": 5
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 1",
+          "duration_seconds": 275,
+          "book": "Ézéchiel",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 2",
+          "duration_seconds": 101,
+          "book": "Ézéchiel",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 3",
+          "duration_seconds": 281,
+          "book": "Ézéchiel",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 4",
+          "duration_seconds": 177,
+          "book": "Ézéchiel",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 5",
+          "duration_seconds": 221,
+          "book": "Ézéchiel",
+          "chapter": 5
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 6",
+          "duration_seconds": 164,
+          "book": "Ézéchiel",
+          "chapter": 6
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 7",
+          "duration_seconds": 283,
+          "book": "Ézéchiel",
+          "chapter": 7
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 8",
+          "duration_seconds": 240,
+          "book": "Ézéchiel",
+          "chapter": 8
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 9",
+          "duration_seconds": 148,
+          "book": "Ézéchiel",
+          "chapter": 9
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 10",
+          "duration_seconds": 215,
+          "book": "Ézéchiel",
+          "chapter": 10
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 11",
+          "duration_seconds": 248,
+          "book": "Ézéchiel",
+          "chapter": 11
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 12",
+          "duration_seconds": 297,
+          "book": "Ézéchiel",
+          "chapter": 12
+        },
+        {
+          "type": "bible",
+          "title": "Ézéchiel 13",
+          "duration_seconds": 275,
+          "book": "Ézéchiel",
+          "chapter": 13
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 05 elevons nos coeurs vers dieu",
+          "duration_seconds": 11,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "I Choose the Way of the Lord - Abuja HF",
+          "duration_seconds": 248
+        },
+        {
+          "type": "music",
+          "title": "Great is, Ascribe - Ketu HF",
+          "duration_seconds": 661
+        },
+        {
+          "type": "music",
+          "title": "The Mountains, Come and, Oh City - Ketu HF",
+          "duration_seconds": 505
+        },
+        {
+          "type": "music",
+          "title": "Cantique sa miséricorde",
+          "duration_seconds": 204
+        },
+        {
+          "type": "music",
+          "title": "I Will Not Be Silent - Calabar HF",
+          "duration_seconds": 243
+        },
+        {
+          "type": "music",
+          "title": "Yeshua I'm Waiting for You  - Ketu HF",
+          "duration_seconds": 288
+        },
+        {
+          "type": "music",
+          "title": "There Is No Lie - SWBN TV",
+          "duration_seconds": 456
+        },
+        {
+          "type": "music",
+          "title": "Hashem - PHF",
+          "duration_seconds": 713
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 06 ouvrons les saintes ecritures",
+          "duration_seconds": 10,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "1 Timothée 1",
+          "duration_seconds": 196,
+          "book": "1 Timothée",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "1 Timothée 2",
+          "duration_seconds": 130,
+          "book": "1 Timothée",
+          "chapter": 2
+        },
+        {
+          "type": "bible",
+          "title": "1 Timothée 3",
+          "duration_seconds": 144,
+          "book": "1 Timothée",
+          "chapter": 3
+        },
+        {
+          "type": "bible",
+          "title": "1 Timothée 4",
+          "duration_seconds": 149,
+          "book": "1 Timothée",
+          "chapter": 4
+        },
+        {
+          "type": "bible",
+          "title": "1 Timothée 5",
+          "duration_seconds": 225,
+          "book": "1 Timothée",
+          "chapter": 5
+        },
+        {
+          "type": "bible",
+          "title": "1 Timothée 6",
+          "duration_seconds": 233,
+          "book": "1 Timothée",
+          "chapter": 6
+        },
+        {
+          "type": "bible",
+          "title": "2 Pierre 1",
+          "duration_seconds": 222,
+          "book": "2 Pierre",
+          "chapter": 1
+        },
+        {
+          "type": "bible",
+          "title": "2 Pierre 2",
+          "duration_seconds": 244,
+          "book": "2 Pierre",
+          "chapter": 2
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 06 que la louange seleve",
+          "duration_seconds": 10,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "I Know The Blood - PHF",
+          "duration_seconds": 259
+        },
+        {
+          "type": "music",
+          "title": "Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable",
+          "duration_seconds": 251
+        },
+        {
+          "type": "music",
+          "title": "The Glory -  PHF",
+          "duration_seconds": 440
+        },
+        {
+          "type": "music",
+          "title": "Crown Him Lord of Lords - Nonso Njoku",
+          "duration_seconds": 362
+        },
+        {
+          "type": "music",
+          "title": "Good God - Asaba Fellowship",
+          "duration_seconds": 366
+        },
+        {
+          "type": "music",
+          "title": "You are God - Winnipeg Fellowship",
+          "duration_seconds": 357
+        },
+        {
+          "type": "music",
+          "title": "cantique   ta lumière",
+          "duration_seconds": 395
+        },
+        {
+          "type": "music",
+          "title": "El Elyon - Toronto & Winnipeg HF",
+          "duration_seconds": 538
+        },
+        {
+          "type": "music",
+          "title": "Song Of Victory - Emmanuel Igunbor",
+          "duration_seconds": 245
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant bible 08 prenons un moment pour ecouter la parole",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "Josué 15",
+          "duration_seconds": 427,
+          "book": "Josué",
+          "chapter": 15
+        },
+        {
+          "type": "bible",
+          "title": "Josué 16",
+          "duration_seconds": 94,
+          "book": "Josué",
+          "chapter": 16
+        },
+        {
+          "type": "bible",
+          "title": "Josué 17",
+          "duration_seconds": 231,
+          "book": "Josué",
+          "chapter": 17
+        },
+        {
+          "type": "bible",
+          "title": "Josué 18",
+          "duration_seconds": 281,
+          "book": "Josué",
+          "chapter": 18
+        },
+        {
+          "type": "bible",
+          "title": "Josué 19",
+          "duration_seconds": 381,
+          "book": "Josué",
+          "chapter": 19
+        },
+        {
+          "type": "bible",
+          "title": "Josué 20",
+          "duration_seconds": 112,
+          "book": "Josué",
+          "chapter": 20
+        },
+        {
+          "type": "bible",
+          "title": "Josué 21",
+          "duration_seconds": 334,
+          "book": "Josué",
+          "chapter": 21
+        },
+        {
+          "type": "bible",
+          "title": "Josué 22",
+          "duration_seconds": 432,
+          "book": "Josué",
+          "chapter": 22
+        },
+        {
+          "type": "jingle",
+          "title": "jingle avant louange 07 voici un temps de louange",
+          "duration_seconds": 13,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Holy are You oh Lord (Olaedo Uzoma & Vincent Opara)",
+          "duration_seconds": 578
+        },
+        {
+          "type": "music",
+          "title": "4 minutes",
+          "duration_seconds": 253
+        },
+        {
+          "type": "music",
+          "title": "My Heart Rejoices - Toronto HF",
+          "duration_seconds": 501
+        },
+        {
+          "type": "music",
+          "title": "A jamais, tu seras l Agneau de Dieu",
+          "duration_seconds": 554
+        },
+        {
+          "type": "music",
+          "title": "Sing Unto the Lord a new Song  - Winnipeg Fellowship",
+          "duration_seconds": 364
+        },
+        {
+          "type": "music",
+          "title": "Forever You Reign - Abuja HF",
+          "duration_seconds": 348
+        },
+        {
+          "type": "music",
+          "title": "Cantique l Éternel est mon Berger (1)",
+          "duration_seconds": 343
+        },
+        {
+          "type": "music",
+          "title": "We Shall Come - Asaba Fellowship",
+          "duration_seconds": 307
+        },
+        {
+          "type": "jingle",
+          "title": "JINGLE",
+          "duration_seconds": 9,
+          "category": "avant_bible"
+        },
+        {
+          "type": "bible",
+          "title": "1 Chroniques 15",
+          "duration_seconds": 268,
+          "book": "1 Chroniques",
+          "chapter": 15
+        },
+        {
+          "type": "bible",
+          "title": "1 Chroniques 16",
+          "duration_seconds": 336,
+          "book": "1 Chroniques",
+          "chapter": 16
+        },
+        {
+          "type": "bible",
+          "title": "1 Chroniques 17",
+          "duration_seconds": 262,
+          "book": "1 Chroniques",
+          "chapter": 17
+        },
+        {
+          "type": "bible",
+          "title": "1 Chroniques 18",
+          "duration_seconds": 153,
+          "book": "1 Chroniques",
+          "chapter": 18
+        },
+        {
+          "type": "jingle",
+          "title": "JINGLE",
+          "duration_seconds": 9,
+          "category": "avant_louange"
+        },
+        {
+          "type": "music",
+          "title": "Rejoice - PHF",
+          "duration_seconds": 362
+        },
+        {
+          "type": "music",
+          "title": "You Are the Captain of the Host - Toronto HF",
+          "duration_seconds": 177
+        },
+        {
+          "type": "music",
+          "title": "cantique  nous sommes le sel de la terre",
+          "duration_seconds": 136
+        },
+        {
+          "type": "music",
+          "title": "même humilié",
+          "duration_seconds": 328
+        },
+        {
+          "type": "music",
+          "title": "God is Building - Will You Be - Ketu HF",
+          "duration_seconds": 273
+        }
+      ]
+    }
+  ]
+}
