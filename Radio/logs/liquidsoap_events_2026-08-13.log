@@ -379,3 +379,40 @@
 2026/08/13 13:28:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" (RID 195).
 2026/08/13 13:37:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/13 13:38:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/14 - Great & Marvelluos - Toronto HF.mp3" (RID 196).
+2026/08/13 13:49:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/14 - Great & Marvelluos - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 13:49:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/04 - Yahweh Is Mighty - SWBN TV.mp3" (RID 197).
+2026/08/13 13:58:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/04 - Yahweh Is Mighty - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 13:58:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" (RID 198).
+2026/08/13 14:05:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:05:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/21 - I Choose the Way of the Lord - Abuja HF.mp3" (RID 199).
+2026/08/13 14:09:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/21 - I Choose the Way of the Lord - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:09:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/55 - God's Got An Army - PHF.mp3" (RID 200).
+2026/08/13 14:09:07 [clock.main:2] We must catchup 1.44 seconds!
+2026/08/13 14:14:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/55 - God's Got An Army - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:14:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" (RID 201).
+2026/08/13 14:19:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:19:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/49 - We Worship Adonai - PHF.mp3" (RID 202).
+2026/08/13 14:28:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/49 - We Worship Adonai - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:28:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 203).
+2026/08/13 14:28:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:28:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_jean_001.mp3" (RID 204).
+2026/08/13 14:30:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_jean_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:30:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_005.mp3" (RID 205).
+2026/08/13 14:36:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:36:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_006.mp3" (RID 206).
+2026/08/13 14:39:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:39:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_007.mp3" (RID 207).
+2026/08/13 14:47:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:47:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_008.mp3" (RID 208).
+2026/08/13 14:53:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:53:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_009.mp3" (RID 209).
+2026/08/13 14:59:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:59:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" (RID 210).
+2026/08/13 14:59:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 14:59:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" (RID 211).
+2026/08/13 15:02:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 15:02:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/33 - By the word of the lord - Ketu HF.mp3" (RID 212).
+2026/08/13 15:07:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/33 - By the word of the lord - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 15:07:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/06 - Yahweh is Mighty (Imah Adegoke).mp3" (RID 213).
+2026/08/13 15:15:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/06 - Yahweh is Mighty (Imah Adegoke).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/13 15:15:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/26 - Sing Hallelujah - Abuja HF.mp3" (RID 214).
