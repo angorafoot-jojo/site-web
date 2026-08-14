@@ -613,3 +613,83 @@
 2026/08/14 22:29:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" (RID 315).
 2026/08/14 22:34:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/14 22:34:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantiques  Il a pris mes iniquités.mp3" (RID 316).
+2026/08/14 22:41:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantiques  Il a pris mes iniquités.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 22:41:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/03 - Agunechemba - SWBN TV.mp3" (RID 317).
+2026/08/14 22:49:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/03 - Agunechemba - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 22:49:55 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/33 - By the word of the lord - Ketu HF.mp3" (RID 318).
+2026/08/14 22:55:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/33 - By the word of the lord - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 22:55:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" (RID 319).
+2026/08/14 23:00:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:00:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/79 - The Lord is my Light and Salvation - Nonso Njoku.mp3" (RID 320).
+2026/08/14 23:03:31 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/79 - The Lord is my Light and Salvation - Nonso Njoku.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:03:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__tes_promesses__pub_direct_dec_2021_import_(2).mp3" (RID 321).
+2026/08/14 23:10:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__tes_promesses__pub_direct_dec_2021_import_(2).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:10:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_01.mp3" (RID 322).
+2026/08/14 23:10:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_01.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:10:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_012.mp3" (RID 323).
+2026/08/14 23:13:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:13:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_rois_006.mp3" (RID 324).
+2026/08/14 23:18:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_rois_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:18:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_rois_007.mp3" (RID 325).
+2026/08/14 23:23:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_rois_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:23:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_rois_008.mp3" (RID 326).
+2026/08/14 23:28:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_rois_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:28:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" (RID 327).
+2026/08/14 23:28:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:28:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-chist_-_4_minutes.mp3" (RID 328).
+2026/08/14 23:32:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:32:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:32:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:32:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:32:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:32:36 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:32:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-chist_-_4_minutes.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 23:33:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/91 - Ella Samuels - Oh Lord Our Maker.mp3" (RID 329).
+2026/08/14 23:33:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:33:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:48 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/08/14 23:35:49 [request.dynamic:3] Fetch failed: retry.
