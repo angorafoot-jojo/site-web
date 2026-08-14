@@ -451,3 +451,22 @@
 2026/08/14 17:04:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/05 - Jesus I'm Waiting for You (Mary Umoh).mp3" (RID 230).
 2026/08/14 17:10:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/05 - Jesus I'm Waiting for You (Mary Umoh).mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/14 17:10:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" (RID 231).
+2026/08/14 17:59:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/amos_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 17:59:05 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/14 17:59:32 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 17:59:32 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/14 17:59:59 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 18:00:00 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 11).
+2026/08/14 18:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/14 18:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/14 18:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/14 18:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/14 18:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/14 18:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_d_serie_du_jour.
+2026/08/14 18:00:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 18:00:07 [playlist_bloc_d_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/la_moisson_5_adé.mp3" (RID 243).
+2026/08/14 18:00:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 244).
+2026/08/14 18:00:07 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/14 18:00:07 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/14 18:00:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/14 18:00:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/la_moisson_5_adé.mp3" (RID 245).
