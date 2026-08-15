@@ -1,0 +1,52 @@
+2026/08/15 00:01:26 [threads:2] Queue generic queue #1 crashed with exception Sys_error("Condition.wait: Operation not permitted")
+2026/08/15 00:01:26 [threads:2] Raised by primitive operation at Duppy.queue.run in file "src/duppy.ml", line 341, characters 6-32
+2026/08/15 00:01:26 [threads:2] Called from Duppy.queue in file "src/duppy.ml", line 357, characters 8-12
+2026/08/15 00:01:26 [threads:2] Re-raised at Duppy.queue in file "src/duppy.ml", line 361, characters 8-17
+2026/08/15 00:01:26 [threads:2] Called from Tutils.create.(fun).process in file "tools/tutils.ml", line 164, characters 12-15
+2026/08/15 00:01:26 [threads:2] 
+2026/08/15 00:01:26 [threads:1] PANIC: Liquidsoap has crashed, exiting.,
+2026/08/15 00:01:26 [threads:1] Please report at: savonet-users@lists.sf.net
+2026/08/15 00:01:31 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/08/15 00:01:31 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/08/15 00:01:31 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/08/15 00:01:31 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/15 00:01:32 [safe_fallback:3] Switch to error_jingle.
+2026/08/15 00:01:32 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 11).
+2026/08/15 00:01:32 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/15 00:01:32 [live_fallback:3] Switch to cross_0.
+2026/08/15 00:01:32 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/15 00:01:32 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/15 00:01:32 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/15 00:01:32 [schedule_switch:3] Switch to metadata.map_0.
+2026/08/15 00:01:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 14).
+2026/08/15 00:03:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 00:03:08 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 7).
+2026/08/15 00:03:08 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour with forgetful transition.
+2026/08/15 00:03:08 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/15 00:03:08 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/15 00:04:44 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 00:04:44 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 15).
+2026/08/15 00:04:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 00:04:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/À la conquête du royaume/acr__angora_en_ce_jour_là,_que_devrons-nous_faire_part_1.mp3" (RID 16).
+2026/08/15 01:16:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/À la conquête du royaume/acr__angora_en_ce_jour_là,_que_devrons-nous_faire_part_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:16:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 17).
+2026/08/15 01:16:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:17:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_001.mp3" (RID 18).
+2026/08/15 01:21:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:21:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_002.mp3" (RID 19).
+2026/08/15 01:24:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:24:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_003.mp3" (RID 20).
+2026/08/15 01:27:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:27:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_004.mp3" (RID 21).
+2026/08/15 01:30:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:30:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_005.mp3" (RID 22).
+2026/08/15 01:33:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:33:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_006.mp3" (RID 23).
+2026/08/15 01:36:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:36:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_007.mp3" (RID 24).
+2026/08/15 01:40:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:40:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_008.mp3" (RID 25).
+2026/08/15 01:44:31 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:44:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_009.mp3" (RID 26).
+2026/08/15 01:47:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/15 01:47:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_010.mp3" (RID 27).
