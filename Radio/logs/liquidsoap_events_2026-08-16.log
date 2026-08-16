@@ -163,3 +163,15 @@
 2026/08/16 06:00:14 [clock.main:2] We must catchup 1.56 seconds!
 2026/08/16 06:00:15 [clock.main:2] We must catchup 1.11 seconds!
 2026/08/16 06:00:18 [clock.main:2] We must catchup 0.31 seconds!
+2026/08/16 07:13:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/À la conquête du royaume/acr__angora_en_ce_jour_là,_que_devrons-nous_faire_part_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 07:13:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 82).
+2026/08/16 07:13:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 07:13:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_021.mp3" (RID 83).
+2026/08/16 07:18:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_021.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 07:18:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_022.mp3" (RID 84).
+2026/08/16 07:27:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_022.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 07:27:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_023.mp3" (RID 85).
+2026/08/16 07:34:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_023.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 07:34:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_024.mp3" (RID 86).
+2026/08/16 07:41:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/luc_024.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 07:41:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_026.mp3" (RID 87).
