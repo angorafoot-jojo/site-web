@@ -518,3 +518,69 @@
 2026/08/16 22:30:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" (RID 257).
 2026/08/16 22:35:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/16 22:35:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/37 - The Lord on High is Mightier - Toronto HF.mp3" (RID 258).
+2026/08/16 22:42:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/37 - The Lord on High is Mightier - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 22:42:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/58 - Rejoice - PHF.mp3" (RID 259).
+2026/08/16 22:48:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/58 - Rejoice - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 22:48:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/82 - A Song Of Love.mp3" (RID 260).
+2026/08/16 22:53:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/82 - A Song Of Love.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 22:53:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" (RID 261).
+2026/08/16 22:57:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 22:57:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" (RID 262).
+2026/08/16 23:01:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:01:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/02 - There's A Mighty River Flowing - SWBN TV.mp3" (RID 263).
+2026/08/16 23:05:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/02 - There's A Mighty River Flowing - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:05:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/24 - We Ascribe Greatness - Abuja HF.mp3" (RID 264).
+2026/08/16 23:11:20 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/24 - We Ascribe Greatness - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:11:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__-_qui_est_digne_d_ouvrir_le_livre.mp3" (RID 265).
+2026/08/16 23:18:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__-_qui_est_digne_d_ouvrir_le_livre.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:18:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" (RID 266).
+2026/08/16 23:18:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:18:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/3_jean_001.mp3" (RID 267).
+2026/08/16 23:20:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/3_jean_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:20:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_029.mp3" (RID 268).
+2026/08/16 23:26:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_029.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:26:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_030.mp3" (RID 269).
+2026/08/16 23:31:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_030.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:31:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/68 - Shine in Darkness O Lord  - Winnipeg Fellowship.mp3" (RID 270).
+2026/08/16 23:32:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:46 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:32:50 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:36 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:38 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:39 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:33:43 [request.dynamic:3] Fetch failed: retry.
