@@ -171,3 +171,35 @@
 2026/08/17 05:39:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" (RID 81).
 2026/08/17 05:45:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/17 05:45:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/52 - Thou art Worthy Lord - PHF.mp3" (RID 82).
+2026/08/17 05:55:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/52 - Thou art Worthy Lord - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 05:55:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" (RID 83).
+2026/08/17 05:55:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 05:55:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_011.mp3" (RID 84).
+2026/08/17 05:57:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_011.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 05:57:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_012.mp3" (RID 85).
+2026/08/17 05:59:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/osée_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 05:59:19 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/17 05:59:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 05:59:30 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/17 05:59:56 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 05:59:57 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/17 06:00:00 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 8).
+2026/08/17 06:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/17 06:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/17 06:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/17 06:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/17 06:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/17 06:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_b_serie_du_jour.
+2026/08/17 06:00:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 06:00:08 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/À la conquête du royaume/acr__angora_en_ce_jour_là,_que_devrons-nous_faire_part_3.mp3" (RID 87).
+2026/08/17 07:08:44 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/À la conquête du royaume/acr__angora_en_ce_jour_là,_que_devrons-nous_faire_part_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 07:08:45 [playlist_bloc_b_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 88).
+2026/08/17 07:08:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 89).
+2026/08/17 07:08:45 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/17 07:08:45 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/17 07:08:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 07:08:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 90).
+2026/08/17 07:09:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 07:09:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ézéchiel_019.mp3" (RID 91).
+2026/08/17 07:11:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ézéchiel_019.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/17 07:11:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ézéchiel_020.mp3" (RID 92).
