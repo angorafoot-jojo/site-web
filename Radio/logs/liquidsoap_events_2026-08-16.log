@@ -584,3 +584,43 @@
 2026/08/16 23:33:42 [request.dynamic:3] Fetch failed: retry.
 2026/08/16 23:33:43 [request.dynamic:3] Fetch failed: retry.
 2026/08/16 23:33:43 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:34:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/16 23:42:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/68 - Shine in Darkness O Lord  - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:42:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/8-_mohamed_sanogo_hymne_des_vainqueurs.mp3" (RID 271).
+2026/08/16 23:48:20 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/8-_mohamed_sanogo_hymne_des_vainqueurs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:48:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/WhatsApp Audio 2022-03-15 at 01.33.50 (1)(1).mp3" (RID 1064).
+2026/08/16 23:57:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/WhatsApp Audio 2022-03-15 at 01.33.50 (1)(1).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/16 23:57:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/68 - Shine in Darkness O Lord  - Winnipeg Fellowship.mp3" (RID 1065).
