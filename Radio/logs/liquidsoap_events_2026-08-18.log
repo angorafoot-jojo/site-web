@@ -160,3 +160,13 @@
 2026/08/18 05:40:07 [clock.main:2] We must catchup 1.38 seconds!
 2026/08/18 05:45:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/08 - I Enter The Holy of Holies - Port Harcourt HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/18 05:45:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantiques  Il a pris mes iniquités.mp3" (RID 82).
+2026/08/18 05:52:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantiques  Il a pris mes iniquités.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 05:52:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" (RID 83).
+2026/08/18 05:52:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 05:52:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_021.mp3" (RID 84).
+2026/08/18 05:56:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_021.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 05:56:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_022.mp3" (RID 85).
+2026/08/18 06:01:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_022.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 06:01:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 86).
+2026/08/18 06:01:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 06:01:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/À la conquête du royaume/acr__angora_en_ce_jour_là,_que_devrons-nous_faire_part_4.mp3" (RID 87).
