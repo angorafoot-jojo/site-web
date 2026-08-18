@@ -268,3 +268,24 @@
 2026/08/18 10:43:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esther_007.mp3" (RID 135).
 2026/08/18 10:45:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esther_007.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/18 10:45:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esther_008.mp3" (RID 136).
+2026/08/18 10:49:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esther_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 10:49:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esther_009.mp3" (RID 137).
+2026/08/18 10:54:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esther_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 10:54:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 138).
+2026/08/18 10:54:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 10:54:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__béni_soit_le_dieu_d_israël.mp3" (RID 139).
+2026/08/18 11:01:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__béni_soit_le_dieu_d_israël.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 11:01:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/01 - There Is Forgiveness In Thee - SWBN TV.mp3" (RID 140).
+2026/08/18 11:07:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/01 - There Is Forgiveness In Thee - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 11:07:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" (RID 141).
+2026/08/18 11:13:44 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 11:13:44 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" (RID 142).
+2026/08/18 11:20:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 11:20:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/67 - My God Is Good - Winnipeg Fellowship.mp3" (RID 143).
+2026/08/18 11:20:02 [clock.main:2] We must catchup 1.26 seconds!
+2026/08/18 11:27:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/67 - My God Is Good - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 11:27:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/06 - Yahweh is Mighty (Imah Adegoke).mp3" (RID 144).
+2026/08/18 11:35:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/06 - Yahweh is Mighty (Imah Adegoke).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 11:35:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable.mp3" (RID 145).
+2026/08/18 11:39:11 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/18 11:39:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/05 - There Is No Lie - SWBN TV.mp3" (RID 146).
