@@ -148,3 +148,11 @@
 2026/08/19 05:39:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_031.mp3" (RID 79).
 2026/08/19 05:42:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_031.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/19 05:42:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_032.mp3" (RID 80).
+2026/08/19 05:49:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_032.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/19 05:49:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_033.mp3" (RID 81).
+2026/08/19 05:54:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_033.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/19 05:54:55 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_034.mp3" (RID 82).
+2026/08/19 06:02:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_034.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/19 06:02:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" (RID 83).
+2026/08/19 06:02:23 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/19 06:02:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/À la conquête du royaume/acr__angora_en_ce_jour_là,_que_devrons-nous_faire_part_5.mp3" (RID 84).
