@@ -1,0 +1,47 @@
+name: Test Rotation Radio (dry-run)
+
+# ──────────────────────────────────────────────────────────────
+# Lancement MANUEL uniquement. Exécute la rotation complète en
+# --dry-run : construit les 4 blocs contre la vraie médiathèque
+# AzuraCast (lectures API seules) mais n'écrit RIEN — ni clear,
+# ni import, ni restart, ni state, ni plan.
+#
+# À lire dans le log du run : les fichiers écartés (jingle/musique
+# trop courts), les résumés par bloc et les cibles bible/louange.
+# ──────────────────────────────────────────────────────────────
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dryrun:
+    name: Rotation en dry-run (aucune écriture)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances
+        run: pip install -r Radio/requirements.txt
+
+      - name: Tests unitaires
+        run: |
+          pip install pytest
+          python -m pytest Radio/ -q
+
+      - name: Rotation en dry-run
+        env:
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          python Radio/azuracast_rotation_4_blocs.py \
+            --config Radio/azuracast_rotation_config_option_a.example.json \
+            --state Radio/azuracast_rotation_state.json \
+            --dry-run --force-advance
