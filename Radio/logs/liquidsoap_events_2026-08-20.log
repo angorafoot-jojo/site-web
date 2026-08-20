@@ -580,3 +580,115 @@
 2026/08/20 22:34:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/06 - Psalm 93 - Port Harcourt HF.mp3" (RID 295).
 2026/08/20 22:43:38 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/06 - Psalm 93 - Port Harcourt HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/20 22:43:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/71 - In the Day of Your Power  - Winnipeg Fellowship.mp3" (RID 296).
+2026/08/20 23:29:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_timothée_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/20 23:29:46 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/20 23:29:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/20 23:29:57 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/20 23:30:00 [playlist_bloc_e_louange_nuit:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/69 - We Bless You Wonderful God  - Winnipeg Fellowship.mp3" (RID 12).
+2026/08/20 23:30:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/20 23:30:00 [live_fallback:3] Switch to cross_0.
+2026/08/20 23:30:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/20 23:30:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/20 23:30:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/20 23:30:00 [schedule_switch:3] Switch to cue_playlist_bloc_e_louange_nuit.
+2026/08/20 23:32:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:35 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:36 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:16 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:16 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:17 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:20 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:33:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:11 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:12 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:16 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:17 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:18 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:20 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:22 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:08 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:09 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:12 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:14 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:17 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:19 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:20 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:21 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:23 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:29 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:31 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:32 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:33 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/08/20 23:37:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/69 - We Bless You Wonderful God  - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/20 23:37:01 [playlist_bloc_e_louange_nuit:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" (RID 1249).
+2026/08/20 23:37:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/07 - Baruch Ha'ba B'Shem Adonai⧸Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF.mp3" (RID 308).
+2026/08/20 23:37:01 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/20 23:37:01 [dynamic_startup:3] Switch to cue_next_song.
