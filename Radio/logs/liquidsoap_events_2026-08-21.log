@@ -292,3 +292,27 @@
 2026/08/21 11:40:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/3_jean_001.mp3" (RID 144).
 2026/08/21 11:42:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/3_jean_001.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/21 11:42:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_012.mp3" (RID 145).
+2026/08/21 11:46:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 11:46:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_013.mp3" (RID 146).
+2026/08/21 11:49:38 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_013.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 11:49:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_014.mp3" (RID 147).
+2026/08/21 11:54:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_014.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 11:54:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_015.mp3" (RID 148).
+2026/08/21 11:55:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_015.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 11:55:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_016.mp3" (RID 149).
+2026/08/21 11:59:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_016.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 11:59:04 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/21 11:59:11 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 11:59:15 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/21 11:59:41 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 11:59:42 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/21 12:00:00 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 9).
+2026/08/21 12:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/21 12:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/21 12:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/21 12:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/21 12:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/21 12:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_c_serie_du_jour.
+2026/08/21 12:00:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/21 12:00:07 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_2022-01-19_2.mp3" (RID 151).
+2026/08/21 12:00:08 [clock.main:2] We must catchup 1.05 seconds!
