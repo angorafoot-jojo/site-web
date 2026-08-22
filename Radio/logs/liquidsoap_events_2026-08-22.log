@@ -174,3 +174,15 @@
 2026/08/22 06:03:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 85).
 2026/08/22 06:03:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/22 06:03:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220219_3.mp3" (RID 86).
+2026/08/22 07:21:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220219_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/22 07:21:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 87).
+2026/08/22 07:21:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/22 07:21:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_004.mp3" (RID 88).
+2026/08/22 07:27:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/22 07:27:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_005.mp3" (RID 89).
+2026/08/22 07:32:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/22 07:32:09 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_006.mp3" (RID 90).
+2026/08/22 07:40:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/22 07:40:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_007.mp3" (RID 91).
+2026/08/22 07:46:20 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/22 07:46:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_chroniques_008.mp3" (RID 92).
