@@ -160,3 +160,17 @@
 2026/08/23 06:07:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 82).
 2026/08/23 06:07:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/23 06:07:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220219_4.mp3" (RID 83).
+2026/08/23 07:27:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220219_4.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 07:27:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 84).
+2026/08/23 07:27:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 07:27:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/amos_009.mp3" (RID 85).
+2026/08/23 07:30:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/amos_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 07:30:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/galates_006.mp3" (RID 86).
+2026/08/23 07:33:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/galates_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 07:33:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/aggée_001.mp3" (RID 87).
+2026/08/23 07:35:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/aggée_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 07:35:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/aggée_002.mp3" (RID 88).
+2026/08/23 07:39:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/aggée_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 07:39:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/hébreux_012.mp3" (RID 89).
+2026/08/23 07:44:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/hébreux_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 07:44:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/hébreux_013.mp3" (RID 90).
