@@ -1,0 +1,40 @@
+2026/08/23 00:00:06 [clock.main:2] We must catchup 1.02 seconds!
+2026/08/23 00:00:07 [clock.main:2] We must catchup 1.23 seconds!
+2026/08/23 00:00:08 [clock.main:2] We must catchup 1.81 seconds!
+2026/08/23 00:00:09 [clock.main:2] We must catchup 2.28 seconds!
+2026/08/23 00:00:10 [clock.main:2] We must catchup 2.96 seconds!
+2026/08/23 00:00:11 [clock.main:2] We must catchup 3.17 seconds!
+2026/08/23 00:00:12 [clock.main:2] We must catchup 3.40 seconds!
+2026/08/23 00:00:13 [clock.main:2] We must catchup 3.65 seconds!
+2026/08/23 00:00:14 [clock.main:2] We must catchup 3.31 seconds!
+2026/08/23 00:00:15 [clock.main:2] We must catchup 2.03 seconds!
+2026/08/23 00:01:28 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/08/23 00:01:28 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/08/23 00:01:28 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/08/23 00:01:28 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/23 00:01:28 [safe_fallback:3] Switch to error_jingle.
+2026/08/23 00:01:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 8).
+2026/08/23 00:01:29 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/23 00:01:29 [live_fallback:3] Switch to cross_0.
+2026/08/23 00:01:29 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/23 00:01:29 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/23 00:01:29 [autodj_fallback:3] Switch to dynamic_startup.
+2026/08/23 00:01:29 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/23 00:01:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 00:01:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 14).
+2026/08/23 00:03:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 00:03:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220219_4.mp3" (RID 15).
+2026/08/23 01:23:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220219_4.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 01:23:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 16).
+2026/08/23 01:24:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 01:24:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_009.mp3" (RID 17).
+2026/08/23 01:30:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 01:30:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_010.mp3" (RID 18).
+2026/08/23 01:38:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_010.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 01:38:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_011.mp3" (RID 19).
+2026/08/23 01:42:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_011.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 01:42:44 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_012.mp3" (RID 20).
+2026/08/23 01:49:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 01:49:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_013.mp3" (RID 21).
+2026/08/23 01:55:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_013.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 01:55:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_014.mp3" (RID 22).
