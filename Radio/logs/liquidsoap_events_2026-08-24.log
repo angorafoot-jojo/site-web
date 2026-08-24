@@ -554,3 +554,27 @@
 2026/08/24 19:40:05 [clock.main:2] We must catchup 1.66 seconds!
 2026/08/24 19:40:06 [clock.main:2] We must catchup 2.11 seconds!
 2026/08/24 19:40:07 [clock.main:2] We must catchup 1.07 seconds!
+2026/08/24 19:48:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/22 - Holy Holy - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 19:48:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__ta_bonte.mp3" (RID 273).
+2026/08/24 19:54:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__ta_bonte.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 19:54:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/55 - God's Got An Army - PHF.mp3" (RID 274).
+2026/08/24 19:59:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/55 - God's Got An Army - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 19:59:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/25 - Immortal God - Elohim Adonai - Abuja HF.mp3" (RID 275).
+2026/08/24 20:06:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/25 - Immortal God - Elohim Adonai - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:06:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/27 - Forever You Reign - Abuja HF.mp3" (RID 276).
+2026/08/24 20:11:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/27 - Forever You Reign - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:11:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__tes_promesses__pub_direct_dec_2021_import_(2).mp3" (RID 277).
+2026/08/24 20:19:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__tes_promesses__pub_direct_dec_2021_import_(2).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:19:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 278).
+2026/08/24 20:19:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:19:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_004.mp3" (RID 279).
+2026/08/24 20:26:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:26:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_005.mp3" (RID 280).
+2026/08/24 20:31:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:31:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_006.mp3" (RID 281).
+2026/08/24 20:35:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:35:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_007.mp3" (RID 282).
+2026/08/24 20:47:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nombres_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:47:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 283).
+2026/08/24 20:47:20 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/24 20:47:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/76 - You Have sworn By Your Holiness - Chidera Bisong.mp3" (RID 284).
