@@ -552,3 +552,5 @@
 2026/08/23 23:34:00 [request.dynamic:3] Fetch failed: retry.
 2026/08/23 23:34:00 [request.dynamic:3] Fetch failed: retry.
 2026/08/23 23:34:45 [request.dynamic:3] Fetch failed: retry.
+2026/08/23 23:59:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/88 - Good God - Asaba Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/23 23:59:57 [safe_fallback:3] Switch to error_jingle with forgetful transition.
