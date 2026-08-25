@@ -265,3 +265,16 @@
 2026/08/25 11:42:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_01.mp3" (RID 134).
 2026/08/25 11:42:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_01.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/25 11:42:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_008.mp3" (RID 135).
+2026/08/25 11:59:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_011.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 11:59:10 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/25 11:59:37 [decoder:2] Decoding "/usr/local/share/icecast/web/error.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 11:59:37 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/08/25 12:00:00 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 10).
+2026/08/25 12:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/25 12:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/25 12:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/25 12:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/25 12:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/25 12:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_c_serie_du_jour.
+2026/08/25 12:00:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 12:00:10 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_6.mp3" (RID 139).
