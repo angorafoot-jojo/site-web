@@ -278,3 +278,30 @@
 2026/08/25 12:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_c_serie_du_jour.
 2026/08/25 12:00:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/25 12:00:10 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_6.mp3" (RID 139).
+2026/08/25 13:26:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_6.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:26:52 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 140).
+2026/08/25 13:26:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 141).
+2026/08/25 13:26:52 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/08/25 13:26:52 [dynamic_startup:3] Switch to cue_next_song.
+2026/08/25 13:27:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:27:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 142).
+2026/08/25 13:27:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:27:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_001.mp3" (RID 143).
+2026/08/25 13:29:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:29:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_002.mp3" (RID 144).
+2026/08/25 13:35:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:35:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_003.mp3" (RID 145).
+2026/08/25 13:38:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:38:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_004.mp3" (RID 146).
+2026/08/25 13:42:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:42:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_005.mp3" (RID 147).
+2026/08/25 13:45:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:45:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_006.mp3" (RID 148).
+2026/08/25 13:49:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:49:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_007.mp3" (RID 149).
+2026/08/25 13:54:11 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:54:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_008.mp3" (RID 150).
+2026/08/25 13:59:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 13:59:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_009.mp3" (RID 151).
+2026/08/25 14:03:23 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 14:03:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/esdras_010.mp3" (RID 152).
