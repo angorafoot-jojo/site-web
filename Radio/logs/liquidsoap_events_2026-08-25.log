@@ -145,3 +145,13 @@
 2026/08/25 05:43:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" (RID 74).
 2026/08/25 05:44:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/25 05:44:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_021.mp3" (RID 75).
+2026/08/25 05:49:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_021.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 05:49:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_022.mp3" (RID 76).
+2026/08/25 05:52:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_022.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 05:52:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_001.mp3" (RID 77).
+2026/08/25 05:56:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 05:56:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_002.mp3" (RID 78).
+2026/08/25 06:00:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/exode_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 06:00:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 79).
+2026/08/25 06:00:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 06:00:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_6.mp3" (RID 80).
