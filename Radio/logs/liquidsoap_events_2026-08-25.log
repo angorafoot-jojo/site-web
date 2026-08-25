@@ -355,3 +355,38 @@
 2026/08/25 15:56:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" (RID 176).
 2026/08/25 16:00:35 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/25 16:00:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" (RID 177).
+2026/08/25 16:03:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:03:55 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" (RID 178).
+2026/08/25 16:09:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/5-il_sappelait_emmanuel_-_marcel_boungou__paroles.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:09:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" (RID 179).
+2026/08/25 16:09:07 [clock.main:2] We must catchup 1.36 seconds!
+2026/08/25 16:18:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:18:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 180).
+2026/08/25 16:18:11 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:18:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_jean_005.mp3" (RID 181).
+2026/08/25 16:21:20 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_jean_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:21:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_001.mp3" (RID 182).
+2026/08/25 16:23:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:23:55 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_002.mp3" (RID 183).
+2026/08/25 16:26:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:26:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_003.mp3" (RID 184).
+2026/08/25 16:28:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:28:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_004.mp3" (RID 185).
+2026/08/25 16:30:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:30:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_005.mp3" (RID 186).
+2026/08/25 16:33:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:33:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_006.mp3" (RID 187).
+2026/08/25 16:35:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:35:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_007.mp3" (RID 188).
+2026/08/25 16:39:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/michée_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:39:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_001.mp3" (RID 189).
+2026/08/25 16:41:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:41:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_002.mp3" (RID 190).
+2026/08/25 16:44:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:44:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_003.mp3" (RID 191).
+2026/08/25 16:46:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:46:55 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_004.mp3" (RID 192).
+2026/08/25 16:53:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/lévitique_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:53:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 193).
+2026/08/25 16:53:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 16:53:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique - Je veux vivre ton royaume.mp3" (RID 194).
