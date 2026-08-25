@@ -155,3 +155,21 @@
 2026/08/25 06:00:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 79).
 2026/08/25 06:00:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/25 06:00:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_6.mp3" (RID 80).
+2026/08/25 07:27:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_6.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:27:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 81).
+2026/08/25 07:27:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:27:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_001.mp3" (RID 82).
+2026/08/25 07:30:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:30:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_002.mp3" (RID 83).
+2026/08/25 07:36:11 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:36:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_003.mp3" (RID 84).
+2026/08/25 07:39:44 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:39:44 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nahum_001.mp3" (RID 85).
+2026/08/25 07:42:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nahum_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:42:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nahum_002.mp3" (RID 86).
+2026/08/25 07:44:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nahum_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:44:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nahum_003.mp3" (RID 87).
+2026/08/25 07:47:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/nahum_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:47:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_001.mp3" (RID 88).
+2026/08/25 07:54:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 07:54:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_002.mp3" (RID 89).
