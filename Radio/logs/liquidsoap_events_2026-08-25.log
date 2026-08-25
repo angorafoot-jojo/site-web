@@ -537,3 +537,46 @@
 2026/08/25 22:42:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" (RID 263).
 2026/08/25 22:42:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/25 22:42:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/12 - As We Worship - Toronto & Winnipeg HF.mp3" (RID 264).
+2026/08/25 22:52:34 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/12 - As We Worship - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 22:52:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" (RID 265).
+2026/08/25 22:59:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 22:59:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/58 - Rejoice - PHF.mp3" (RID 266).
+2026/08/25 23:05:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/58 - Rejoice - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:05:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___il_s_est_lui-même_humilié.mp3" (RID 267).
+2026/08/25 23:10:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___il_s_est_lui-même_humilié.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:10:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/33 - By the word of the lord - Ketu HF.mp3" (RID 268).
+2026/08/25 23:16:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/33 - By the word of the lord - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:16:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/27 - Forever You Reign - Abuja HF.mp3" (RID 269).
+2026/08/25 23:21:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/27 - Forever You Reign - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:21:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/53 - In Jesus - PHF.mp3" (RID 270).
+2026/08/25 23:27:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/53 - In Jesus - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:27:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" (RID 271).
+2026/08/25 23:28:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:28:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_timothée_001.mp3" (RID 272).
+2026/08/25 23:31:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_timothée_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:31:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" (RID 273).
+2026/08/25 23:32:26 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:32:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:32:27 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:32:28 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:11 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:11 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:11 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:11 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:12 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:13 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:14 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:14 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:33:59 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:00 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:00 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:01 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:01 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:02 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:02 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:02 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:34:52 [request.dynamic:3] Fetch failed: retry.
+2026/08/25 23:38:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:38:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" (RID 274).
