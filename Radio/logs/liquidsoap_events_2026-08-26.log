@@ -271,3 +271,16 @@
 2026/08/26 11:30:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/41 - Abba, Singing a, I Will Sing - Ketu HF.mp3" (RID 133).
 2026/08/26 11:40:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/41 - Abba, Singing a, I Will Sing - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/26 11:40:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" (RID 134).
+2026/08/26 11:59:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_pierre_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 11:59:46 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/08/26 11:59:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 11:59:56 [safe_fallback:3] Switch to error_jingle with forgetful transition.
+2026/08/26 12:00:00 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 9).
+2026/08/26 12:00:00 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/08/26 12:00:00 [live_fallback:3] Switch to cross_0.
+2026/08/26 12:00:00 [interrupting_fallback:3] Switch to requests_fallback.
+2026/08/26 12:00:00 [requests_fallback:3] Switch to autodj_fallback.
+2026/08/26 12:00:00 [autodj_fallback:3] Switch to schedule_switch.
+2026/08/26 12:00:00 [schedule_switch:3] Switch to cue_playlist_bloc_c_serie_du_jour.
+2026/08/26 12:00:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 12:00:10 [playlist_bloc_c_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_7.mp3" (RID 139).
