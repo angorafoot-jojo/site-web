@@ -168,3 +168,13 @@
 2026/08/26 06:02:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 82).
 2026/08/26 06:02:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/26 06:02:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_7.mp3" (RID 83).
+2026/08/26 07:51:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/APS/aps_la_moisson_20220226_7.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 07:51:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 84).
+2026/08/26 07:51:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 07:51:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/tite_001.mp3" (RID 85).
+2026/08/26 07:53:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/tite_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 07:53:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/tite_002.mp3" (RID 86).
+2026/08/26 07:56:01 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/tite_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 07:56:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/tite_003.mp3" (RID 87).
+2026/08/26 07:58:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/tite_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/26 07:58:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/galates_005.mp3" (RID 88).
