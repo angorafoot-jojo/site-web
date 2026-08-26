@@ -580,3 +580,5 @@
 2026/08/25 23:34:52 [request.dynamic:3] Fetch failed: retry.
 2026/08/25 23:38:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/11 - Hosanna - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/08/25 23:38:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" (RID 274).
+2026/08/25 23:59:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/90 - Bless Ye the Lord - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/08/25 23:59:58 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
