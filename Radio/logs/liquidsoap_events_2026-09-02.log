@@ -1,0 +1,22 @@
+2026/09/02 00:01:35 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/02 00:01:35 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/02 00:01:35 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/09/02 00:01:35 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 6).
+2026/09/02 00:01:35 [safe_fallback:3] Switch to error_jingle.
+2026/09/02 00:01:36 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 11).
+2026/09/02 00:01:36 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/09/02 00:01:36 [live_fallback:3] Switch to cross_0.
+2026/09/02 00:01:36 [interrupting_fallback:3] Switch to requests_fallback.
+2026/09/02 00:01:36 [requests_fallback:3] Switch to autodj_fallback.
+2026/09/02 00:01:36 [autodj_fallback:3] Switch to schedule_switch.
+2026/09/02 00:01:36 [schedule_switch:3] Switch to metadata.map_0.
+2026/09/02 00:01:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 14).
+2026/09/02 00:03:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/02 00:03:49 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 7).
+2026/09/02 00:03:49 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour with forgetful transition.
+2026/09/02 00:03:49 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/09/02 00:03:49 [dynamic_startup:3] Switch to cue_next_song.
+2026/09/02 00:05:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/02 00:05:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 15).
+2026/09/02 00:05:31 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/02 00:05:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Parole qui éclaire/pqe_j7.mp3" (RID 16).
