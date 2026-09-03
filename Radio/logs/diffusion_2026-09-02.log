@@ -1,0 +1,370 @@
+====================================================================================================
+MONITEUR RADIO — 2026-09-02 (synthèse des 3 rapports + plan, heures UTC)
+====================================================================================================
+État : ❌ incident(s) détecté(s)  ·  diffusion : 0 coupure(s)/trou(s), 0 double(s) message  ·  serveur : 225 incident(s)
+SERVEUR (liquidsoap_events) :
+   00:01:35  🔇 bascule sur jingle d'erreur (silence potentiel)  (×3)
+   23:29:28  🔇 bascule sur jingle d'erreur (silence potentiel)  (×2)
+   23:32:31  🌐 échec réseau AzuraCast/Liquidsoap  (×220)
+RESET MINUIT : restart confirmé vers 00:02:14 · 3 contrôle(s) · ⚠️ doublon vu dans la file
+INCIDENTS CORRÉLÉS : aucune anomalie de diffusion à corréler ✅
+(Détail titre par titre, contrôles approfondis et RÉEL vs PRÉVU ci-dessous.)
+Rapport de diffusion — 2026-09-02 (heures UTC)
+314 titres joués | tolérance ±10s
+====================================================================================================
+HEURE    PLAYLIST                     FICHIER          RÉEL    ÉCART  STATUT  TITRE
+----------------------------------------------------------------------------------------------------
+00:01:41 ?                                 3m49s      3m49s      +0s  ✅  ?
+00:05:30 BLOC_A_SERIE_DU_JOUR              0m10s      0m07s      -3s  ✅  jingle avant message 04 bienvenue sur parole prophetique fm
+00:05:37 BLOC_A_SERIE_DU_JOUR             23m41s     23m38s      -3s  ✅  pqe j7
+00:29:15 BLOC_A_SERIE_DU_JOUR              0m13s      0m11s      -2s  ✅  jingle avant bible 07 place a la lecture de la bible
+00:29:26 BLOC_A_SERIE_DU_JOUR              2m21s      2m19s      -2s  ✅  Ecclésiaste 1
+00:31:45 BLOC_A_SERIE_DU_JOUR              4m17s      4m15s      -2s  ✅  Ecclésiaste 2
+00:36:00 BLOC_A_SERIE_DU_JOUR              2m50s      2m47s      -3s  ✅  Ecclésiaste 3
+00:38:47 BLOC_A_SERIE_DU_JOUR              2m23s      2m20s      -3s  ✅  Ecclésiaste 4
+00:41:07 BLOC_A_SERIE_DU_JOUR              3m17s      3m15s      -2s  ✅  Ecclésiaste 5
+00:44:22 BLOC_A_SERIE_DU_JOUR              1m50s      1m47s      -3s  ✅  Ecclésiaste 6
+00:46:09 BLOC_A_SERIE_DU_JOUR              3m44s      3m42s      -2s  ✅  Ecclésiaste 7
+00:49:51 BLOC_A_SERIE_DU_JOUR              2m51s      2m49s      -2s  ✅  Ecclésiaste 8
+00:52:40 BLOC_A_SERIE_DU_JOUR              3m14s      3m11s      -3s  ✅  Ecclésiaste 9
+00:55:51 BLOC_A_SERIE_DU_JOUR              2m29s      2m27s      -2s  ✅  Ecclésiaste 10
+00:58:18 BLOC_A_SERIE_DU_JOUR              1m34s      1m32s      -2s  ✅  Ecclésiaste 11
+00:59:50 BLOC_A_SERIE_DU_JOUR              2m16s      2m13s      -3s  ✅  Ecclésiaste 12
+01:02:03 BLOC_A_SERIE_DU_JOUR              3m07s      3m05s      -2s  ✅  Joël 1
+01:05:08 BLOC_A_SERIE_DU_JOUR              5m41s      5m38s      -3s  ✅  Joël 2
+01:10:46 BLOC_A_SERIE_DU_JOUR              3m36s      3m33s      -3s  ✅  Joël 3
+01:14:19 BLOC_A_SERIE_DU_JOUR              2m38s      2m36s      -2s  ✅  1 Corinthiens 13
+01:16:55 BLOC_A_SERIE_DU_JOUR              6m31s      6m28s      -3s  ✅  1 Corinthiens 14
+01:23:23 BLOC_A_SERIE_DU_JOUR              8m34s      8m31s      -3s  ✅  1 Corinthiens 15
+01:31:54 BLOC_A_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant louange 06 que la louange seleve
+01:32:02 BLOC_A_SERIE_DU_JOUR              5m21s      5m18s      -3s  ✅  We Shall Not Fear - Nonso Njoku
+01:37:20 BLOC_A_SERIE_DU_JOUR              5m04s      5m02s      -2s  ✅  I Enter The Holy of Holies - Port Harcourt HF
+01:42:22 BLOC_A_SERIE_DU_JOUR              5m28s      5m26s      -2s  ✅  même humilié
+01:47:48 BLOC_A_SERIE_DU_JOUR              5m57s      5m54s      -3s  ✅  You are God - Winnipeg Fellowship
+01:53:42 BLOC_A_SERIE_DU_JOUR             10m35s     10m32s      -3s  ✅  Baruch Ha'ba B'Shem Adonai/Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF
+02:04:14 BLOC_A_SERIE_DU_JOUR              5m08s      5m06s      -2s  ✅  He Has Given Me - PHF
+02:09:20 BLOC_A_SERIE_DU_JOUR             11m54s     11m52s      -2s  ✅  Great & Marvelluos - Toronto HF
+02:21:12 BLOC_A_SERIE_DU_JOUR              5m19s      5m17s      -2s  ✅  Gabrielle LIDJI - Mélodie Céleste  by LFXA(Light FX Animation)_2
+02:26:29 BLOC_A_SERIE_DU_JOUR              6m02s      5m59s      -3s  ✅  Rejoice - PHF
+02:32:28 BLOC_A_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant bible 06 ouvrons les saintes ecritures
+02:32:36 BLOC_A_SERIE_DU_JOUR              3m12s      3m09s      -3s  ✅  Zacharie 9
+02:35:45 BLOC_A_SERIE_DU_JOUR              2m13s      2m11s      -2s  ✅  Zacharie 10
+02:37:56 BLOC_A_SERIE_DU_JOUR              2m53s      2m51s      -2s  ✅  Zacharie 11
+02:40:47 BLOC_A_SERIE_DU_JOUR              2m38s      2m35s      -3s  ✅  Zacharie 12
+02:43:22 BLOC_A_SERIE_DU_JOUR              1m43s      1m41s      -2s  ✅  Zacharie 13
+02:45:03 BLOC_A_SERIE_DU_JOUR              4m06s      4m03s      -3s  ✅  Zacharie 14
+02:49:06 BLOC_A_SERIE_DU_JOUR              2m56s      2m54s      -2s  ✅  Sophonie 1
+02:52:00 BLOC_A_SERIE_DU_JOUR              2m46s      2m43s      -3s  ✅  Sophonie 2
+02:54:43 BLOC_A_SERIE_DU_JOUR              3m46s      3m44s      -2s  ✅  Sophonie 3
+02:58:27 BLOC_A_SERIE_DU_JOUR              8m34s      8m31s      -3s  ✅  Luc 11
+03:06:58 BLOC_A_SERIE_DU_JOUR              0m11s      0m09s      -2s  ✅  jingle avant louange 05 elevons nos coeurs vers dieu
+03:07:07 BLOC_A_SERIE_DU_JOUR              5m13s      5m10s      -3s  ✅  Il s'appelait Emmanuel - Marcel Boungou + Paroles
+03:12:17 BLOC_A_SERIE_DU_JOUR              5m52s      5m50s      -2s  ✅  Where Two or Three are Gathered - Calabar HF
+03:18:07 BLOC_A_SERIE_DU_JOUR              4m18s      4m15s      -3s  ✅  You Are Worthy - Ketu HF
+03:22:22 BLOC_A_SERIE_DU_JOUR              6m34s      6m31s      -3s  ✅  cantique  béni soit le dieu d israël
+03:28:53 BLOC_A_SERIE_DU_JOUR              9m39s      9m37s      -2s  ✅  Psalm 93 - Port Harcourt HF
+03:38:30 BLOC_A_SERIE_DU_JOUR              8m18s      8m15s      -3s  ✅  Yahweh Is Mighty - SWBN TV
+03:46:45 BLOC_A_SERIE_DU_JOUR              4m11s      4m09s      -2s  ✅  jai donné ma vie à jésus (1)
+03:50:54 BLOC_A_SERIE_DU_JOUR              4m52s      4m49s      -3s  ✅  God is Moving Us On - Ketu HF
+03:55:43 BLOC_A_SERIE_DU_JOUR              5m45s      5m43s      -2s  ✅  Ella Samuels - Oh Lord Our Maker
+04:01:26 BLOC_A_SERIE_DU_JOUR              4m14s      4m11s      -3s  ✅  Mon modèle, c est Jésus
+04:05:37 BLOC_A_SERIE_DU_JOUR              0m09s      0m07s      -2s  ✅  jingle avant bible 08 prenons un moment pour ecouter la parole
+04:05:44 BLOC_A_SERIE_DU_JOUR              3m22s      3m20s      -2s  ✅  Jean 15
+04:09:04 BLOC_A_SERIE_DU_JOUR              4m20s      4m17s      -3s  ✅  Jean 16
+04:13:21 BLOC_A_SERIE_DU_JOUR              3m14s      3m11s      -3s  ✅  Jean 17
+04:16:32 BLOC_A_SERIE_DU_JOUR              5m40s      5m38s      -2s  ✅  Jean 18
+04:22:10 BLOC_A_SERIE_DU_JOUR              6m09s      6m07s      -2s  ✅  Jean 19
+04:28:17 BLOC_A_SERIE_DU_JOUR              4m27s      4m24s      -3s  ✅  Jean 20
+04:32:41 BLOC_A_SERIE_DU_JOUR              4m04s      4m01s      -3s  ✅  Jean 21
+04:36:42 BLOC_A_SERIE_DU_JOUR              6m32s      6m30s      -2s  ✅  Actes 10
+04:43:12 BLOC_A_SERIE_DU_JOUR              4m06s      4m03s      -3s  ✅  Actes 11
+04:47:15 BLOC_A_SERIE_DU_JOUR              3m53s      3m50s      -3s  ✅  Actes 12
+04:51:05 BLOC_A_SERIE_DU_JOUR              0m13s      0m11s      -2s  ✅  jingle avant louange 07 voici un temps de louange
+04:51:16 BLOC_A_SERIE_DU_JOUR              6m41s      6m38s      -3s  ✅  6 minutes
+04:57:54 BLOC_A_SERIE_DU_JOUR              7m17s      7m16s      -1s  ✅  cantique  tes promesses  pub direct dec 2021 import (2)
+05:05:10 BLOC_A_SERIE_DU_JOUR              7m57s      7m54s      -3s  ✅  Yahweh is Mighty (Imah Adegoke)
+05:13:04 BLOC_A_SERIE_DU_JOUR              4m21s      4m18s      -3s  ✅  Sing Hallelujah - Abuja HF
+05:17:22 BLOC_A_SERIE_DU_JOUR              7m37s      7m34s      -3s  ✅  Cantiques  Il a pris mes iniquités
+05:24:56 BLOC_A_SERIE_DU_JOUR              5m52s      5m50s      -2s  ✅  Not Naked (Abasiama Timothy)
+05:30:46 BLOC_A_SERIE_DU_JOUR             10m13s     10m10s      -3s  ✅  As We Worship - Toronto & Winnipeg HF
+05:40:56 BLOC_A_SERIE_DU_JOUR              6m15s      6m13s      -2s  ✅  Oh Lord I Want to Know Your Glory - Port Harcourt HF
+05:47:09 BLOC_A_SERIE_DU_JOUR              0m09s      0m09s      +0s  ✅  JINGLE
+05:47:18 BLOC_A_SERIE_DU_JOUR              3m00s      2m58s      -2s  ✅  Jonas 1
+05:50:16 BLOC_A_SERIE_DU_JOUR              1m22s      1m19s      -3s  ✅  Jonas 2
+05:51:35 BLOC_A_SERIE_DU_JOUR              1m36s      1m34s      -2s  ✅  Jonas 3
+05:53:09 BLOC_A_SERIE_DU_JOUR              1m57s      1m55s      -2s  ✅  Jonas 4
+05:55:04 BLOC_A_SERIE_DU_JOUR              1m49s      1m47s      -2s  ✅  1 Thessaloniciens 1
+05:56:51 BLOC_A_SERIE_DU_JOUR              3m29s      3m26s      -3s  ✅  1 Thessaloniciens 2
+06:00:17 BLOC_B_SERIE_DU_JOUR              0m11s      0m09s      -2s  ✅  jingle avant message 05 vous etes a lecoute de levangile du royaume
+06:00:26 BLOC_B_SERIE_DU_JOUR             23m41s     23m38s      -3s  ✅  pqe j7
+06:24:04 BLOC_B_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant bible 06 ouvrons les saintes ecritures
+06:24:12 BLOC_B_SERIE_DU_JOUR              5m15s      5m12s      -3s  ✅  Lamentations 2
+06:29:24 BLOC_B_SERIE_DU_JOUR              6m02s      5m59s      -3s  ✅  Lamentations 3
+06:35:23 BLOC_B_SERIE_DU_JOUR              3m56s      3m54s      -2s  ✅  Lamentations 4
+06:39:17 BLOC_B_SERIE_DU_JOUR              2m20s      2m17s      -3s  ✅  Lamentations 5
+06:41:34 BLOC_B_SERIE_DU_JOUR              5m57s      5m55s      -2s  ✅  Daniel 9
+06:47:29 BLOC_B_SERIE_DU_JOUR              3m45s      3m43s      -2s  ✅  Daniel 10
+06:51:12 BLOC_B_SERIE_DU_JOUR              8m26s      8m23s      -3s  ✅  Daniel 11
+06:59:35 BLOC_B_SERIE_DU_JOUR              2m26s      2m24s      -2s  ✅  Daniel 12
+07:01:59 BLOC_B_SERIE_DU_JOUR              6m47s      6m44s      -3s  ✅  Hébreux 11
+07:08:43 BLOC_B_SERIE_DU_JOUR              5m04s      5m02s      -2s  ✅  Hébreux 12
+07:13:45 BLOC_B_SERIE_DU_JOUR              3m36s      3m33s      -3s  ✅  Hébreux 13
+07:17:18 BLOC_B_SERIE_DU_JOUR              2m05s      2m03s      -2s  ✅  3 Jean 1
+07:19:21 BLOC_B_SERIE_DU_JOUR              4m02s      3m59s      -3s  ✅  Esther 1
+07:23:20 BLOC_B_SERIE_DU_JOUR              0m11s      0m08s      -3s  ✅  jingle avant louange 05 elevons nos coeurs vers dieu
+07:23:28 BLOC_B_SERIE_DU_JOUR              4m03s      4m01s      -2s  ✅  I Will Not Be Silent - Calabar HF
+07:27:29 BLOC_B_SERIE_DU_JOUR              5m58s      5m55s      -3s  ✅  In Jesus - PHF
+07:33:24 BLOC_B_SERIE_DU_JOUR              5m04s      5m02s      -2s  ✅  Guide Me - El ELyon - Abuja HF
+07:38:26 BLOC_B_SERIE_DU_JOUR              4m20s      4m18s      -2s  ✅  There's A Mighty River Flowing - SWBN TV
+07:42:44 BLOC_B_SERIE_DU_JOUR              7m21s      7m18s      -3s  ✅  For By My God - Toronto & Winnipeg HF
+07:50:02 BLOC_B_SERIE_DU_JOUR             10m25s     10m23s      -2s  ✅  Holy Are You - PHF
+08:00:25 BLOC_B_SERIE_DU_JOUR              9m04s      9m01s      -3s  ✅  You're the Lamb - Calabar HF
+08:09:26 BLOC_B_SERIE_DU_JOUR              8m41s      8m38s      -3s  ✅  Unto Him (Vincent Opara)
+08:18:04 BLOC_B_SERIE_DU_JOUR              5m43s      5m41s      -2s  ✅  Cantique l Éternel est mon Berger (1)
+08:23:45 BLOC_B_SERIE_DU_JOUR              0m09s      0m06s      -3s  ✅  jingle avant bible 08 prenons un moment pour ecouter la parole
+08:23:51 BLOC_B_SERIE_DU_JOUR              5m08s      5m06s      -2s  ✅  2 Chroniques 24
+08:28:57 BLOC_B_SERIE_DU_JOUR              5m13s      5m11s      -2s  ✅  2 Chroniques 25
+08:34:08 BLOC_B_SERIE_DU_JOUR              4m04s      4m01s      -3s  ✅  2 Chroniques 26
+08:38:09 BLOC_B_SERIE_DU_JOUR              1m21s      1m19s      -2s  ✅  2 Chroniques 27
+08:39:28 BLOC_B_SERIE_DU_JOUR              4m55s      4m52s      -3s  ✅  2 Chroniques 28
+08:44:20 BLOC_B_SERIE_DU_JOUR              6m27s      6m25s      -2s  ✅  2 Chroniques 29
+08:50:45 BLOC_B_SERIE_DU_JOUR              5m02s      5m00s      -2s  ✅  2 Chroniques 30
+08:55:45 BLOC_B_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant louange 06 que la louange seleve
+08:55:53 BLOC_B_SERIE_DU_JOUR              8m21s      8m19s      -2s  ✅  In the Day of Your Power  - Winnipeg Fellowship
+09:04:12 BLOC_B_SERIE_DU_JOUR              5m07s      5m04s      -3s  ✅  We Shall Come - Asaba Fellowship
+09:09:16 BLOC_B_SERIE_DU_JOUR              6m59s      6m56s      -3s  ✅  Hosanna - Toronto HF
+09:16:12 BLOC_B_SERIE_DU_JOUR              6m06s      6m03s      -3s  ✅  Good God - Asaba Fellowship
+09:22:15 BLOC_B_SERIE_DU_JOUR              7m51s      7m48s      -3s  ✅  There is no name  - Winnipeg Fellowship
+09:30:03 BLOC_B_SERIE_DU_JOUR              5m45s      5m43s      -2s  ✅  How Precious Oh Lord
+09:35:46 BLOC_B_SERIE_DU_JOUR              6m56s      6m53s      -3s  ✅  As We Worship In Ypur Presence
+09:42:39 BLOC_B_SERIE_DU_JOUR              6m35s      6m33s      -2s  ✅  cantique   ta lumière
+09:49:12 BLOC_B_SERIE_DU_JOUR              5m02s      5m00s      -2s  ✅  A Song Of Love
+09:54:12 BLOC_B_SERIE_DU_JOUR              0m13s      0m10s      -3s  ✅  jingle avant bible 07 place a la lecture de la bible
+09:54:22 BLOC_B_SERIE_DU_JOUR              5m41s      5m39s      -2s  ✅  1 Chroniques 1
+10:00:01 BLOC_B_SERIE_DU_JOUR              6m19s      6m16s      -3s  ✅  1 Chroniques 2
+10:06:17 BLOC_B_SERIE_DU_JOUR              3m15s      3m13s      -2s  ✅  1 Chroniques 3
+10:09:30 BLOC_B_SERIE_DU_JOUR              6m13s      6m10s      -3s  ✅  1 Chroniques 4
+10:15:40 BLOC_B_SERIE_DU_JOUR              4m25s      4m22s      -3s  ✅  1 Chroniques 5
+10:20:02 BLOC_B_SERIE_DU_JOUR              8m29s      8m28s      -1s  ✅  1 Chroniques 6
+10:28:30 BLOC_B_SERIE_DU_JOUR              5m47s      5m44s      -3s  ✅  1 Chroniques 7
+10:34:14 BLOC_B_SERIE_DU_JOUR              3m52s      3m49s      -3s  ✅  1 Chroniques 8
+10:38:03 BLOC_B_SERIE_DU_JOUR              0m13s      0m10s      -3s  ✅  jingle avant louange 07 voici un temps de louange
+10:38:13 BLOC_B_SERIE_DU_JOUR              2m20s      2m18s      -2s  ✅  cantique  heureux l homme qui ne marche pas selon
+10:40:31 BLOC_B_SERIE_DU_JOUR              9m38s      9m35s      -3s  ✅  Holy are You oh Lord (Olaedo Uzoma & Vincent Opara)
+10:50:06 BLOC_B_SERIE_DU_JOUR              4m48s      4m46s      -2s  ✅  Yeshua I'm Waiting for You  - Ketu HF
+10:54:52 BLOC_B_SERIE_DU_JOUR              5m48s      5m46s      -2s  ✅  Forever You Reign - Abuja HF
+11:00:38 BLOC_B_SERIE_DU_JOUR              4m05s      4m02s      -3s  ✅  Song Of Victory - Emmanuel Igunbor
+11:04:40 BLOC_B_SERIE_DU_JOUR              5m47s      5m45s      -2s  ✅  We Ascribe Greatness - Abuja HF
+11:10:25 BLOC_B_SERIE_DU_JOUR              6m57s      6m55s      -2s  ✅  qui est digne d ouvrir le livre
+11:17:20 BLOC_B_SERIE_DU_JOUR              7m09s      7m06s      -3s  ✅  You're the Lamb (Abasiama Timothy)
+11:24:26 BLOC_B_SERIE_DU_JOUR              8m30s      8m28s      -2s  ✅  We Worship Adonai - PHF
+11:32:54 BLOC_B_SERIE_DU_JOUR              5m10s      5m08s      -2s  ✅  I Will Call Upon The Lord
+11:38:02 BLOC_B_SERIE_DU_JOUR              0m09s      0m09s      +0s  ✅  JINGLE
+11:38:11 BLOC_B_SERIE_DU_JOUR              2m40s      2m38s      -2s  ✅  Amos 1
+11:40:49 BLOC_B_SERIE_DU_JOUR              2m30s      2m28s      -2s  ✅  Amos 2
+11:43:17 BLOC_B_SERIE_DU_JOUR              2m19s      2m17s      -2s  ✅  Amos 3
+11:45:34 BLOC_B_SERIE_DU_JOUR              2m44s      2m41s      -3s  ✅  Amos 4
+11:48:15 BLOC_B_SERIE_DU_JOUR              4m01s      3m58s      -3s  ✅  Amos 5
+11:52:13 BLOC_B_SERIE_DU_JOUR              2m22s      2m19s      -3s  ✅  Amos 6
+11:54:32 BLOC_B_SERIE_DU_JOUR              3m05s      3m03s      -2s  ✅  Amos 7
+11:57:35 BLOC_B_SERIE_DU_JOUR              0m09s      0m09s      +0s  ✅  jingle id station 01 la bonne nouvelle partout
+11:57:44 BLOC_B_SERIE_DU_JOUR              8m10s      8m08s      -2s  ✅  Agunechemba - SWBN TV
+12:05:52 BLOC_C_SERIE_DU_JOUR              0m10s      0m11s      +1s  ✅  jingle avant message 01 voici le message du jour
+12:06:03 BLOC_C_SERIE_DU_JOUR             23m41s     23m38s      -3s  ✅  pqe j7
+12:29:41 BLOC_C_SERIE_DU_JOUR              0m13s      0m11s      -2s  ✅  jingle avant bible 07 place a la lecture de la bible
+12:29:52 BLOC_C_SERIE_DU_JOUR              2m07s      2m04s      -3s  ✅  2 Jean 1
+12:31:56 BLOC_C_SERIE_DU_JOUR              2m37s      2m35s      -2s  ✅  Michée 1
+12:34:31 BLOC_C_SERIE_DU_JOUR              2m20s      2m18s      -2s  ✅  Michée 2
+12:36:49 BLOC_C_SERIE_DU_JOUR              2m05s      2m02s      -3s  ✅  Michée 3
+12:38:51 BLOC_C_SERIE_DU_JOUR              2m34s      2m31s      -3s  ✅  Michée 4
+12:41:22 BLOC_C_SERIE_DU_JOUR              2m20s      2m18s      -2s  ✅  Michée 5
+12:43:40 BLOC_C_SERIE_DU_JOUR              2m37s      2m34s      -3s  ✅  Michée 6
+12:46:14 BLOC_C_SERIE_DU_JOUR              3m27s      3m24s      -3s  ✅  Michée 7
+12:49:38 BLOC_C_SERIE_DU_JOUR              2m04s      2m02s      -2s  ✅  Osée 1
+12:51:40 BLOC_C_SERIE_DU_JOUR              3m29s      3m27s      -2s  ✅  Osée 2
+12:55:07 BLOC_C_SERIE_DU_JOUR              0m57s      0m54s      -3s  ✅  Osée 3
+12:56:01 BLOC_C_SERIE_DU_JOUR              2m56s      2m53s      -3s  ✅  Osée 4
+12:58:54 BLOC_C_SERIE_DU_JOUR              2m24s      2m21s      -3s  ✅  Osée 5
+13:01:15 BLOC_C_SERIE_DU_JOUR              1m32s      1m30s      -2s  ✅  Osée 6
+13:02:45 BLOC_C_SERIE_DU_JOUR              2m27s      2m24s      -3s  ✅  Osée 7
+13:05:09 BLOC_C_SERIE_DU_JOUR              2m06s      2m03s      -3s  ✅  Osée 8
+13:07:12 BLOC_C_SERIE_DU_JOUR              3m04s      3m02s      -2s  ✅  Osée 9
+13:10:14 BLOC_C_SERIE_DU_JOUR              2m37s      2m34s      -3s  ✅  Osée 10
+13:12:48 BLOC_C_SERIE_DU_JOUR              1m53s      1m51s      -2s  ✅  Osée 11
+13:14:39 BLOC_C_SERIE_DU_JOUR              2m04s      2m02s      -2s  ✅  Osée 12
+13:16:41 BLOC_C_SERIE_DU_JOUR              2m43s      2m40s      -3s  ✅  Osée 13
+13:19:21 BLOC_C_SERIE_DU_JOUR              1m37s      1m35s      -2s  ✅  Osée 14
+13:20:56 BLOC_C_SERIE_DU_JOUR              7m42s      7m39s      -3s  ✅  Jérémie 32
+13:28:35 BLOC_C_SERIE_DU_JOUR              0m13s      0m10s      -3s  ✅  jingle avant louange 07 voici un temps de louange
+13:28:45 BLOC_C_SERIE_DU_JOUR              7m04s      7m02s      -2s  ✅  We Bless You Wonderful God  - Winnipeg Fellowship
+13:35:47 BLOC_C_SERIE_DU_JOUR              4m13s      4m10s      -3s  ✅  4 minutes
+13:39:57 BLOC_C_SERIE_DU_JOUR              7m25s      7m22s      -3s  ✅  Victorious Is the Lamb - Winnipeg Fellowship
+13:47:19 BLOC_C_SERIE_DU_JOUR              4m08s      4m05s      -3s  ✅  I Choose the Way of the Lord - Abuja HF
+13:51:24 BLOC_C_SERIE_DU_JOUR              4m04s      4m02s      -2s  ✅  Ascribe Greatness - PHF
+13:55:26 BLOC_C_SERIE_DU_JOUR              9m23s      9m21s      -2s  ✅  10 minutes
+14:04:47 BLOC_C_SERIE_DU_JOUR              4m44s      4m42s      -2s  ✅  Je veux vivre ton royaume
+14:09:29 BLOC_C_SERIE_DU_JOUR              4m33s      4m30s      -3s  ✅  God is Building - Will You Be - Ketu HF
+14:13:59 BLOC_C_SERIE_DU_JOUR              8m21s      8m19s      -2s  ✅  My Heart Rejoices - Toronto HF
+14:22:18 BLOC_C_SERIE_DU_JOUR              6m57s      6m55s      -2s  ✅  The Lord on High is Mightier - Toronto HF
+14:29:13 BLOC_C_SERIE_DU_JOUR              0m09s      0m06s      -3s  ✅  jingle avant bible 08 prenons un moment pour ecouter la parole
+14:29:19 BLOC_C_SERIE_DU_JOUR              4m35s      4m33s      -2s  ✅  Colossiens 1
+14:33:52 BLOC_C_SERIE_DU_JOUR              3m46s      3m44s      -2s  ✅  Colossiens 2
+14:37:36 BLOC_C_SERIE_DU_JOUR              3m44s      3m41s      -3s  ✅  Colossiens 3
+14:41:17 BLOC_C_SERIE_DU_JOUR              2m56s      2m53s      -3s  ✅  Colossiens 4
+14:44:10 BLOC_C_SERIE_DU_JOUR              3m28s      3m26s      -2s  ✅  Genèse 8
+14:47:36 BLOC_C_SERIE_DU_JOUR              4m09s      4m06s      -3s  ✅  Genèse 9
+14:51:42 BLOC_C_SERIE_DU_JOUR              3m50s      3m48s      -2s  ✅  Genèse 10
+14:55:30 BLOC_C_SERIE_DU_JOUR              4m14s      4m12s      -2s  ✅  Genèse 11
+14:59:42 BLOC_C_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant louange 06 que la louange seleve
+14:59:50 BLOC_C_SERIE_DU_JOUR              5m15s      5m13s      -2s  ✅  Yahweh Be Praised - Abuja HF
+15:05:03 BLOC_C_SERIE_DU_JOUR              7m29s      7m26s      -3s  ✅  Hallelujah - PHF
+15:12:29 BLOC_C_SERIE_DU_JOUR              7m09s      7m07s      -2s  ✅  My God Is Good - Winnipeg Fellowship
+15:19:36 BLOC_C_SERIE_DU_JOUR              6m12s      6m09s      -3s  ✅  Praise the Lord All Ye Nations - Toronto HF
+15:25:45 BLOC_C_SERIE_DU_JOUR              7m36s      7m33s      -3s  ✅  There Is No Lie - SWBN TV
+15:33:18 BLOC_C_SERIE_DU_JOUR              4m52s      4m51s      -1s  ✅  cantique   prends tout le contrôle
+15:38:09 BLOC_C_SERIE_DU_JOUR              9m23s      9m20s      -3s  ✅  Thou art Worthy Lord - PHF
+15:47:29 BLOC_C_SERIE_DU_JOUR             10m24s     10m22s      -2s  ✅  Shine in Darkness O Lord  - Winnipeg Fellowship
+15:57:51 BLOC_C_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant bible 06 ouvrons les saintes ecritures
+15:57:59 BLOC_C_SERIE_DU_JOUR              3m57s      3m54s      -3s  ✅  Jacques 1
+16:01:53 BLOC_C_SERIE_DU_JOUR              3m51s      3m48s      -3s  ✅  Jacques 2
+16:05:41 BLOC_C_SERIE_DU_JOUR              2m56s      2m53s      -3s  ✅  Jacques 3
+16:08:34 BLOC_C_SERIE_DU_JOUR              2m47s      2m44s      -3s  ✅  Jacques 4
+16:11:18 BLOC_C_SERIE_DU_JOUR              3m28s      3m26s      -2s  ✅  Jacques 5
+16:14:44 BLOC_C_SERIE_DU_JOUR              3m08s      3m05s      -3s  ✅  Proverbes 21
+16:17:49 BLOC_C_SERIE_DU_JOUR              2m52s      2m50s      -2s  ✅  Proverbes 22
+16:20:39 BLOC_C_SERIE_DU_JOUR              3m16s      3m13s      -3s  ✅  Proverbes 23
+16:23:52 BLOC_C_SERIE_DU_JOUR              3m13s      3m11s      -2s  ✅  Proverbes 24
+16:27:03 BLOC_C_SERIE_DU_JOUR              2m58s      2m55s      -3s  ✅  Proverbes 25
+16:29:58 BLOC_C_SERIE_DU_JOUR              2m45s      2m42s      -3s  ✅  Proverbes 26
+16:32:40 BLOC_C_SERIE_DU_JOUR              2m40s      2m37s      -3s  ✅  Proverbes 27
+16:35:17 BLOC_C_SERIE_DU_JOUR              3m06s      3m04s      -2s  ✅  Proverbes 28
+16:38:21 BLOC_C_SERIE_DU_JOUR              2m39s      2m44s      +5s  ✅  Proverbes 29
+16:41:05 BLOC_C_SERIE_DU_JOUR              3m24s      3m21s      -3s  ✅  Cantique sa miséricorde
+16:44:26 BLOC_C_SERIE_DU_JOUR              7m46s      7m44s      -2s  ✅  Arise Out of Zion  - Winnipeg Fellowship
+16:52:10 BLOC_C_SERIE_DU_JOUR              6m12s      6m09s      -3s  ✅  The King is Here (Abasiama Timothy)
+16:58:19 BLOC_C_SERIE_DU_JOUR              8m25s      8m23s      -2s  ✅  The Mountains, Come and, Oh City - Ketu HF
+17:06:42 BLOC_C_SERIE_DU_JOUR              5m50s      5m47s      -3s  ✅  Jesus I'm Waiting for You (Mary Umoh)
+17:12:29 BLOC_C_SERIE_DU_JOUR             10m38s     10m36s      -2s  ✅  Be Exalted - PHF
+17:23:05 BLOC_C_SERIE_DU_JOUR              4m53s      4m50s      -3s  ✅  Cantique Jahweh, Tu es élevé au dessus de tout (1)
+17:27:55 BLOC_C_SERIE_DU_JOUR              8m12s      8m09s      -3s  ✅  Jesus is Alpha - PHF
+17:36:04 BLOC_C_SERIE_DU_JOUR              8m10s      8m08s      -2s  ✅  Great and Marvellous - Ketu HF
+17:44:12 BLOC_C_SERIE_DU_JOUR              0m09s      0m10s      +1s  ✅  jingle id station 02 radio evangile du royaume
+17:44:22 BLOC_C_SERIE_DU_JOUR              3m16s      3m13s      -3s  ✅  1 Timothée 1
+17:47:35 BLOC_C_SERIE_DU_JOUR              2m10s      2m07s      -3s  ✅  1 Timothée 2
+17:49:42 BLOC_C_SERIE_DU_JOUR              2m24s      2m21s      -3s  ✅  1 Timothée 3
+17:52:03 BLOC_C_SERIE_DU_JOUR              2m29s      2m27s      -2s  ✅  1 Timothée 4
+17:54:30 BLOC_C_SERIE_DU_JOUR              3m45s      3m43s      -2s  ✅  1 Timothée 5
+17:58:13 BLOC_C_SERIE_DU_JOUR              3m53s      3m56s      +3s  ✅  1 Timothée 6
+18:02:09 BLOC_D_SERIE_DU_JOUR             23m41s     23m38s      -3s  ✅  pqe j7
+18:25:47 BLOC_D_SERIE_DU_JOUR              0m09s      0m07s      -2s  ✅  jingle avant bible 08 prenons un moment pour ecouter la parole
+18:25:54 BLOC_D_SERIE_DU_JOUR              2m59s      2m57s      -2s  ✅  Philémon 1
+18:28:51 BLOC_D_SERIE_DU_JOUR              4m40s      4m37s      -3s  ✅  Romains 9
+18:33:28 BLOC_D_SERIE_DU_JOUR              3m06s      3m03s      -3s  ✅  Romains 10
+18:36:31 BLOC_D_SERIE_DU_JOUR              5m37s      5m35s      -2s  ✅  Romains 11
+18:42:06 BLOC_D_SERIE_DU_JOUR              3m06s      3m04s      -2s  ✅  Romains 12
+18:45:10 BLOC_D_SERIE_DU_JOUR              2m36s      2m32s      -4s  ✅  Romains 13
+18:47:42 BLOC_D_SERIE_DU_JOUR              3m26s      3m24s      -2s  ✅  Romains 14
+18:51:06 BLOC_D_SERIE_DU_JOUR              5m12s      5m10s      -2s  ✅  Romains 15
+18:56:16 BLOC_D_SERIE_DU_JOUR              3m44s      3m41s      -3s  ✅  Romains 16
+18:59:57 BLOC_D_SERIE_DU_JOUR              3m42s      3m39s      -3s  ✅  2 Pierre 1
+19:03:36 BLOC_D_SERIE_DU_JOUR              4m04s      4m02s      -2s  ✅  2 Pierre 2
+19:07:38 BLOC_D_SERIE_DU_JOUR              3m17s      3m14s      -3s  ✅  2 Pierre 3
+19:10:52 BLOC_D_SERIE_DU_JOUR              5m11s      5m08s      -3s  ✅  Ésaïe 45
+19:16:00 BLOC_D_SERIE_DU_JOUR              2m25s      2m23s      -2s  ✅  Ésaïe 46
+19:18:23 BLOC_D_SERIE_DU_JOUR              0m13s      0m10s      -3s  ✅  jingle avant louange 07 voici un temps de louange
+19:18:33 BLOC_D_SERIE_DU_JOUR              8m37s      8m36s      -1s  ✅  He Has Given Me & Emmanuel You Joy Over Us (Medley) (Abasiama Timothy & Imah Adegoke)
+19:27:09 BLOC_D_SERIE_DU_JOUR              8m22s      8m19s      -3s  ✅  Yeshua Hamashiach - Calabar HF
+19:35:28 BLOC_D_SERIE_DU_JOUR              6m02s      5m59s      -3s  ✅  Crown Him Lord of Lords - Nonso Njoku
+19:41:27 BLOC_D_SERIE_DU_JOUR              6m02s      6m00s      -2s  ✅  Satisfy My Soul - Calabar HF
+19:47:27 BLOC_D_SERIE_DU_JOUR              5m18s      5m15s      -3s  ✅  Now is Come Salvation - Toronto HF
+19:52:42 BLOC_D_SERIE_DU_JOUR              7m19s      7m17s      -2s  ✅  You Have sworn By Your Holiness - Chidera Bisong
+19:59:59 BLOC_D_SERIE_DU_JOUR              5m21s      5m19s      -2s  ✅  By the word of the lord - Ketu HF
+20:05:18 BLOC_D_SERIE_DU_JOUR              3m41s      3m39s      -2s  ✅  Adorons l'Éternel GAEL - JÉSUS EST SEIGNEUR -
+20:08:57 BLOC_D_SERIE_DU_JOUR             10m47s     10m44s      -3s  ✅  Abba, Singing a, I Will Sing - Ketu HF
+20:19:41 BLOC_D_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant bible 06 ouvrons les saintes ecritures
+20:19:49 BLOC_D_SERIE_DU_JOUR              3m41s      3m39s      -2s  ✅  2 Rois 16
+20:23:28 BLOC_D_SERIE_DU_JOUR              7m17s      7m14s      -3s  ✅  2 Rois 17
+20:30:42 BLOC_D_SERIE_DU_JOUR              7m15s      7m13s      -2s  ✅  2 Rois 18
+20:37:55 BLOC_D_SERIE_DU_JOUR              7m03s      7m01s      -2s  ✅  2 Rois 19
+20:44:56 BLOC_D_SERIE_DU_JOUR              4m05s      4m03s      -2s  ✅  2 Rois 20
+20:48:59 BLOC_D_SERIE_DU_JOUR              0m10s      0m08s      -2s  ✅  jingle avant louange 06 que la louange seleve
+20:49:07 BLOC_D_SERIE_DU_JOUR              4m40s      4m37s      -3s  ✅  All in All - CHF
+20:53:44 BLOC_D_SERIE_DU_JOUR              3m04s      3m01s      -3s  ✅  The Lord is my Light and Salvation - Nonso Njoku
+20:56:45 BLOC_D_SERIE_DU_JOUR              8m58s      8m55s      -3s  ✅  El Elyon - Toronto & Winnipeg HF
+21:05:40 BLOC_D_SERIE_DU_JOUR              2m16s      2m13s      -3s  ✅  cantique  nous sommes le sel de la terre
+21:07:53 BLOC_D_SERIE_DU_JOUR              6m06s      6m04s      -2s  ✅  cantique  ta bonte
+21:13:57 BLOC_D_SERIE_DU_JOUR              9m31s      9m28s      -3s  ✅  15 at 01.33.50 (1)(1)
+21:23:25 BLOC_D_SERIE_DU_JOUR              9m43s      9m40s      -3s  ✅  Thy Throne Oh Lord - Ketu HF
+21:33:05 BLOC_D_SERIE_DU_JOUR              5m33s      5m30s      -3s  ✅  He Shall Feed His Flock - I Want to walk  - Ketu HF
+21:38:35 BLOC_D_SERIE_DU_JOUR              6m09s      6m07s      -2s  ✅  Hymne des vainqueurs
+21:44:42 BLOC_D_SERIE_DU_JOUR              0m13s      0m11s      -2s  ✅  jingle avant bible 07 place a la lecture de la bible
+21:44:53 BLOC_D_SERIE_DU_JOUR              2m43s      2m40s      -3s  ✅  Aggée 1
+21:47:33 BLOC_D_SERIE_DU_JOUR              3m58s      3m56s      -2s  ✅  Aggée 2
+21:51:29 BLOC_D_SERIE_DU_JOUR              8m04s      8m02s      -2s  ✅  Josué 10
+21:59:31 BLOC_D_SERIE_DU_JOUR              4m09s      4m06s      -3s  ✅  Josué 11
+22:03:37 BLOC_D_SERIE_DU_JOUR              3m18s      3m15s      -3s  ✅  Josué 12
+22:06:52 BLOC_D_SERIE_DU_JOUR              5m11s      5m09s      -2s  ✅  Josué 13
+22:12:01 BLOC_D_SERIE_DU_JOUR              2m53s      2m50s      -3s  ✅  Josué 14
+22:14:51 BLOC_D_SERIE_DU_JOUR              7m07s      7m05s      -2s  ✅  Josué 15
+22:21:56 BLOC_D_SERIE_DU_JOUR              1m34s      1m31s      -3s  ✅  Josué 16
+22:23:27 BLOC_D_SERIE_DU_JOUR              0m11s      0m08s      -3s  ✅  jingle avant louange 05 elevons nos coeurs vers dieu
+22:23:35 BLOC_D_SERIE_DU_JOUR              6m13s      6m10s      -3s  ✅  Immortal God - Elohim Adonai - Abuja HF
+22:29:45 BLOC_D_SERIE_DU_JOUR              6m10s      6m08s      -2s  ✅  That I May Know Him - Toronto HF
+22:35:53 BLOC_D_SERIE_DU_JOUR              3m19s      3m16s      -3s  ✅  Awaken My Heart
+22:39:09 BLOC_D_SERIE_DU_JOUR              6m54s      6m51s      -3s  ✅  There is no Lie (Imah Adegoke & Mary Umoh)
+22:46:00 BLOC_D_SERIE_DU_JOUR              6m04s      6m02s      -2s  ✅  Sing Unto the Lord a new Song  - Winnipeg Fellowship
+22:52:02 BLOC_D_SERIE_DU_JOUR              4m19s      4m16s      -3s  ✅  I Know The Blood - PHF
+22:56:18 BLOC_D_SERIE_DU_JOUR              6m30s      6m28s      -2s  ✅  Praise the Lord of Host - Toronto HF
+23:02:46 BLOC_D_SERIE_DU_JOUR              2m57s      2m55s      -2s  ✅  You Are the Captain of the Host - Toronto HF
+23:05:41 BLOC_D_SERIE_DU_JOUR              4m11s      4m08s      -3s  ✅  Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable
+23:09:49 BLOC_D_SERIE_DU_JOUR              6m19s      6m17s      -2s  ✅  Unto Him - CHF
+23:16:06 BLOC_D_SERIE_DU_JOUR              0m09s      0m09s      +0s  ✅  JINGLE
+23:16:15 BLOC_D_SERIE_DU_JOUR              3m50s      3m48s      -2s  ✅  Apocalypse 9
+23:20:03 BLOC_D_SERIE_DU_JOUR              2m14s      2m11s      -3s  ✅  Apocalypse 10
+23:22:14 BLOC_D_SERIE_DU_JOUR              3m52s      3m50s      -2s  ✅  Apocalypse 11
+23:26:04 BLOC_D_SERIE_DU_JOUR              3m22s      3m19s      -3s  ✅  Apocalypse 12
+23:29:23 BLOC_A_SERIE_DU_JOUR              0m10s      0m10s      +0s  ✅  jingle avant message 04 bienvenue sur parole prophetique fm
+23:29:33 ?                                 0m32s      0m32s      +0s  ✅  AzuraCast is Live!
+23:30:05 BLOC_E_LOUANGE_NUIT              10m35s     10m32s      -3s  ✅  Baruch Ha'ba B'Shem Adonai/Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF
+23:40:37 BLOC_E_LOUANGE_NUIT               9m24s      9m22s      -2s  ✅  I See Your Face - Toronto HF
+23:49:59 BLOC_E_LOUANGE_NUIT              10m13s     10m13s      +0s  ✅  As We Worship - Toronto & Winnipeg HF
+----------------------------------------------------------------------------------------------------
+Bilan : 314 titres, 0 anomalie(s) (titre coupé de plus de 10s ou trou d'antenne).
+
+====================================================================================================
+CONTRÔLES APPROFONDIS
+====================================================================================================
+MESSAGE DU JOUR « PQE J 7 » : 4 diffusion(s) pour 4 prévue(s) ✅
+   00:05:37  (étiquette BLOC_A_SERIE_DU_JOUR)
+   06:00:26  (étiquette BLOC_B_SERIE_DU_JOUR)
+   12:06:03  (étiquette BLOC_C_SERIE_DU_JOUR)
+   18:02:09  (étiquette BLOC_D_SERIE_DU_JOUR)
+JINGLES : 32 joués / 36 prévus (89%) ⚠️   ·   BLOC_A 8/9 · BLOC_B 9/9 · BLOC_C 7/9 · BLOC_D 8/9
+HORS FENÊTRE : 1 titre(s) d'un bloc joués hors de sa plage ⚠️
+   23:29:23  jingle avant message 04 bienvenue sur parole prophetique fm — prévu dans BLOC_A (00:00-06:00)
+BOUCHE-TROUS : 2 titre(s) hors plan sans playlist ⚠️
+   00:01:41  ?  (3m49s)
+   23:29:33  AzuraCast is Live!  (0m32s)
+COUVERTURE : premier titre à 00:01:41 ✅ · dernier titre finit vers 00:00:12 (estimé) ✅
+
+====================================================================================================
+RÉEL vs PRÉVU — ce qui a joué vs ce que le plan prévoyait
+====================================================================================================
+----------------------------------------------------------------------------------------------------
+BLOC_A  (00:00-06:00)  prévus  87 · atteignables  80 · joués  81 · conformité 100% · sautés  0 · en trop  1
+   ➕  JOUÉ NON PRÉVU : ?
+   ⏸️  FIN DE BLOC NON ATTEINTE (7 titres · ~34m08s) — marge anti-rebouclage au-delà de la fenêtre, normal : 1 Thessaloniciens 3 · 1 Thessaloniciens 4 · 1 Thessaloniciens 5 · jingle id station 01 la bonne nouvelle partout · Holy is the Lord (Emmanuel Umoh) · The Glory -  PHF  …(+1)
+----------------------------------------------------------------------------------------------------
+BLOC_B  (06:00-12:00)  prévus  76 · atteignables  74 · joués  74 · conformité 100% · sautés  0 · en trop  0
+   ⏸️  FIN DE BLOC NON ATTEINTE (2 titres · ~19m02s) — marge anti-rebouclage au-delà de la fenêtre, normal : Hashem - PHF · There is A Mighty River Flowing - Ketu HF
+----------------------------------------------------------------------------------------------------
+BLOC_C  (12:00-18:00)  prévus  93 · atteignables  87 · joués  86 · conformité  99% · sautés  1 · en trop  0
+   ⏭️  PRÉVU NON JOUÉ : jingle avant louange 05 elevons nos coeurs vers dieu
+   ⏸️  FIN DE BLOC NON ATTEINTE (6 titres · ~33m50s) — marge anti-rebouclage au-delà de la fenêtre, normal : 2 Samuel 18 · JINGLE · I See Your Face - Toronto HF · God's Got An Army - PHF · Ses cheveux étaient blancs.. · A jamais, tu seras l Agneau de Dieu
+----------------------------------------------------------------------------------------------------
+BLOC_D  (18:00-23:30)  prévus  76 · atteignables  69 · joués  70 · conformité  99% · sautés  1 · en trop  2
+   ⏭️  PRÉVU NON JOUÉ : jingle avant message 03 vous ecoutez parole prophetique fm
+   ➕  JOUÉ NON PRÉVU : jingle avant message 04 bienvenue sur parole prophetique fm · AzuraCast is Live!
+   ⏸️  FIN DE BLOC NON ATTEINTE (7 titres · ~33m27s) — marge anti-rebouclage au-delà de la fenêtre, normal : Apocalypse 13 · Apocalypse 14 · jingle id station 03 notre mission annonce levangile · Holy Holy - Abuja HF · Igwe · esprit de dieu  …(+1)
+----------------------------------------------------------------------------------------------------
+CONFORMITÉ GLOBALE : 308/310 titres atteignables joués dans l'ordre = 99%  (3 titre(s) hors plan · 22 non atteint(s) en fin de bloc, marge normale)
