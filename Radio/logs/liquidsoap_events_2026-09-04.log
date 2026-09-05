@@ -575,3 +575,149 @@
 2026/09/04 21:19:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/19 - You're the Lamb - Calabar HF.mp3" (RID 297).
 2026/09/04 21:28:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/19 - You're the Lamb - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/09/04 21:28:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" (RID 298).
+2026/09/04 22:44:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/46 - Praise the Lord All Ye Nations - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 22:45:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" (RID 313).
+2026/09/04 22:51:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 22:51:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" (RID 314).
+2026/09/04 22:58:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/9-_sylvain_akouala_le_bien-etre_universel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 22:58:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/52 - Thou art Worthy Lord - PHF.mp3" (RID 315).
+2026/09/04 23:07:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/52 - Thou art Worthy Lord - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:07:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" (RID 316).
+2026/09/04 23:07:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_03_notre_mission_annonce_levangile.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:07:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_072.mp3" (RID 317).
+2026/09/04 23:09:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_072.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:09:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_073.mp3" (RID 318).
+2026/09/04 23:12:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_073.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:12:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_074.mp3" (RID 319).
+2026/09/04 23:14:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_074.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:14:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_075.mp3" (RID 320).
+2026/09/04 23:15:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_075.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:15:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_076.mp3" (RID 321).
+2026/09/04 23:16:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_076.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:16:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_077.mp3" (RID 322).
+2026/09/04 23:18:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_077.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:18:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_078.mp3" (RID 323).
+2026/09/04 23:25:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_078.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:25:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" (RID 324).
+2026/09/04 23:25:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:25:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_esprit_de_dieu.mp3" (RID 325).
+2026/09/04 23:28:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique_-_esprit_de_dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:28:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable.mp3" (RID 326).
+2026/09/04 23:32:36 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:36 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:37 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:38 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:38 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:39 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:41 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:42 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:44 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:46 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:49 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:50 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:50 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:51 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:32:52 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:33:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" (RID 327).
+2026/09/04 23:33:33 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:33 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:35 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:35 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:36 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:38 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:38 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:39 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:43 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:45 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:46 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:46 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:46 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:48 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:49 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:33:49 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:32 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:35 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:36 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:36 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:37 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:38 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:38 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:41 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:41 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:34:41 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:05 [clock.main:2] We must catchup 1.10 seconds!
+2026/09/04 23:35:32 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:32 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:32 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:33 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:35 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:35 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:36 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:37 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:37 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:38 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:39 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:39 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:40 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:42 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:42 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:43 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/09/04 23:42:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:42:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-chist_-_4_minutes.mp3" (RID 640).
+2026/09/04 23:46:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-chist_-_4_minutes.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:46:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___ta_lumière.mp3" (RID 1224).
+2026/09/04 23:52:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___ta_lumière.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:52:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/28 - He Shall Feed His Flock - I Want to walk  - Ketu HF.mp3" (RID 1225).
+2026/09/04 23:58:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/28 - He Shall Feed His Flock - I Want to walk  - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/04 23:58:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" (RID 1226).
