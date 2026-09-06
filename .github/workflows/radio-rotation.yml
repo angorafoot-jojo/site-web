@@ -1,12 +1,35 @@
 name: Rotation Radio Quotidienne
 
 on:
-  # Plus de 'schedule' : le cron GitHub Actions était retardé de 2 à 5 h
-  # (file d'attente partagée), ce qui faisait démarrer le bloc A bien après
-  # 00h00 UTC. Déclenchement désormais EXTERNE à 23h30 UTC pile via cron-job.org,
-  # qui appelle l'API workflow_dispatch (les runs 'dispatch' partent en quelques
+  # Déclencheur PRINCIPAL : externe, à 23h30 UTC pile via cron-job.org, qui
+  # appelle l'API workflow_dispatch (les runs 'dispatch' partent en quelques
   # secondes, sans le retard des 'schedule'). Voir aussi le lancement manuel.
   workflow_dispatch:        # Déclenché par cron-job.org (POST .../dispatches) ou à la main
+
+  # Déclencheur de SECOURS (filet de sécurité), ajouté après la panne de
+  # cron-job.org du 18→21/07/2026 : 3 nuits sans rotation, la radio a rediffusé
+  # le contenu du 18/07 pendant 3 jours (2e occurrence, déjà le 23/06).
+  # Rotation et reset de minuit dépendaient du même déclencheur externe, sans
+  # redondance.
+  #
+  # Le 'schedule' avait été retiré parce qu'il arrive avec 1 à 5 h de retard
+  # (file d'attente GitHub partagée ; retard mesuré sur ce dépôt : +51 à
+  # +129 min), ce qui faisait démarrer le bloc A bien après 00h00 UTC. Cette
+  # objection ne s'applique PAS à un secours : quand le déclencheur principal a
+  # fonctionné, le run tardif est un no-op strict, car la rotation est déjà
+  # idempotente (`last_run_date == broadcast_date` → return AVANT tout appel
+  # API, cf. azuracast_rotation_4_blocs.py). Un retard n'a donc aucun effet.
+  # Il n'agit que si la rotation manque réellement — et là, du contenu frais
+  # avec quelques heures de retard vaut mieux que 3 jours de contenu périmé.
+  schedule:
+    - cron: '30 23 * * *'   # même heure que le déclencheur principal
+
+# Empêche une rotation externe et une rotation de secours de reconstruire les
+# playlists en parallèle : le second run attend, puis son checkout voit l'état
+# à jour et tombe sur le no-op.
+concurrency:
+  group: radio-rotation
+  cancel-in-progress: false
 
 jobs:
   rotation:
@@ -37,13 +60,38 @@ jobs:
             --state Radio/azuracast_rotation_state.json
 
       - name: Sauvegarder l'état dans le repo
+        id: sauvegarde
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add Radio/azuracast_rotation_state.json Radio/plans/
-          git diff --staged --quiet || git commit -m "chore: rotation du $(date '+%Y-%m-%d') [skip ci]"
-          # Un autre workflow peut avoir poussé entre le checkout et ce push
-          git push || (git pull --rebase origin main && git push)
+          # Signal robuste « la rotation a-t-elle réellement tourné ? » : sur un
+          # no-op (déjà préparé pour ce jour de diffusion), l'état n'avance pas
+          # et aucun plan n'est écrit — donc rien n'est staged. On ne dépend
+          # ainsi d'aucune chaîne de log.
+          if git diff --staged --quiet; then
+            echo "effective=false" >> "$GITHUB_OUTPUT"
+            echo "Rien à committer : rotation déjà effectuée pour ce jour de diffusion."
+          else
+            echo "effective=true" >> "$GITHUB_OUTPUT"
+            git commit -m "chore: rotation du $(date '+%Y-%m-%d') [skip ci]"
+            # Un autre workflow peut avoir poussé entre le checkout et ce push
+            git push || (git pull --rebase origin main && git push)
+          fi
+
+      # Si le secours a dû faire le travail, c'est que le déclencheur externe
+      # (cron-job.org) n'a pas répondu à 23h30 : la rotation a eu lieu en
+      # retard. L'antenne est sauvée, mais la cause doit être corrigée, sinon
+      # la panne se prolonge (18→21/07/2026 : 3 nuits).
+      - name: Alerter si le filet de sécurité a dû agir
+        if: github.event_name == 'schedule' && steps.sauvegarde.outputs.effective == 'true'
+        uses: ./.github/actions/alerte-declencheur
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          tache: la rotation
+          heure-prevue: 23h30
+          consequence: >-
+            le bloc A démarrera sur du contenu reconstruit en cours de diffusion.
 
       - name: Notifier en cas d'échec
         if: failure()
