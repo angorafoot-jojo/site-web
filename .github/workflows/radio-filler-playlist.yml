@@ -1,0 +1,141 @@
+name: Playlist de secours (résidus de fin de bloc)
+
+# ──────────────────────────────────────────────────────────────
+# Maintient 015_REMPLISSAGE : jingles + chapitres bibliques courts,
+# en ROTATION GÉNÉRALE (aucun créneau horaire).
+#
+# POURQUOI
+# Un bloc cesse de jouer avant la fin de sa fenêtre quand l'item suivant
+# du plan est trop long pour le temps restant. AzuraCast lance tout ce
+# qui tient (d'où le jingle de 10 s juste avant), refuse le titre long,
+# la file se vide et Liquidsoap diffuse son fichier de secours par
+# défaut : « AzuraCast is Live! ».
+# Mesuré sur août-septembre 2026 : 28 assèchements aux frontières
+# 05h59 / 11h59 / 17h59 / 23h29 / 23h59, de 1 à 55 s (médiane 30 s).
+# Ce vide provoque aussi le double remplissage de file au démarrage du
+# bloc suivant — message du jour parti 2× d'affilée les 3, 4 et 5 août.
+#
+# Les 4 blocs + BLOC_E + 000_TRANSITION couvrant 100 % de la journée,
+# une playlist en rotation générale ne peut jouer QUE lorsqu'aucune
+# playlist planifiée ne fournit de titre : exactement les résidus.
+# Une playlist PLANIFIÉE, elle, préempterait le bloc — d'où ce choix.
+#
+# SÉCURITÉ
+# - Défaut = dry-run. L'application est un choix explicite : ce workflow
+#   modifie la configuration live de la station.
+# - N'ajoute JAMAIS via PUT /file/{id} (qui réordonnerait les blocs,
+#   bug du 02/07/2026) : uniquement l'import M3U, comme la rotation.
+# - Ne retire rien automatiquement ; les titres hors critères sont
+#   signalés pour décision humaine.
+# - Rollback en un run : entrée « disable ».
+# - Ne touche ni aux blocs, ni à la file de lecture, ni à l'antenne.
+# ──────────────────────────────────────────────────────────────
+on:
+  schedule:
+    # 10h15 UTC, juste après la normalisation des fondus (10h00) : même
+    # fenêtre calme, à l'écart de la rotation (23h30), du reset (00h) et
+    # des frontières de bloc (06/12/18h).
+    - cron: '15 10 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Action à effectuer"
+        type: choice
+        default: dry-run
+        options:
+          - dry-run
+          - apply
+          - disable
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  playlist-secours:
+    name: Maintenir la playlist de secours
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances
+        run: pip install -r Radio/requirements.txt
+
+      - name: Maintenir 015_REMPLISSAGE
+        id: filler
+        env:
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          # Le cron applique ; le déclenchement manuel choisit son mode.
+          MODE="${{ inputs.mode }}"
+          if [ -z "$MODE" ]; then MODE="apply"; fi
+          case "$MODE" in
+            apply)   python Radio/setup_filler_playlist.py --apply   | tee filler.log ;;
+            disable) python Radio/setup_filler_playlist.py --disable | tee filler.log ;;
+            *)       python Radio/setup_filler_playlist.py           | tee filler.log ;;
+          esac
+          exit ${PIPESTATUS[0]}
+
+      - name: Résumer dans le récapitulatif du run
+        if: always()
+        run: |
+          {
+            echo "## Playlist de secours — 015_REMPLISSAGE"
+            echo ""
+            echo '```'
+            cat filler.log 2>/dev/null || echo "(aucune sortie)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Notifier en cas d'échec
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let details = '';
+            try { details = fs.readFileSync('filler.log', 'utf8'); } catch {}
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'radio,alerte',
+            });
+            if (existing.data.length > 0) {
+              console.log('Issue déjà ouverte — pas de doublon créé.');
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Playlist de secours radio en échec — ${new Date().toISOString().slice(0,10)}`,
+              body: [
+                '## La maintenance de `015_REMPLISSAGE` a échoué',
+                '',
+                'Sans cette playlist, les résidus de fin de bloc rediffusent le',
+                'fichier de secours d\'AzuraCast (« AzuraCast is Live! ») à l\'antenne,',
+                'et le bloc suivant peut repartir en double.',
+                '',
+                '```',
+                details.trim().slice(0, 3000),
+                '```',
+                '',
+                '### Comment corriger',
+                '- Vérifier que le secret `AZURACAST_API_KEY` est toujours valide',
+                '- Relancer en `dry-run` pour voir ce qui serait fait, sans rien modifier',
+                '- En cas de doute sur la playlist elle-même : relancer en `disable`',
+                '',
+                `> [Voir le log complet](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+              ].join('\n'),
+              labels: ['radio', 'alerte'],
+            });
+            console.log("Issue d'alerte créée.");

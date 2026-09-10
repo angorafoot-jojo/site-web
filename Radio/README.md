@@ -43,6 +43,7 @@ Règles apprises en production (voir §6) et codées dans `azuracast_rotation_4_
 | `001_LA_MUSIQUE` | 22 | Louange / cantiques |
 | `002_BIBLE AUDIO` | 23 | Bible audio |
 | `014_Jingles` | 29 | Jingles (banque ElevenLabs ≥9 s depuis juillet 2026) |
+| `015_REMPLISSAGE` | *auto* | **Filet de secours** — jingles + chapitres bibliques de 9 à 90 s, en **rotation générale (aucun créneau)**. Les 4 blocs + `BLOC_E` + `000_TRANSITION` couvrant 100 % de la journée, elle ne peut jouer que lorsqu'aucune playlist planifiée ne fournit de titre : uniquement les résidus de fin de bloc. Maintenue par `setup_filler_playlist.py` |
 | `003`–`013` | — | Séries d'enseignements (voir plus bas) |
 
 ### Séries d'enseignement
@@ -75,6 +76,7 @@ Tous les horaires sont en **UTC**. La rotation et le reset de minuit sont décle
 | `radio-liquidsoap-capture.yml` | toutes les heures (h+17) | cron GitHub | Capture les lignes d'intérêt du `liquidsoap.log` (erreurs, échecs, titres préparés) dans `logs/liquidsoap_events_<date>.log` — le log serveur est un tampon glissant d'~24 h, sans capture les causes des anomalies disparaissent avant le rapport |
 | `radio-playback-report.yml` | 01h00 | cron GitHub | Génère le rapport de diffusion de la veille (`logs/diffusion_<date>.log`) |
 | `radio-jingle-fades.yml` | 10h00 | cron GitHub | **Normalisation des fondus de jingles** : remet `fade_in`/`fade_out`/`fade_overlap` à 0 sur tout le dossier `Jingle/`. Un fichier fraîchement uploadé hérite du crossfade station (~4 s perdues) et devient injouable par l'AutoDJ — ce workflow répare cette dérive automatiquement après chaque import. Idempotent : no-op quand le pool est conforme |
+| `radio-filler-playlist.yml` | 10h15 | cron GitHub | **Playlist de secours** `015_REMPLISSAGE` (jingles + chapitres bibliques ≤ 90 s) en rotation générale : comble les résidus de fin de bloc à la place du « AzuraCast is Live! » d'AzuraCast. Déclenchement manuel avec modes `dry-run` / `apply` / `disable` |
 | `radio-validate-paths.yml` | 12h00 | cron GitHub | Vérifie que chaque chemin de la config existe dans la médiathèque |
 | `radio-test-playlists.yml` | manuel | `workflow_dispatch` | Test : vérifie les playlists via l'API |
 | `radio-test-liquidsoap-log.yml` | manuel | `workflow_dispatch` | Test : liste les logs serveur disponibles et inspecte le contenu brut du `liquidsoap.log` |
@@ -98,6 +100,8 @@ Tous dans `Radio/`. Dépendance unique : `requests` (`pip install -r requirement
 | `capture_liquidsoap_log.py` | Capture horaire des événements du `liquidsoap.log` serveur (erreurs, avertissements niveau ≤2, « Fetch failed », `Prepared "…"`, bascules de source) vers `logs/liquidsoap_events_<date>.log`. Idempotent via `liquidsoap_capture_state.json` (position + dernier horodatage archivé) |
 | `validate_paths.py` | Vérifie que chaque chemin de la config existe dans la médiathèque + cohérence des créneaux planifiés (`EXPECTED_SLOTS`) |
 | `retitle_bible_files.py` | Réécrit les métadonnées (titre + artiste) des fichiers bibliques |
+| `setup_filler_playlist.py` | Maintient `015_REMPLISSAGE` (`--apply`, dry-run par défaut, `--disable` pour le rollback). **N'ajoute que par import M3U** — jamais via `PUT /file/{id}`, qui réordonnerait les blocs (§5) |
+| `test_setup_filler_playlist.py` | Tests de la sélection, de l'idempotence de l'import et des réglages de la playlist |
 | `set_jingle_fades.py` | Désactive le crossfade sur les jingles (`--apply`, dry-run par défaut). **À rejouer après chaque import de jingles** — automatisé par `radio-jingle-fades.yml`. Signale aussi la durée utile de chaque fichier (durée − fondus) et alerte sous 9 s |
 | `test_set_jingle_fades.py` | Tests de la sélection des jingles à normaliser (idempotence, périmètre, durée utile) |
 | `test_azuracast_rotation.py` | Tests de la logique de rotation |
@@ -235,7 +239,11 @@ La corrélation apparente avec la durée du fichier était en réalité une corr
 ### Chantier ouvert
 
 - **Corrélation des « PRÉVU NON JOUÉ »** : `playback_report.py` corrèle les anomalies **horodatées** (coupure, trou, double message) avec l'incident serveur le plus proche (fait le 22/07/2026), mais pas encore les items sautés du plan, qui n'ont pas d'heure propre — il faudrait les rattacher aux événements serveur de leur fenêtre de bloc.
-- **Assèchement de fin de bloc** : 22 fois en août, le dernier titre d'un bloc s'est terminé avant la fin de sa fenêtre et Liquidsoap a diffusé `error.mp3` (« AzuraCast is Live! ») pendant 3 à 55 s, toujours interrompu pile à la bascule. C'est aussi la cause des 3 doubles messages des 3, 4 et 5 août. Piste : terminer chaque bloc par une réserve de titres courts, ou remplacer `error.mp3` par un jingle de la station.
+> ✅ **Assèchement de fin de bloc — traité le 10/09/2026.** 28 fois sur août-septembre, le dernier titre d'un bloc s'est terminé avant la fin de sa fenêtre et Liquidsoap a diffusé `error.mp3` (« AzuraCast is Live! ») pendant 1 à 55 s (médiane 30 s), toujours interrompu pile à la bascule. C'est aussi la cause des 3 doubles messages des 3, 4 et 5 août.
+>
+> **Mécanisme** : AzuraCast lance tout ce qui *tient* dans le temps restant — dans 17 cas sur 28, le dernier titre joué est un jingle de ~10 s — puis refuse l'item suivant du plan, trop long. Ce n'est donc ni un manque de contenu (les blocs débordent de 12 à 40 min) ni un défaut de la rotation : il manque un item **court** à jouer dans le résidu.
+>
+> **Correctif** : la playlist `015_REMPLISSAGE` (jingles + chapitres bibliques de 9 à 90 s) en **rotation générale**, maintenue par `radio-filler-playlist.yml`. Reste à confirmer en production sur le premier résidu observé — voir la note ci-dessous.
 > ✅ **Bruit du monitoring — corrigé le 10/09/2026.** Le rapport titrait `❌ incident détecté` 31 jours sur 31 : 99 % des événements comptés venaient de la rotation (23h30-23h40) et du reset de minuit (00h00-00h03), et les 26 anomalies de diffusion d'août-septembre étaient toutes le même titre tronqué par le redémarrage. Ces signatures planifiées sont désormais classées **ATTENDU** — affichées, mais hors verdict. Sur les 41 jours rejoués : **18 passent au vert**, les 23 restants sont rouges pour un assèchement de frontière réel (voir ci-dessus). L'alerte de doublon de file du reset, qui se déclenchait 29 nuits sur 41 sans qu'aucune double diffusion ne suive, ignore maintenant les jingles : **0 faux positif**, et les 9 détections réelles de la garde de frontière sont conservées. Une diffusion du message en trop compte enfin dans le verdict même sans « double rapproché » (cas du 01/09 : 5 diffusions pour 4, espacées de plus de 15 min, que le verdict ne voyait pas).
 
 ---
