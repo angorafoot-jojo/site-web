@@ -17,6 +17,8 @@ from azuracast_rotation_4_blocs import (
     filter_short_jingles, filter_short_items, MIN_JINGLE_SECONDS, MIN_MUSIC_SECONDS,
     get_playlist_files,
 )
+import pytest
+
 import azuracast_rotation_4_blocs as rotation_module
 
 
@@ -80,6 +82,15 @@ def run_build(jingle_categories=None, bible_books=None, bible_progress=None) -> 
 
 
 # ─── Tests ──────────────────────────────────────────────────────────────────
+
+class _FakeResponse:
+    """Réponse HTTP minimale pour les tests de get_playlist_files."""
+    def __init__(self, rows, ok=True, status_code=200):
+        self._rows, self.ok, self.status_code, self.text = rows, ok, status_code, ""
+
+    def json(self):
+        return self._rows
+
 
 def test_plan_items_snapshot():
     """build_full_cycle expose une liste explicite et ordonnée de chaque titre
@@ -214,6 +225,25 @@ def test_categorize_jingles_splits_correctly():
     assert any(j.path == "Jingle/inconnu.mp3" for j in result.get("transition", [])), \
         "Le fichier non catégorisé doit aller en 'transition'"
     print("✅ test_categorize_jingles_splits_correctly")
+
+
+def test_get_playlist_files_playlist_vide_leve_par_defaut(monkeypatch):
+    """Une bibliothèque source vide = antenne cassée : la rotation doit stopper."""
+    monkeypatch.setattr(rotation_module, "request_api",
+                        lambda *a, **k: _FakeResponse([]))
+    with pytest.raises(RuntimeError, match="Aucun fichier utilisable"):
+        get_playlist_files("http://x", 1, "k", 99, "bible")
+    print("✅ test_get_playlist_files_playlist_vide_leve_par_defaut")
+
+
+def test_get_playlist_files_allow_empty_tolere_le_vide(monkeypatch):
+    """Régression du 10/09/2026 : la création de 015_REMPLISSAGE a planté juste
+    après avoir créé la playlist, parce que lire son contenu (vide, forcément)
+    levait une exception. Pour une playlist qu'on remplit, vide = état initial."""
+    monkeypatch.setattr(rotation_module, "request_api",
+                        lambda *a, **k: _FakeResponse([]))
+    assert get_playlist_files("http://x", 1, "k", 99, "filler", allow_empty=True) == []
+    print("✅ test_get_playlist_files_allow_empty_tolere_le_vide")
 
 
 def test_categorize_jingles_signale_un_chemin_absent():

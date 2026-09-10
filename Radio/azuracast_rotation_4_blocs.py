@@ -189,7 +189,17 @@ def find_playlist(base_url: str, station_id: int, api_key: str, name: str) -> di
     raise RuntimeError(f"Playlist cible introuvable: {name}. Disponibles: {available}")
 
 
-def get_playlist_files(base_url: str, station_id: int, api_key: str, playlist_id: int, source_name: str) -> list[MediaItem]:
+def get_playlist_files(base_url: str, station_id: int, api_key: str, playlist_id: int,
+                       source_name: str, allow_empty: bool = False) -> list[MediaItem]:
+    """Fichiers utilisables d'une playlist (filtrage côté client obligatoire :
+    l'API `GET /files?playlist=X` ignore le paramètre et renvoie toute la
+    médiathèque — voir README §5).
+
+    Une bibliothèque source vide est une anomalie qui doit arrêter la rotation
+    (Bible ou jingles introuvables = antenne cassée), d'où l'exception par
+    défaut. `allow_empty=True` pour les playlists qu'on est en train de
+    remplir, où « vide » est un état de départ normal.
+    """
     url = f"{base_url.rstrip('/')}/api/station/{station_id}/files"
     response = request_api("GET", url, api_key, timeout=180, params={"playlist": playlist_id})
     if not response.ok:
@@ -213,7 +223,7 @@ def get_playlist_files(base_url: str, station_id: int, api_key: str, playlist_id
             source=source_name,
         ))
 
-    if not items:
+    if not items and not allow_empty:
         raise RuntimeError(f"Aucun fichier utilisable trouvé pour playlist_id={playlist_id} ({source_name}).")
     return items
 

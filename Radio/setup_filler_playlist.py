@@ -204,7 +204,11 @@ def main(argv: list[str] | None = None) -> int:
         print(f"RESULTAT: {len(desired)} titre(s) a importer (dry-run, rien envoye).")
         return 0
 
-    present = get_playlist_files(base, station, api_key, int(playlist["id"]), "filler")
+    # allow_empty : une playlist fraîchement créée est vide, ce qui est
+    # l'état de départ normal ici — pas une anomalie comme pour les
+    # bibliothèques sources.
+    present = get_playlist_files(base, station, api_key, int(playlist["id"]), "filler",
+                                 allow_empty=True)
     a_importer = missing_paths(desired, present)
     en_trop = extra_paths(desired, present)
 
