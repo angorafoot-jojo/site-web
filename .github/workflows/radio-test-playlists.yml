@@ -19,6 +19,17 @@ jobs:
           | python3 -c "
           import json, sys
 
+
+          def fmt_hhmm(v):
+              # AzuraCast renvoie ces champs en ENTIER au format HHMM
+              # (00h00 -> 0, 00h02 -> 2, 12h00 -> 1200). Les traiter comme
+              # des chaines plantait le script (AttributeError), bug resté
+              # invisible tant que le workflow ne démarrait pas.
+              if v is None:
+                  return '?'
+              v = int(v)
+              return f'{v // 100:02d}h{v % 100:02d}'
+
           raw = sys.stdin.read()
           try:
               playlists = json.loads(raw)
@@ -47,18 +58,22 @@ jobs:
               print(f'Activée        : {is_enabled}')
               print(f'Schedules      : {len(schedule)} créneau(x)')
               for s in schedule:
-                  start_time = s.get(\"start_time\", \"?\").replace(\":\", \"h\", 1)[:5]
-                  end_time   = s.get(\"end_time\",   \"?\").replace(\":\", \"h\", 1)[:5]
+                  start_time = fmt_hhmm(s.get(\"start_time\"))
+                  end_time   = fmt_hhmm(s.get(\"end_time\"))
                   days = s.get(\"days\", [])
                   print(f'  {start_time} → {end_time}  jours={days if days else \"tous\"}')
-              if ptype == 'default':
-                  print()
-                  print('⚠️  TYPE = default (rotation générale) → risque de diffusion HORS créneau ❌')
-              elif ptype in ('scheduled', 'once'):
-                  print()
-                  print('✅ TYPE = scheduled → joue UNIQUEMENT pendant le créneau défini')
+              # Ce qui planifie une playlist, c'est la présence de
+              # schedule_items -- PAS le type. Vérifié le 10/09/2026 sur le
+              # dump de 000_TRANSITION : type=default AVEC un créneau
+              # 00h00-00h02, et elle diffuse correctement depuis des mois.
+              # L'ancienne analyse criait au risque sur cette playlist saine.
+              print()
+              if schedule:
+                  print(f'✅ {len(schedule)} créneau(x) défini(s) → joue UNIQUEMENT pendant ces créneaux')
               else:
-                  print(f'\n? Type inconnu : {ptype} — vérifier dans lUI AzuraCast')
+                  print('ℹ️  Aucun créneau → rotation générale : ne joue que lorsque')
+                  print('    aucune playlist planifiée ne fournit de titre (filet de secours).')
+                  print('    Voulu pour 015_REMPLISSAGE, anormal pour une playlist de grille.')
           else:
               print('❌ Playlist 000_TRANSITION NON TROUVÉE')
               print()

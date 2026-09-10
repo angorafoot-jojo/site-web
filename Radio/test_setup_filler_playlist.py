@@ -114,7 +114,6 @@ def test_playlist_est_en_rotation_generale_sans_creneau():
     assert FILLER_SETTINGS["type"] == "default"
     assert "schedule_items" not in FILLER_SETTINGS
     assert FILLER_SETTINGS["is_enabled"] is True
-    assert FILLER_SETTINGS["include_in_automation"] is True
 
 
 def test_playlist_est_en_aleatoire_et_evite_les_repetitions():
@@ -153,9 +152,14 @@ def test_signale_une_playlist_desactivee():
     assert any("is_enabled" in e for e in ecarts)
 
 
-def test_signale_une_playlist_hors_automation():
-    ecarts = settings_drift(playlist_conforme(include_in_automation=False))
-    assert any("include_in_automation" in e for e in ecarts)
+def test_include_in_automation_n_est_pas_controle():
+    """L'API ne renvoie pas ce champ pour cette station (dump de
+    000_TRANSITION, 10/09/2026) : le contrôler produisait un avertissement
+    permanent. Il désigne « Automated Assignment », qui redistribue les
+    titres entre playlists — on n'en veut surtout pas ici."""
+    assert "include_in_automation" not in CRITICAL_SETTINGS
+    assert "include_in_automation" not in FILLER_SETTINGS
+    assert settings_drift(playlist_conforme(include_in_automation=None)) == []
 
 
 @pytest.mark.parametrize("valeur", [True, 1, "true", "1"])

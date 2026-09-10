@@ -72,17 +72,18 @@ MAX_FILLER_SECONDS = 90
 # fichier et ressert un titre déjà en file (README §7).
 MIN_FILLER_SECONDS = 9
 
-# Réglages de la playlist. `type: default` = rotation générale, SANS créneau :
-# c'est délibéré et c'est tout l'intérêt — une playlist planifiée préempterait
-# le bloc au lieu de le compléter. `order: shuffle` évite d'entendre toujours
-# le même psaume à 17h59.
+# Réglages de la playlist. Ce qui rend une playlist planifiée dans cette
+# version d'AzuraCast, c'est la présence de `schedule_items`, pas le `type` :
+# 000_TRANSITION est elle aussi `type: default`, mais avec un créneau 00h00-00h02.
+# Ici, AUCUN créneau — c'est délibéré et c'est tout l'intérêt : une playlist
+# planifiée préempterait le bloc au lieu de le compléter.
+# `order: shuffle` évite d'entendre toujours le même psaume à 17h59.
 FILLER_SETTINGS: dict[str, Any] = {
     "name": FILLER_PLAYLIST_NAME,
     "type": "default",
     "source": "songs",
     "order": "shuffle",
     "is_enabled": True,
-    "include_in_automation": True,
     "include_in_requests": False,
     "avoid_duplicates": True,
     "weight": 1,
@@ -127,10 +128,16 @@ def extra_paths(desired: list[MediaItem], present: list[MediaItem]) -> list[str]
 # Réglages dont dépend tout le mécanisme. `POST /playlists` ignore certains
 # champs (README §5) et l'interface AzuraCast permet de les modifier à la main :
 # sans contrôle, la playlist pourrait devenir inopérante sans que rien ne le
-# signale. Volontairement limité à ces quatre-là — comparer tous les champs
-# produirait des écarts de forme (types, valeurs par défaut) et donc un
-# avertissement permanent, c'est-à-dire aucun avertissement.
-CRITICAL_SETTINGS = ("type", "is_enabled", "include_in_automation", "order")
+# signale.
+#
+# Volontairement limité à ces trois-là. `include_in_automation` en faisait
+# partie au départ : erreur. Le dump complet de 000_TRANSITION (10/09/2026,
+# workflow radio-test-playlists) montre que l'API ne renvoie même pas ce
+# champ pour cette station — la comparaison valait donc toujours None, soit
+# un avertissement permanent, c'est-à-dire aucun avertissement. Ce champ
+# désigne d'ailleurs la fonction « Automated Assignment » d'AzuraCast, qui
+# redistribue les titres entre playlists : on n'en veut surtout pas ici.
+CRITICAL_SETTINGS = ("type", "is_enabled", "order")
 
 
 def _normalize(value: Any) -> Any:
