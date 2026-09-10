@@ -221,6 +221,15 @@ La corrélation apparente avec la durée du fichier était en réalité une corr
 
 **Pourquoi la dérive** : `set_jingle_fades.py` n'avait été lancé **qu'une seule fois, à la main, le 12/06/2026** (commit `52b717b`, « les 40 jingles »), et aucun workflow ne le rejouait. La banque ElevenLabs importée les **09-10/07/2026** — celle qui compose tout le pool actuel — n'a donc jamais été normalisée. Les seuls jingles épargnés sont ceux présents dès le 04/06 (`id_station_01/02/03`), d'où leur taux de saut quasi nul.
 
+**Confirmé en production le 10/09/2026** (dry-run de `radio-jingle-fades.yml`) : sur 49 fichiers du dossier `Jingle/`, **exactement 9 avaient `fade_in`/`fade_out`/`fade_overlap` à `null`** — soit précisément le lot de juillet (`avant_message_03/04/05`, `avant_bible_06/07/08`, `avant_louange_05/06/07`). Les 40 autres étaient déjà à 0 depuis le 12/06. Durées utiles estimées et taux de saut d'août, dans le même ordre :
+
+| Durée utile (durée − crossfade) | Jingles concernés | Saut mesuré en août |
+|--------------------------------|-------------------|---------------------|
+| ~5 s | `avant_message_03`, `avant_bible_08` | 31–45 % |
+| ~6 s | `avant_message_04`, `avant_bible_06`, `avant_louange_06` | 19–23 % |
+| ~7 s | `avant_message_05`, `avant_louange_05` | 12–13 % |
+| ~9 s | `avant_bible_07`, `avant_louange_07` | 2–6 % |
+
 > ⚠️ **Règle à retenir** : tout import de jingles doit être suivi d'une normalisation des fondus. C'est désormais automatique (`radio-jingle-fades.yml`, 10h UTC), mais après un import manuel on peut la déclencher tout de suite depuis Actions plutôt que d'attendre le lendemain.
 
 ### Chantier ouvert

@@ -44,6 +44,12 @@ FADES = {"fade_in": 0, "fade_out": 0, "fade_overlap": 0}
 # Un jingle non normalisé perd ~4 s : c'est ce seuil qu'il franchit.
 RELIABLE_JINGLE_SECONDS = 9
 
+# Crossfade configuré sur la station. Un champ de fondu à `None` signifie
+# « hériter de ce réglage » : le fichier perd donc cette durée de chaque
+# côté (~4 s au total). Sert uniquement à estimer la durée utile affichée
+# dans le diagnostic — la correction, elle, met les trois champs à 0.
+STATION_CROSSFADE_SECONDS = 2
+
 
 def is_jingle(media: dict[str, Any], jingle_dir: str = JINGLE_DIR) -> bool:
     """Vrai si le fichier appartient au dossier des jingles."""
@@ -75,16 +81,37 @@ def select_jingles_to_fix(
     return jingles, todo
 
 
+def effective_seconds(media: dict[str, Any]) -> tuple[int, bool]:
+    """Durée réellement diffusée = durée du fichier − fondus d'entrée/sortie.
+
+    Un champ à `None` hérite du crossfade de la station : c'est ~2 s perdues
+    de ce côté-là, et c'est précisément le cas qui rend un jingle injouable.
+    Retourne (durée utile, estimation) — `estimation` est vrai dès qu'un
+    champ valait `None`, la valeur dépendant alors du réglage station.
+    """
+    length = int(media.get("length") or 0)
+    estimated = False
+    lost = 0.0
+    for key in ("fade_in", "fade_out"):
+        value = media.get(key)
+        if value is None:
+            lost += STATION_CROSSFADE_SECONDS
+            estimated = True
+        else:
+            lost += float(value)
+    return max(0, length - int(lost)), estimated
+
+
 def format_media_line(media: dict[str, Any], fades: dict[str, int] = FADES) -> str:
-    """Ligne de diagnostic : durée, durée utile estimée, fondus actuels."""
+    """Ligne de diagnostic : durée, durée utile, fondus actuels."""
     length = int(media.get("length") or 0)
     current = {k: media.get(k) for k in fades}
-    lost = sum(float(v) for v in current.values() if v)
-    effective = max(0, length - int(lost))
+    effective, estimated = effective_seconds(media)
     alert = "  ⚠️ indiffusable" if effective < RELIABLE_JINGLE_SECONDS else ""
+    prefix = "~" if estimated else " "
     fades_txt = " ".join(f"{k.replace('fade_', '')}={current[k]}" for k in fades)
     name = str(media.get("path", "")).split("/")[-1]
-    return f"  {length:3d}s → {effective:3d}s utiles   {fades_txt:<34} {name}{alert}"
+    return f"  {length:3d}s → {prefix}{effective:3d}s utiles   {fades_txt:<34} {name}{alert}"
 
 
 def main(argv: list[str] | None = None) -> int:

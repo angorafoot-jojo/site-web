@@ -7,6 +7,8 @@ import pytest
 from set_jingle_fades import (
     FADES,
     RELIABLE_JINGLE_SECONDS,
+    STATION_CROSSFADE_SECONDS,
+    effective_seconds,
     format_media_line,
     is_jingle,
     needs_fade_reset,
@@ -112,7 +114,43 @@ def test_duree_utile_ne_devient_jamais_negative():
     assert "0s utiles" in ligne
 
 
+# ── effective_seconds : le cas `None` (crossfade station hérité) ─────────────
+# Régression du 10/09/2026 : le dry-run affichait « 9s → 9s utiles » sans
+# alerte pour les 9 jingles à None, alors que ce sont exactement ceux qui
+# perdent ~4 s et sautent à l'antenne. Le diagnostic ratait son seul but.
+
+def test_fondus_null_comptent_le_crossfade_station():
+    utile, estime = effective_seconds(make_media(length=9, fade_in=None, fade_out=None))
+    assert utile == 9 - 2 * STATION_CROSSFADE_SECONDS == 5
+    assert estime is True
+
+
+def test_jingle_null_de_9s_est_signale_indiffusable():
+    ligne = format_media_line(make_media(length=9, fade_in=None, fade_out=None, fade_overlap=None))
+    assert "~  5s utiles" in ligne
+    assert "indiffusable" in ligne
+
+
+def test_jingle_null_de_13s_reste_diffusable():
+    """13 s − 4 s = 9 s : pile au seuil, cohérent avec les 2 % de saut d'août."""
+    ligne = format_media_line(make_media(length=13, fade_in=None, fade_out=None, fade_overlap=None))
+    assert "~  9s utiles" in ligne
+    assert "indiffusable" not in ligne
+
+
+def test_valeur_explicite_n_est_pas_une_estimation():
+    _, estime = effective_seconds(make_media(length=10, fade_in=0, fade_out=0))
+    assert estime is False
+
+
+def test_fade_overlap_ne_reduit_pas_la_duree_du_fichier():
+    """L'overlap décrit le recouvrement du titre suivant, pas une perte."""
+    utile, _ = effective_seconds(make_media(length=10, fade_in=0, fade_out=0, fade_overlap=3))
+    assert utile == 10
+
+
 def test_seuil_fiable_documente():
     """Le seuil sert de garde-fou : le figer évite une dérive silencieuse."""
     assert RELIABLE_JINGLE_SECONDS == 9
+    assert STATION_CROSSFADE_SECONDS == 2
     assert set(FADES) == {"fade_in", "fade_out", "fade_overlap"}
