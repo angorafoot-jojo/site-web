@@ -273,10 +273,22 @@ def categorize_jingles(
     categorized: dict[str, list[MediaItem]] = {}
 
     categorized_paths: set[str] = set()
+    missing: list[tuple[str, str]] = []
     for cat, paths in config_categories.items():
-        items = [path_to_item[p] for p in paths if p in path_to_item]
+        items = []
+        for path in paths:
+            item = path_to_item.get(path)
+            if item is None:
+                # Un chemin configuré introuvable dans le pool était jusqu'ici
+                # ignoré en silence : le bloc se rabattait sur un jingle d'une
+                # autre catégorie sans que rien ne le signale (fichier renommé,
+                # supprimé, sorti de la playlist 014_Jingles, ou écarté par
+                # MIN_JINGLE_SECONDS). On le rend visible dans le log du run.
+                missing.append((cat, path))
+                continue
+            items.append(item)
         categorized[cat] = items
-        categorized_paths.update(p for p in paths if p in path_to_item)
+        categorized_paths.update(item.path for item in items)
 
     uncategorized = [j for j in all_jingles if j.path not in categorized_paths]
     if uncategorized:
@@ -284,7 +296,12 @@ def categorize_jingles(
 
     total = sum(len(v) for v in categorized.values())
     for cat, items in categorized.items():
-        print(f"  Catégorie jingle '{cat}': {len(items)} fichier(s)")
+        empty = "  ⚠️ VIDE — repli sur 'transition'" if not items else ""
+        print(f"  Catégorie jingle '{cat}': {len(items)} fichier(s){empty}")
+    for cat, path in missing:
+        print(f"  AVERTISSEMENT: chemin de config absent du pool jingles "
+              f"(renommé, supprimé, hors playlist ou écarté trop court) — "
+              f"catégorie '{cat}' : {path}")
     if not total:
         raise RuntimeError("Aucun jingle trouvé dans aucune catégorie.")
     return categorized

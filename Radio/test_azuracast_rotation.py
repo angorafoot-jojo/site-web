@@ -216,6 +216,55 @@ def test_categorize_jingles_splits_correctly():
     print("✅ test_categorize_jingles_splits_correctly")
 
 
+def test_categorize_jingles_signale_un_chemin_absent():
+    """Un chemin configuré introuvable dans le pool doit être signalé.
+
+    Il était jusqu'ici ignoré en silence : le bloc se rabattait sur un jingle
+    d'une autre catégorie sans trace dans le log (fichier renommé, supprimé,
+    sorti de 014_Jingles, ou écarté par MIN_JINGLE_SECONDS).
+    """
+    import contextlib
+    import io
+
+    all_jingles = [make_jingle("Jingle/avant_message_1.mp3")]
+    config_cats = {
+        "avant_message": ["Jingle/avant_message_1.mp3"],
+        "avant_bible": ["Jingle/disparu.mp3"],
+    }
+
+    buffer = io.StringIO()
+    with contextlib.redirect_stdout(buffer):
+        result = categorize_jingles(all_jingles, config_cats)
+    sortie = buffer.getvalue()
+
+    assert "AVERTISSEMENT" in sortie and "Jingle/disparu.mp3" in sortie, \
+        "Le chemin absent doit apparaître dans le log du run"
+    assert "avant_bible" in sortie
+    # La catégorie vide est signalée, et la rotation continue (repli transition)
+    assert "VIDE" in sortie
+    assert result["avant_bible"] == []
+    assert len(result["avant_message"]) == 1
+    print("✅ test_categorize_jingles_signale_un_chemin_absent")
+
+
+def test_categorize_jingles_silencieux_quand_tout_est_present():
+    """Aucun avertissement parasite quand la config et le pool concordent."""
+    import contextlib
+    import io
+
+    all_jingles = [make_jingle("Jingle/a.mp3"), make_jingle("Jingle/b.mp3")]
+    config_cats = {"avant_message": ["Jingle/a.mp3"], "avant_bible": ["Jingle/b.mp3"]}
+
+    buffer = io.StringIO()
+    with contextlib.redirect_stdout(buffer):
+        categorize_jingles(all_jingles, config_cats)
+    sortie = buffer.getvalue()
+
+    assert "AVERTISSEMENT" not in sortie
+    assert "VIDE" not in sortie
+    print("✅ test_categorize_jingles_silencieux_quand_tout_est_present")
+
+
 def test_no_consecutive_duplicate_jingle():
     """Deux jingles consécutifs dans un bloc ne doivent pas être identiques."""
     cats = build_test_jingle_categories()
@@ -640,6 +689,8 @@ if __name__ == "__main__":
         test_jingles_before_louange_are_avant_louange,
         test_fallback_when_category_empty,
         test_categorize_jingles_splits_correctly,
+        test_categorize_jingles_signale_un_chemin_absent,
+        test_categorize_jingles_silencieux_quand_tout_est_present,
         test_no_consecutive_duplicate_jingle,
         test_debug_output_contains_category,
         # Bible séquentielle
