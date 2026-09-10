@@ -16,7 +16,28 @@ name: Reset AutoDJ à Minuit
 #   00h02 UTC — BLOC_A démarre depuis la position 1 ✅
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:        # Déclencheur PRINCIPAL : cron-job.org à 00h00 UTC
+
+  # Déclencheur de SECOURS, ajouté après la panne de cron-job.org du
+  # 18→21/07/2026 (aucun reset les 19, 20 et 21/07). Sans reset, le pointeur de
+  # BLOC_A n'est pas réinitialisé : historiquement jusqu'à 2h25 d'antenne figée
+  # (constaté le 23/06/2026).
+  #
+  # ⚠️ Contrairement à la rotation, ce workflow n'est PAS idempotent : il
+  # redémarre Liquidsoap et vide la file à chaque exécution. Un cron GitHub
+  # arrive avec +51 à +129 min de retard (mesuré sur ce dépôt) ; sans garde, il
+  # couperait donc un titre en pleine diffusion vers 01h CHAQUE nuit — une
+  # régression, pas un filet. D'où la garde ci-dessous, qui n'agit que si le
+  # reset n'a pas déjà eu lieu cette nuit.
+  schedule:
+    - cron: '0 0 * * *'
+
+# Empêche le reset externe et le reset de secours de redémarrer Liquidsoap en
+# parallèle : le second attend, puis son checkout voit le log de surveillance
+# déjà committé et la garde le neutralise.
+concurrency:
+  group: radio-midnight-reset
+  cancel-in-progress: false
 
 jobs:
   midnight-reset:
@@ -30,7 +51,27 @@ jobs:
       - name: Récupérer le code
         uses: actions/checkout@v4
 
+      # Garde d'idempotence, indispensable au déclencheur de secours (voir l'en-tête).
+      # Signal : restart_autodj.py écrit Radio/logs/midnight_watch_<date UTC>.log
+      # et le workflow le committe. Sa présence prouve que le reset de cette nuit
+      # a déjà eu lieu. La garde ne s'applique QU'AUX runs 'schedule' : un
+      # lancement manuel (workflow_dispatch) force toujours le reset, comme avant.
+      - name: Garde — le reset a-t-il déjà eu lieu cette nuit ?
+        id: garde
+        run: |
+          LOG="Radio/logs/midnight_watch_$(date -u +%F).log"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ -f "$LOG" ]; then
+            echo "sauter=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Reset déjà effectué cette nuit ($LOG présent) — filet de sécurité inactif, rien à faire."
+          else
+            echo "sauter=false" >> "$GITHUB_OUTPUT"
+            if [ "${{ github.event_name }}" = "schedule" ]; then
+              echo "::warning::Aucun $LOG — le déclencheur externe n'a pas agi. Le filet de sécurité prend le relais."
+            fi
+          fi
+
       - name: Redémarrer AutoDJ et vider la file
+        if: steps.garde.outputs.sauter != 'true'
         env:
           AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
         run: |
@@ -39,7 +80,7 @@ jobs:
             --station-id 1
 
       - name: Sauvegarder le log de surveillance minuit
-        if: always()
+        if: always() && steps.garde.outputs.sauter != 'true'
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
@@ -53,6 +94,22 @@ jobs:
           else
             echo "Aucun log de surveillance minuit à committer."
           fi
+
+      # Le secours a effectivement redémarré Liquidsoap : le déclencheur externe
+      # n'avait pas agi à 00h00. Même issue mutualisée que la rotation — les deux
+      # dépendent de cron-job.org, une seule alerte suffit (dédoublonnage sur le
+      # label isolé 'declencheur').
+      - name: Alerter si le filet de sécurité a dû agir
+        if: github.event_name == 'schedule' && steps.garde.outputs.sauter != 'true'
+        uses: ./.github/actions/alerte-declencheur
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          tache: le reset de minuit
+          heure-prevue: 00h00
+          consequence: >-
+            le pointeur de BLOC_A sera réinitialisé en pleine diffusion, coupant
+            le titre à l'antenne (et jusqu'à 2h25 d'antenne figée si le reset
+            manque complètement).
 
       - name: Notifier en cas d'échec
         if: failure()
