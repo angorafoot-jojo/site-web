@@ -6,11 +6,13 @@ import pytest
 
 from azuracast_rotation_4_blocs import MediaItem
 from setup_filler_playlist import (
+    CRITICAL_SETTINGS,
     FILLER_SETTINGS,
     MAX_FILLER_SECONDS,
     MIN_FILLER_SECONDS,
     extra_paths,
     missing_paths,
+    settings_drift,
     select_filler_items,
 )
 
@@ -123,3 +125,51 @@ def test_playlist_est_en_aleatoire_et_evite_les_repetitions():
 
 def test_playlist_hors_demandes_auditeurs():
     assert FILLER_SETTINGS["include_in_requests"] is False
+
+
+# ── Contrôle des réglages réellement enregistrés ─────────────────────────────
+# POST /playlists ignore certains champs (README §5) et l'UI AzuraCast permet
+# de les changer à la main. Si `type` n'était pas `default`, la playlist
+# deviendrait planifiée — donc inopérante comme filet — sans aucun signal.
+
+def playlist_conforme(**surcharges):
+    base = {k: FILLER_SETTINGS[k] for k in CRITICAL_SETTINGS}
+    return {"id": 36, **base, **surcharges}
+
+
+def test_aucun_ecart_quand_la_playlist_est_conforme():
+    assert settings_drift(playlist_conforme()) == []
+
+
+def test_signale_un_type_devenu_planifie():
+    """Le cas qui casserait tout : une playlist planifiée préempte le bloc."""
+    ecarts = settings_drift(playlist_conforme(type="scheduled"))
+    assert len(ecarts) == 1
+    assert "type" in ecarts[0] and "scheduled" in ecarts[0]
+
+
+def test_signale_une_playlist_desactivee():
+    ecarts = settings_drift(playlist_conforme(is_enabled=False))
+    assert any("is_enabled" in e for e in ecarts)
+
+
+def test_signale_une_playlist_hors_automation():
+    ecarts = settings_drift(playlist_conforme(include_in_automation=False))
+    assert any("include_in_automation" in e for e in ecarts)
+
+
+@pytest.mark.parametrize("valeur", [True, 1, "true", "1"])
+def test_booleens_equivalents_ne_creent_pas_de_faux_ecart(valeur):
+    """L'API peut renvoyer 1, True ou 'true' : un avertissement permanent
+    n'est pas un avertissement."""
+    assert settings_drift(playlist_conforme(is_enabled=valeur)) == []
+
+
+def test_casse_differente_ne_cree_pas_de_faux_ecart():
+    assert settings_drift(playlist_conforme(type="Default")) == []
+
+
+def test_champ_absent_de_la_reponse_est_signale():
+    incomplet = playlist_conforme()
+    del incomplet["type"]
+    assert any("type" in e for e in settings_drift(incomplet))

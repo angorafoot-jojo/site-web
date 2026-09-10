@@ -124,6 +124,43 @@ def extra_paths(desired: list[MediaItem], present: list[MediaItem]) -> list[str]
     return sorted(item.path for item in present if item.path not in voulus)
 
 
+# Réglages dont dépend tout le mécanisme. `POST /playlists` ignore certains
+# champs (README §5) et l'interface AzuraCast permet de les modifier à la main :
+# sans contrôle, la playlist pourrait devenir inopérante sans que rien ne le
+# signale. Volontairement limité à ces quatre-là — comparer tous les champs
+# produirait des écarts de forme (types, valeurs par défaut) et donc un
+# avertissement permanent, c'est-à-dire aucun avertissement.
+CRITICAL_SETTINGS = ("type", "is_enabled", "include_in_automation", "order")
+
+
+def _normalize(value: Any) -> Any:
+    """Compare 1/True/'true' et 'Default'/'default' sans faux écart."""
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, int):
+        return bool(value) if value in (0, 1) else value
+    if isinstance(value, str):
+        low = value.strip().lower()
+        if low in ("true", "1"):
+            return True
+        if low in ("false", "0"):
+            return False
+        return low
+    return value
+
+
+def settings_drift(playlist: dict[str, Any],
+                   wanted: dict[str, Any] = FILLER_SETTINGS) -> list[str]:
+    """Réglages critiques qui diffèrent de ce qui est demandé."""
+    ecarts = []
+    for key in CRITICAL_SETTINGS:
+        attendu, reel = _normalize(wanted.get(key)), _normalize(playlist.get(key))
+        if attendu != reel:
+            ecarts.append(f"{key} : attendu {wanted.get(key)!r}, "
+                          f"AzuraCast a {playlist.get(key)!r}")
+    return ecarts
+
+
 def find_or_create_playlist(base_url: str, station_id: int, api_key: str,
                             dry_run: bool) -> dict[str, Any] | None:
     """Playlist de secours, créée si absente. None en dry-run si elle manque."""
@@ -214,6 +251,15 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"\nPlaylist {FILLER_PLAYLIST_NAME} (ID {playlist['id']}) : "
           f"{len(present)} titre(s) présent(s), {len(a_importer)} à importer.")
+
+    ecarts = settings_drift(playlist)
+    if ecarts:
+        print("  AVERTISSEMENT: réglages critiques inattendus — le filet de secours "
+              "peut être inopérant :")
+        for ecart in ecarts:
+            print(f"    {ecart}")
+    else:
+        print(f"  Réglages critiques conformes ({', '.join(CRITICAL_SETTINGS)}) ✅")
     for path in en_trop:
         print(f"  AVERTISSEMENT: hors critères, laissé en place (retrait manuel) : {path}")
 
