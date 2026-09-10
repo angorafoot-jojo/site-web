@@ -1,0 +1,130 @@
+name: Normalisation Fondus Jingles
+
+# ──────────────────────────────────────────────────────────────
+# Remet fade_in / fade_out / fade_overlap à 0 sur tous les fichiers
+# du dossier Jingle/ de la médiathèque AzuraCast.
+#
+# POURQUOI CE WORKFLOW EXISTE
+# Un fichier fraîchement uploadé hérite du crossfade de la station
+# (2 s de chaque côté). Un jingle de 9 s ne dure alors que ~5 s à
+# l'antenne et l'AutoDJ échoue à le lancer : il ressert un titre déjà
+# en file, et le jingle est « sauté ».
+#
+# La normalisation avait été faite À LA MAIN une seule fois, le
+# 12/06/2026. La banque ElevenLabs importée les 09-10/07/2026 ne l'a
+# jamais été. Résultat mesuré sur les 31 jours d'août 2026 :
+#   - jingles normalisés en juin (id_station_01/02/03) ... 0 à 6 % de saut
+#   - jingles importés en juillet (jamais normalisés) .... 13 à 45 % de saut
+#   → 220 jingles perdus sur le mois, soit 7,1 par jour (80,3 % de taux
+#     de diffusion au lieu de ~96 %).
+#
+# Ce workflow rejoue la normalisation chaque jour. Il est idempotent :
+# sans jingle à corriger, c'est un no-op silencieux (aucun PUT envoyé).
+# Il s'exécute donc de lui-même après n'importe quel futur import.
+#
+# Aucune action sur l'antenne : il ne touche qu'aux métadonnées de
+# fondu des fichiers du dossier Jingle/ — ni la musique, ni la Bible,
+# ni les enseignements, ni les playlists, ni la file de lecture.
+# ──────────────────────────────────────────────────────────────
+on:
+  schedule:
+    # 10h UTC : à l'écart de la rotation (23h30), du reset (00h),
+    # des frontières de bloc (06/12/18h) et de validate-paths (12h).
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Simuler sans rien modifier (dry-run)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  normaliser-fondus:
+    name: Remettre les fondus des jingles à zéro
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances
+        run: pip install -r Radio/requirements.txt
+
+      - name: Normaliser les fondus
+        id: fades
+        env:
+          AZURACAST_API_KEY: ${{ secrets.AZURACAST_API_KEY }}
+        run: |
+          # Le déclenchement manuel peut demander un dry-run ; le cron applique.
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python Radio/set_jingle_fades.py | tee fades.log
+          else
+            python Radio/set_jingle_fades.py --apply | tee fades.log
+          fi
+          exit ${PIPESTATUS[0]}
+
+      - name: Résumer dans le récapitulatif du run
+        if: always()
+        run: |
+          {
+            echo "## Normalisation des fondus de jingles"
+            echo ""
+            echo '```'
+            cat fades.log 2>/dev/null || echo "(aucune sortie)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Notifier en cas d'échec
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let details = '';
+            try { details = fs.readFileSync('fades.log', 'utf8'); } catch {}
+
+            // Pas de doublon si une alerte radio est déjà ouverte
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'radio,alerte',
+            });
+            if (existing.data.length > 0) {
+              console.log('Issue déjà ouverte — pas de doublon créé.');
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Normalisation des fondus de jingles échouée — ${new Date().toISOString().slice(0,10)}`,
+              body: [
+                '## La normalisation des fondus de jingles a échoué',
+                '',
+                'Sans elle, tout jingle importé récemment garde le crossfade de la station',
+                '(~4 s perdues) et sera **sauté par l\'AutoDJ** au lieu d\'être diffusé.',
+                '',
+                '```',
+                details.trim().slice(0, 3000),
+                '```',
+                '',
+                '### Comment corriger',
+                '- Vérifier que le secret `AZURACAST_API_KEY` est toujours valide',
+                '- Relancer le workflow ; en local :',
+                '  `AZURACAST_API_KEY=xxx python Radio/set_jingle_fades.py` (dry-run)',
+                '',
+                `> [Voir le log complet](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+              ].join('\n'),
+              labels: ['radio', 'alerte'],
+            });
+            console.log("Issue d'alerte créée.");

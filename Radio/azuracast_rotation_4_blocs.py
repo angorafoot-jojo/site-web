@@ -61,10 +61,16 @@ BLOCK_SLOT_SECONDS = {
 # diffusés — l'AutoDJ échoue à les lancer et ressert à la place un titre déjà
 # en file, souvent LE MESSAGE DE 30 MIN (rejoué 2× d'affilée à 05:59, 12:24,
 # 17:34…), ce qui décale tout le bloc et ampute sa fin de 40-80 min/jour.
-# Les jingles ≥ 6 s passent normalement. À la source : 4 fichiers à
-# réenregistrer en 8-15 s (bible 04 = 1 s, louange 03 = 4 s, bible 05 et
-# louange 04 = 5 s) ; ce garde-fou les réintégrera de lui-même une fois
-# les fichiers remplacés sur le serveur.
+#
+# ATTENTION — ce seuil porte sur la durée DÉCLARÉE du fichier, alors que
+# l'AutoDJ échoue sur la durée RÉELLE À L'ANTENNE. Un jingle non normalisé
+# garde le crossfade station (2 s de chaque côté) et perd ~4 s : un fichier
+# de 9 s n'en dure plus que 5 et saute malgré ce garde-fou. C'est ce qui a
+# fait sauter 220 jingles en août 2026 (80,3 % de diffusion seulement) alors
+# qu'aucun ne descendait sous 9 s déclarées.
+# → la durée seule ne suffit pas : les fondus doivent être à 0.
+#   C'est le rôle de set_jingle_fades.py / workflow radio-jingle-fades.yml.
+# Seuil réellement fiable, fondus à 0 : 9 s (voir RELIABLE_JINGLE_SECONDS).
 MIN_JINGLE_SECONDS = 6
 
 # Même garde-fou pour le pool musique : la bibliothèque 001_LA_MUSIQUE peut

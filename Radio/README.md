@@ -74,6 +74,7 @@ Tous les horaires sont en **UTC**. La rotation et le reset de minuit sont décle
 | `radio-healthcheck.yml` | toutes les 15 min | cron GitHub | Vérifie que le flux diffuse |
 | `radio-liquidsoap-capture.yml` | toutes les heures (h+17) | cron GitHub | Capture les lignes d'intérêt du `liquidsoap.log` (erreurs, échecs, titres préparés) dans `logs/liquidsoap_events_<date>.log` — le log serveur est un tampon glissant d'~24 h, sans capture les causes des anomalies disparaissent avant le rapport |
 | `radio-playback-report.yml` | 01h00 | cron GitHub | Génère le rapport de diffusion de la veille (`logs/diffusion_<date>.log`) |
+| `radio-jingle-fades.yml` | 10h00 | cron GitHub | **Normalisation des fondus de jingles** : remet `fade_in`/`fade_out`/`fade_overlap` à 0 sur tout le dossier `Jingle/`. Un fichier fraîchement uploadé hérite du crossfade station (~4 s perdues) et devient injouable par l'AutoDJ — ce workflow répare cette dérive automatiquement après chaque import. Idempotent : no-op quand le pool est conforme |
 | `radio-validate-paths.yml` | 12h00 | cron GitHub | Vérifie que chaque chemin de la config existe dans la médiathèque |
 | `radio-test-playlists.yml` | manuel | `workflow_dispatch` | Test : vérifie les playlists via l'API |
 | `radio-test-liquidsoap-log.yml` | manuel | `workflow_dispatch` | Test : liste les logs serveur disponibles et inspecte le contenu brut du `liquidsoap.log` |
@@ -97,7 +98,8 @@ Tous dans `Radio/`. Dépendance unique : `requests` (`pip install -r requirement
 | `capture_liquidsoap_log.py` | Capture horaire des événements du `liquidsoap.log` serveur (erreurs, avertissements niveau ≤2, « Fetch failed », `Prepared "…"`, bascules de source) vers `logs/liquidsoap_events_<date>.log`. Idempotent via `liquidsoap_capture_state.json` (position + dernier horodatage archivé) |
 | `validate_paths.py` | Vérifie que chaque chemin de la config existe dans la médiathèque + cohérence des créneaux planifiés (`EXPECTED_SLOTS`) |
 | `retitle_bible_files.py` | Réécrit les métadonnées (titre + artiste) des fichiers bibliques |
-| `set_jingle_fades.py` | Désactive le crossfade sur les jingles |
+| `set_jingle_fades.py` | Désactive le crossfade sur les jingles (`--apply`, dry-run par défaut). **À rejouer après chaque import de jingles** — automatisé par `radio-jingle-fades.yml`. Signale aussi la durée utile de chaque fichier (durée − fondus) et alerte sous 9 s |
+| `test_set_jingle_fades.py` | Tests de la sélection des jingles à normaliser (idempotence, périmètre, durée utile) |
 | `test_azuracast_rotation.py` | Tests de la logique de rotation |
 | `test_restart_autodj.py` | Tests du reset/dédoublonnage/garde de frontière |
 | `test_playback_report.py` | Tests du rapport de diffusion |
@@ -198,12 +200,34 @@ Pour comprendre *pourquoi* le code est comme il est :
 | 08/07 | Fichiers orphelins (`playlists=[]`) réinjectés dans la rotation | Exclusion explicite dans `get_playlist_files()` |
 | 12/07 | Rapport : message compté 0/4 à tort + jingles surcomptés | Matching par durée ±2 s + filtrage des entrées du lendemain |
 | 13/07 | Doublon du message aux frontières 06h/12h/18h (double remplissage de file quand le bloc sortant s'épuise avant la frontière) | Dédoublonnage étendu (titre à l'antenne, même non adjacent) + workflow `radio-boundary-guard.yml` |
+| 09/2026 | **Jingles sautés (7,1/jour, 80,3 % de diffusion en août)** — cause racine = **fondus non normalisés**, pas la durée des fichiers | Workflow `radio-jingle-fades.yml` (quotidien, idempotent) |
+
+#### Jingles sautés — cause racine (analyse des 31 jours d'août 2026)
+
+Le chantier ouvert depuis juillet est clos. Sur août : **896 jingles diffusés sur 1 116 prévus (80,3 %)**, soit 220 perdus, répartis uniformément sur les 4 blocs. Le saut ne touchait quasiment que les jingles (163 des 165 items « prévu non joué »).
+
+La corrélation apparente avec la durée du fichier était en réalité une corrélation avec la **durée utile à l'antenne = durée déclarée − fondus** :
+
+| Lot | Normalisé le 12/06 ? | Durée | Taux de saut |
+|-----|----------------------|-------|--------------|
+| `jingle_id_station_01/02` | ✅ oui | 9 s | **3–6 %** |
+| `jingle_id_station_03` | ✅ oui | 12 s | **0 %** |
+| `jingle_avant_bible_08` | ❌ non | 9 s | **31 %** |
+| `jingle_avant_message_03` | ❌ non | 9 s | **45 %** |
+| `jingle_avant_bible_06`, `avant_louange_06` | ❌ non | 10 s | **21–23 %** |
+| `jingle_avant_bible_07`, `avant_louange_07` | ❌ non | 13 s | **2–6 %** |
+
+À **durée identique (9 s)**, un jingle normalisé saute 3 % et un jingle non normalisé 31 à 45 %. Le crossfade station (2 s de chaque côté) ampute ~4 s : un fichier de 9 s ne dure plus que 5 s à l'antenne, sous le seuil où l'AutoDJ échoue à le lancer.
+
+**Pourquoi la dérive** : `set_jingle_fades.py` n'avait été lancé **qu'une seule fois, à la main, le 12/06/2026** (commit `52b717b`, « les 40 jingles »), et aucun workflow ne le rejouait. La banque ElevenLabs importée les **09-10/07/2026** — celle qui compose tout le pool actuel — n'a donc jamais été normalisée. Les seuls jingles épargnés sont ceux présents dès le 04/06 (`id_station_01/02/03`), d'où leur taux de saut quasi nul.
+
+> ⚠️ **Règle à retenir** : tout import de jingles doit être suivi d'une normalisation des fondus. C'est désormais automatique (`radio-jingle-fades.yml`, 10h UTC), mais après un import manuel on peut la déclencher tout de suite depuis Actions plutôt que d'attendre le lendemain.
 
 ### Chantier ouvert
 
-- **Jingles réellement sautés (5–14/jour)** : fichiers de 8–13 s qui existent et jouent bien à d'autres heures, sautés éparpillés en milieu de bloc. Piste : réglage *duplicate prevention* d'AzuraCast ou comportement Liquidsoap sur fichiers courts. Les logs Liquidsoap nécessaires sont archivés depuis le 18/07/2026 par `radio-liquidsoap-capture.yml` (le log serveur est bien exposé par l'API — `GET /station/1/log/liquidsoap_log` — mais c'est un tampon glissant d'~24 h, d'où la capture horaire).
-  - **Fait (22/07/2026)** : la section **MONITEUR** de `playback_report.py` corrèle désormais chaque anomalie **horodatée** de diffusion (coupure, trou, double message) avec l'incident serveur le plus proche (crash, échec réseau, silence, saut) et l'état du reset/garde. Une coupure et sa cause serveur s'affichent côte à côte, plus besoin d'ouvrir les 3 fichiers.
-  - **Reste** : corréler aussi les items **« PRÉVU NON JOUÉ »** du plan (jingles sautés sans horodatage propre) avec les événements serveur de leur fenêtre de bloc — la corrélation actuelle porte sur les anomalies qui ont une heure précise.
+- **Corrélation des « PRÉVU NON JOUÉ »** : `playback_report.py` corrèle les anomalies **horodatées** (coupure, trou, double message) avec l'incident serveur le plus proche (fait le 22/07/2026), mais pas encore les items sautés du plan, qui n'ont pas d'heure propre — il faudrait les rattacher aux événements serveur de leur fenêtre de bloc.
+- **Assèchement de fin de bloc** : 22 fois en août, le dernier titre d'un bloc s'est terminé avant la fin de sa fenêtre et Liquidsoap a diffusé `error.mp3` (« AzuraCast is Live! ») pendant 3 à 55 s, toujours interrompu pile à la bascule. C'est aussi la cause des 3 doubles messages des 3, 4 et 5 août. Piste : terminer chaque bloc par une réserve de titres courts, ou remplacer `error.mp3` par un jingle de la station.
+- **Bruit du monitoring** : 3 257 des 3 416 « incidents serveur » d'août (95 %) sont les `Fetch failed` de la rotation elle-même, entre 23h32 et 23h36, sans effet à l'antenne — d'où un `❌ incident détecté` 31 jours sur 31. À exclure du décompte pour qu'une vraie anomalie redevienne visible.
 
 ---
 
