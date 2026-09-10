@@ -2,7 +2,9 @@
 Fonctions pures uniquement (aucun appel réseau)."""
 import os
 import sys
-from datetime import date, datetime, timezone
+from datetime import date, datetime, time, timezone
+
+import pytest
 
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -11,7 +13,9 @@ from playback_report import (norm_title, build_plan_section, build_health_sectio
                              classify_server_line, parse_server_events,
                              group_incidents, playback_incidents,
                              parse_watch_records, summarize_watch,
-                             nearest_incident, build_monitor_section)
+                             nearest_incident, build_monitor_section,
+                             is_expected_incident, in_window,
+                             ROTATION_WINDOW, MIDNIGHT_RESET_WINDOW)
 
 JOUR = date(2026, 6, 25)
 
@@ -422,16 +426,39 @@ def test_playback_incidents_reprend_coupures_et_trous():
 
 
 def test_summarize_watch_detecte_restart_et_doublon():
+    """Le doublon qui compte porte sur du contenu long (ici le message)."""
     text = "\n".join([
         '{"logged_at": "2026-06-25T00:02:04+00:00", "check": 1, "now_playing_title": "",'
         ' "started_after_restart": true, "queue_preview": ['
-        '{"title": "jingle x", "is_played": false},'
-        '{"title": "jingle x", "is_played": false}]}',  # doublon dans la file
+        '{"title": "PQE J 1", "is_played": false},'
+        '{"title": "PQE J 1", "is_played": false}]}',  # message en double
     ])
     summary = summarize_watch(parse_watch_records(text))
     assert summary["restart"] is True
     assert summary["dup_seen"] is True
     assert summary["first"] == "00:02:04"
+
+
+def test_summarize_watch_ignore_un_jingle_en_double():
+    """Faux positif historique : juste apres un restart, l'apercu de file
+    contient normalement 2x le meme jingle. 29 alertes sur 41 nuits en
+    aout-septembre 2026, zero double diffusion derriere."""
+    text = ('{"logged_at": "2026-06-25T00:02:04+00:00", "now_playing_title": "",'
+            ' "started_after_restart": true, "queue_preview": ['
+            '{"title": " - jingle avant message 04", "is_played": false},'
+            '{"title": " - jingles de transition 1", "is_played": false},'
+            '{"title": " - jingle avant message 04", "is_played": false},'
+            '{"title": "PQE J 1", "is_played": false}]}')
+    assert summarize_watch(parse_watch_records(text))["dup_seen"] is False
+
+
+def test_summarize_watch_detecte_le_titre_a_l_antenne_en_file():
+    """Motif de la garde de frontiere : le message joue est deja re-empile."""
+    text = ('{"logged_at": "2026-06-25T06:32:57+00:00", "started_after_restart": true,'
+            ' "now_playing_title": "PQE J 1", "queue_preview": ['
+            '{"title": " - jingle avant message 05", "is_played": false},'
+            '{"title": "PQE J 1", "is_played": false}]}')
+    assert summarize_watch(parse_watch_records(text))["dup_seen"] is True
 
 
 def test_summarize_watch_file_saine():
@@ -453,13 +480,14 @@ def test_nearest_incident_dans_la_fenetre():
 
 
 def test_monitor_correle_une_coupure_avec_un_crash_serveur():
-    # Coupure à 00:01:30 (fichier 600s, coupé à 8s) causée par le crash 00:01:22.
-    h = [entry("Message du jour", 0, 1, 22, duration=600),
-         entry("suite", 0, 1, 30, duration=600)]
+    # Coupure à 14:01:30 (fichier 600s, coupé à 8s) causée par le crash 14:01:22.
+    # En pleine journée : hors des fenêtres rotation/reset, donc vrai incident.
+    h = [entry("Message du jour", 14, 1, 22, duration=600),
+         entry("suite", 14, 1, 30, duration=600)]
     logs = {
         "server": "\n".join([
-            srv(0, 1, 22, "[lang:2] Could not perform http request: CurlException"),
-            srv(0, 1, 22, "[threads:1] PANIC: Liquidsoap has crashed, exiting."),
+            srv(14, 1, 22, "[lang:2] Could not perform http request: CurlException"),
+            srv(14, 1, 22, "[threads:1] PANIC: Liquidsoap has crashed, exiting."),
         ]),
         "midnight": '{"logged_at": "2026-06-25T00:02:04+00:00",'
                     ' "started_after_restart": true, "queue_preview": []}',
@@ -471,7 +499,7 @@ def test_monitor_correle_une_coupure_avec_un_crash_serveur():
     assert "crash Liquidsoap" in out
     assert "RESET MINUIT : restart confirmé vers 00:02:04" in out
     assert "INCIDENTS CORRÉLÉS" in out
-    assert "cause probable 00:01:22" in out
+    assert "cause probable 14:01:22" in out
 
 
 def test_monitor_ras_quand_tout_va_bien():
@@ -486,12 +514,110 @@ def test_monitor_ras_quand_tout_va_bien():
 
 
 def test_monitor_signale_archives_absentes():
-    h = [entry("a", 0, 0, duration=600), entry("b", 0, 0, 8, duration=600)]
+    h = [entry("a", 14, 0, duration=600), entry("b", 14, 0, 8, duration=600)]
     logs = {"server": "", "midnight": "", "boundary": ""}
     out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
     assert "archive liquidsoap_events absente" in out
     assert "aucun instantané de surveillance" in out
     assert "archive serveur absente — cause non déterminable" in out
+
+
+# ── Fenêtres de maintenance : le bruit que le système s'inflige à lui-même ────
+# Août 2026 : 4 296 des 4 341 événements serveur retenus (99 %) venaient de la
+# rotation et du reset, et le rapport titrait « ❌ incident » 31 jours sur 31.
+
+def test_rotation_produit_des_echecs_reseau_attendus():
+    """23h32-23h36 : l'AutoDJ échoue à précharger pendant que la rotation
+    reconstruit les blocs. BLOC_E (statique) est à l'antenne : aucun effet."""
+    assert is_expected_incident("network", time(23, 32)) is True
+    assert is_expected_incident("network", time(23, 36)) is True
+
+
+def test_reset_de_minuit_produit_crash_et_bascule_attendus():
+    assert is_expected_incident("crash", time(0, 1, 22)) is True
+    assert is_expected_incident("deadair", time(0, 1, 31)) is True
+    assert is_expected_incident("network", time(0, 1, 20)) is True
+
+
+@pytest.mark.parametrize("categorie,moment", [
+    ("deadair", time(5, 59)),    # assèchement frontière BLOC_A→B (vrai défaut)
+    ("deadair", time(11, 59)),
+    ("deadair", time(17, 59)),
+    ("deadair", time(23, 29)),   # juste AVANT la fenêtre de rotation
+    ("crash", time(14, 0)),      # un crash en journée reste un incident
+    ("network", time(8, 0)),
+    ("network", time(23, 41)),   # juste APRÈS la fenêtre de rotation
+    ("skip", time(0, 1)),        # un saut de fichier n'est jamais « attendu »
+])
+def test_hors_fenetre_ou_hors_categorie_reste_un_incident(categorie, moment):
+    assert is_expected_incident(categorie, moment) is False
+
+
+def test_bornes_des_fenetres_sont_inclusives():
+    assert in_window(time(23, 30), ROTATION_WINDOW) is True
+    assert in_window(time(23, 40), ROTATION_WINDOW) is True
+    assert in_window(time(23, 29, 59), ROTATION_WINDOW) is False
+    assert in_window(time(0, 3), MIDNIGHT_RESET_WINDOW) is True
+    assert in_window(time(0, 3, 1), MIDNIGHT_RESET_WINDOW) is False
+
+
+def test_moniteur_reste_vert_sur_le_bruit_de_rotation():
+    """Une journée saine avec la rafale de rotation ne doit plus titrer ❌."""
+    h = [entry("a", 14, 0, duration=60), entry("b", 14, 1, duration=60)]
+    logs = {"server": "\n".join(srv(23, 32, s, "[request.dynamic:3] Fetch failed: retry.")
+                                for s in range(0, 50, 5)),
+            "midnight": "", "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
+    assert "❌" not in out
+    assert "ATTENDU" in out and "hors verdict" in out
+    assert "serveur : 0 incident(s)" in out
+
+
+def test_moniteur_reste_rouge_sur_un_assechement_de_frontiere():
+    """L'assèchement de 17h59 met « AzuraCast is Live! » à l'antenne : réel."""
+    h = [entry("a", 14, 0, duration=60), entry("b", 14, 1, duration=60)]
+    logs = {"server": srv(17, 59, 5, "[safe_fallback:3] Switch to error_jingle."),
+            "midnight": "", "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
+    assert "❌ incident(s) détecté(s)" in out
+    assert "serveur : 1 incident(s)" in out
+
+
+def test_coupure_par_le_reset_de_minuit_sort_du_verdict():
+    """Les 20 anomalies d'août étaient toutes ce cas : dernier cantique de
+    BLOC_E tronqué par le redémarrage. 29 jours sur 31 rouges pour ça."""
+    # Le cantique démarre à 23h55 et s'arrête à 00h01:40 (400s au lieu de 600) :
+    # le titre suivant appartient au LENDEMAIN, comme dans l'historique réel.
+    lendemain = int(datetime(2026, 6, 26, 0, 1, 40, tzinfo=timezone.utc).timestamp())
+    h = [entry("cantique", 23, 55, duration=600),
+         {"played_at": lendemain, "duration": 120, "playlist": "000_TRANSITION",
+          "song": {"title": "jingles de transition 1"}}]
+    logs = {"server": "", "midnight": "", "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
+    assert "❌" not in out
+    assert "tronqué(s) par le redémarrage de minuit" in out
+    assert "diffusion : 0 coupure(s)" in out
+
+
+def test_coupure_en_journee_reste_dans_le_verdict():
+    h = [entry("message", 14, 0, duration=600), entry("suite", 14, 0, 8, duration=600)]
+    logs = {"server": "", "midnight": "", "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_2_blocs(), logs)
+    assert "❌ incident(s) détecté(s)" in out
+    assert "diffusion : 1 coupure(s)" in out
+
+
+def test_diffusion_du_message_en_trop_compte_meme_sans_double_rapproche():
+    """01/09/2026 : message passé 5 fois pour 4 prévues, espacées de plus de
+    15 min. Le verdict ne le voyait pas (il ne comptait que le « rapproché »)."""
+    plan = plan_2_blocs()   # 2 blocs → 2 diffusions attendues
+    h = [entry("PQE J 1", 0, 5, duration=1800),
+         entry("PQE J 1", 6, 5, duration=1800),
+         entry("PQE J 1", 14, 5, duration=1800)]   # la 3e est en trop
+    logs = {"server": "", "midnight": "", "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan, logs)
+    assert "❌ incident(s) détecté(s)" in out
+    assert "1 double(s) message" in out
 
 
 if __name__ == "__main__":

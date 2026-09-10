@@ -24,7 +24,7 @@ import unicodedata
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 
 # Au-delà de cet écart entre durée réelle et durée du fichier,
@@ -55,6 +55,32 @@ CORRELATION_WINDOW_SECONDS = 120
 # Incidents serveur groupés en amas quand ils se suivent de près (un crash
 # entraîne une rafale de lignes : PANIC + bascules + reprise).
 INCIDENT_CLUSTER_SECONDS = 90
+
+# ── Fenêtres de maintenance : ce que le système s'inflige à lui-même ─────────
+# Deux opérations planifiées produisent chaque nuit une rafale d'événements
+# Liquidsoap qui n'ont AUCUN effet à l'antenne. Comptés comme des incidents,
+# ils noyaient le signal : sur août 2026, 4 296 des 4 341 événements retenus
+# (99 %) venaient de ces deux fenêtres, et le rapport affichait
+# « ❌ incident détecté » 31 jours sur 31 — donc plus jamais un jour vert,
+# donc plus aucune alerte lisible (même piège que le faux positif permanent
+# du healthcheck, corrigé le 27/07/2026).
+#
+# Ils restent affichés, sur une ligne « ATTENDU » distincte : rien n'est
+# masqué, mais ils ne pilotent plus le verdict.
+
+# 23h30-23h40 : la rotation vide et reconstruit les 4 blocs. L'AutoDJ tente
+# de précharger le titre suivant dans des playlists en cours de réécriture et
+# échoue en boucle (« Fetch failed: retry »). Sans conséquence : c'est
+# précisément pour ça que BLOC_E_LOUANGE_NUIT est statique et à l'antenne
+# pendant ce créneau (voir README §1).
+ROTATION_WINDOW = (time(23, 30), time(23, 40))
+
+# 00h00-00h03 : le reset redémarre l'AutoDJ. Liquidsoap perd l'API le temps
+# du redémarrage (CurlException / API djoff), bascule brièvement sur le
+# jingle d'erreur (moins d'une seconde, couvert par les 2 min de
+# 000_TRANSITION) et tombe parfois en PANIC avant de se relever seul en ~15 s.
+# La couverture d'antenne est restée assurée 31 jours sur 31 en août.
+MIDNIGHT_RESET_WINDOW = (time(0, 0), time(0, 3))
 
 BASE_URL = "https://parole-prophetique-fm.levangileduroyaume.com"
 STATION_ID = 1
@@ -579,6 +605,31 @@ class ServerEvent:
     dt: datetime
     category: str  # clé de INCIDENT_LABELS
     text: str
+    expected: bool = False  # produit par une opération planifiée (voir ci-dessous)
+
+
+def in_window(moment: time, window: tuple[time, time]) -> bool:
+    """Vrai si `moment` tombe dans la fenêtre (bornes incluses)."""
+    start, end = window
+    return start <= moment <= end
+
+
+def is_expected_incident(category: str, moment: time) -> bool:
+    """Vrai si l'incident est la signature connue d'une opération planifiée.
+
+    Ces événements sont réels mais sans effet à l'antenne : les compter comme
+    incidents rendait le rapport rouge tous les jours (voir ROTATION_WINDOW et
+    MIDNIGHT_RESET_WINDOW). Ils restent affichés à part, jamais masqués.
+
+    Volontairement étroit : seules ces catégories, dans ces fenêtres. Un crash
+    à 14h, un échec réseau à 08h ou une bascule sur le jingle d'erreur en
+    frontière de bloc restent des incidents à part entière.
+    """
+    if category == "network" and in_window(moment, ROTATION_WINDOW):
+        return True
+    if category in ("network", "deadair", "crash") and in_window(moment, MIDNIGHT_RESET_WINDOW):
+        return True
+    return False
 
 
 def classify_server_line(text: str) -> str:
@@ -617,7 +668,8 @@ def parse_server_events(text: str, day: date) -> list[ServerEvent]:
             continue
         category = classify_server_line(m.group(2))
         if category:
-            events.append(ServerEvent(dt, category, m.group(2)))
+            events.append(ServerEvent(dt, category, m.group(2),
+                                      is_expected_incident(category, dt.time())))
     return events
 
 
@@ -631,12 +683,13 @@ def group_incidents(events: list[ServerEvent],
     for ev in sorted(events, key=lambda e: e.dt):
         last = groups[-1] if groups else None
         if (last and last["category"] == ev.category
+                and last["expected"] == ev.expected
                 and (ev.dt - last["last"]).total_seconds() <= cluster_seconds):
             last["count"] += 1
             last["last"] = ev.dt
         else:
             groups.append({"category": ev.category, "start": ev.dt,
-                           "last": ev.dt, "count": 1})
+                           "last": ev.dt, "count": 1, "expected": ev.expected})
     return groups
 
 
@@ -650,10 +703,30 @@ def playback_incidents(history: list[dict], day: date) -> list[dict]:
             continue
         gap = p["gap"]
         if gap < -TOLERANCE_SECONDS:
-            out.append({"kind": "COUPÉ", "dt": p["dt"], "severity": -gap, "title": p["title"]})
+            out.append({"kind": "COUPÉ", "dt": p["dt"], "severity": -gap,
+                        "title": p["title"], "expected": _cut_by_midnight_reset(p)})
         elif gap > TOLERANCE_SECONDS:
-            out.append({"kind": "TROU", "dt": p["dt"], "severity": gap, "title": p["title"]})
+            out.append({"kind": "TROU", "dt": p["dt"], "severity": gap,
+                        "title": p["title"], "expected": _cut_by_midnight_reset(p)})
     return out
+
+
+def _cut_by_midnight_reset(play: dict) -> bool:
+    """Vrai si le titre a été tronqué par le redémarrage de minuit.
+
+    Le reset de 00h00 coupe ce qui est à l'antenne : c'est une conséquence
+    assumée du redémarrage, pas une panne. Sur août 2026, les 20 anomalies de
+    diffusion du mois étaient TOUTES ce cas — dernier cantique de
+    BLOC_E_LOUANGE_NUIT tronqué entre 23h51 et 00h01 — ce qui suffisait à
+    rendre 29 jours sur 31 rouges et à noyer les vrais défauts.
+
+    Détection par la FIN réelle du titre (début + durée réellement diffusée) :
+    un titre qui s'arrête pendant la fenêtre de reset a été coupé par elle.
+    Reste ouvert comme chantier (README §7) : le rapport le compte à part au
+    lieu de le taire.
+    """
+    end = play["dt"] + timedelta(seconds=play["actual"] or 0)
+    return in_window(end.time(), MIDNIGHT_RESET_WINDOW)
 
 
 def parse_watch_records(text: str) -> list[dict]:
@@ -670,12 +743,27 @@ def parse_watch_records(text: str) -> list[dict]:
     return records
 
 
+def _is_jingle_title(title: str) -> bool:
+    """Vrai si le titre est un jingle de la station (tous nommés « jingle … »)."""
+    return "jingle" in title
+
+
 def summarize_watch(records: list[dict]) -> dict | None:
     """Synthèse d'un log de surveillance : restart confirmé ? doublon vu en file ?
 
-    Un doublon en file = un titre non joué qui apparaît deux fois dans un même
-    instantané, ou identique au titre à l'antenne (motif du message « joué 2×
-    d'affilée » que le dédoublonnage retire)."""
+    Un doublon qui compte = un CONTENU LONG (message, Bible, louange) présent
+    deux fois dans la file, ou identique au titre à l'antenne — le motif du
+    « message joué 2× d'affilée » que le dédoublonnage retire.
+
+    Les jingles sont ignorés : juste après un restart, l'aperçu de file
+    contient normalement deux fois le même jingle (celui à l'antenne + la tête
+    de playlist rechargée). Ce détail d'aperçu déclenchait l'alerte 29 nuits
+    sur 41 entre août et septembre 2026 sans qu'une seule double diffusion
+    n'ait suivi, tandis que les 3 vrais doubles messages d'août sont survenus
+    des nuits où la file était déclarée saine. Filtrer les jingles ramène ces
+    faux positifs à zéro et conserve les 9 détections réelles de la garde de
+    frontière (où le titre à l'antenne est le message lui-même).
+    """
     if not records:
         return None
     dup_seen = False
@@ -683,8 +771,10 @@ def summarize_watch(records: list[dict]) -> dict | None:
         now = (r.get("now_playing_title") or "").strip().lower()
         titles = [(i.get("title") or "").strip().lower()
                   for i in r.get("queue_preview", []) if not i.get("is_played")]
-        titles = [t for t in titles if t]
-        if len(titles) != len(set(titles)) or (now and now in titles):
+        titles = [t for t in titles if t and not _is_jingle_title(t)]
+        if len(titles) != len(set(titles)):
+            dup_seen = True
+        elif now and not _is_jingle_title(now) and now in titles:
             dup_seen = True
     return {
         "checks": len(records),
@@ -735,34 +825,73 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
     midnight = summarize_watch(parse_watch_records(logs.get("midnight", "")))
     boundary = summarize_watch(parse_watch_records(logs.get("boundary", "")))
     anomalies = playback_incidents(history, day)
-    doubles = [p["dt"] for p in _message_plays(history, day, plan) if p["double"]]
+    plays = _message_plays(history, day, plan)
+    doubles = [p["dt"] for p in plays if p["double"]]
 
     have_server = bool(logs.get("server", "").strip())
-    n_server = sum(g["count"] for g in groups)
-    n_diffusion = len(anomalies) + len(doubles)
+    real_groups = [g for g in groups if not g["expected"]]
+    expected_groups = [g for g in groups if g["expected"]]
+    n_server = sum(g["count"] for g in real_groups)
+    n_expected = sum(g["count"] for g in expected_groups)
 
-    verdict = "✅ RAS" if not n_diffusion and not n_server else "❌ incident(s) détecté(s)"
+    # Anomalies de diffusion : celles tronquées par le reset de minuit sont
+    # une conséquence connue du redémarrage, comptées à part.
+    real_anomalies = [a for a in anomalies if not a["expected"]]
+    reset_cuts = [a for a in anomalies if a["expected"]]
+
+    # Une diffusion du message en trop compte même sans « double rapproché » :
+    # le 01/09/2026, le message est passé 5 fois pour 4 prévues avec plus de
+    # 15 min d'écart — le verdict ne le voyait pas.
+    n_expected_plays = len((plan or {}).get("blocks") or []) or None
+    extra_plays = (len(plays) - n_expected_plays
+                   if n_expected_plays and len(plays) > n_expected_plays else 0)
+
+    n_diffusion = len(real_anomalies) + len(doubles) + extra_plays
+    if n_diffusion or n_server:
+        verdict = "❌ incident(s) détecté(s)"
+    elif n_expected or reset_cuts:
+        verdict = "⚠️ RAS — seules les suites connues du reset/rotation"
+    else:
+        verdict = "✅ RAS"
+
     lines = [
         "=" * 100,
         f"MONITEUR RADIO — {day.isoformat()} (synthèse des 3 rapports + plan, heures UTC)",
         "=" * 100,
-        f"État : {verdict}  ·  diffusion : {len(anomalies)} coupure(s)/trou(s), "
-        f"{len(doubles)} double(s) message  ·  serveur : {n_server} incident(s)",
+        f"État : {verdict}  ·  diffusion : {len(real_anomalies)} coupure(s)/trou(s), "
+        f"{len(doubles) + extra_plays} double(s) message  ·  serveur : {n_server} incident(s)",
     ]
+    if n_expected or reset_cuts:
+        detail = []
+        if n_expected:
+            detail.append(f"{n_expected} événement(s) serveur pendant la rotation "
+                          "(23h30-23h40) et le reset de minuit (00h00-00h03)")
+        if reset_cuts:
+            detail.append(f"{len(reset_cuts)} titre(s) tronqué(s) par le redémarrage de minuit")
+        lines.append("ATTENDU (sans effet à l'antenne, hors verdict) : " + " · ".join(detail))
 
     # --- Incidents serveur (liquidsoap_events) ---
     if not have_server:
         lines.append("SERVEUR : archive liquidsoap_events absente pour ce jour "
                      "— causes serveur indisponibles.")
-    elif not groups:
-        lines.append("SERVEUR : aucun incident (ni crash, ni échec réseau, ni silence) ✅")
+    elif not real_groups:
+        lines.append("SERVEUR : aucun incident hors fenêtres planifiées "
+                     "(ni crash, ni échec réseau, ni silence) ✅")
     else:
         lines.append("SERVEUR (liquidsoap_events) :")
-        for g in groups[:12]:
+        for g in real_groups[:12]:
             count = f"  (×{g['count']})" if g["count"] > 1 else ""
             lines.append(f"   {g['start']:%H:%M:%S}  {INCIDENT_LABELS[g['category']]}{count}")
-        if len(groups) > 12:
-            lines.append(f"   …(+{len(groups) - 12} autre(s))")
+        if len(real_groups) > 12:
+            lines.append(f"   …(+{len(real_groups) - 12} autre(s))")
+    # Les fenêtres planifiées restent consultables, repliées sur une ligne.
+    if expected_groups:
+        summary = " · ".join(
+            f"{g['start']:%H:%M} {INCIDENT_LABELS[g['category']]} (×{g['count']})"
+            for g in expected_groups[:4])
+        if len(expected_groups) > 4:
+            summary += f" …(+{len(expected_groups) - 4} autre(s))"
+        lines.append(f"   ↳ attendu, hors verdict : {summary}")
 
     # --- Reset minuit / garde de frontière (midnight/boundary_watch) ---
     if midnight is None and boundary is None:
@@ -778,7 +907,7 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
             lines.append(f"GARDE DE FRONTIÈRE : {boundary['checks']} snapshot(s) · {queue}")
 
     # --- Corrélation anomalie ↔ cause serveur ---
-    rows = [(a["kind"], a["dt"], a["severity"], a["title"]) for a in anomalies]
+    rows = [(a["kind"], a["dt"], a["severity"], a["title"]) for a in real_anomalies]
     rows += [("DOUBLE MESSAGE", dt, None, "message du jour rejoué") for dt in doubles]
     rows.sort(key=lambda r: r[1])
     if rows:
