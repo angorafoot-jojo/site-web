@@ -1,0 +1,61 @@
+2026/09/14 00:00:14 [clock.main:2] We must catchup 1.02 seconds!
+2026/09/14 00:00:15 [clock.main:2] We must catchup 1.30 seconds!
+2026/09/14 00:00:16 [clock.main:2] We must catchup 1.82 seconds!
+2026/09/14 00:00:17 [clock.main:2] We must catchup 2.11 seconds!
+2026/09/14 00:00:18 [clock.main:2] We must catchup 2.07 seconds!
+2026/09/14 00:01:28 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/14 00:01:28 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/14 00:01:28 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/09/14 00:01:28 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 7).
+2026/09/14 00:01:28 [safe_fallback:3] Switch to error_jingle.
+2026/09/14 00:01:29 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 12).
+2026/09/14 00:01:29 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/09/14 00:01:29 [live_fallback:3] Switch to cross_0.
+2026/09/14 00:01:29 [interrupting_fallback:3] Switch to requests_fallback.
+2026/09/14 00:01:29 [requests_fallback:3] Switch to autodj_fallback.
+2026/09/14 00:01:29 [autodj_fallback:3] Switch to schedule_switch.
+2026/09/14 00:01:29 [schedule_switch:3] Switch to metadata.map_0.
+2026/09/14 00:01:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 16).
+2026/09/14 00:03:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:03:41 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 8).
+2026/09/14 00:03:41 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour with forgetful transition.
+2026/09/14 00:03:41 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/09/14 00:03:41 [dynamic_startup:3] Switch to cue_next_song.
+2026/09/14 00:05:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:05:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 17).
+2026/09/14 00:05:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:05:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2020_de_aud-20200824-wa0002_1.mp3" (RID 18).
+2026/09/14 00:18:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/2020_de_aud-20200824-wa0002_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:18:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 19).
+2026/09/14 00:18:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:18:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jude_001.mp3" (RID 20).
+2026/09/14 00:22:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jude_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:22:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_001.mp3" (RID 21).
+2026/09/14 00:26:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:26:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_002.mp3" (RID 22).
+2026/09/14 00:30:31 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:30:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_003.mp3" (RID 23).
+2026/09/14 00:33:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:33:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_004.mp3" (RID 24).
+2026/09/14 00:36:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:36:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_005.mp3" (RID 25).
+2026/09/14 00:39:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:39:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_001.mp3" (RID 26).
+2026/09/14 00:41:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:41:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_002.mp3" (RID 27).
+2026/09/14 00:46:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:46:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_003.mp3" (RID 28).
+2026/09/14 00:48:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:48:55 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_004.mp3" (RID 29).
+2026/09/14 00:51:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:51:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_005.mp3" (RID 30).
+2026/09/14 00:54:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:54:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_006.mp3" (RID 31).
+2026/09/14 00:56:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:56:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_007.mp3" (RID 32).
+2026/09/14 00:59:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 00:59:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_008.mp3" (RID 33).
+2026/09/14 01:02:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 01:02:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_009.mp3" (RID 34).
+2026/09/14 01:05:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/14 01:05:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/ecclésiaste_010.mp3" (RID 35).
