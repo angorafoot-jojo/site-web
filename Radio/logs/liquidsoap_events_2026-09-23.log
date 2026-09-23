@@ -1,0 +1,34 @@
+2026/09/23 00:00:23 [clock.main:2] We must catchup 1.02 seconds!
+2026/09/23 00:00:24 [clock.main:2] We must catchup 1.20 seconds!
+2026/09/23 00:00:25 [clock.main:2] We must catchup 1.33 seconds!
+2026/09/23 00:00:26 [clock.main:2] We must catchup 1.42 seconds!
+2026/09/23 00:00:27 [clock.main:2] We must catchup 1.29 seconds!
+2026/09/23 00:00:28 [clock.main:2] We must catchup 1.20 seconds!
+2026/09/23 00:01:36 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/23 00:01:36 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/23 00:01:36 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/09/23 00:01:36 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 7).
+2026/09/23 00:01:37 [safe_fallback:3] Switch to error_jingle.
+2026/09/23 00:01:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" (RID 10).
+2026/09/23 00:01:37 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/09/23 00:01:37 [live_fallback:3] Switch to cross_0.
+2026/09/23 00:01:37 [interrupting_fallback:3] Switch to requests_fallback.
+2026/09/23 00:01:37 [requests_fallback:3] Switch to autodj_fallback.
+2026/09/23 00:01:37 [autodj_fallback:3] Switch to dynamic_startup.
+2026/09/23 00:01:37 [dynamic_startup:3] Switch to cue_next_song.
+2026/09/23 00:01:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/23 00:01:46 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 13).
+2026/09/23 00:01:46 [autodj_fallback:3] Switch to schedule_switch with forgetful transition.
+2026/09/23 00:01:46 [schedule_switch:3] Switch to metadata.map_0.
+2026/09/23 00:03:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/23 00:03:25 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 8).
+2026/09/23 00:03:25 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour with forgetful transition.
+2026/09/23 00:03:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 17).
+2026/09/23 00:03:25 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/09/23 00:03:25 [dynamic_startup:3] Switch to cue_next_song.
+2026/09/23 00:05:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/23 00:05:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/légré_la_vie_des_œuvres_et_la_vie_de_lesprit_1.mp3" (RID 18).
+2026/09/23 00:33:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/légré_la_vie_des_œuvres_et_la_vie_de_lesprit_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/23 00:33:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 19).
+2026/09/23 00:33:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/23 00:33:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/nahum_001.mp3" (RID 20).
