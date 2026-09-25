@@ -1,0 +1,33 @@
+2026/09/25 00:00:13 [clock.main:2] We must catchup 1.11 seconds!
+2026/09/25 00:00:14 [clock.main:2] We must catchup 1.02 seconds!
+2026/09/25 00:01:29 [threads:2] Queue generic queue #1 crashed with exception Sys_error("Condition.wait: Operation not permitted")
+2026/09/25 00:01:29 [threads:2] Raised by primitive operation at Duppy.queue.run in file "src/duppy.ml", line 341, characters 6-32
+2026/09/25 00:01:29 [threads:2] Called from Duppy.queue in file "src/duppy.ml", line 357, characters 8-12
+2026/09/25 00:01:29 [threads:2] Re-raised at Duppy.queue in file "src/duppy.ml", line 361, characters 8-17
+2026/09/25 00:01:29 [threads:2] Called from Tutils.create.(fun).process in file "tools/tutils.ml", line 164, characters 12-15
+2026/09/25 00:01:29 [threads:2] 
+2026/09/25 00:01:35 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/25 00:01:35 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/25 00:01:35 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/09/25 00:01:36 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 7).
+2026/09/25 00:01:36 [safe_fallback:3] Switch to error_jingle.
+2026/09/25 00:01:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" (RID 9).
+2026/09/25 00:01:36 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/09/25 00:01:36 [live_fallback:3] Switch to cross_0.
+2026/09/25 00:01:36 [requests_fallback:3] Switch to autodj_fallback.
+2026/09/25 00:01:36 [autodj_fallback:3] Switch to dynamic_startup.
+2026/09/25 00:01:36 [dynamic_startup:3] Switch to cue_next_song.
+2026/09/25 00:01:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/25 00:01:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 16).
+2026/09/25 00:03:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/25 00:03:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/la_résurrection_des_morts_et_la_délivrance_de_lesclavage_de_la_corruption_-_part2.mp3" (RID 17).
+2026/09/25 01:22:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/la_résurrection_des_morts_et_la_délivrance_de_lesclavage_de_la_corruption_-_part2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/25 01:22:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 18).
+2026/09/25 01:22:23 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/25 01:22:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_018.mp3" (RID 19).
+2026/09/25 01:24:23 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_018.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/25 01:24:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_019.mp3" (RID 20).
+2026/09/25 01:27:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_019.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/25 01:27:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_020.mp3" (RID 21).
+2026/09/25 01:30:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_020.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/25 01:30:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/job_021.mp3" (RID 22).
