@@ -1,0 +1,32 @@
+2026/09/29 00:01:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/45 - Now is Come Salvation - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/29 00:01:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 1167).
+2026/09/29 00:01:27 [threads:2] Queue generic queue #2 crashed with exception Sys_error("Condition.wait: Operation not permitted")
+2026/09/29 00:01:27 [threads:2] Raised by primitive operation at Duppy.queue.run in file "src/duppy.ml", line 341, characters 6-32
+2026/09/29 00:01:27 [threads:2] Called from Duppy.queue in file "src/duppy.ml", line 357, characters 8-12
+2026/09/29 00:01:27 [threads:2] Re-raised at Duppy.queue in file "src/duppy.ml", line 361, characters 8-17
+2026/09/29 00:01:27 [threads:2] Called from Tutils.create.(fun).process in file "tools/tutils.ml", line 164, characters 12-15
+2026/09/29 00:01:27 [threads:2] 
+2026/09/29 00:01:27 [threads:1] PANIC: Liquidsoap has crashed, exiting.,
+2026/09/29 00:01:27 [threads:1] Please report at: savonet-users@lists.sf.net
+2026/09/29 00:01:31 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/29 00:01:31 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/09/29 00:01:31 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/09/29 00:01:32 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 7).
+2026/09/29 00:01:32 [safe_fallback:3] Switch to error_jingle.
+2026/09/29 00:01:32 [playlist_000_transition:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 12).
+2026/09/29 00:01:32 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/09/29 00:01:32 [live_fallback:3] Switch to cross_0.
+2026/09/29 00:01:32 [interrupting_fallback:3] Switch to requests_fallback.
+2026/09/29 00:01:32 [requests_fallback:3] Switch to autodj_fallback.
+2026/09/29 00:01:32 [autodj_fallback:3] Switch to schedule_switch.
+2026/09/29 00:01:32 [schedule_switch:3] Switch to metadata.map_0.
+2026/09/29 00:01:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_130.mp3" (RID 16).
+2026/09/29 00:03:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/29 00:03:08 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 8).
+2026/09/29 00:03:08 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour with forgetful transition.
+2026/09/29 00:03:08 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/09/29 00:03:08 [dynamic_startup:3] Switch to cue_next_song.
+2026/09/29 00:03:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_130.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/29 00:03:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 17).
+2026/09/29 00:04:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/09/29 00:04:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/bosson_1_la_marche_avec_dieu.mp3" (RID 18).
