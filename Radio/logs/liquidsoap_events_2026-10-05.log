@@ -1,0 +1,48 @@
+2026/10/05 00:00:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:00:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" (RID 1171).
+2026/10/05 00:00:06 [clock.main:2] We must catchup 1.61 seconds!
+2026/10/05 00:00:07 [clock.main:2] We must catchup 1.78 seconds!
+2026/10/05 00:00:08 [clock.main:2] We must catchup 1.50 seconds!
+2026/10/05 00:00:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_02_radio_evangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:00:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 1172).
+2026/10/05 00:00:15 [clock.main:2] We must catchup 1.18 seconds!
+2026/10/05 00:01:29 [lang:2] Could not perform http request: CurlException(Aborted_by_callback, 42, CURLE_ABORTED_BY_CALLBACK).
+2026/10/05 00:01:29 [lang.deprecated:2] WARNING: "error.kind" is deprecated and will be removed in future version.
+2026/10/05 00:01:29 [lang.deprecated:2] WARNING: "error.message" is deprecated and will be removed in future version.
+2026/10/05 00:01:29 [lang:3] API djoff - Error: http - CurlException(Aborted_by_callback, 42, CURLE_ABORTED_BY_CALLBACK)
+2026/10/05 00:01:29 [threads:2] Queue generic queue #1 crashed with exception Sys_error("Condition.wait: Operation not permitted")
+2026/10/05 00:01:29 [threads:2] Raised by primitive operation at Duppy.queue.run in file "src/duppy.ml", line 341, characters 6-32
+2026/10/05 00:01:29 [threads:2] Called from Duppy.queue in file "src/duppy.ml", line 357, characters 8-12
+2026/10/05 00:01:29 [threads:2] Re-raised at Duppy.queue in file "src/duppy.ml", line 361, characters 8-17
+2026/10/05 00:01:29 [threads:2] Called from Tutils.create.(fun).process in file "tools/tutils.ml", line 164, characters 12-15
+2026/10/05 00:01:29 [threads:2] 
+2026/10/05 00:01:29 [threads:1] PANIC: Liquidsoap has crashed, exiting.,
+2026/10/05 00:01:29 [threads:1] Please report at: savonet-users@lists.sf.net
+2026/10/05 00:01:35 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/10/05 00:01:35 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/10/05 00:01:35 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/10/05 00:01:35 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 7).
+2026/10/05 00:01:35 [safe_fallback:3] Switch to error_jingle.
+2026/10/05 00:01:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 9).
+2026/10/05 00:01:35 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/10/05 00:01:35 [live_fallback:3] Switch to cross_0.
+2026/10/05 00:01:35 [interrupting_fallback:3] Switch to requests_fallback.
+2026/10/05 00:01:35 [requests_fallback:3] Switch to autodj_fallback.
+2026/10/05 00:01:35 [autodj_fallback:3] Switch to dynamic_startup.
+2026/10/05 00:01:35 [dynamic_startup:3] Switch to cue_next_song.
+2026/10/05 00:01:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:01:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 16).
+2026/10/05 00:03:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:03:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/la_moisson_3_adé.mp3" (RID 17).
+2026/10/05 00:29:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/la_moisson_3_adé.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:29:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" (RID 18).
+2026/10/05 00:29:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_08_prenons_un_moment_pour_ecouter_la_parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:29:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_007.mp3" (RID 19).
+2026/10/05 00:34:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:34:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_008.mp3" (RID 20).
+2026/10/05 00:39:42 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:39:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_009.mp3" (RID 21).
+2026/10/05 00:46:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:46:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_010.mp3" (RID 22).
+2026/10/05 00:53:38 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_010.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/05 00:53:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_011.mp3" (RID 23).
