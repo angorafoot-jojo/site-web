@@ -570,3 +570,338 @@
 2026/10/07 21:53:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_015.mp3" (RID 287).
 2026/10/07 21:57:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_015.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/10/07 21:57:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_016.mp3" (RID 288).
+2026/10/07 22:01:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_016.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:01:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_017.mp3" (RID 289).
+2026/10/07 22:04:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_017.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:04:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_018.mp3" (RID 290).
+2026/10/07 22:08:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_018.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:08:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_019.mp3" (RID 291).
+2026/10/07 22:11:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_019.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:11:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_020.mp3" (RID 292).
+2026/10/07 22:14:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_020.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:14:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_021.mp3" (RID 293).
+2026/10/07 22:18:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/deutéronome_021.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:18:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" (RID 294).
+2026/10/07 22:18:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:18:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/48 - The Glory -  PHF.mp3" (RID 295).
+2026/10/07 22:26:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/48 - The Glory -  PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:26:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/15 - Satisfy My Soul - Calabar HF.mp3" (RID 296).
+2026/10/07 22:32:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/15 - Satisfy My Soul - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:32:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" (RID 297).
+2026/10/07 22:35:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:35:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/27 - Forever You Reign - Abuja HF.mp3" (RID 298).
+2026/10/07 22:41:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/27 - Forever You Reign - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:41:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" (RID 299).
+2026/10/07 22:52:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:52:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/89 - I Know The Blood - PHF.mp3" (RID 300).
+2026/10/07 22:56:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/89 - I Know The Blood - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 22:56:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_6_minutes.mp3" (RID 301).
+2026/10/07 23:03:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_6_minutes.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:03:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" (RID 302).
+2026/10/07 23:08:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/62 - All in All - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:08:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/59 - Ascribe Greatness - PHF.mp3" (RID 303).
+2026/10/07 23:12:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/59 - Ascribe Greatness - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:12:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" (RID 304).
+2026/10/07 23:12:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_musical_station_fm_parole_prophetique_02.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:12:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/sophonie_001.mp3" (RID 305).
+2026/10/07 23:15:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/sophonie_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:15:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/sophonie_002.mp3" (RID 306).
+2026/10/07 23:17:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/sophonie_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:17:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/sophonie_003.mp3" (RID 307).
+2026/10/07 23:21:42 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/sophonie_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:21:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_jean_001.mp3" (RID 308).
+2026/10/07 23:23:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_jean_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:23:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_003.mp3" (RID 309).
+2026/10/07 23:28:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:28:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_004.mp3" (RID 310).
+2026/10/07 23:30:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/apocalypse_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:30:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/51 - Hallelujah - PHF.mp3" (RID 311).
+2026/10/07 23:32:43 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:49 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:50 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:51 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:51 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:52 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:54 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:32:59 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:01 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:02 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:03 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:05 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:07 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:08 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:09 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:10 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:12 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:13 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:13 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:14 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:15 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:15 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:16 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:18 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:18 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:23 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:23 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:49 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:49 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:50 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:51 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:52 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:54 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:33:59 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:02 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:03 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:04 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:07 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:08 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:09 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:09 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:10 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:11 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:12 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:13 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:14 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:15 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:16 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:16 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:17 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:17 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:18 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:18 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:18 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:23 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:28 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:32 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:33 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:36 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:43 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:49 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:50 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:51 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:52 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:52 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:54 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:34:59 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:01 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:03 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:08 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:10 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:12 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:18 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:28 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:33 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:36 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:43 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:49 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:50 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:51 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:52 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:54 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:35:59 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:01 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:03 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:04 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:07 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:08 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:09 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:10 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:11 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:13 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:14 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:16 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:17 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:18 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:23 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:23 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:28 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:32 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:32 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:33 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:33 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:36:36 [request.dynamic:3] Fetch failed: retry.
+2026/10/07 23:37:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/51 - Hallelujah - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:37:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/8-_mohamed_sanogo_hymne_des_vainqueurs.mp3" (RID 312).
+2026/10/07 23:44:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/8-_mohamed_sanogo_hymne_des_vainqueurs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:44:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" (RID 1078).
+2026/10/07 23:46:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__nous_sommes_le_sel_de_la_terre.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:46:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/68 - Shine in Darkness O Lord  - Winnipeg Fellowship.mp3" (RID 1079).
+2026/10/07 23:56:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/68 - Shine in Darkness O Lord  - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/07 23:56:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique   Oh Éternel Dieu, Tu es le Dieu Incomparable.mp3" (RID 1080).
