@@ -1,0 +1,22 @@
+2026/10/20 00:00:05 [clock.main:2] We must catchup 1.00 seconds!
+2026/10/20 00:00:06 [clock.main:2] We must catchup 1.50 seconds!
+2026/10/20 00:00:07 [clock.main:2] We must catchup 2.06 seconds!
+2026/10/20 00:00:09 [clock.main:2] We must catchup 2.76 seconds!
+2026/10/20 00:00:10 [clock.main:2] We must catchup 2.89 seconds!
+2026/10/20 00:00:11 [clock.main:2] We must catchup 2.64 seconds!
+2026/10/20 00:00:12 [clock.main:2] We must catchup 2.01 seconds!
+2026/10/20 00:00:13 [clock.main:2] We must catchup 1.02 seconds!
+2026/10/20 00:04:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/jean-christ_-_6_minutes.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/20 00:04:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 222).
+2026/10/20 00:04:35 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/20 00:04:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_001.mp3" (RID 223).
+2026/10/20 00:08:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/20 00:08:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_002.mp3" (RID 224).
+2026/10/20 00:11:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/20 00:11:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_003.mp3" (RID 225).
+2026/10/20 00:14:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/20 00:14:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_004.mp3" (RID 226).
+2026/10/20 00:18:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/20 00:18:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_005.mp3" (RID 227).
+2026/10/20 00:21:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/20 00:21:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_006.mp3" (RID 228).
