@@ -1,0 +1,320 @@
+2026/10/23 00:00:19 [clock.main:2] We must catchup 1.04 seconds!
+2026/10/23 00:00:22 [clock.main:2] We must catchup 1.01 seconds!
+2026/10/23 00:00:23 [clock.main:2] We must catchup 1.34 seconds!
+2026/10/23 00:00:24 [clock.main:2] We must catchup 1.33 seconds!
+2026/10/23 00:00:25 [clock.main:2] We must catchup 1.12 seconds!
+2026/10/23 00:00:26 [clock.main:2] We must catchup 1.20 seconds!
+2026/10/23 00:00:29 [clock.main:2] We must catchup 0.24 seconds!
+2026/10/23 00:02:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/26 - Sing Hallelujah - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:02:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" (RID 319).
+2026/10/23 00:08:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/81 - As We Worship In Ypur Presence.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:08:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/34 - Great and Marvellous - Ketu HF.mp3" (RID 320).
+2026/10/23 00:17:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/34 - Great and Marvellous - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:17:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" (RID 321).
+2026/10/23 00:26:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:26:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/04 - Yahweh Is Mighty - SWBN TV.mp3" (RID 322).
+2026/10/23 00:34:34 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/04 - Yahweh Is Mighty - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:34:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 323).
+2026/10/23 00:34:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:34:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_014.mp3" (RID 324).
+2026/10/23 00:38:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_014.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:38:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_015.mp3" (RID 325).
+2026/10/23 00:42:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_015.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:42:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_016.mp3" (RID 326).
+2026/10/23 00:48:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_016.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:48:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_017.mp3" (RID 327).
+2026/10/23 00:50:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_017.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:50:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_018.mp3" (RID 328).
+2026/10/23 00:56:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_018.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 00:56:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_019.mp3" (RID 329).
+2026/10/23 01:02:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_019.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:02:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_020.mp3" (RID 330).
+2026/10/23 01:10:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_020.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:10:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_021.mp3" (RID 331).
+2026/10/23 01:14:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/juges_021.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:14:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_rois_014.mp3" (RID 332).
+2026/10/23 01:20:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_rois_014.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:20:19 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" (RID 333).
+2026/10/23 01:20:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:20:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" (RID 334).
+2026/10/23 01:29:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:29:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__-_qui_est_digne_d_ouvrir_le_livre.mp3" (RID 335).
+2026/10/23 01:36:19 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__-_qui_est_digne_d_ouvrir_le_livre.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:36:20 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/01 - Holy is the Lord (Emmanuel Umoh).mp3" (RID 336).
+2026/10/23 01:43:35 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/01 - Holy is the Lord (Emmanuel Umoh).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:43:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/17 - Where Two or Three are Gathered - Calabar HF.mp3" (RID 337).
+2026/10/23 01:47:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:28 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:33 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:36 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:43 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:49 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:50 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:51 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:52 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:54 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:47:59 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:43 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:44 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:45 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:46 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:47 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:48 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:49 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:50 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:51 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:52 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:53 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:54 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:48:59 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:02 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:05 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:07 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:08 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:09 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:10 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:11 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:12 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:14 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:21 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:23 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:23 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/17 - Where Two or Three are Gathered - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:49:24 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique l_Éternel est mon Berger (1).mp3" (RID 338).
+2026/10/23 01:49:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:54 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:55 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:56 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:57 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:58 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:49:59 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:00 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:01 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:04 [clock.main:2] We must catchup 1.42 seconds!
+2026/10/23 01:50:05 [clock.main:2] We must catchup 1.57 seconds!
+2026/10/23 01:50:06 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:06 [clock.main:2] We must catchup 1.36 seconds!
+2026/10/23 01:50:08 [clock.main:2] We must catchup 2.19 seconds!
+2026/10/23 01:50:09 [clock.main:2] We must catchup 2.23 seconds!
+2026/10/23 01:50:09 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:10 [clock.main:2] We must catchup 2.13 seconds!
+2026/10/23 01:50:12 [clock.main:2] We must catchup 2.15 seconds!
+2026/10/23 01:50:12 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:13 [clock.main:2] We must catchup 1.03 seconds!
+2026/10/23 01:50:15 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:17 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:19 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:20 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:22 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:28 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:32 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:35 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:50:43 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:24 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:25 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:26 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:27 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:28 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:29 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:30 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:31 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:32 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:33 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:34 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:36 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:36 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:37 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:38 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:39 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:40 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:41 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:42 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:51:43 [request.dynamic:3] Fetch failed: retry.
+2026/10/23 01:55:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique l_Éternel est mon Berger (1).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:55:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_149.mp3" (RID 917).
+2026/10/23 01:56:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_149.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:56:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" (RID 1337).
+2026/10/23 01:56:11 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_03_vous_ecoutez_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:56:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 1338).
+2026/10/23 01:56:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 01:56:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Parole qui éclaire/pqe_j4.mp3" (RID 1339).
+2026/10/23 02:20:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Parole qui éclaire/pqe_j4.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:20:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 1340).
+2026/10/23 02:20:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:20:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_001.mp3" (RID 1341).
+2026/10/23 02:25:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:25:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_002.mp3" (RID 1342).
+2026/10/23 02:29:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:29:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_003.mp3" (RID 1343).
+2026/10/23 02:33:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:33:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_004.mp3" (RID 1344).
+2026/10/23 02:36:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:36:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_005.mp3" (RID 1345).
+2026/10/23 02:38:28 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:38:28 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_012.mp3" (RID 1346).
+2026/10/23 02:42:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:42:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_013.mp3" (RID 1347).
+2026/10/23 02:45:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_013.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:45:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_001.mp3" (RID 1348).
+2026/10/23 02:48:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:48:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_002.mp3" (RID 1349).
+2026/10/23 02:49:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:49:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_003.mp3" (RID 1350).
+2026/10/23 02:51:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:51:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_004.mp3" (RID 1351).
+2026/10/23 02:51:47 [lang:2] Could not perform http request: CurlException(Aborted_by_callback, 42, CURLE_ABORTED_BY_CALLBACK).
+2026/10/23 02:51:47 [lang.deprecated:2] WARNING: "error.kind" is deprecated and will be removed in future version.
+2026/10/23 02:51:47 [lang.deprecated:2] WARNING: "error.message" is deprecated and will be removed in future version.
+2026/10/23 02:51:47 [lang:3] API djoff - Error: http - CurlException(Aborted_by_callback, 42, CURLE_ABORTED_BY_CALLBACK)
+2026/10/23 02:51:47 [threads:2] Queue generic queue #2 crashed with exception Sys_error("Condition.wait: Operation not permitted")
+2026/10/23 02:51:47 [threads:2] Raised by primitive operation at Duppy.queue.run in file "src/duppy.ml", line 341, characters 6-32
+2026/10/23 02:51:47 [threads:2] Called from Duppy.queue in file "src/duppy.ml", line 357, characters 8-12
+2026/10/23 02:51:47 [threads:2] Re-raised at Duppy.queue in file "src/duppy.ml", line 361, characters 8-17
+2026/10/23 02:51:47 [threads:2] Called from Tutils.create.(fun).process in file "tools/tutils.ml", line 164, characters 12-15
+2026/10/23 02:51:47 [threads:2] 
+2026/10/23 02:51:47 [threads:1] PANIC: Liquidsoap has crashed, exiting.,
+2026/10/23 02:51:47 [threads:1] Please report at: savonet-users@lists.sf.net
+2026/10/23 02:51:52 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/10/23 02:51:52 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/10/23 02:51:52 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/10/23 02:51:52 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 7).
+2026/10/23 02:51:52 [safe_fallback:3] Switch to error_jingle.
+2026/10/23 02:51:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" (RID 9).
+2026/10/23 02:51:52 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/10/23 02:51:52 [live_fallback:3] Switch to cross_0.
+2026/10/23 02:51:52 [interrupting_fallback:3] Switch to requests_fallback.
+2026/10/23 02:51:52 [requests_fallback:3] Switch to autodj_fallback.
+2026/10/23 02:51:52 [autodj_fallback:3] Switch to dynamic_startup.
+2026/10/23 02:51:52 [dynamic_startup:3] Switch to cue_next_song.
+2026/10/23 02:52:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_01_voici_le_message_du_jour.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 02:52:02 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Parole qui éclaire/pqe_j4.mp3" (RID 16).
+2026/10/23 03:16:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Parole qui éclaire/pqe_j4.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:16:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" (RID 17).
+2026/10/23 03:16:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_06_ouvrons_les_saintes_ecritures.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:16:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_001.mp3" (RID 18).
+2026/10/23 03:20:44 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:20:44 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_002.mp3" (RID 19).
+2026/10/23 03:24:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:24:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_003.mp3" (RID 20).
+2026/10/23 03:28:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:28:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_004.mp3" (RID 21).
+2026/10/23 03:31:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:31:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_005.mp3" (RID 22).
+2026/10/23 03:34:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/1_pierre_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:34:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_012.mp3" (RID 23).
+2026/10/23 03:38:34 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:38:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_013.mp3" (RID 24).
+2026/10/23 03:40:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_corinthiens_013.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:40:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_001.mp3" (RID 25).
+2026/10/23 03:43:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:43:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_002.mp3" (RID 26).
+2026/10/23 03:45:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:45:13 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_003.mp3" (RID 27).
+2026/10/23 03:46:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:46:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_004.mp3" (RID 28).
+2026/10/23 03:48:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jonas_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:48:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_025.mp3" (RID 29).
+2026/10/23 03:51:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_025.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:51:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_026.mp3" (RID 30).
+2026/10/23 03:54:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_026.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:54:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_027.mp3" (RID 31).
+2026/10/23 03:56:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_027.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:56:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_028.mp3" (RID 32).
+2026/10/23 03:59:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_028.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 03:59:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_029.mp3" (RID 33).
+2026/10/23 04:02:35 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_029.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:02:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_030.mp3" (RID 34).
+2026/10/23 04:06:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_030.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:06:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_031.mp3" (RID 35).
+2026/10/23 04:08:32 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/proverbes_031.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:08:32 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/néhémie_003.mp3" (RID 36).
+2026/10/23 04:13:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/néhémie_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:13:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 37).
+2026/10/23 04:14:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:14:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/17 - Where Two or Three are Gathered - Calabar HF.mp3" (RID 38).
+2026/10/23 04:19:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/17 - Where Two or Three are Gathered - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:19:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__ta_bonte.mp3" (RID 39).
+2026/10/23 04:26:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__ta_bonte.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:26:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" (RID 40).
+2026/10/23 04:34:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/18 - El Elyon - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:34:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/07 - Baruch Ha'ba B'Shem Adonai⧸Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF.mp3" (RID 41).
+2026/10/23 04:45:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/07 - Baruch Ha'ba B'Shem Adonai⧸Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/23 04:45:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/01 - Holy is the Lord (Emmanuel Umoh).mp3" (RID 42).
