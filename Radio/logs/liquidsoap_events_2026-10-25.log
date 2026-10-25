@@ -1,0 +1,54 @@
+2026/10/25 00:00:08 [clock.main:2] We must catchup 1.08 seconds!
+2026/10/25 00:00:09 [clock.main:2] We must catchup 1.67 seconds!
+2026/10/25 00:00:10 [clock.main:2] We must catchup 2.20 seconds!
+2026/10/25 00:00:11 [clock.main:2] We must catchup 2.76 seconds!
+2026/10/25 00:00:12 [clock.main:2] We must catchup 3.43 seconds!
+2026/10/25 00:00:13 [clock.main:2] We must catchup 3.96 seconds!
+2026/10/25 00:00:14 [clock.main:2] We must catchup 4.63 seconds!
+2026/10/25 00:00:15 [clock.main:2] We must catchup 4.86 seconds!
+2026/10/25 00:00:16 [clock.main:2] We must catchup 5.06 seconds!
+2026/10/25 00:00:17 [clock.main:2] We must catchup 5.65 seconds!
+2026/10/25 00:00:18 [clock.main:2] We must catchup 6.24 seconds!
+2026/10/25 00:00:20 [clock.main:2] We must catchup 7.03 seconds!
+2026/10/25 00:00:21 [clock.main:2] We must catchup 7.24 seconds!
+2026/10/25 00:00:22 [clock.main:2] We must catchup 7.73 seconds!
+2026/10/25 00:00:23 [clock.main:2] We must catchup 8.05 seconds!
+2026/10/25 00:00:24 [clock.main:2] We must catchup 8.51 seconds!
+2026/10/25 00:00:25 [clock.main:2] We must catchup 8.20 seconds!
+2026/10/25 00:00:26 [clock.main:2] We must catchup 8.11 seconds!
+2026/10/25 00:00:27 [clock.main:2] We must catchup 7.68 seconds!
+2026/10/25 00:00:28 [clock.main:2] We must catchup 7.13 seconds!
+2026/10/25 00:00:29 [clock.main:2] We must catchup 5.90 seconds!
+2026/10/25 00:00:30 [clock.main:2] We must catchup 1.62 seconds (we've been late for 100 rounds)!
+2026/10/25 00:00:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:00:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 279).
+2026/10/25 00:00:58 [clock.main:2] We must catchup 1.09 seconds!
+2026/10/25 00:02:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:02:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_001.mp3" (RID 280).
+2026/10/25 00:05:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:05:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_002.mp3" (RID 281).
+2026/10/25 00:09:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:09:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_003.mp3" (RID 282).
+2026/10/25 00:09:05 [clock.main:2] We must catchup 1.73 seconds!
+2026/10/25 00:11:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:11:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_004.mp3" (RID 283).
+2026/10/25 00:16:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/éphésiens_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:16:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" (RID 284).
+2026/10/25 00:16:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:16:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/05 - Jesus I'm Waiting for You (Mary Umoh).mp3" (RID 285).
+2026/10/25 00:22:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/05 - Jesus I'm Waiting for You (Mary Umoh).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:22:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/03 - Holy are You oh Lord (Olaedo Uzoma & Vincent Opara).mp3" (RID 286).
+2026/10/25 00:32:20 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/03 - Holy are You oh Lord (Olaedo Uzoma & Vincent Opara).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:32:21 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/07 - Baruch Ha'ba B'Shem Adonai⧸Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF.mp3" (RID 287).
+2026/10/25 00:42:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/07 - Baruch Ha'ba B'Shem Adonai⧸Blessed Is He Who Comes in the Name of the Lord - Port Harcourt HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:42:53 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/54 - He Has Given Me - PHF.mp3" (RID 288).
+2026/10/25 00:47:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/54 - He Has Given Me - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:47:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/23 - Guide Me - El ELyon - Abuja HF.mp3" (RID 289).
+2026/10/25 00:53:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/23 - Guide Me - El ELyon - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:53:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/17 - Where Two or Three are Gathered - Calabar HF.mp3" (RID 290).
+2026/10/25 00:58:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/17 - Where Two or Three are Gathered - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 00:58:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/45 - Now is Come Salvation - Toronto HF.mp3" (RID 291).
+2026/10/25 01:04:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/45 - Now is Come Salvation - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 01:04:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" (RID 292).
+2026/10/25 01:08:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/25 01:08:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/78 - Crown Him Lord of Lords - Nonso Njoku.mp3" (RID 293).
