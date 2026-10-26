@@ -1,0 +1,31 @@
+2026/10/26 00:00:24 [clock.main:2] We must catchup 0.69 seconds!
+2026/10/26 00:00:26 [clock.main:2] We must catchup 1.30 seconds!
+2026/10/26 00:00:27 [clock.main:2] We must catchup 1.70 seconds!
+2026/10/26 00:00:28 [clock.main:2] We must catchup 1.66 seconds!
+2026/10/26 00:00:29 [clock.main:2] We must catchup 1.04 seconds!
+2026/10/26 00:06:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique-A jamais, tu seras l_Agneau de Dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:06:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/67 - My God Is Good - Winnipeg Fellowship.mp3" (RID 299).
+2026/10/26 00:13:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/67 - My God Is Good - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:13:15 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___ta_lumière.mp3" (RID 300).
+2026/10/26 00:19:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___ta_lumière.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:19:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/29 - Thy Throne Oh Lord - Ketu HF.mp3" (RID 301).
+2026/10/26 00:29:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/29 - Thy Throne Oh Lord - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:29:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___prends_tout_le_contrôle.mp3" (RID 302).
+2026/10/26 00:34:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique___prends_tout_le_contrôle.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:34:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 303).
+2026/10/26 00:34:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:34:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_005.mp3" (RID 304).
+2026/10/26 00:37:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jacques_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:37:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_001.mp3" (RID 305).
+2026/10/26 00:43:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:43:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_002.mp3" (RID 306).
+2026/10/26 00:47:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:47:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_003.mp3" (RID 307).
+2026/10/26 00:52:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:52:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_004.mp3" (RID 308).
+2026/10/26 00:57:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 00:57:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_005.mp3" (RID 309).
+2026/10/26 01:03:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 01:03:05 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_006.mp3" (RID 310).
+2026/10/26 01:11:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/26 01:11:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/marc_007.mp3" (RID 311).
