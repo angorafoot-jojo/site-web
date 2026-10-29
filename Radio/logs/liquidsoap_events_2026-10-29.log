@@ -1,0 +1,41 @@
+2026/10/29 00:00:07 [clock.main:2] We must catchup 1.05 seconds!
+2026/10/29 00:00:08 [clock.main:2] We must catchup 1.54 seconds!
+2026/10/29 00:00:09 [clock.main:2] We must catchup 1.67 seconds!
+2026/10/29 00:00:10 [clock.main:2] We must catchup 1.65 seconds!
+2026/10/29 00:00:10 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:00:11 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" (RID 273).
+2026/10/29 00:00:11 [clock.main:2] We must catchup 1.64 seconds!
+2026/10/29 00:00:14 [clock.main:2] We must catchup 4.31 seconds!
+2026/10/29 00:00:15 [clock.main:2] We must catchup 4.47 seconds!
+2026/10/29 00:00:17 [clock.main:2] We must catchup 5.41 seconds!
+2026/10/29 00:00:18 [clock.main:2] We must catchup 5.48 seconds!
+2026/10/29 00:00:19 [clock.main:2] We must catchup 4.76 seconds!
+2026/10/29 00:00:20 [clock.main:2] We must catchup 4.57 seconds!
+2026/10/29 00:00:21 [clock.main:2] We must catchup 4.33 seconds!
+2026/10/29 00:00:22 [clock.main:2] We must catchup 3.62 seconds!
+2026/10/29 00:00:23 [clock.main:2] We must catchup 2.80 seconds!
+2026/10/29 00:00:24 [clock.main:2] We must catchup 1.32 seconds!
+2026/10/29 00:01:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_1.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:01:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" (RID 274).
+2026/10/29 00:03:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_3.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:03:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_040.mp3" (RID 275).
+2026/10/29 00:07:41 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_040.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:07:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_041.mp3" (RID 276).
+2026/10/29 00:11:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_041.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:11:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_042.mp3" (RID 277).
+2026/10/29 00:15:17 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_042.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:15:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_043.mp3" (RID 278).
+2026/10/29 00:17:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_043.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:17:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_044.mp3" (RID 279).
+2026/10/29 00:24:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/jérémie_044.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:24:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 280).
+2026/10/29 00:24:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:24:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/10 - He Has Given Me & Emmanuel You Joy Over Us (Medley) (Abasiama Timothy & Imah Adegoke).mp3" (RID 281).
+2026/10/29 00:33:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/10 - He Has Given Me & Emmanuel You Joy Over Us (Medley) (Abasiama Timothy & Imah Adegoke).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:33:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/02 - There's A Mighty River Flowing - SWBN TV.mp3" (RID 282).
+2026/10/29 00:37:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/02 - There's A Mighty River Flowing - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:37:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/37 - The Lord on High is Mightier - Toronto HF.mp3" (RID 283).
+2026/10/29 00:44:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/37 - The Lord on High is Mightier - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:44:31 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/68 - Shine in Darkness O Lord  - Winnipeg Fellowship.mp3" (RID 284).
+2026/10/29 00:54:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/68 - Shine in Darkness O Lord  - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/10/29 00:54:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/46 - Praise the Lord All Ye Nations - Toronto HF.mp3" (RID 285).
