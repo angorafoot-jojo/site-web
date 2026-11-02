@@ -1,0 +1,494 @@
+2026/11/02 00:00:03 [clock.main:2] We must catchup 1.02 seconds!
+2026/11/02 00:00:04 [clock.main:2] We must catchup 1.42 seconds!
+2026/11/02 00:00:05 [clock.main:2] We must catchup 2.07 seconds!
+2026/11/02 00:00:06 [clock.main:2] We must catchup 2.76 seconds!
+2026/11/02 00:00:07 [clock.main:2] We must catchup 3.04 seconds!
+2026/11/02 00:00:08 [clock.main:2] We must catchup 3.41 seconds!
+2026/11/02 00:00:09 [clock.main:2] We must catchup 3.70 seconds!
+2026/11/02 00:00:10 [clock.main:2] We must catchup 3.93 seconds!
+2026/11/02 00:00:12 [clock.main:2] We must catchup 2.98 seconds!
+2026/11/02 00:00:13 [clock.main:2] We must catchup 2.80 seconds!
+2026/11/02 00:00:14 [clock.main:2] We must catchup 2.24 seconds!
+2026/11/02 00:00:15 [clock.main:2] We must catchup 1.73 seconds!
+2026/11/02 00:00:16 [clock.main:2] We must catchup 1.61 seconds!
+2026/11/02 00:00:17 [clock.main:2] We must catchup 1.14 seconds!
+2026/11/02 00:09:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:09:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_003.mp3" (RID 290).
+2026/11/02 00:11:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:11:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_004.mp3" (RID 291).
+2026/11/02 00:13:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:13:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_005.mp3" (RID 292).
+2026/11/02 00:16:42 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_005.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:16:42 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_006.mp3" (RID 293).
+2026/11/02 00:18:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_006.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:18:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_007.mp3" (RID 294).
+2026/11/02 00:20:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_007.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:20:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_008.mp3" (RID 295).
+2026/11/02 00:23:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/cantique_des_cantiques_008.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:23:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_009.mp3" (RID 296).
+2026/11/02 00:28:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_009.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:28:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_010.mp3" (RID 297).
+2026/11/02 00:31:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_010.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:31:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_011.mp3" (RID 298).
+2026/11/02 00:34:34 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/2_chroniques_011.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:34:35 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" (RID 299).
+2026/11/02 00:34:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_05_elevons_nos_coeurs_vers_dieu.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:34:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/66 - Victorious Is the Lamb - Winnipeg Fellowship.mp3" (RID 300).
+2026/11/02 00:42:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/66 - Victorious Is the Lamb - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:42:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" (RID 301).
+2026/11/02 00:48:24 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/61 - Unto Him - CHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:48:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" (RID 302).
+2026/11/02 00:59:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/44 - Great is, Ascribe - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 00:59:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" (RID 303).
+2026/11/02 01:02:42 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/4-_resurrection_ses_cheveux_étaient_blancs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:02:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" (RID 304).
+2026/11/02 01:06:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/16 - I Will Not Be Silent - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:06:43 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/23 - Guide Me - El ELyon - Abuja HF.mp3" (RID 305).
+2026/11/02 01:11:44 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/23 - Guide Me - El ELyon - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:11:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/67 - My God Is Good - Winnipeg Fellowship.mp3" (RID 306).
+2026/11/02 01:18:51 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/67 - My God Is Good - Winnipeg Fellowship.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:18:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__tes_promesses__pub_direct_dec_2021_import_(2).mp3" (RID 307).
+2026/11/02 01:26:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__tes_promesses__pub_direct_dec_2021_import_(2).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:26:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/39 - My Heart Rejoices - Toronto HF.mp3" (RID 308).
+2026/11/02 01:34:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/39 - My Heart Rejoices - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:34:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 309).
+2026/11/02 01:34:38 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:34:38 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_020.mp3" (RID 310).
+2026/11/02 01:39:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_020.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:39:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_021.mp3" (RID 311).
+2026/11/02 01:46:30 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_021.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:46:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_022.mp3" (RID 312).
+2026/11/02 01:50:59 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_022.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:50:59 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_023.mp3" (RID 313).
+2026/11/02 01:56:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_023.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 01:56:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_024.mp3" (RID 314).
+2026/11/02 02:00:27 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_024.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:00:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_025.mp3" (RID 315).
+2026/11/02 02:04:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_025.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:04:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_026.mp3" (RID 316).
+2026/11/02 02:09:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_026.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:09:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_027.mp3" (RID 317).
+2026/11/02 02:16:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_027.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:16:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_028.mp3" (RID 318).
+2026/11/02 02:21:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/actes_028.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:21:17 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 319).
+2026/11/02 02:21:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:21:30 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/38 - That I May Know Him - Toronto HF.mp3" (RID 320).
+2026/11/02 02:27:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/38 - That I May Know Him - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:27:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique- Mon modèle, c_est Jésus.mp3" (RID 321).
+2026/11/02 02:31:48 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique- Mon modèle, c_est Jésus.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:31:49 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/34 - Great and Marvellous - Ketu HF.mp3" (RID 322).
+2026/11/02 02:39:55 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/34 - Great and Marvellous - Ketu HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:39:56 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/51 - Hallelujah - PHF.mp3" (RID 323).
+2026/11/02 02:42:25 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:26 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:27 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:27 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:28 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:29 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:30 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:31 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:32 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:32 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:33 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:35 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:36 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:36 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:37 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:38 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:39 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:40 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:42 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:44 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:46 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:48 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:48 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:49 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:49 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:50 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:50 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:57 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:42:59 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:00 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:02 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:04 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:13 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:14 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:15 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:16 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:16 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:17 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:18 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:18 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:19 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:20 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:20 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:21 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:22 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:23 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:24 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:25 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:26 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:26 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:27 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:28 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:28 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:29 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:30 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:30 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:31 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:32 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:32 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:33 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:35 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:35 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:36 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:36 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:37 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:37 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:38 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:39 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:39 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:40 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:40 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:42 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:42 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:44 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:44 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:46 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:46 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:48 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:48 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:49 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:50 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:50 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:57 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:57 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:57 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:57 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:59 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:43:59 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:00 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:02 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:02 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:03 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:04 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:05 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:06 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:07 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:08 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:13 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:14 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:15 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:15 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:16 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:17 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:17 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:18 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:18 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:19 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:19 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:20 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:20 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:21 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:21 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:22 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:22 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:23 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:23 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:24 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:25 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:26 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:26 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:27 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:27 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:28 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:28 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:29 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:29 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:30 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:31 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:31 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:32 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:32 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:33 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:33 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:35 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:36 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:36 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:37 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:38 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:38 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:39 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:39 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:40 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:42 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:42 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:44 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:44 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:46 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:48 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:49 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:49 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:50 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:50 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:57 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:44:59 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:00 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:01 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:05 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:06 [clock.main:2] We must catchup 1.07 seconds!
+2026/11/02 02:45:10 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:12 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:14 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:16 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:18 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:19 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:21 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:24 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:26 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:27 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:29 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:30 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:31 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:32 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:33 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:34 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:35 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:36 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:37 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:37 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:38 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:39 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:40 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:41 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:42 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:42 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:43 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:44 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:45 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:46 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:46 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:47 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:48 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:49 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:50 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:51 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:52 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:53 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:54 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:55 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:56 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:57 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:58 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:59 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:45:59 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:00 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:01 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:02 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:02 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:03 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:03 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:04 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:04 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:05 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:46:05 [request.dynamic:3] Fetch failed: retry.
+2026/11/02 02:47:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/51 - Hallelujah - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:47:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/91 - Ella Samuels - Oh Lord Our Maker.mp3" (RID 324).
+2026/11/02 02:53:04 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/91 - Ella Samuels - Oh Lord Our Maker.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:53:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" (RID 1105).
+2026/11/02 02:53:13 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:53:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_087.mp3" (RID 1106).
+2026/11/02 02:53:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_087.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:53:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 1107).
+2026/11/02 02:54:05 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 02:54:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2020_tian_le_pardon_4.mp3" (RID 1108).
+2026/11/02 03:07:23 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/2020_tian_le_pardon_4.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:07:23 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 1109).
+2026/11/02 03:07:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:07:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_012.mp3" (RID 1110).
+2026/11/02 03:14:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:14:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_013.mp3" (RID 1111).
+2026/11/02 03:22:39 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_013.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:22:39 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_014.mp3" (RID 1112).
+2026/11/02 03:26:50 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_014.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:26:51 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_015.mp3" (RID 1113).
+2026/11/02 03:31:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_015.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:31:44 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_016.mp3" (RID 1114).
+2026/11/02 03:35:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_016.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:35:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_017.mp3" (RID 1115).
+2026/11/02 03:39:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_017.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:39:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_018.mp3" (RID 1116).
+2026/11/02 03:44:43 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_018.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:44:44 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_019.mp3" (RID 1117).
+2026/11/02 03:48:13 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/11/02 03:48:13 [lang.deprecated:2] WARNING: "map_metadata" is deprecated and will be removed in future version. Please use "metadata.map" instead.
+2026/11/02 03:48:13 [error_jingle:3] "/usr/local/share/icecast/web/error.mp3" is static, resolving once for all...
+2026/11/02 03:48:13 [error_jingle:3] Prepared "/usr/local/share/icecast/web/error.mp3" (RID 7).
+2026/11/02 03:48:14 [safe_fallback:3] Switch to error_jingle.
+2026/11/02 03:48:14 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 8).
+2026/11/02 03:48:14 [safe_fallback:3] Switch to amplify_0 with transition.
+2026/11/02 03:48:14 [live_fallback:3] Switch to cross_0.
+2026/11/02 03:48:14 [interrupting_fallback:3] Switch to requests_fallback.
+2026/11/02 03:48:14 [requests_fallback:3] Switch to autodj_fallback.
+2026/11/02 03:48:14 [autodj_fallback:3] Switch to schedule_switch.
+2026/11/02 03:48:14 [schedule_switch:3] Switch to cue_playlist_bloc_a_serie_du_jour.
+2026/11/02 03:48:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:48:25 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" (RID 16).
+2026/11/02 03:48:25 [playlist_bloc_a_serie_du_jour:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2020_tian_le_pardon_4.mp3" (RID 15).
+2026/11/02 03:48:25 [autodj_fallback:3] Switch to dynamic_startup with forgetful transition.
+2026/11/02 03:48:25 [dynamic_startup:3] Switch to cue_next_song.
+2026/11/02 03:48:36 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_05_vous_etes_a_lecoute_de_levangile_du_royaume.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 03:48:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2020_tian_le_pardon_4.mp3" (RID 17).
+2026/11/02 04:01:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/2020_tian_le_pardon_4.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:01:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" (RID 18).
+2026/11/02 04:02:07 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_bible_07_place_a_la_lecture_de_la_bible.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:02:07 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_012.mp3" (RID 19).
+2026/11/02 04:09:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_012.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:09:00 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_013.mp3" (RID 20).
+2026/11/02 04:17:09 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_013.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:17:10 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_014.mp3" (RID 21).
+2026/11/02 04:21:21 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_014.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:21:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_015.mp3" (RID 22).
+2026/11/02 04:26:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_015.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:26:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_016.mp3" (RID 23).
+2026/11/02 04:30:15 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_016.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:30:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_017.mp3" (RID 24).
+2026/11/02 04:34:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_017.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:34:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_018.mp3" (RID 25).
+2026/11/02 04:39:14 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_018.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:39:14 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_019.mp3" (RID 26).
+2026/11/02 04:43:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_019.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:43:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_020.mp3" (RID 27).
+2026/11/02 04:48:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_020.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:48:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_021.mp3" (RID 28).
+2026/11/02 04:54:54 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_021.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 04:54:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_022.mp3" (RID 29).
+2026/11/02 05:00:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/matthieu_022.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:00:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 30).
+2026/11/02 05:00:29 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:00:29 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/05 - There Is No Lie - SWBN TV.mp3" (RID 31).
+2026/11/02 05:08:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/05 - There Is No Lie - SWBN TV.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:08:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/75 - How Precious Oh Lord.mp3" (RID 32).
+2026/11/02 05:13:45 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/75 - How Precious Oh Lord.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:13:45 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/8-_mohamed_sanogo_hymne_des_vainqueurs.mp3" (RID 33).
+2026/11/02 05:19:52 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/8-_mohamed_sanogo_hymne_des_vainqueurs.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:19:52 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/59 - Ascribe Greatness - PHF.mp3" (RID 34).
+2026/11/02 05:23:53 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/59 - Ascribe Greatness - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:23:54 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/12 - As We Worship - Toronto & Winnipeg HF.mp3" (RID 35).
+2026/11/02 05:34:03 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/12 - As We Worship - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:34:04 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/47 - You Are the Captain of the Host - Toronto HF.mp3" (RID 36).
+2026/11/02 05:36:58 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/47 - You Are the Captain of the Host - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:36:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" (RID 37).
+2026/11/02 05:40:37 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/7-_gael_adorons_léternel.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:40:37 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/24 - We Ascribe Greatness - Abuja HF.mp3" (RID 38).
+2026/11/02 05:46:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/24 - We Ascribe Greatness - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:46:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/13 - For By My God - Toronto & Winnipeg HF.mp3" (RID 39).
+2026/11/02 05:53:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/13 - For By My God - Toronto & Winnipeg HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:53:40 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/46 - Praise the Lord All Ye Nations - Toronto HF.mp3" (RID 40).
+2026/11/02 05:59:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/46 - Praise the Lord All Ye Nations - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 05:59:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" (RID 41).
+2026/11/02 06:00:00 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_06_que_la_louange_seleve.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 06:00:01 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_061.mp3" (RID 42).
+2026/11/02 06:00:46 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/psaumes_061.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 06:00:46 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" (RID 43).
+2026/11/02 06:00:56 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_message_04_bienvenue_sur_parole_prophetique_fm.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 06:00:57 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/2020_tian_le_pardon_4.mp3" (RID 44).
