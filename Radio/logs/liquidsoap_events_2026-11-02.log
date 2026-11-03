@@ -957,3 +957,14 @@
 2026/11/02 23:24:48 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" (RID 271).
 2026/11/02 23:24:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_id_station_01_la_bonne_nouvelle_partout.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/11/02 23:24:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/22 - Holy Holy - Abuja HF.mp3" (RID 272).
+2026/11/02 23:33:26 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/22 - Holy Holy - Abuja HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 23:33:27 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique Jean 1- la Parole.mp3" (RID 273).
+2026/11/02 23:36:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/Cantique Jean 1- la Parole.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 23:36:34 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/78 - Crown Him Lord of Lords - Nonso Njoku.mp3" (RID 274).
+2026/11/02 23:42:33 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/78 - Crown Him Lord of Lords - Nonso Njoku.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 23:42:33 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" (RID 275).
+2026/11/02 23:47:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/6-_igwe.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 23:47:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/06 - Yahweh is Mighty (Imah Adegoke).mp3" (RID 276).
+2026/11/02 23:55:06 [clock.main:2] We must catchup 0.00 seconds!
+2026/11/02 23:55:35 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/SWBN Lead Concert Live Worship/06 - Yahweh is Mighty (Imah Adegoke).mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/02 23:55:36 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__béni_soit_le_dieu_d_israël.mp3" (RID 277).
