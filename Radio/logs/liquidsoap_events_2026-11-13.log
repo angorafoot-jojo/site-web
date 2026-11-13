@@ -1,0 +1,25 @@
+2026/11/13 00:00:14 [clock.main:2] We must catchup 1.05 seconds!
+2026/11/13 00:00:16 [clock.main:2] We must catchup 1.83 seconds!
+2026/11/13 00:00:17 [clock.main:2] We must catchup 2.20 seconds!
+2026/11/13 00:00:18 [clock.main:2] We must catchup 2.38 seconds!
+2026/11/13 00:00:19 [clock.main:2] We must catchup 2.34 seconds!
+2026/11/13 00:00:20 [clock.main:2] We must catchup 2.48 seconds!
+2026/11/13 00:00:21 [clock.main:2] We must catchup 1.44 seconds!
+2026/11/13 00:00:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/17 - Where Two or Three are Gathered - Calabar HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:00:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" (RID 276).
+2026/11/13 00:02:16 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/jingles_de_transition_2.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:02:16 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_003.mp3" (RID 277).
+2026/11/13 00:05:49 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/joël_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:05:50 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_001.mp3" (RID 278).
+2026/11/13 00:10:22 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:10:22 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_002.mp3" (RID 279).
+2026/11/13 00:14:06 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_002.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:14:06 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_003.mp3" (RID 280).
+2026/11/13 00:17:47 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_003.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:17:47 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_004.mp3" (RID 281).
+2026/11/13 00:20:40 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/colossiens_004.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:20:41 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/La bible/zacharie_001.mp3" (RID 282).
+2026/11/13 00:24:12 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/La bible/zacharie_001.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:24:12 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" (RID 283).
+2026/11/13 00:24:25 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Jingle/jingle_avant_louange_07_voici_un_temps_de_louange.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/13 00:24:26 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/54 - He Has Given Me - PHF.mp3" (RID 284).
