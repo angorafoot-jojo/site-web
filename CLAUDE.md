@@ -371,6 +371,21 @@ La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldée
 
 Les CSS (`style.css` **et** `assets/css/pages/*.css`) sont liés avec `?v=<version>` dans les 13 pages HTML. **À chaque modification d'un fichier CSS ou JS, incrémenter cette version** dans les `<link>`/`<script>` concernés — sinon GitHub Pages (~10 min de cache) sert l'ancien fichier et Lighthouse mesure du CSS périmé.
 
+### Convention messages de commit (IMPORTANT)
+
+**Ne jamais écrire `[skip ci]` littéralement dans un message de commit**, pas même pour
+le citer ou l'expliquer. GitHub Actions **et** Cloudflare le cherchent n'importe où dans le
+message, titre comme corps : un commit qui le mentionne voit **tous ses checks sautés**, et
+la PR affiche alors une CI verte qui n'a rien exécuté. Constaté le 19/11/2026 sur le commit
+`9546c93`, dont le corps expliquait justement pourquoi les commits des bots le portent.
+
+Pour en parler dans un message de commit, écrire « le jeton skip ci » en toutes lettres.
+Dans un **fichier** (doc, code), le jeton entre backticks est sans danger : seuls les
+messages de commit sont analysés.
+
+Les commits automatiques des workflows, eux, le portent volontairement — c'est ce qui évite
+qu'un commit de log déclenche un déploiement.
+
 ### Checklist avant bascule du domaine
 
 - [ ] Domaine saisi dans Settings → Pages (l'API doit renvoyer `cname` non nul)
