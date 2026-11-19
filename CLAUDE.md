@@ -350,7 +350,10 @@ La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldée
 | 🟢 Planifié | `style.css` monolithique (~1600 lignes) | `assets/css/style.css` | Découper par responsabilité (§5) |
 | 🟢 Planifié | Composant `.type-tabs` dupliqué | 3 CSS de `assets/css/pages/` | Dédupliquer (§12) |
 | 🟢 Planifié | Pas de minification/fingerprinting (T31), pas de tests a11y en CI (T38) | CI | Différés volontairement |
-| 🟢 Radio | Jingles réellement sautés 5–14/jour | Serveur AzuraCast | Voir `Radio/README.md` §7 (nécessite les logs Liquidsoap côté serveur) |
+| 🟡 En cours de rétablissement | **Déclencheur externe cron-job.org muet du 15-16/10 au 19/11/2026** — cause confirmée : **le token GitHub avait expiré**. Remplacé le 19/11 par un token sans expiration (1er dispatch de test réussi à 14h22 UTC) : rotation et reset de minuit rattrapés par le cron GitHub, mais 3 à 6 h en retard → silence audible, BLOC_A non démarré, message en double 31 nuits sur 32 | cron-job.org + `.github/workflows/radio-rotation.yml`, `radio-midnight-reset.yml` | Recréer les jobs avec un token neuf — procédure dans `Radio/AUDIT_2026-11-17.md` §5 |
+| 🟡 Important | Deux issues d'alerte ouvertes et non traitées (#16 du 10/09, #18 du 17/10) | GitHub Issues | Les fermer après traitement ; le bâillon inter-sujets est corrigé depuis le 17/11 |
+| 🟡 Important | Garde de frontière verte mais sans effet depuis le 26/08 (270 runs, 0 doublon retiré) | `.github/workflows/radio-boundary-guard.yml` | Lui donner ses déclencheurs 06h01/12h01/18h01, ou la supprimer |
+| 🟢 Planifié | Documentation trompeuse : statuts écrits à la main, chiffres sans date | `Radio/README.md`, ce fichier | Pistes dans `Radio/AUDIT_2026-11-17.md` §6 |
 
 ### Ce qui fonctionne bien — ne pas casser
 
@@ -362,7 +365,7 @@ La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldée
 - Navigation avec dropdown desktop et menu hamburger mobile (injectée par `nav.js`, CSP incluse)
 - Pages individuelles générées par la CI (`scripts/generate-pages.mjs`) + RSS podcasts
 - `sitemap.xml` et `robots.txt` en place et pointant vers `levangileduroyaume.com`
-- Radio automatisée 24/7 (rotation, reset minuit, garde de frontière, rapports — voir `Radio/README.md`)
+- Radio automatisée 24/7 : rotation et reset de minuit tournent chaque nuit, rapport quotidien complet, jingles à 99,9 % du plan (vérifié le 17/11/2026) — ⚠️ mais **en retard de 3 à 6 h depuis le 15/10**, voir la dette 🔴 ci-dessus. Détail : `Radio/README.md` §0
 
 ### Convention cache-busting (IMPORTANT)
 
