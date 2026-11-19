@@ -256,6 +256,23 @@ avoir sa fiche, sur ce gabarit, **avant** d'être mise en service.
 | **Comment le réparer** | Recréer les jobs : méthode `POST`, URL `https://api.github.com/repos/angorafoot-jojo/site-web/actions/workflows/<fichier>.yml/dispatches`, corps `{"ref":"main"}`, en-têtes `Accept: application/vnd.github+json`, `Authorization: Bearer <token>`, `X-GitHub-Api-Version: 2022-11-28`, **fuseau du job en UTC**. Réponse normale : `204 No Content`. Tester d'abord sur `radio-boundary-guard.yml`, sans effet à l'antenne. Procédure détaillée : `AUDIT_2026-11-17.md` §5. |
 | **Historique des pannes** | **23/06/2026** (1 nuit) · **18→21/07/2026** (3 nuits sans rotation, contenu du 18/07 rediffusé 3 jours) · **15/10→19/11/2026** (35 nuits, masquées par le filet de sécurité — **cause : expiration du token**, confirmée le 19/11 par le propriétaire du compte). Trois pannes en cinq mois sur le maillon le plus critique : l'alternative structurelle — déclencher depuis le serveur AzuraCast, qui doit déjà être debout 24/7 — est à chiffrer (`AUDIT_2026-11-17.md` §5 étape 4). |
 
+> 🔌 **Cloudflare Workers Builds — branchement abandonné, à débrancher (constat du 19/11/2026).**
+> Une intégration « Workers Builds » Cloudflare est branchée sur ce dépôt et **échoue sur
+> chaque commit humain depuis au moins juillet 2026** — les PR #12 et #15 ont été mergées
+> avec ce check rouge. Elle n'apparaît nulle part dans la doc, aucun `wrangler.toml` ni
+> fichier Worker n'est versionné, et le build échoue en 0 s : une intégration branchée sur
+> un dépôt qui n'a rien à lui donner à construire. Elle reste invisible sur `main` parce que
+> les commits des workflows portent `[skip ci]`.
+> ➜ **Décision de Jonathan (19/11/2026) : Cloudflare ne sert pas à construire ce site, le
+> branchement est à retirer** dans la console Cloudflare (Worker `site-web` → Settings →
+> Build → déconnecter le dépôt Git, ou supprimer le Worker s'il est vide).
+> ⚠️ **Ne retirer que la connexion Git du Worker.** Si Cloudflare héberge aussi le DNS du
+> domaine, ne toucher à aucun enregistrement — en particulier pas au sous-domaine radio
+> `parole-prophetique-fm.*` (voir `CLAUDE.md` §18).
+> Tant que ce n'est pas fait, un check rouge sans rapport avec le code reste affiché sur
+> chaque PR. **C'est un coût réel** : un check en permanence rouge apprend à merger malgré
+> le rouge, exactement comme un verdict quotidien en permanence ❌ apprend à ne plus le lire.
+
 > ⬜ **Fiches encore à écrire**, sur le même gabarit : **Backblaze B2** (audio et PDF du site), **AzuraCast / VPS** (la station elle-même), **Sentry** (monitoring des erreurs navigateur), **ElevenLabs** (banque de jingles). Pour chacune : compte propriétaire, secret utilisé et son expiration, ce qui casse, comment le détecter, comment le réparer.
 
 ---
