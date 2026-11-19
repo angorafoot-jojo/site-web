@@ -36,14 +36,37 @@ runs:
             state: 'open',
             labels: 'declencheur',
           });
-          if (existing.data.length > 0) {
-            console.log('Alerte déclencheur déjà ouverte — pas de doublon créé.');
-            return;
-          }
           const jour = new Date().toISOString().slice(0, 10);
           const tache = ${{ toJSON(inputs.tache) }};
           const heure = ${{ toJSON(inputs['heure-prevue']) }};
           const consequence = ${{ toJSON(inputs.consequence) }};
+
+          // NE PAS se taire quand l'issue existe déjà : la panne du 15/10 au
+          // 17/11/2026 a duré 32 nuits derrière une SEULE issue (#18), ouverte
+          // la première nuit puis jamais relancée — une notification pour un
+          // mois de dégradation. On commente désormais l'issue existante à
+          // chaque occurrence : le compteur de nuits monte et la notification
+          // revient. Voir AUDIT_2026-11-17.md §3.4 et §5.
+          if (existing.data.length > 0) {
+            const issue = existing.data[0];
+            const nuit = issue.comments + 2;   // l'ouverture compte pour la nuit 1
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: [
+                `⚠️ **${jour} — ${nuit}ᵉ occurrence** : ${tache} a encore été rattrapée`,
+                `par le cron GitHub de secours, le déclencheur externe de ${heure} UTC`,
+                "n'ayant toujours pas répondu.",
+                '',
+                `Chaque nuit dans cet état : ${consequence}`,
+                '',
+                `👉 [Log du run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+              ].join('\n'),
+            });
+            console.log(`Alerte déclencheur déjà ouverte (#${issue.number}) — occurrence ${nuit} commentée.`);
+            return;
+          }
           await github.rest.issues.create({
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -68,8 +91,9 @@ runs:
               '',
               '---',
               '',
-              '**Fermer cette issue une fois cron-job.org rétabli** — tant qu\'elle est ouverte,',
-              'les alertes `declencheur` suivantes sont supprimées (dédoublonnage).',
+              '**Fermer cette issue une fois cron-job.org rétabli.** Tant qu\'elle reste ouverte,',
+              'les nuits suivantes sont ajoutées en commentaire ici au lieu de créer une issue',
+              'par nuit — le compteur d\'occurrences dans les commentaires mesure la durée de la panne.',
             ].join('\n'),
             labels: ['radio', 'declencheur'],
           });
