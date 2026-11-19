@@ -82,6 +82,48 @@ ROTATION_WINDOW = (time(23, 30), time(23, 40))
 # La couverture d'antenne est restée assurée 31 jours sur 31 en août.
 MIDNIGHT_RESET_WINDOW = (time(0, 0), time(0, 3))
 
+# ── Ponctualité : la mesure qui manquait ────────────────────────────────────
+# Les deux fenêtres ci-dessus étaient des HEURES FIXES. Elles supposaient que
+# la rotation tombe à 23h30 et le reset à 00h00 — vrai tant que le déclencheur
+# externe (cron-job.org) répond. Du 15/10 au 17/11/2026 il est resté muet
+# 32 nuits : le cron GitHub de secours a rattrapé, mais avec +189 min (rotation)
+# et +228 min (reset) de retard médian. Deux conséquences que le rapport ne
+# voyait pas :
+#
+#   1. Les rafales de la rotation, tombant désormais vers 02h-03h, sortaient de
+#      ROTATION_WINDOW et étaient comptées comme incidents réels : ~140 faux
+#      incidents serveur par jour, qui ont noyé le signal.
+#   2. La coupure du redémarrage n'est inaudible QUE parce que les 2 min de
+#      000_TRANSITION la couvrent à 00h00. Déplacée à 03h47, elle passe à
+#      l'antenne : 90 bascules sur le jingle d'erreur entre 02h et 05h sur ces
+#      32 nuits, comptées à tort comme « attendues ».
+#
+# Les fenêtres sont donc maintenant calées sur l'heure RÉELLE de chaque
+# opération (voir window_from), et le retard est mesuré, affiché et au verdict.
+# Audit complet : AUDIT_2026-11-17.md.
+RESET_SCHEDULED = time(0, 0)
+ROTATION_SCHEDULED = time(23, 30)
+
+# Au-delà de ce retard, l'opération n'est plus « à l'heure » : son bruit n'est
+# plus couvert et le verdict passe au rouge. 15 min laisse une marge
+# confortable au déclencheur externe en bon état (retard médian réel : +0,7 min)
+# tout en restant très en dessous du retard du secours (> 110 min au mieux).
+PUNCTUALITY_TOLERANCE_MINUTES = 15
+
+# Étendue des deux rafales AUTOUR de l'heure relevée. Les deux horodatages
+# disponibles marquent la FIN de l'opération, pas son début : `generated_at`
+# est écrit quand la rotation a fini d'importer les blocs, et le 1er contrôle
+# de surveillance tombe ~40 s après le restart. Les rafales tombent donc AVANT
+# l'horodatage — mesuré sur des journées réelles : 3 à 5 min avant
+# `generated_at` (rafale 23:32:35 pour un plan à 23:36 le 10/10/2026,
+# 02:58:26 pour 03:02:42 le 16/11), et ~40 s avant le 1er contrôle
+# (00:01:14 pour un contrôle à 00:01:56). D'où des fenêtres qui s'étendent
+# surtout en arrière.
+ROTATION_BURST_BEFORE_MINUTES = 10
+ROTATION_BURST_AFTER_MINUTES = 2
+RESET_BURST_BEFORE_MINUTES = 3
+RESET_BURST_AFTER_MINUTES = 2
+
 BASE_URL = "https://parole-prophetique-fm.levangileduroyaume.com"
 STATION_ID = 1
 
@@ -614,20 +656,81 @@ def in_window(moment: time, window: tuple[time, time]) -> bool:
     return start <= moment <= end
 
 
-def is_expected_incident(category: str, moment: time) -> bool:
+def _minutes(moment: time) -> float:
+    return moment.hour * 60 + moment.minute + moment.second / 60
+
+
+def _to_time(minutes: float) -> time:
+    total = int(round(min(max(minutes, 0.0) * 60, 24 * 3600 - 1)))
+    return time(total // 3600, total % 3600 // 60, total % 60)
+
+
+def window_around(anchor: time, before: int, after: int) -> tuple[time, time]:
+    """Fenêtre encadrant `anchor`, bornée à la journée.
+
+    Pas de passage de minuit : une rafale qui déborderait de part et d'autre
+    est tronquée ici, et ses événements de l'autre côté appartiennent au
+    rapport du jour voisin, qui les recalera sur sa propre heure d'opération."""
+    return _to_time(_minutes(anchor) - before), _to_time(_minutes(anchor) + after)
+
+
+def delay_minutes(actual: time, scheduled: time) -> float:
+    """Retard en minutes d'une opération planifiée, signé.
+
+    Le rattrapage se fait toujours dans les heures qui suivent : un écart
+    inférieur à −12 h se lit comme un retard ayant franchi minuit (rotation
+    prévue à 23h30, exécutée à 02h56 = +206 min, et non −1234)."""
+    delta = _minutes(actual) - _minutes(scheduled)
+    return delta + 1440 if delta < -720 else delta
+
+
+def is_on_time(actual: time | None, scheduled: time) -> bool:
+    """Une heure inconnue est traitée comme ponctuelle : une archive manquante
+    ne doit pas se transformer en incident (le rapport la signale par ailleurs)."""
+    return (actual is None
+            or delay_minutes(actual, scheduled) <= PUNCTUALITY_TOLERANCE_MINUTES)
+
+
+def is_expected_incident(category: str, moment: time,
+                         reset_at: time | None = None,
+                         rotation_at: time | None = None) -> bool:
     """Vrai si l'incident est la signature connue d'une opération planifiée.
 
     Ces événements sont réels mais sans effet à l'antenne : les compter comme
-    incidents rendait le rapport rouge tous les jours (voir ROTATION_WINDOW et
-    MIDNIGHT_RESET_WINDOW). Ils restent affichés à part, jamais masqués.
+    incidents rendait le rapport rouge tous les jours. Ils restent affichés à
+    part, jamais masqués.
 
-    Volontairement étroit : seules ces catégories, dans ces fenêtres. Un crash
-    à 14h, un échec réseau à 08h ou une bascule sur le jingle d'erreur en
-    frontière de bloc restent des incidents à part entière.
+    `reset_at` / `rotation_at` sont les heures RÉELLES des deux opérations du
+    jour (midnight_watch et `generated_at` du plan). Sans elles, on retombe sur
+    les heures planifiées — le cas quand l'archive manque.
+
+    Deux règles, et leur raison :
+
+    * `network` est attendu dans les deux rafales, à l'heure ou non : c'est du
+      bruit d'API (« Fetch failed: retry »), jamais audible.
+    * `deadair` et `crash` ne sont attendus que si le reset est À L'HEURE. La
+      coupure du redémarrage n'est inaudible que parce que les 2 min de
+      000_TRANSITION la couvrent à 00h00 ; un reset à 03h47 coupe un bloc en
+      cours de diffusion, et c'est un vrai incident.
+
+    Volontairement étroit par ailleurs : un crash à 14h, un échec réseau à 08h
+    ou une bascule sur le jingle d'erreur en frontière de bloc restent des
+    incidents à part entière.
     """
-    if category == "network" and in_window(moment, ROTATION_WINDOW):
+    rotation_window = (
+        window_around(rotation_at, ROTATION_BURST_BEFORE_MINUTES,
+                      ROTATION_BURST_AFTER_MINUTES)
+        if rotation_at else ROTATION_WINDOW)
+    reset_window = (
+        window_around(reset_at, RESET_BURST_BEFORE_MINUTES,
+                      RESET_BURST_AFTER_MINUTES)
+        if reset_at else MIDNIGHT_RESET_WINDOW)
+
+    if category == "network" and (in_window(moment, rotation_window)
+                                  or in_window(moment, reset_window)):
         return True
-    if category in ("network", "deadair", "crash") and in_window(moment, MIDNIGHT_RESET_WINDOW):
+    if (category in ("deadair", "crash") and in_window(moment, reset_window)
+            and is_on_time(reset_at, RESET_SCHEDULED)):
         return True
     return False
 
@@ -653,7 +756,9 @@ def classify_server_line(text: str) -> str:
     return ""
 
 
-def parse_server_events(text: str, day: date) -> list[ServerEvent]:
+def parse_server_events(text: str, day: date,
+                        reset_at: time | None = None,
+                        rotation_at: time | None = None) -> list[ServerEvent]:
     """Événements d'incident du jour extraits du texte de liquidsoap_events."""
     events = []
     for line in text.splitlines():
@@ -668,8 +773,9 @@ def parse_server_events(text: str, day: date) -> list[ServerEvent]:
             continue
         category = classify_server_line(m.group(2))
         if category:
-            events.append(ServerEvent(dt, category, m.group(2),
-                                      is_expected_incident(category, dt.time())))
+            events.append(ServerEvent(
+                dt, category, m.group(2),
+                is_expected_incident(category, dt.time(), reset_at, rotation_at)))
     return events
 
 
@@ -693,7 +799,8 @@ def group_incidents(events: list[ServerEvent],
     return groups
 
 
-def playback_incidents(history: list[dict], day: date) -> list[dict]:
+def playback_incidents(history: list[dict], day: date,
+                       reset_at: time | None = None) -> list[dict]:
     """Anomalies horodatées du RÉEL : titres coupés et trous d'antenne.
     Réutilise `iter_day_playback` (même détection que le tableau titre par
     titre)."""
@@ -704,14 +811,16 @@ def playback_incidents(history: list[dict], day: date) -> list[dict]:
         gap = p["gap"]
         if gap < -TOLERANCE_SECONDS:
             out.append({"kind": "COUPÉ", "dt": p["dt"], "severity": -gap,
-                        "title": p["title"], "expected": _cut_by_midnight_reset(p)})
+                        "title": p["title"],
+                        "expected": _cut_by_midnight_reset(p, reset_at)})
         elif gap > TOLERANCE_SECONDS:
             out.append({"kind": "TROU", "dt": p["dt"], "severity": gap,
-                        "title": p["title"], "expected": _cut_by_midnight_reset(p)})
+                        "title": p["title"],
+                        "expected": _cut_by_midnight_reset(p, reset_at)})
     return out
 
 
-def _cut_by_midnight_reset(play: dict) -> bool:
+def _cut_by_midnight_reset(play: dict, reset_at: time | None = None) -> bool:
     """Vrai si le titre a été tronqué par le redémarrage de minuit.
 
     Le reset de 00h00 coupe ce qui est à l'antenne : c'est une conséquence
@@ -724,9 +833,18 @@ def _cut_by_midnight_reset(play: dict) -> bool:
     un titre qui s'arrête pendant la fenêtre de reset a été coupé par elle.
     Reste ouvert comme chantier (README §7) : le rapport le compte à part au
     lieu de le taire.
+
+    Calé sur l'heure RÉELLE du reset, et seulement s'il est à l'heure : un
+    reset à 03h47 ne tronque pas le dernier cantique de la nuit mais un titre
+    au milieu d'un bloc, ce qui est un vrai défaut de diffusion.
     """
+    if not is_on_time(reset_at, RESET_SCHEDULED):
+        return False
+    window = (window_around(reset_at, RESET_BURST_BEFORE_MINUTES,
+                            RESET_BURST_AFTER_MINUTES)
+              if reset_at else MIDNIGHT_RESET_WINDOW)
     end = play["dt"] + timedelta(seconds=play["actual"] or 0)
-    return in_window(end.time(), MIDNIGHT_RESET_WINDOW)
+    return in_window(end.time(), window)
 
 
 def parse_watch_records(text: str) -> list[dict]:
@@ -784,6 +902,40 @@ def summarize_watch(records: list[dict]) -> dict | None:
     }
 
 
+def watch_time(summary: dict | None) -> time | None:
+    """Heure réelle du redémarrage, lue dans le 1er instantané de surveillance.
+
+    Approximation assumée de ~40 s : la surveillance fait ses 3 contrôles à
+    +40/80/120 s du restart. Sans effet sur un retard mesuré en dizaines de
+    minutes, et c'est déjà l'heure qu'affiche « restart confirmé vers »."""
+    if not summary or not summary.get("first"):
+        return None
+    try:
+        h, m, s = (int(x) for x in summary["first"].split(":"))
+        return time(h, m, s)
+    except (ValueError, TypeError):
+        return None
+
+
+def plan_time(plan: dict | None) -> time | None:
+    """Heure réelle de la rotation, lue dans le `generated_at` du plan du jour.
+
+    C'est la rotation qui écrit ce champ en fin d'exécution : c'est la seule
+    trace de son heure réelle côté rapport (le reste vit dans l'historique
+    GitHub Actions, hors de portée d'ici)."""
+    stamp = (plan or {}).get("generated_at")
+    if not isinstance(stamp, str):
+        return None
+    try:
+        # Microsecondes écartées : les vrais plans en portent
+        # (« …T03:02:42.472218+00:00 ») et elles n'ont aucun sens à l'échelle
+        # d'un retard mesuré en minutes.
+        return (datetime.fromisoformat(stamp).astimezone(timezone.utc)
+                .replace(microsecond=0).time())
+    except ValueError:
+        return None
+
+
 def nearest_incident(dt: datetime, groups: list[dict],
                      window: int = CORRELATION_WINDOW_SECONDS) -> dict | None:
     """Amas d'incident serveur le plus proche de `dt` dans la fenêtre, ou None."""
@@ -821,10 +973,22 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
                           logs: dict[str, str]) -> str:
     """Section « MONITEUR » en tête du rapport : synthèse et corrélation des 3
     rapports + plan, pour ne plus avoir à chercher la cause dans 3 fichiers."""
-    groups = group_incidents(parse_server_events(logs.get("server", ""), day))
     midnight = summarize_watch(parse_watch_records(logs.get("midnight", "")))
     boundary = summarize_watch(parse_watch_records(logs.get("boundary", "")))
-    anomalies = playback_incidents(history, day)
+
+    # Heures RÉELLES des deux opérations planifiées : tout le classement
+    # « attendu / incident » en dépend (voir is_expected_incident).
+    reset_at = watch_time(midnight)
+    rotation_at = plan_time(plan)
+    schedule = [("rotation", ROTATION_SCHEDULED, rotation_at),
+                ("reset de minuit", RESET_SCHEDULED, reset_at)]
+    known = [(lab, sch, act) for lab, sch, act in schedule if act is not None]
+    late = [(lab, sch, act, delay_minutes(act, sch)) for lab, sch, act in known
+            if delay_minutes(act, sch) > PUNCTUALITY_TOLERANCE_MINUTES]
+
+    groups = group_incidents(parse_server_events(logs.get("server", ""), day,
+                                                 reset_at, rotation_at))
+    anomalies = playback_incidents(history, day, reset_at)
     plays = _message_plays(history, day, plan)
     doubles = [p["dt"] for p in plays if p["double"]]
 
@@ -847,7 +1011,7 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
                    if n_expected_plays and len(plays) > n_expected_plays else 0)
 
     n_diffusion = len(real_anomalies) + len(doubles) + extra_plays
-    if n_diffusion or n_server:
+    if n_diffusion or n_server or late:
         verdict = "❌ incident(s) détecté(s)"
     elif n_expected or reset_cuts:
         verdict = "⚠️ RAS — seules les suites connues du reset/rotation"
@@ -859,13 +1023,45 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
         f"MONITEUR RADIO — {day.isoformat()} (synthèse des 3 rapports + plan, heures UTC)",
         "=" * 100,
         f"État : {verdict}  ·  diffusion : {len(real_anomalies)} coupure(s)/trou(s), "
-        f"{len(doubles) + extra_plays} double(s) message  ·  serveur : {n_server} incident(s)",
+        f"{len(doubles) + extra_plays} double(s) message  ·  serveur : {n_server} incident(s)"
+        + ("  ·  ponctualité : " + ", ".join(f"{lab} +{d:.0f} min" for lab, _, _, d in late)
+           if late else ""),
     ]
+
+    # --- Ponctualité : le retard est un incident, pas un détail ---
+    # Du 15/10 au 17/11/2026, la rotation et le reset ont tourné 3 à 6 h en
+    # retard 32 nuits de suite sans que ce rapport ne le dise, alors qu'il
+    # imprimait l'heure du restart depuis juillet. C'est le défaut qui a laissé
+    # la panne invisible un mois (AUDIT_2026-11-17.md §4).
+    if not known:
+        lines.append("PONCTUALITÉ : heures d'exécution inconnues "
+                     "(plan et surveillance absents) ⚠️")
+    else:
+        detail = " · ".join(
+            f"{lab} à {act:%Hh%M} pour {sch:%Hh%M} ({delay_minutes(act, sch):+.0f} min)"
+            for lab, sch, act in known)
+        if late:
+            lines.append(f"PONCTUALITÉ : ❌ {detail}")
+            lines.append("   ↳ le déclencheur externe (cron-job.org) n'a pas répondu et le "
+                         "cron GitHub de secours a rattrapé en retard. Conséquences à "
+                         "l'antenne : la coupure du redémarrage n'est plus couverte par "
+                         "000_TRANSITION, et le bloc en cours démarre sur du contenu "
+                         "reconstruit. Remise en service : AUDIT_2026-11-17.md §5.")
+        else:
+            lines.append(f"PONCTUALITÉ : ✅ {detail}")
     if n_expected or reset_cuts:
         detail = []
         if n_expected:
-            detail.append(f"{n_expected} événement(s) serveur pendant la rotation "
-                          "(23h30-23h40) et le reset de minuit (00h00-00h03)")
+            rot = (window_around(rotation_at, ROTATION_BURST_BEFORE_MINUTES,
+                                 ROTATION_BURST_AFTER_MINUTES)
+                   if rotation_at else ROTATION_WINDOW)
+            res = (window_around(reset_at, RESET_BURST_BEFORE_MINUTES,
+                                 RESET_BURST_AFTER_MINUTES)
+                   if reset_at else MIDNIGHT_RESET_WINDOW)
+            detail.append(
+                f"{n_expected} événement(s) serveur pendant la rotation "
+                f"({rot[0]:%Hh%M}-{rot[1]:%Hh%M}) et le reset de minuit "
+                f"({res[0]:%Hh%M}-{res[1]:%Hh%M})")
         if reset_cuts:
             detail.append(f"{len(reset_cuts)} titre(s) tronqué(s) par le redémarrage de minuit")
         lines.append("ATTENDU (sans effet à l'antenne, hors verdict) : " + " · ".join(detail))
