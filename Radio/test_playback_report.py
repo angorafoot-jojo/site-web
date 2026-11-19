@@ -15,7 +15,11 @@ from playback_report import (norm_title, build_plan_section, build_health_sectio
                              parse_watch_records, summarize_watch,
                              nearest_incident, build_monitor_section,
                              is_expected_incident, in_window,
-                             ROTATION_WINDOW, MIDNIGHT_RESET_WINDOW)
+                             ROTATION_WINDOW, MIDNIGHT_RESET_WINDOW,
+                             window_around, delay_minutes, is_on_time,
+                             watch_time, plan_time, _cut_by_midnight_reset,
+                             RESET_SCHEDULED, ROTATION_SCHEDULED,
+                             PUNCTUALITY_TOLERANCE_MINUTES)
 
 JOUR = date(2026, 6, 25)
 
@@ -618,6 +622,133 @@ def test_diffusion_du_message_en_trop_compte_meme_sans_double_rapproche():
     out = build_monitor_section(h, JOUR, plan, logs)
     assert "❌ incident(s) détecté(s)" in out
     assert "1 double(s) message" in out
+
+
+# ── Ponctualité : le retard des opérations planifiées ────────────────────────
+# Du 15/10 au 17/11/2026, cron-job.org est resté muet 32 nuits ; le cron GitHub
+# de secours a rattrapé avec +189 min (rotation) et +228 min (reset) de retard
+# médian, sans que rien ne le signale. Ces tests verrouillent les trois
+# comportements qui manquaient (AUDIT_2026-11-17.md §3.1, §3.2 et §4).
+
+def plan_date_a(generated_at):
+    """Plan de référence, horodaté à l'heure réelle de la rotation."""
+    plan = plan_2_blocs()
+    plan["generated_at"] = generated_at
+    return plan
+
+
+def surveillance_a(heure):
+    """Instantané de surveillance de minuit à l'heure réelle du restart."""
+    return ('{"logged_at": "2026-06-25T' + heure + '+00:00",'
+            ' "started_after_restart": true, "queue_preview": []}')
+
+
+def test_delay_minutes_lit_un_retard_qui_franchit_minuit():
+    # Rotation prévue 23h30, exécutée à 02h56 le lendemain : +206 min, pas -1234.
+    assert delay_minutes(time(2, 56), ROTATION_SCHEDULED) == 206
+    assert delay_minutes(time(23, 31), ROTATION_SCHEDULED) == 1
+    assert delay_minutes(time(3, 47), RESET_SCHEDULED) == 227
+
+
+def test_is_on_time_tolere_la_gigue_du_declencheur_externe():
+    # Le déclencheur en bon état arrive à +0,7 min de médiane ; le secours
+    # jamais sous +110 min. La tolérance doit trancher net entre les deux.
+    assert is_on_time(time(0, 2), RESET_SCHEDULED) is True
+    assert is_on_time(time(0, PUNCTUALITY_TOLERANCE_MINUTES), RESET_SCHEDULED) is True
+    assert is_on_time(time(0, PUNCTUALITY_TOLERANCE_MINUTES + 1), RESET_SCHEDULED) is False
+    assert is_on_time(None, RESET_SCHEDULED) is True   # archive absente ≠ incident
+
+
+def test_window_around_encadre_lhorodatage_et_borne_la_journee():
+    # L'horodatage marque la FIN de l'opération : la fenêtre s'ouvre avant.
+    assert window_around(time(3, 2), 10, 2) == (time(2, 52), time(3, 4))
+    # Bornes de journée : ni avant 00:00:00, ni après 23:59:59.
+    assert window_around(time(0, 1, 56), 3, 2) == (time(0, 0), time(0, 3, 56))
+    assert window_around(time(23, 58), 10, 5) == (time(23, 48), time(23, 59, 59))
+
+
+def test_watch_time_et_plan_time_lisent_les_heures_reelles():
+    assert watch_time(summarize_watch(parse_watch_records(
+        surveillance_a("03:47:12")))) == time(3, 47, 12)
+    assert watch_time(None) is None
+    assert plan_time(plan_date_a("2026-06-25T02:56:04.123456+00:00")) == time(2, 56, 4)
+    assert plan_time(plan_2_blocs()) is None          # plan sans horodatage
+    assert plan_time({"generated_at": "pas une date"}) is None
+
+
+def test_rotation_en_retard_deplace_la_fenetre_des_echecs_reseau():
+    """La rafale « Fetch failed » suit la rotation, pas l'horloge.
+
+    C'est l'artefact qui a produit ~140 faux incidents serveur par jour depuis
+    le 16/10 : les mêmes rafales, hors de la fenêtre figée 23h30-23h40."""
+    tardive = time(3, 2)   # heure du plan ; la rafale la précède de ~4 min
+    assert is_expected_incident("network", time(2, 58), rotation_at=tardive) is True
+    # Et l'ancienne fenêtre ne protège plus rien ce jour-là.
+    assert is_expected_incident("network", time(23, 32), rotation_at=tardive) is False
+    # Journée normale : la rafale de 23:32 précède un plan écrit à 23:36.
+    assert is_expected_incident("network", time(23, 32, 35),
+                                rotation_at=time(23, 36)) is True
+
+
+def test_reset_tardif_rend_la_bascule_sur_silence_bien_reelle():
+    """Un restart à 03h47 n'est plus couvert par les 2 min de 000_TRANSITION :
+    la bascule sur le jingle d'erreur passe à l'antenne. 90 cas sur 32 nuits."""
+    tardif = time(3, 47)   # 1er contrôle de surveillance, ~40 s après le restart
+    assert is_expected_incident("deadair", time(3, 46), reset_at=tardif) is False
+    assert is_expected_incident("crash", time(3, 46), reset_at=tardif) is False
+    # Le bruit d'API reste inaudible, lui, même en retard.
+    assert is_expected_incident("network", time(3, 46), reset_at=tardif) is True
+
+
+def test_reset_a_lheure_garde_sa_bascule_attendue():
+    ponctuel = time(0, 1, 56)
+    assert is_expected_incident("deadair", time(0, 1, 20), reset_at=ponctuel) is True
+    assert is_expected_incident("crash", time(0, 1, 14), reset_at=ponctuel) is True
+    # Hors de la rafale de 3 min, même à l'heure, c'est un incident.
+    assert is_expected_incident("deadair", time(0, 30), reset_at=ponctuel) is False
+
+
+def test_titre_tronque_par_un_reset_tardif_est_une_vraie_anomalie():
+    # Titre de 10 min commencé à 03h40, coupé net à 03h47 par le restart.
+    coupe = {"dt": datetime(2026, 6, 25, 3, 40, tzinfo=timezone.utc),
+             "actual": 400, "title": "Amos 1"}
+    assert _cut_by_midnight_reset(coupe, reset_at=time(3, 47)) is False
+    # Le même titre, tronqué par un reset ponctuel à minuit : conséquence connue.
+    nuit = {"dt": datetime(2026, 6, 25, 0, 0, tzinfo=timezone.utc),
+            "actual": 75, "title": "dernier cantique"}
+    assert _cut_by_midnight_reset(nuit, reset_at=time(0, 1, 56)) is True
+
+
+def test_monitor_passe_au_rouge_sur_un_retard_seul():
+    """Le défaut central de l'audit : une journée sans aucune anomalie de
+    diffusion mais avec un reset 3 h 47 en retard titrait « ✅ RAS »."""
+    h = [entry("a", 8, 0, duration=60), entry("b", 8, 1, duration=60)]
+    logs = {"server": "", "midnight": surveillance_a("03:47:12"), "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_date_a("2026-06-25T02:56:04+00:00"), logs)
+    assert "État : ❌ incident(s) détecté(s)" in out
+    assert "ponctualité : rotation +206 min, reset de minuit +227 min" in out
+    assert "PONCTUALITÉ : ❌" in out
+    assert "rotation à 02h56 pour 23h30 (+206 min)" in out
+    assert "reset de minuit à 03h47 pour 00h00 (+227 min)" in out
+    assert "cron-job.org" in out
+
+
+def test_monitor_ponctualite_verte_quand_tout_est_a_lheure():
+    h = [entry("a", 8, 0, duration=60), entry("b", 8, 1, duration=60)]
+    logs = {"server": "", "midnight": surveillance_a("00:02:04"), "boundary": ""}
+    out = build_monitor_section(h, JOUR, plan_date_a("2026-06-24T23:31:10+00:00"), logs)
+    assert "PONCTUALITÉ : ✅" in out
+    assert "rotation à 23h31 pour 23h30 (+1 min)" in out
+    assert "❌" not in out
+
+
+def test_monitor_dit_quand_les_heures_sont_inconnues():
+    h = [entry("a", 8, 0, duration=60), entry("b", 8, 1, duration=60)]
+    out = build_monitor_section(h, JOUR, plan_2_blocs(),
+                                {"server": "", "midnight": "", "boundary": ""})
+    assert "PONCTUALITÉ : heures d'exécution inconnues" in out
+    # Une archive manquante ne doit pas inventer un incident.
+    assert "État : ✅ RAS" in out
 
 
 if __name__ == "__main__":

@@ -11,6 +11,29 @@ Documentation du système de radio automatisée **Parole Prophétique FM** de L'
 
 ---
 
+## 0. État au 17/11/2026 — à relire avant toute intervention
+
+> 🟡 **Le déclencheur externe (cron-job.org) a été muet du 15-16/10 au 19/11/2026** — son token GitHub avait expiré. Remplacé le 19/11 par un token sans expiration ; 1er dispatch de test réussi à 14h22 UTC, rotation et reset à confirmer la nuit suivante. Ce qui suit décrit la période de panne. La rotation
+> et le reset de minuit tournent chaque nuit grâce au cron GitHub de secours, mais **3 à 6 h
+> en retard** : le reset tombe vers 03h47 au lieu de 00h00, donc hors des 2 min de couverture
+> de `000_TRANSITION`. Conséquences mesurées sur 32 nuits : silence réellement audible,
+> BLOC_A jamais démarré proprement, message du jour diffusé en trop **31 nuits sur 32**,
+> diffusion hors plan multipliée par 16. **Rien n'est encore rétabli** — procédure de remise
+> en service : `AUDIT_2026-11-17.md` §5, et fiche de la dépendance au §6 de ce README.
+>
+> 🔴 **Deux issues d'alerte sont restées ouvertes** (#16 depuis le 10/09, #18 depuis le 17/10).
+> Le dédoublonnage par sujet (17/11) empêche désormais une issue d'en bâillonner d'autres,
+> mais **ces deux-là doivent être fermées** une fois traitées.
+>
+> ℹ️ **Ce qui va bien** : jingles à 99,9 % du plan (réglé le 10/09), bouche-trous quasi
+> disparus, flux en ligne, reset confirmé 90 nuits sur 90.
+>
+> 📊 **Chiffres, méthode et commandes de reproduction : `AUDIT_2026-11-17.md`**
+> (90 jours de rapports analysés). Ne pas se fier à la mémoire : relancer les commandes du §7
+> de l'audit, les chiffres de ce README portent tous leur date de mesure.
+
+---
+
 ## 1. Architecture — 4 blocs + louange de nuit
 
 La journée est découpée en 4 blocs de ~6 h. Chaque bloc rejoue **le même message du jour** mais avec une Bible / musique / jingles différents. Depuis juillet 2026, une 5e playlist **statique** couvre 23h30–minuit pour que **plus aucun bloc ne soit à l'antenne pendant la rotation de 23h30** (sinon la file du bloc reconstruit repartait en position 1 et diffusait le message du lendemain en « teaser » coupé à minuit).
@@ -93,9 +116,17 @@ Depuis le 26/07/2026, ces deux workflows ont **en plus un cron GitHub natif de s
 >
 > Quand le secours agit réellement, il ouvre une issue via l'action mutualisée `.github/actions/alerte-declencheur` — label **`declencheur`**, volontairement isolé pour ne bâillonner aucune autre alerte (voir la note ci-dessous). Un `concurrency:` par workflow empêche un run externe et un run de secours de travailler en parallèle.
 
-> 🔇 **Piège majeur — une issue d'alerte ouverte bâillonne les alertes suivantes.** Chaque workflow d'alerte fait `listForRepo({state:'open', labels:…})` et **sort sans rien créer** si une issue portant ces labels existe déjà. Une issue non fermée éteint donc toute la surveillance de son type. Constaté : `#6` (`radio,alerte`) neutralisait **3 workflows** (healthcheck, garde de frontière, capture liquidsoap) et `#8` (`radio,validation`) neutralisait la validation des chemins — **du 20 au 26/07/2026 la radio n'avait plus aucune alerte fonctionnelle**. ➜ **Réflexe : fermer l'issue dès l'incident traité.**
+> 🔇 **Piège majeur — une issue d'alerte ouverte bâillonne les alertes suivantes.** Chaque workflow d'alerte fait `listForRepo({state:'open', labels:…})` et **sort sans rien créer** si une issue portant ces labels existe déjà. Une issue non fermée éteint donc toute la surveillance de son type. Constaté : `#6` (`radio,alerte`) neutralisait **3 workflows** (healthcheck, garde de frontière, capture liquidsoap) et `#8` (`radio,validation`) neutralisait la validation des chemins — **du 20 au 26/07/2026 la radio n'avait plus aucune alerte fonctionnelle**. Récidive constatée le 17/11/2026 : `#16` (`radio,alerte`, ouverte le 10/09) a bâillonné **cinq** workflows pendant **68 jours**, dont « radio hors ligne ».
+>
+> ✅ **Corrigé le 17/11/2026** : chaque workflow porte un **3e label de sujet** (`flux`, `garde`, `remplissage`, `fondus`, `capture`) et ne cherche plus que les issues de SON sujet. Une issue de playlist ne peut plus masquer une coupure d'antenne. L'alerte `declencheur`, elle, **commente l'issue existante** à chaque occurrence au lieu de se taire — le compteur de nuits mesure la durée de la panne. ➜ **Réflexe inchangé : fermer l'issue dès l'incident traité.**
 
-> ℹ️ **Garde de frontière & ponctualité** : le doublon attend en file pendant toute la 1re lecture du message (10–25 min). ⚠️ **Mesure du 26/07/2026 : le cron GitHub arrive en réalité avec +51 à +129 min de retard** (18 runs, jamais moins de 51 min) — donc **hors de la fenêtre utile**, et aucun `logs/boundary_watch_*.log` n'existe : la garde **n'a jamais retiré un seul doublon**. Pour qu'elle serve, il faut des déclencheurs cron-job.org à 06h01/12h01/18h01 UTC sur `workflow_dispatch` (comme pour la rotation et le reset) ; sinon elle est à supprimer. Minuit est déjà couvert par le dédoublonnage du reset.
+> ℹ️ **Garde de frontière & ponctualité** — la fenêtre utile vaut la **durée du message** (66 à 156 min), pas 10-25 min : le doublon attend en file pendant toute sa 1re lecture.
+>
+> - *Mesure du 26/07/2026* : cron GitHub à **+51 à +129 min**, aucun `boundary_watch_*.log` — d'où la conclusion, à l'époque, qu'elle n'avait jamais rien retiré.
+> - *Correction du 14/09/2026* : elle **a** fonctionné par intermittence. **9 doublons réellement retirés du 06 au 26/08**, quand le retard du cron était retombé à +17/+37 min ; **zéro en septembre**, quand il est remonté à +110/+312 min.
+> - *Mesure du 17/11/2026* : **plus un seul doublon retiré depuis le 26/08** — 270 runs, 100 % `success`, 0 effet. Elle est verte et inutile.
+>
+> ➜ **Décision à prendre** : lui donner ses déclencheurs cron-job.org à 06h01/12h01/18h01 UTC sur `workflow_dispatch` (seul moyen d'être dans la fenêtre), ou la supprimer. Un workflow vert sans effet est pire qu'absent : il rassure. Minuit reste couvert par le dédoublonnage du reset.
 
 > ℹ️ **Ce qui planifie une playlist AzuraCast, c'est la présence de `schedule_items` — pas son `type`.** Vérifié le 10/09/2026 sur le dump complet de `000_TRANSITION` : `type: default` **avec** un créneau 00h00-00h02, et elle diffuse correctement depuis des mois. `015_REMPLISSAGE` est donc bien en rotation générale parce qu'elle n'a **aucun** créneau, pas parce que son type vaut `default`. L'API de cette station ne renvoie par ailleurs **aucun champ `include_in_automation`** (qui désigne la fonction « Automated Assignment », sans rapport avec la diffusion).
 >
@@ -198,11 +229,51 @@ Champs utiles renvoyés : `id`, `path`, `title`, `length` (secondes), `length_te
 
 | Élément | Emplacement |
 |---------|-------------|
-| Clé API AzuraCast | **GitHub Secrets** `AZURACAST_API_KEY` (jamais committée) |
+| Clé API AzuraCast | **GitHub Secrets** `AZURACAST_API_KEY` (jamais committée) — créée le 28/05/2026, sans expiration ; seule une révocation côté AzuraCast l'invalide. C'est le **seul** secret du dépôt (vérifié le 19/11/2026 : `gh api repos/angorafoot-jojo/site-web/actions/secrets`) |
 | Config de rotation **utilisée par les workflows** | `azuracast_rotation_config_option_a.example.json` *(suivi — clé vide, injectée via la variable d'env `AZURACAST_API_KEY`)* |
 | Config locale avec clé réelle | `azuracast_rotation_config_option_a.json` / `azuracast_rotation_config.json` *(gitignorées)* |
 | État de la rotation | `azuracast_rotation_state.json` *(suivi, persistant)* |
 | Musique source locale | `Radio/ParoleProphetiqueFM-musique/` — **2,5 Go, gitignoré, ne jamais committer** (uploader dans AzuraCast) |
+
+### Dépendances tierces
+
+Une dépendance tierce non documentée est une panne qui durera. Celle ci-dessous a
+coûté **32 nuits de diffusion dégradée** (15/10 → 17/11/2026) parce que personne ne
+savait quel token elle utilisait ni quand il expirait. Toute nouvelle dépendance doit
+avoir sa fiche, sur ce gabarit, **avant** d'être mise en service.
+
+#### cron-job.org — déclencheur de la rotation et du reset
+
+| | |
+|---|---|
+| **Rôle** | Appelle l'API GitHub à l'heure pile pour déclencher `radio-rotation` (23h30 UTC), `radio-midnight-reset` (00h00 UTC) et `radio-boundary-guard` (06h01/12h01/18h01 UTC). Le cron natif de GitHub ne sert que de filet : il arrive avec +110 à +360 min de retard sur ce dépôt. |
+| **Tableau de bord** | <https://console.cron-job.org/> — l'historique par job donne le code HTTP de chaque appel, c'est là que se lit une panne de token (`401`). |
+| **Compte propriétaire** | Compte Google **personnel de Jonathan** (Gmail), confirmé le 19/11/2026. L'adresse complète n'est volontairement **pas** écrite ici : ce dépôt est public. ⚠️ Ce n'est pas le compte du ministère — une bascule vers un compte partagé reste à envisager, sinon l'accès au déclencheur dépend d'une seule personne. |
+| **Secret utilisé** | Un **PAT GitHub fine-grained** (`Actions: Read and write`, dépôt `site-web` uniquement), stocké **dans cron-job.org**, en-tête `Authorization: Bearer …`. ⚠️ Ce token ne vit **pas** dans les GitHub Secrets du dépôt : il n'apparaît donc dans aucun inventaire côté GitHub. Créé sur <https://github.com/settings/personal-access-tokens/new>. |
+| **Expiration du token** | **Aucune** — token créé le 19/11/2026 en remplacement du précédent, **qui avait expiré et a causé la panne de 32 nuits**. Supprime le mode de panne « token expiré », mais en crée un autre : un token sans expiration est une autorisation permanente — s'il fuite, l'accès `Actions: Read and write` sur le dépôt l'est aussi. Et il peut **cesser de fonctionner quand même** : révocation manuelle, révocation automatique par GitHub si le secret est détecté dans du code public, changement de politique du compte. ➜ Puisque aucune date ne peut être surveillée, **la détection ci-dessous est le seul garde-fou.** La relire chaque fois qu'on touche à ce token. |
+| **Si ça meurt** | La rotation et le reset passent sur le cron GitHub de secours : l'antenne n'est jamais noire, donc **rien ne crie**. Mais le reset tombe vers 03h-05h au lieu de 00h00, hors des 2 min de couverture de `000_TRANSITION` → silence réellement audible, BLOC_A jamais démarré proprement, message du jour diffusé en trop (31 nuits sur 32 lors de la panne d'octobre), diffusion hors plan × 16. Les trois tâches dépendent du **même** service : une panne les emporte ensemble. |
+| **Comment le détecter** | 1. `gh run list --workflow radio-rotation.yml --limit 3` → la colonne d'événement doit dire `workflow_dispatch`, **jamais** `schedule`. 2. La ligne **PONCTUALITÉ** en tête du rapport quotidien passe au rouge au-delà de 15 min de retard. 3. Une issue au label `declencheur` s'ouvre, puis se commente chaque nuit (le compteur d'occurrences mesure la durée de la panne). |
+| **Comment le réparer** | Recréer les jobs : méthode `POST`, URL `https://api.github.com/repos/angorafoot-jojo/site-web/actions/workflows/<fichier>.yml/dispatches`, corps `{"ref":"main"}`, en-têtes `Accept: application/vnd.github+json`, `Authorization: Bearer <token>`, `X-GitHub-Api-Version: 2022-11-28`, **fuseau du job en UTC**. Réponse normale : `204 No Content`. Tester d'abord sur `radio-boundary-guard.yml`, sans effet à l'antenne. Procédure détaillée : `AUDIT_2026-11-17.md` §5. |
+| **Historique des pannes** | **23/06/2026** (1 nuit) · **18→21/07/2026** (3 nuits sans rotation, contenu du 18/07 rediffusé 3 jours) · **15/10→19/11/2026** (35 nuits, masquées par le filet de sécurité — **cause : expiration du token**, confirmée le 19/11 par le propriétaire du compte). Trois pannes en cinq mois sur le maillon le plus critique : l'alternative structurelle — déclencher depuis le serveur AzuraCast, qui doit déjà être debout 24/7 — est à chiffrer (`AUDIT_2026-11-17.md` §5 étape 4). |
+
+> 🔌 **Cloudflare Workers Builds — branchement abandonné, débranché le 19/11/2026.**
+> Une intégration « Workers Builds » Cloudflare, créée il y a 5 mois sur le Worker
+> `site-web` et **jamais utilisée** (0 domaine, 0 binding, 0 invocation), échouait sur
+> **chaque commit humain depuis au moins juillet 2026** — les PR #12 et #15 ont été mergées
+> avec ce check rouge. Elle n'apparaissait nulle part dans la doc, aucun `wrangler.toml`
+> n'était versionné, et le build échouait en 0 s : une intégration branchée sur un dépôt
+> qui n'avait rien à lui donner à construire. Elle restait invisible sur `main` parce que
+> les commits des workflows portent le jeton de saut de CI — elle ne devenait rouge que
+> quand un humain poussait. **Connexion Git retirée côté console Cloudflare le 19/11/2026**,
+> sans toucher au DNS ni au sous-domaine radio.
+>
+> **Ce qu'elle a coûté, et pourquoi c'est noté ici** : pendant cinq mois, chaque PR portait
+> un check rouge que tout le monde a appris à ignorer. Un check en permanence rouge
+> entraîne à merger malgré le rouge, exactement comme un verdict quotidien en permanence ❌
+> entraîne à ne plus le lire. C'était la 5e dépendance tierce non documentée du projet —
+> découverte par accident, en ouvrant une PR sur l'audit qui dénonçait précisément ça.
+
+> ⬜ **Fiches encore à écrire**, sur le même gabarit : **Backblaze B2** (audio et PDF du site), **AzuraCast / VPS** (la station elle-même), **Sentry** (monitoring des erreurs navigateur), **ElevenLabs** (banque de jingles). Pour chacune : compte propriétaire, secret utilisé et son expiration, ce qui casse, comment le détecter, comment le réparer.
 
 ---
 
@@ -221,7 +292,9 @@ Pour comprendre *pourquoi* le code est comme il est :
 | 08/07 | Fichiers orphelins (`playlists=[]`) réinjectés dans la rotation | Exclusion explicite dans `get_playlist_files()` |
 | 12/07 | Rapport : message compté 0/4 à tort + jingles surcomptés | Matching par durée ±2 s + filtrage des entrées du lendemain |
 | 13/07 | Doublon du message aux frontières 06h/12h/18h (double remplissage de file quand le bloc sortant s'épuise avant la frontière) | Dédoublonnage étendu (titre à l'antenne, même non adjacent) + workflow `radio-boundary-guard.yml` |
-| 09/2026 | **Jingles sautés (7,1/jour, 80,3 % de diffusion en août)** — cause racine = **fondus non normalisés**, pas la durée des fichiers | Workflow `radio-jingle-fades.yml` (quotidien, idempotent) |
+| 09/2026 | **Jingles sautés (7,1/jour, 80,3 % de diffusion en août)** — cause racine = **fondus non normalisés**, pas la durée des fichiers | Workflow `radio-jingle-fades.yml` (quotidien, idempotent). **Vérifié le 17/11/2026 : 99,9 % du plan sur 32 jours — clos.** |
+| 17/11 | **Le healthcheck ne pouvait pas alerter sur une vraie coupure** : serveur injoignable → `curl` renvoie une chaîne vide → `[ "" -ge 200 ]` plante → étape en `failure` → l'étape d'alerte, conditionnée à `ok == 'false'`, était **sautée**. Il n'alertait que si le serveur répondait une erreur HTTP, donc **seulement quand il était debout** (run `32047601458` du 17/08) | Repli `|| true` + `HTTP_CODE=000`, et condition `!cancelled() && ok != 'true'` : un workflow qui plante alerte au lieu de se taire |
+| 17/11 | **Fenêtres « ATTENDU » figées à 23h30-23h40 et 00h00-00h03** : dès que le déclencheur externe est tombé, les mêmes rafales de rotation sont passées hors fenêtre → **~140 faux incidents serveur par jour**, et à l'inverse les bascules sur silence d'un reset tardif restaient classées « attendues » alors qu'elles passaient à l'antenne | Fenêtres calées sur l'heure **réelle** (`generated_at` du plan, 1er contrôle du `midnight_watch`), et `deadair`/`crash` attendus **seulement si le reset est à l'heure**. Ligne **PONCTUALITÉ** au verdict : > 15 min de retard = rouge |
 
 #### Jingles sautés — cause racine (analyse des 31 jours d'août 2026)
 

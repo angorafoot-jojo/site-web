@@ -57,11 +57,17 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            // Dédoublonnage par SUJET (3e label), pas par `radio,alerte` :
+            // une issue d'un autre sujet laissée ouverte ne doit plus rendre ce
+            // workflow muet. L'issue #16 (playlist de secours, 10/09/2026) est
+            // restée ouverte 68 jours et a bâillonné CINQ workflows — dont
+            // « radio hors ligne ». 3e occurrence du piège (cf. #6 et #8 en
+            // juillet). Voir AUDIT_2026-11-17.md §3.4.
             const existing = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
-              labels: 'radio,alerte',
+              labels: 'radio,alerte,capture',
             });
             if (existing.data.length > 0) {
               console.log('Issue déjà ouverte — pas de doublon créé.');
@@ -72,5 +78,5 @@ jobs:
               repo: context.repo.repo,
               title: `⚠️ Capture Liquidsoap échouée — ${new Date().toISOString().slice(0,16).replace('T',' ')} UTC`,
               body: `La capture horaire des événements du liquidsoap.log a échoué.\n\nSans elle, les causes des anomalies (tampon serveur ~24 h) seront perdues et le rapport de diffusion ne pourra plus les expliquer.\n\n👉 [Voir le log complet](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
-              labels: ['radio', 'alerte']
+              labels: ['radio', 'alerte', 'capture']
             })

@@ -350,7 +350,10 @@ La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldée
 | 🟢 Planifié | `style.css` monolithique (~1600 lignes) | `assets/css/style.css` | Découper par responsabilité (§5) |
 | 🟢 Planifié | Composant `.type-tabs` dupliqué | 3 CSS de `assets/css/pages/` | Dédupliquer (§12) |
 | 🟢 Planifié | Pas de minification/fingerprinting (T31), pas de tests a11y en CI (T38) | CI | Différés volontairement |
-| 🟢 Radio | Jingles réellement sautés 5–14/jour | Serveur AzuraCast | Voir `Radio/README.md` §7 (nécessite les logs Liquidsoap côté serveur) |
+| 🟡 En cours de rétablissement | **Déclencheur externe cron-job.org muet du 15-16/10 au 19/11/2026** — cause confirmée : **le token GitHub avait expiré**. Remplacé le 19/11 par un token sans expiration (1er dispatch de test réussi à 14h22 UTC) : rotation et reset de minuit rattrapés par le cron GitHub, mais 3 à 6 h en retard → silence audible, BLOC_A non démarré, message en double 31 nuits sur 32 | cron-job.org + `.github/workflows/radio-rotation.yml`, `radio-midnight-reset.yml` | Recréer les jobs avec un token neuf — procédure dans `Radio/AUDIT_2026-11-17.md` §5 |
+| 🟡 Important | Deux issues d'alerte ouvertes et non traitées (#16 du 10/09, #18 du 17/10) | GitHub Issues | Les fermer après traitement ; le bâillon inter-sujets est corrigé depuis le 17/11 |
+| 🟡 Important | Garde de frontière verte mais sans effet depuis le 26/08 (270 runs, 0 doublon retiré) | `.github/workflows/radio-boundary-guard.yml` | Lui donner ses déclencheurs 06h01/12h01/18h01, ou la supprimer |
+| 🟢 Planifié | Documentation trompeuse : statuts écrits à la main, chiffres sans date | `Radio/README.md`, ce fichier | Pistes dans `Radio/AUDIT_2026-11-17.md` §6 |
 
 ### Ce qui fonctionne bien — ne pas casser
 
@@ -362,11 +365,26 @@ La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldée
 - Navigation avec dropdown desktop et menu hamburger mobile (injectée par `nav.js`, CSP incluse)
 - Pages individuelles générées par la CI (`scripts/generate-pages.mjs`) + RSS podcasts
 - `sitemap.xml` et `robots.txt` en place et pointant vers `levangileduroyaume.com`
-- Radio automatisée 24/7 (rotation, reset minuit, garde de frontière, rapports — voir `Radio/README.md`)
+- Radio automatisée 24/7 : rotation et reset de minuit tournent chaque nuit, rapport quotidien complet, jingles à 99,9 % du plan (vérifié le 17/11/2026) — ⚠️ mais **en retard de 3 à 6 h depuis le 15/10**, voir la dette 🔴 ci-dessus. Détail : `Radio/README.md` §0
 
 ### Convention cache-busting (IMPORTANT)
 
 Les CSS (`style.css` **et** `assets/css/pages/*.css`) sont liés avec `?v=<version>` dans les 13 pages HTML. **À chaque modification d'un fichier CSS ou JS, incrémenter cette version** dans les `<link>`/`<script>` concernés — sinon GitHub Pages (~10 min de cache) sert l'ancien fichier et Lighthouse mesure du CSS périmé.
+
+### Convention messages de commit (IMPORTANT)
+
+**Ne jamais écrire `[skip ci]` littéralement dans un message de commit**, pas même pour
+le citer ou l'expliquer. GitHub Actions **et** Cloudflare le cherchent n'importe où dans le
+message, titre comme corps : un commit qui le mentionne voit **tous ses checks sautés**, et
+la PR affiche alors une CI verte qui n'a rien exécuté. Constaté le 19/11/2026 sur le commit
+`9546c93`, dont le corps expliquait justement pourquoi les commits des bots le portent.
+
+Pour en parler dans un message de commit, écrire « le jeton skip ci » en toutes lettres.
+Dans un **fichier** (doc, code), le jeton entre backticks est sans danger : seuls les
+messages de commit sont analysés.
+
+Les commits automatiques des workflows, eux, le portent volontairement — c'est ce qui évite
+qu'un commit de log déclenche un déploiement.
 
 ### Checklist avant bascule du domaine
 
