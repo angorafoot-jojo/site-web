@@ -520,3 +520,9 @@
 2026/11/25 23:35:37 [request.dynamic:3] Fetch failed: retry.
 2026/11/25 23:37:18 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/3-gabrielle_lidji_-_mélodie_céleste__by_lfxa(light_fx_animation)_2.mp3" ended: Ffmpeg_decoder.End_of_file.
 2026/11/25 23:37:18 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/56 - Hashem - PHF.mp3" (RID 232).
+2026/11/25 23:49:08 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/56 - Hashem - PHF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/25 23:49:08 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__-_qui_est_digne_d_ouvrir_le_livre.mp3" (RID 1040).
+2026/11/25 23:56:02 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__-_qui_est_digne_d_ouvrir_le_livre.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/25 23:56:03 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Worship/47 - You Are the Captain of the Host - Toronto HF.mp3" (RID 1041).
+2026/11/25 23:58:57 [decoder:2] Decoding "/var/azuracast/stations/evangile_du_royaume/media/Worship/47 - You Are the Captain of the Host - Toronto HF.mp3" ended: Ffmpeg_decoder.End_of_file.
+2026/11/25 23:58:58 [next_song:3] Prepared "/var/azuracast/stations/evangile_du_royaume/media/Cantiques du royaume/cantique__heureux_l_homme_qui_ne_marche_pas_selon.mp3" (RID 1042).
