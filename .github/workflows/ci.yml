@@ -2,7 +2,12 @@ name: CI — Validation & Déploiement
 
 # ──────────────────────────────────────────────────────────────
 # Se déclenche sur chaque push vers main ET sur les pull requests.
-# Le déploiement GitHub Pages n'a lieu que si la validation passe.
+#
+# Deux validations indépendantes tournent en parallèle :
+#   · « Validation du site »  → JSON, fichiers locaux, liens internes
+#   · « Tests radio (Python) » → la suite pytest de Radio/
+# Le déploiement GitHub Pages n'a lieu que si la validation DU SITE passe
+# (voir JOB 3 pour la raison de ce découplage).
 #
 # ⚠️  PRÉREQUIS — à faire une seule fois dans GitHub Settings :
 #     Settings → Pages → Source → "GitHub Actions"
@@ -57,7 +62,47 @@ jobs:
         run: node scripts/validate-links.mjs
 
   # ────────────────────────────────────────────────────────────
-  # JOB 2 : Déploiement (uniquement sur push vers main, après validation)
+  # JOB 2 : Tests de l'automatisation radio (Python)
+  #
+  # Pourquoi un job séparé plutôt qu'une étape de « Validation du site » :
+  # il produit un check au nom distinct dans la PR. « Tests radio (Python) »
+  # en rouge dit immédiatement où chercher, au lieu de noyer l'échec dans
+  # un check qui parle de JSON et de liens.
+  #
+  # Pourquoi le déploiement ne dépend PAS de ce job : les scripts de Radio/
+  # ne sont pas servis par le site, ils tournent dans leurs propres
+  # workflows (radio-*.yml). Bloquer la publication d'un livre ou d'un
+  # article parce qu'un test de jingle échoue couplerait deux choses
+  # indépendantes sans rien réparer. Le check reste visible — et rouge —
+  # sur la PR, ce qui est précisément le but.
+  #
+  # Python 3.11 : exactement la version des workflows radio. Les tests
+  # doivent tourner sur la version qui exécute le code en production, et
+  # non sur celle du poste de développement, qui peut être plus récente.
+  # ────────────────────────────────────────────────────────────
+  test-radio:
+    name: Tests radio (Python)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances de test
+        run: pip install -r Radio/requirements-dev.txt
+
+      # Exactement la commande documentée pour le développement local,
+      # afin qu'un vert en CI et un vert en local veuillent dire la même chose.
+      - name: Lancer la suite de tests
+        run: python -m pytest Radio/ -q
+
+  # ────────────────────────────────────────────────────────────
+  # JOB 3 : Déploiement (uniquement sur push vers main, après validation)
   # ────────────────────────────────────────────────────────────
   deploy:
     name: Déploiement GitHub Pages
