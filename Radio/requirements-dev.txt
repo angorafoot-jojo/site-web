@@ -1,0 +1,16 @@
+# Dépendances de TEST de l'automatisation radio.
+#
+# Les dépendances d'exécution — celles dont les scripts ont besoin pour
+# tourner en production — sont dans requirements.txt, installé tel quel par
+# les workflows radio-*.yml. Ce fichier-ci ajoute seulement ce qu'il faut
+# pour LANCER les tests, en CI comme en local :
+#
+#     pip install -r Radio/requirements-dev.txt
+#     python3 -m pytest Radio/ -q
+#
+-r requirements.txt
+
+# Version épinglée pour que la CI exécute exactement le même pytest qu'en
+# local. Pour la monter : changer ce numéro, relancer la suite, et vérifier
+# que la CI reste verte.
+pytest==9.0.3
