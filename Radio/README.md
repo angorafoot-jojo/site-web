@@ -11,22 +11,51 @@ Documentation du système de radio automatisée **Parole Prophétique FM** de L'
 
 ---
 
-## 0. État au 17/11/2026 — à relire avant toute intervention
+## 0. État au 26/11/2026 — à relire avant toute intervention
 
-> 🟡 **Le déclencheur externe (cron-job.org) a été muet du 15-16/10 au 19/11/2026** — son token GitHub avait expiré. Remplacé le 19/11 par un token sans expiration ; 1er dispatch de test réussi à 14h22 UTC, rotation et reset à confirmer la nuit suivante. Ce qui suit décrit la période de panne. La rotation
-> et le reset de minuit tournent chaque nuit grâce au cron GitHub de secours, mais **3 à 6 h
-> en retard** : le reset tombe vers 03h47 au lieu de 00h00, donc hors des 2 min de couverture
-> de `000_TRANSITION`. Conséquences mesurées sur 32 nuits : silence réellement audible,
-> BLOC_A jamais démarré proprement, message du jour diffusé en trop **31 nuits sur 32**,
-> diffusion hors plan multipliée par 16. **Rien n'est encore rétabli** — procédure de remise
-> en service : `AUDIT_2026-11-17.md` §5, et fiche de la dépendance au §6 de ce README.
+> 🟢 **Le déclencheur externe est rétabli depuis le 24/11/2026**, après 40 nuits de panne.
+> Les 2 jobs cron-job.org historiques ont refusé de se réactiver : ils ont été **remplacés
+> par des jobs neufs** (les anciens restent désactivés, leur historique garde la trace de la
+> panne). Deux nuits consécutives vérifiées, en `workflow_dispatch` et en succès :
 >
-> 🔴 **Deux issues d'alerte sont restées ouvertes** (#16 depuis le 10/09, #18 depuis le 17/10).
-> Le dédoublonnage par sujet (17/11) empêche désormais une issue d'en bâillonner d'autres,
-> mais **ces deux-là doivent être fermées** une fois traitées.
+> | Nuit | Rotation (prévue 23h30 UTC) | Reset (prévu 00h00 UTC) |
+> |---|---|---|
+> | 24→25/11 | 23:30:54 (+54 s) — *no-op, le contenu avait déjà été préparé à 23h00 à la main* | 00:01:10 (+70 s) |
+> | 25→26/11 | 23:31:03 (+63 s) — **première rotation entièrement déclenchée par le cron** | 00:01:13 (+73 s) |
 >
-> ℹ️ **Ce qui va bien** : jingles à 99,9 % du plan (réglé le 10/09), bouche-trous quasi
-> disparus, flux en ligne, reset confirmé 90 nuits sur 90.
+> **Rapport du 25/11, écrit par la machine** : `PONCTUALITÉ : ✅` · **0 coupure, 0 trou,
+> 0 double message** · `RESET MINUIT : restart confirmé vers 00:02:11 · file saine ✅` ·
+> `INCIDENTS CORRÉLÉS : aucune anomalie de diffusion à corréler ✅`. C'est la première
+> journée sans anomalie d'antenne depuis le 15/10.
+> ⚠️ Le reset tombe à **+70 s** : `000_TRANSITION` ne couvre que 2 min, la marge réelle est
+> d'une minute. À surveiller, pas à corriger aujourd'hui.
+>
+> 🟢 **Le verdict quotidien ne rougit plus pour un non-événement** (corrigé le 26/11/2026).
+> Le 25/11, 47 événements serveur à 23:32:59 — la rotation du soir reconstruisant les
+> playlists — étaient comptés comme incidents : la fenêtre « ATTENDU » n'était calée que sur
+> la rotation **de la veille**, celle qui avait préparé la journée. Depuis le retour à
+> l'heure, chaque journée se termine sur une rotation, donc chaque journée finissait rouge.
+> `playback_report.py` lit maintenant aussi `plans/plan_<J+1>.json` et ouvre une 2e fenêtre
+> en fin de journée. Rejoué sur les données réelles du 25/11 : **47 incidents → 0**, verdict
+> « ⚠️ RAS — seules les suites connues ». La rafale reste affichée, elle ne pilote plus le
+> verdict (piège du verdict toujours rouge, audit §3.6).
+>
+> 🟢 **Les 5 jobs sont en place.** La garde de frontière a reçu ses 3 déclencheurs : elle part
+> à 06:01:1x, 12:01:1x et 18:01:1x UTC en `workflow_dispatch` depuis le 25/11 (vérifié le
+> 26/11). Elle intervient enfin **dans** la fenêtre utile du doublon, au lieu d'arriver 1 à
+> 5 h après. Reste à mesurer ce qu'elle retire réellement : 0 doublon retiré depuis le 26/08,
+> mais elle n'avait jusqu'ici jamais eu l'occasion d'arriver à l'heure.
+>
+> 🟢 **Issue #18 fermée** le 26/11/2026 à 15h59 UTC, avec le relevé des deux nuits en
+> `workflow_dispatch`. Elle avait 11 occurrences, la dernière le 24/11 à 07h55 — soit la nuit
+> du 23→24, donc avant les jobs neufs. **Aucune issue d'alerte n'est plus ouverte** : l'alerte
+> du déclencheur est réarmée (tant qu'une issue reste ouverte, la déduplication par sujet
+> empêche la suivante de s'ouvrir, et la radio redevient aveugle).
+>
+> ℹ️ **Le filet de sécurité fait bien son travail de filet** : le cron GitHub de secours
+> arrive toujours en retard (05h18 et 06h18 le 26/11) et il est neutralisé comme prévu —
+> rotation en no-op, reset bloqué par sa garde (un seul restart dans
+> `logs/midnight_watch_2026-11-26.log`).
 >
 > 📊 **Chiffres, méthode et commandes de reproduction : `AUDIT_2026-11-17.md`**
 > (90 jours de rapports analysés). Ne pas se fier à la mémoire : relancer les commandes du §7
@@ -251,9 +280,9 @@ avoir sa fiche, sur ce gabarit, **avant** d'être mise en service.
 | **Compte propriétaire** | Compte Google **personnel de Jonathan** (Gmail), confirmé le 19/11/2026. L'adresse complète n'est volontairement **pas** écrite ici : ce dépôt est public. ⚠️ Ce n'est pas le compte du ministère — une bascule vers un compte partagé reste à envisager, sinon l'accès au déclencheur dépend d'une seule personne. |
 | **Secret utilisé** | Un **PAT GitHub fine-grained** (`Actions: Read and write`, dépôt `site-web` uniquement), stocké **dans cron-job.org**, en-tête `Authorization: Bearer …`. ⚠️ Ce token ne vit **pas** dans les GitHub Secrets du dépôt : il n'apparaît donc dans aucun inventaire côté GitHub. Créé sur <https://github.com/settings/personal-access-tokens/new>. |
 | **Expiration du token** | **Aucune** — token créé le 19/11/2026 en remplacement du précédent, **qui avait expiré et a causé la panne de 32 nuits**. Supprime le mode de panne « token expiré », mais en crée un autre : un token sans expiration est une autorisation permanente — s'il fuite, l'accès `Actions: Read and write` sur le dépôt l'est aussi. Et il peut **cesser de fonctionner quand même** : révocation manuelle, révocation automatique par GitHub si le secret est détecté dans du code public, changement de politique du compte. ➜ Puisque aucune date ne peut être surveillée, **la détection ci-dessous est le seul garde-fou.** La relire chaque fois qu'on touche à ce token. |
-| **Si ça meurt** | La rotation et le reset passent sur le cron GitHub de secours : l'antenne n'est jamais noire, donc **rien ne crie**. Mais le reset tombe vers 03h-05h au lieu de 00h00, hors des 2 min de couverture de `000_TRANSITION` → silence réellement audible, BLOC_A jamais démarré proprement, message du jour diffusé en trop (31 nuits sur 32 lors de la panne d'octobre), diffusion hors plan × 16. Les trois tâches dépendent du **même** service : une panne les emporte ensemble. |
+| **Si ça meurt** | ⚠️ **Deux pannes en une** : le job échoue (token mort), puis cron-job.org **le désactive** après des échecs répétés. Réparer la cause ne le rallume pas — et le 24/11/2026 les 2 jobs ont même refusé de se réactiver : il a fallu en **recréer de neufs**. La rotation et le reset passent sur le cron GitHub de secours : l'antenne n'est jamais noire, donc **rien ne crie**. Mais le reset tombe vers 03h-05h au lieu de 00h00, hors des 2 min de couverture de `000_TRANSITION` → silence réellement audible, BLOC_A jamais démarré proprement, message du jour diffusé en trop (31 nuits sur 32 lors de la panne d'octobre), diffusion hors plan × 16. Les trois tâches dépendent du **même** service : une panne les emporte ensemble. |
 | **Comment le détecter** | 1. `gh run list --workflow radio-rotation.yml --limit 3` → la colonne d'événement doit dire `workflow_dispatch`, **jamais** `schedule`. 2. La ligne **PONCTUALITÉ** en tête du rapport quotidien passe au rouge au-delà de 15 min de retard. 3. Une issue au label `declencheur` s'ouvre, puis se commente chaque nuit (le compteur d'occurrences mesure la durée de la panne). |
-| **Comment le réparer** | Recréer les jobs : méthode `POST`, URL `https://api.github.com/repos/angorafoot-jojo/site-web/actions/workflows/<fichier>.yml/dispatches`, corps `{"ref":"main"}`, en-têtes `Accept: application/vnd.github+json`, `Authorization: Bearer <token>`, `X-GitHub-Api-Version: 2022-11-28`, **fuseau du job en UTC**. Réponse normale : `204 No Content`. Tester d'abord sur `radio-boundary-guard.yml`, sans effet à l'antenne. Procédure détaillée : `AUDIT_2026-11-17.md` §5. |
+| **Comment le réparer** | **D'abord vérifier que les jobs existent et sont actifs** dans la console — un job `Inactif` est muet sans rien signaler. Puis, pour en recréer un : méthode `POST`, URL `https://api.github.com/repos/angorafoot-jojo/site-web/actions/workflows/<fichier>.yml/dispatches`, corps `{"ref":"main"}`, en-têtes `Accept: application/vnd.github+json`, `Authorization: Bearer <token>`, `X-GitHub-Api-Version: 2022-11-28`, **fuseau du job en UTC**. Réponse normale : `204 No Content`. Tester d'abord sur `radio-boundary-guard.yml`, sans effet à l'antenne. **Fiche pas à pas des 5 jobs : `REMISE_EN_SERVICE_DECLENCHEUR.md`** ; cause de la panne : `AUDIT_2026-11-17.md` §5. |
 | **Historique des pannes** | **23/06/2026** (1 nuit) · **18→21/07/2026** (3 nuits sans rotation, contenu du 18/07 rediffusé 3 jours) · **15/10→19/11/2026** (35 nuits, masquées par le filet de sécurité — **cause : expiration du token**, confirmée le 19/11 par le propriétaire du compte). Trois pannes en cinq mois sur le maillon le plus critique : l'alternative structurelle — déclencher depuis le serveur AzuraCast, qui doit déjà être debout 24/7 — est à chiffrer (`AUDIT_2026-11-17.md` §5 étape 4). |
 
 > 🔌 **Cloudflare Workers Builds — branchement abandonné, débranché le 19/11/2026.**
