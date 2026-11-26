@@ -17,7 +17,8 @@ from playback_report import (norm_title, build_plan_section, build_health_sectio
                              is_expected_incident, in_window,
                              ROTATION_WINDOW, MIDNIGHT_RESET_WINDOW,
                              window_around, delay_minutes, is_on_time,
-                             watch_time, plan_time, _cut_by_midnight_reset,
+                             watch_time, plan_time, evening_rotation_time,
+                             _cut_by_midnight_reset,
                              RESET_SCHEDULED, ROTATION_SCHEDULED,
                              PUNCTUALITY_TOLERANCE_MINUTES)
 
@@ -754,3 +755,63 @@ def test_monitor_dit_quand_les_heures_sont_inconnues():
 if __name__ == "__main__":
     import pytest
     raise SystemExit(pytest.main([__file__, "-q"]))
+
+
+# ── Rotation du soir : la 2e rotation qui touche une même journée ────────────
+# Depuis le retour à l'heure du déclencheur (24/11/2026), chaque journée se
+# termine sur la rotation qui prépare le lendemain. Sa rafale réseau ne tombait
+# dans aucune fenêtre : 47 événements comptés comme incidents le 25/11/2026,
+# donc un verdict ❌ alors que la journée n'avait eu ni coupure ni doublon.
+# Un verdict toujours rouge finit par ne plus être lu (AUDIT_2026-11-17.md §3.6).
+
+def test_evening_rotation_time_lit_le_plan_du_lendemain():
+    # Rotation du 25 à 23h36 : elle écrit le plan du 26, mais sa rafale est
+    # bien tombée pendant la journée du 25.
+    assert evening_rotation_time(
+        plan_date_a("2026-06-25T23:36:32+00:00"), JOUR) == time(23, 36, 32)
+    # Partie après minuit : elle appartient au 26, où plan_time la couvre déjà.
+    assert evening_rotation_time(
+        plan_date_a("2026-06-26T00:12:00+00:00"), JOUR) is None
+    assert evening_rotation_time(None, JOUR) is None
+    assert evening_rotation_time(plan_2_blocs(), JOUR) is None   # sans horodatage
+
+
+def test_rafale_de_la_rotation_du_soir_est_attendue():
+    soir = time(23, 36, 32)        # generated_at du plan du lendemain
+    veille = time(23, 7, 1)        # rotation qui a préparé CETTE journée
+    assert is_expected_incident("network", time(23, 32, 59),
+                                rotation_at=veille,
+                                evening_rotation_at=soir) is True
+    # Sans le plan du lendemain, la même rafale reste un incident : c'est l'état
+    # d'avant le correctif, et le cas réel du 25/11/2026.
+    assert is_expected_incident("network", time(23, 32, 59),
+                                rotation_at=veille) is False
+    # La règle reste étroite : la rotation ne redémarre pas Liquidsoap, donc un
+    # silence à cette heure-là est bien réel.
+    assert is_expected_incident("deadair", time(23, 32, 59),
+                                rotation_at=veille,
+                                evening_rotation_at=soir) is False
+
+
+def test_monitor_ne_rougit_plus_pour_la_rotation_du_soir():
+    h = [entry("a", 0, 0, duration=60), entry("b", 0, 1, duration=60)]
+    rafale = "\n".join(
+        srv(23, 32, 59, "[lang:2] Could not perform http request: CurlException")
+        for _ in range(3))
+    logs = {"server": rafale, "midnight": "", "boundary": ""}
+
+    # Plan du jour écrit la veille à 23h07 : la fenêtre attendue est 22h57-23h09.
+    plan_du_jour = plan_date_a("2026-06-24T23:07:01+00:00")
+
+    sans_plan = build_monitor_section(h, JOUR, plan_du_jour, logs)
+    assert "incident(s) détecté(s)" in sans_plan
+
+    avec_plan = build_monitor_section(h, JOUR, plan_du_jour, logs,
+                                      plan_date_a("2026-06-25T23:36:32+00:00"))
+    # La rafale reste affichée — rien n'est masqué — mais elle ne pilote plus
+    # le verdict : ⚠️ RAS, le libellé réservé aux suites connues des opérations.
+    assert "⚠️ RAS — seules les suites connues" in avec_plan
+    assert "incident(s) détecté(s)" not in avec_plan
+    assert "serveur : 0 incident(s)" in avec_plan
+    assert "rotation du soir, qui prépare le lendemain (23h26-23h38)" in avec_plan
+    assert "23:32 🌐 échec réseau" in avec_plan
