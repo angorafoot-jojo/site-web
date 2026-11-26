@@ -693,7 +693,8 @@ def is_on_time(actual: time | None, scheduled: time) -> bool:
 
 def is_expected_incident(category: str, moment: time,
                          reset_at: time | None = None,
-                         rotation_at: time | None = None) -> bool:
+                         rotation_at: time | None = None,
+                         evening_rotation_at: time | None = None) -> bool:
     """Vrai si l'incident est la signature connue d'une opération planifiée.
 
     Ces événements sont réels mais sans effet à l'antenne : les compter comme
@@ -726,8 +727,18 @@ def is_expected_incident(category: str, moment: time,
                       RESET_BURST_AFTER_MINUTES)
         if reset_at else MIDNIGHT_RESET_WINDOW)
 
+    # La rotation du soir (celle qui prépare le lendemain) produit la même
+    # rafale réseau que celle du matin : même traitement. Voir
+    # evening_rotation_time().
+    evening_window = (
+        window_around(evening_rotation_at, ROTATION_BURST_BEFORE_MINUTES,
+                      ROTATION_BURST_AFTER_MINUTES)
+        if evening_rotation_at else None)
+
     if category == "network" and (in_window(moment, rotation_window)
-                                  or in_window(moment, reset_window)):
+                                  or in_window(moment, reset_window)
+                                  or (evening_window
+                                      and in_window(moment, evening_window))):
         return True
     if (category in ("deadair", "crash") and in_window(moment, reset_window)
             and is_on_time(reset_at, RESET_SCHEDULED)):
@@ -758,7 +769,8 @@ def classify_server_line(text: str) -> str:
 
 def parse_server_events(text: str, day: date,
                         reset_at: time | None = None,
-                        rotation_at: time | None = None) -> list[ServerEvent]:
+                        rotation_at: time | None = None,
+                        evening_rotation_at: time | None = None) -> list[ServerEvent]:
     """Événements d'incident du jour extraits du texte de liquidsoap_events."""
     events = []
     for line in text.splitlines():
@@ -775,7 +787,8 @@ def parse_server_events(text: str, day: date,
         if category:
             events.append(ServerEvent(
                 dt, category, m.group(2),
-                is_expected_incident(category, dt.time(), reset_at, rotation_at)))
+                is_expected_incident(category, dt.time(), reset_at, rotation_at,
+                                     evening_rotation_at)))
     return events
 
 
@@ -917,12 +930,8 @@ def watch_time(summary: dict | None) -> time | None:
         return None
 
 
-def plan_time(plan: dict | None) -> time | None:
-    """Heure réelle de la rotation, lue dans le `generated_at` du plan du jour.
-
-    C'est la rotation qui écrit ce champ en fin d'exécution : c'est la seule
-    trace de son heure réelle côté rapport (le reste vit dans l'historique
-    GitHub Actions, hors de portée d'ici)."""
+def plan_datetime(plan: dict | None) -> datetime | None:
+    """Date et heure de la rotation qui a écrit ce plan (UTC), ou None."""
     stamp = (plan or {}).get("generated_at")
     if not isinstance(stamp, str):
         return None
@@ -931,9 +940,42 @@ def plan_time(plan: dict | None) -> time | None:
         # (« …T03:02:42.472218+00:00 ») et elles n'ont aucun sens à l'échelle
         # d'un retard mesuré en minutes.
         return (datetime.fromisoformat(stamp).astimezone(timezone.utc)
-                .replace(microsecond=0).time())
+                .replace(microsecond=0))
     except ValueError:
         return None
+
+
+def plan_time(plan: dict | None) -> time | None:
+    """Heure réelle de la rotation, lue dans le `generated_at` du plan du jour.
+
+    C'est la rotation qui écrit ce champ en fin d'exécution : c'est la seule
+    trace de son heure réelle côté rapport (le reste vit dans l'historique
+    GitHub Actions, hors de portée d'ici)."""
+    moment = plan_datetime(plan)
+    return moment.time() if moment else None
+
+
+def evening_rotation_time(next_plan: dict | None, day: date) -> time | None:
+    """Heure de la rotation de FIN de journée — celle qui prépare le lendemain.
+
+    Deux rotations touchent une même journée : celle de la veille au soir, qui
+    a préparé cette journée (`plan_time`), et celle du soir même, qui prépare
+    la suivante. La seconde produit la même rafale d'échecs réseau — AutoDJ
+    préchargeant dans des playlists en cours de réécriture — mais elle n'était
+    couverte par aucune fenêtre.
+
+    Tant que le déclencheur était en panne (15/10 → 24/11/2026), la rotation
+    tombait vers 03h-07h, donc DANS la journée qu'elle préparait : une seule
+    fenêtre suffisait. Dès le retour à 23h30, chaque journée s'est terminée sur
+    47 événements comptés comme incidents, verdict ❌ pour un non-événement —
+    le piège du verdict toujours rouge, que plus personne ne lit (audit §3.6).
+
+    Renvoie None si la rotation du lendemain n'a pas eu lieu ce jour-là (plan
+    absent, ou rotation tombée après minuit : elle appartient alors au jour
+    suivant, où `plan_time` la couvre déjà).
+    """
+    moment = plan_datetime(next_plan)
+    return moment.time() if moment and moment.date() == day else None
 
 
 def nearest_incident(dt: datetime, groups: list[dict],
@@ -970,7 +1012,8 @@ def load_sibling_logs(day: date, output_dir: str | Path) -> dict[str, str]:
 
 
 def build_monitor_section(history: list[dict], day: date, plan: dict | None,
-                          logs: dict[str, str]) -> str:
+                          logs: dict[str, str],
+                          next_plan: dict | None = None) -> str:
     """Section « MONITEUR » en tête du rapport : synthèse et corrélation des 3
     rapports + plan, pour ne plus avoir à chercher la cause dans 3 fichiers."""
     midnight = summarize_watch(parse_watch_records(logs.get("midnight", "")))
@@ -980,6 +1023,9 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
     # « attendu / incident » en dépend (voir is_expected_incident).
     reset_at = watch_time(midnight)
     rotation_at = plan_time(plan)
+    # Rotation de fin de journée : elle prépare le lendemain, donc son heure se
+    # lit dans le plan du lendemain (voir evening_rotation_time).
+    evening_rotation_at = evening_rotation_time(next_plan, day)
     schedule = [("rotation", ROTATION_SCHEDULED, rotation_at),
                 ("reset de minuit", RESET_SCHEDULED, reset_at)]
     known = [(lab, sch, act) for lab, sch, act in schedule if act is not None]
@@ -987,7 +1033,8 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
             if delay_minutes(act, sch) > PUNCTUALITY_TOLERANCE_MINUTES]
 
     groups = group_incidents(parse_server_events(logs.get("server", ""), day,
-                                                 reset_at, rotation_at))
+                                                 reset_at, rotation_at,
+                                                 evening_rotation_at))
     anomalies = playback_incidents(history, day, reset_at)
     plays = _message_plays(history, day, plan)
     doubles = [p["dt"] for p in plays if p["double"]]
@@ -1058,10 +1105,16 @@ def build_monitor_section(history: list[dict], day: date, plan: dict | None,
             res = (window_around(reset_at, RESET_BURST_BEFORE_MINUTES,
                                  RESET_BURST_AFTER_MINUTES)
                    if reset_at else MIDNIGHT_RESET_WINDOW)
-            detail.append(
-                f"{n_expected} événement(s) serveur pendant la rotation "
-                f"({rot[0]:%Hh%M}-{rot[1]:%Hh%M}) et le reset de minuit "
-                f"({res[0]:%Hh%M}-{res[1]:%Hh%M})")
+            fenetres = [f"la rotation ({rot[0]:%Hh%M}-{rot[1]:%Hh%M})",
+                        f"le reset de minuit ({res[0]:%Hh%M}-{res[1]:%Hh%M})"]
+            if evening_rotation_at:
+                soir = window_around(evening_rotation_at,
+                                     ROTATION_BURST_BEFORE_MINUTES,
+                                     ROTATION_BURST_AFTER_MINUTES)
+                fenetres.append("la rotation du soir, qui prépare le lendemain "
+                                f"({soir[0]:%Hh%M}-{soir[1]:%Hh%M})")
+            detail.append(f"{n_expected} événement(s) serveur pendant "
+                          + ", ".join(fenetres[:-1]) + f" et {fenetres[-1]}")
         if reset_cuts:
             detail.append(f"{len(reset_cuts)} titre(s) tronqué(s) par le redémarrage de minuit")
         lines.append("ATTENDU (sans effet à l'antenne, hors verdict) : " + " · ".join(detail))
@@ -1178,11 +1231,14 @@ def main() -> int:
         return 0
 
     plan = load_plan(day, args.plans_dir)
+    # Plan du lendemain : il date la rotation du soir, dont la rafale réseau
+    # tombe dans la journée rapportée (voir evening_rotation_time).
+    next_plan = load_plan(day + timedelta(days=1), args.plans_dir)
     logs = load_sibling_logs(day, args.output_dir)
     # Le moniteur (synthèse + corrélation des 3 rapports) ouvre le fichier ;
     # viennent ensuite le détail titre par titre, les contrôles et le plan.
     body, problems = build_report(history, day)
-    report = build_monitor_section(history, day, plan, logs)
+    report = build_monitor_section(history, day, plan, logs, next_plan)
     report += body
     report += build_health_section(history, day, plan)
     report += build_plan_section(history, day, plan)

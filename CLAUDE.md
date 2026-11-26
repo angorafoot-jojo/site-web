@@ -350,9 +350,10 @@ La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldée
 | 🟢 Planifié | `style.css` monolithique (~1600 lignes) | `assets/css/style.css` | Découper par responsabilité (§5) |
 | 🟢 Planifié | Composant `.type-tabs` dupliqué | 3 CSS de `assets/css/pages/` | Dédupliquer (§12) |
 | 🟢 Planifié | Pas de minification/fingerprinting (T31), pas de tests a11y en CI (T38) | CI | Différés volontairement |
-| 🟡 En cours de rétablissement | **Déclencheur externe cron-job.org muet du 15-16/10 au 19/11/2026** — cause confirmée : **le token GitHub avait expiré**. Remplacé le 19/11 par un token sans expiration (1er dispatch de test réussi à 14h22 UTC) : rotation et reset de minuit rattrapés par le cron GitHub, mais 3 à 6 h en retard → silence audible, BLOC_A non démarré, message en double 31 nuits sur 32 | cron-job.org + `.github/workflows/radio-rotation.yml`, `radio-midnight-reset.yml` | Recréer les jobs avec un token neuf — procédure dans `Radio/AUDIT_2026-11-17.md` §5 |
-| 🟡 Important | Deux issues d'alerte ouvertes et non traitées (#16 du 10/09, #18 du 17/10) | GitHub Issues | Les fermer après traitement ; le bâillon inter-sujets est corrigé depuis le 17/11 |
-| 🟡 Important | Garde de frontière verte mais sans effet depuis le 26/08 (270 runs, 0 doublon retiré) | `.github/workflows/radio-boundary-guard.yml` | Lui donner ses déclencheurs 06h01/12h01/18h01, ou la supprimer |
+| 🟢 Résolu le 24/11/2026 | Déclencheur externe cron-job.org — 40 nuits de panne (token expiré le 15-16/10, puis jobs désactivés par cron-job.org et **impossibles à réactiver**). Réglé en **recréant 2 jobs neufs**. Deux nuits vérifiées : rotation 23:30:54 et 23:31:03 UTC, reset 00:01:10 et 00:01:13, toutes en `workflow_dispatch` et en succès ; rapport du 25/11 : ponctualité ✅, 0 coupure, 0 double message, file saine | cron-job.org + `.github/workflows/radio-rotation.yml`, `radio-midnight-reset.yml` | Fait — les 5 jobs (rotation, reset, garde ×3) tournent et sont vérifiés |
+| 🟢 Résolu le 26/11/2026 | Issue #18 (déclencheur, ouverte le 17/10, 11 occurrences) **fermée** le 26/11 à 15h59 UTC avec le relevé des 2 nuits en `workflow_dispatch` (24→25 : 23:30:54 / 00:01:10 ; 25→26 : 23:31:03 / 00:01:13). Plus aucune issue d'alerte ouverte → l'alerte du déclencheur est réarmée | GitHub Issues | Fait — garder le réflexe : une issue d'alerte laissée ouverte bâillonne les suivantes (déduplication par sujet) |
+| 🟢 À mesurer | Garde de frontière : ses 3 déclencheurs externes (06h01/12h01/18h01 UTC) existent depuis le 25/11/2026 — elle part désormais à +1 min des frontières au lieu de +1 à +5 h. Elle n'avait retiré 0 doublon depuis le 26/08 faute d'arriver à temps | `.github/workflows/radio-boundary-guard.yml` | Vérifier dans quelques jours si elle retire enfin des doublons (`Radio/logs/boundary_watch_*.log`) ; sinon se reposer sur le reset |
+| 🟢 Résolu le 26/11/2026 | Le verdict quotidien restait ❌ pour un non-événement : la rafale de la rotation du soir (47 événements à 23:32:59 le 25/11) tombait hors de la fenêtre « ATTENDU », calée uniquement sur la rotation de la veille | `Radio/playback_report.py` | Fait : `evening_rotation_time()` lit `plans/plan_<J+1>.json` et ouvre une 2e fenêtre. Rejoué sur les données réelles du 25/11 : 47 incidents → 0 (3 tests ajoutés, 179 verts) |
 | 🟢 Planifié | Documentation trompeuse : statuts écrits à la main, chiffres sans date | `Radio/README.md`, ce fichier | Pistes dans `Radio/AUDIT_2026-11-17.md` §6 |
 
 ### Ce qui fonctionne bien — ne pas casser
@@ -365,7 +366,7 @@ La migration issue de l'audit de juin 2026 est **terminée** (68 tâches soldée
 - Navigation avec dropdown desktop et menu hamburger mobile (injectée par `nav.js`, CSP incluse)
 - Pages individuelles générées par la CI (`scripts/generate-pages.mjs`) + RSS podcasts
 - `sitemap.xml` et `robots.txt` en place et pointant vers `levangileduroyaume.com`
-- Radio automatisée 24/7 : rotation et reset de minuit tournent chaque nuit, rapport quotidien complet, jingles à 99,9 % du plan (vérifié le 17/11/2026) — ⚠️ mais **en retard de 3 à 6 h depuis le 15/10**, voir la dette 🔴 ci-dessus. Détail : `Radio/README.md` §0
+- Radio automatisée 24/7 : rotation et reset de minuit **de nouveau à l'heure depuis le 24/11/2026** (rotation ~23h31 UTC, reset ~00h01, vérifié sur 2 nuits), rapport quotidien complet, jingles à 99,9 % du plan (vérifié le 17/11/2026). Détail : `Radio/README.md` §0
 
 ### Convention cache-busting (IMPORTANT)
 
